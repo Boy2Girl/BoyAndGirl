@@ -1,0 +1,39 @@
+swagger: "2.0"
+info:
+  title: FinBrain
+  description: FinBrain backend api description
+  version: 0.0.1
+
+host:
+basePath: /app/routers
+schemes:
+  - https
+
+paths:
+  /user:
+    post:
+      summary: login.
+      description: user login.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+        403:
+          description: access denied
+        404:
+          description: user not found
+        500:
+          description: system error
+    put:
+      summary: sign up.
+      description: user sign up.
+      produces:
+        - application/json
+      responses:
+        201:
+          description: OK
+        403:
+          description: access denied
+        500:
+          description: system error
