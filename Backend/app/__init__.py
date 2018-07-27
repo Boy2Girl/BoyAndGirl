@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.routers.user.user import user
+from app.routers.user import user
 
 
 app = Flask(__name__, static_folder="static")

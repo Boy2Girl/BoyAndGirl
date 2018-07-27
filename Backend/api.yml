@@ -1,39 +1,509 @@
 swagger: "2.0"
 info:
-  title: FinBrain
-  description: FinBrain backend api description
-  version: 0.0.1
-
-host:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+host: petstore.swagger.io
 basePath: /app/routers
 schemes:
-  - https
-
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
 paths:
   /user:
     post:
-      summary: login.
-      description: user login.
-      produces:
-        - application/json
+      summary: 登录
+      parameters:
+        - name: username
+          in: query
+          description: 用户名
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: 密码
+          required: true
+          type: string
       responses:
-        200:
-          description: OK
-        403:
-          description: access denied
-        404:
-          description: user not found
-        500:
-          description: system error
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
     put:
-      summary: sign up.
-      description: user sign up.
-      produces:
-        - application/json
+      summary: 注册
+      parameters:
+        - name: username
+          in: query
+          description: 用户名
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: 密码
+          required: true
+          type: string
       responses:
-        201:
-          description: OK
-        403:
-          description: access denied
-        500:
-          description: system error
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+
+  /user/info:
+    put:
+      summary: 补充用户信息
+      parameters:
+        - name: phone
+          in: query
+          required: true
+          description: 电话
+          type: string
+        - name: email
+          in: query
+          required: true
+          description: 邮箱
+          type: string
+        - name: name
+          in: query
+          required: true
+          description: 昵称
+          type: string
+        - name: realName
+          in: query
+          required: true
+          description: 真实姓名
+          type: string
+        - name: gender
+          in: query
+          required: true
+          description: 性别
+          type: string
+        - name: bornDate
+          in: query
+          required: true
+          description: 出生日期
+          type: Date
+        - name: detailLocation
+          in: query
+          required: true
+          description: 具体地点
+          type: string
+        - name: marriage
+          in: query
+          required: true
+          description: 婚姻情况
+          type: string
+        - name: friend
+          in: query
+          required: true
+          description: 交友要求
+          type: string
+        - name: hometown
+          in: query
+          required: true
+          description: 家乡
+          type: string
+        - name: schoolLevel
+          in: query
+          required: true
+          description: 学历
+          type: string
+        - name: company
+          in: query
+          required: true
+          description: 公司名称
+          type: string
+        - name: livingPlace
+          in: query
+          required: true
+          description: 居住地点
+          type: string
+        - name: job
+          in: query
+          required: true
+          description: 工作
+          type: string
+        - name: housingCondition
+          in: query
+          required: true
+          description: 住房情况
+          type: string
+        - name: enconomyCondition
+          in: query
+          required: true
+          description: 经济情况
+          type: string
+
+      responses:
+        "200":
+          description: Expected response to a valid request
+
+    get:
+      summary: 查看用户信息
+      parameters:
+        - name: uID
+          in: query
+          required: true
+          description: 用户编号
+          type: string
+
+      responses:
+        "200":
+          description: Expected response to a valid request
+
+  /user/info/{uID}:
+    post:
+      summary: 审核用户的信息
+      parameters:
+        - name: uID
+          in: path
+          required: true
+          description: 用户编号
+          type: string
+        - name: result
+          in: query
+          required: true
+          description: 审核结果
+          type: string
+
+
+      responses:
+        "200":
+          description: Expected response to a valid request
+
+
+  /activity/{aID}:
+    get:
+      summary: 获取某一个特定的活动信息
+      parameters:
+        - name: aID
+          in: path
+          description: 活动的ID
+          required: true
+          type: string
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+  /activity:
+    put:
+      summary: 增加活动
+      parameters:
+        - name: activityName
+          in: query
+          description: 活动名称
+          required: true
+          type: string
+        - name: location
+          in: query
+          description: 活动地点
+          required: true
+          type: string
+        - name: registerBeginTime
+          in: query
+          description: 注册开始时间
+          required: true
+          type: date
+        - name: registerEndTime
+          in: query
+          description: 注册结束时间
+          required: true
+          type: date
+        - name: selectBeginTime
+          in: query
+          description: 互选开始时间
+          required: true
+          type: date
+        - name: selectEndTime
+          in: query
+          description: 互选结束时间
+          required: true
+          type: date
+        - name: chargeRule
+          in: query
+          description: 收费标准
+          required: true
+          type: string
+        - name: boyBeginAge
+          in: query
+          description: 男生开始收费年龄
+          required: true
+          type: integer
+        - name: girlBeginAge
+          in: query
+          description: 女生开始收费年龄
+          required: true
+          type: integer
+        - name: increment
+          in: query
+          description: 根据年龄递增的收费
+          required: true
+          type: integer
+        - name: wechat
+          in: query
+          description: 发起人微信号
+          required: true
+          type: string
+        - name: realName
+          in: query
+          description: 是否需要真实信息
+          required: true
+          type: bool
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+    post:
+      summary: 报名参加活动
+      parameters:
+        - name: aID
+          in: query
+          description: 活动的ID
+          required: true
+          type: string
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+    get:
+      summary: 获取活动列表
+      parameters:
+        - name: begin
+          in: query
+          description: 开始的编号，分页使用
+          required: true
+          type: integer
+        - name: isCurrent
+          in: query
+          description: 是否是历史活动
+          required: true
+          type: bool
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+  /pool/{pID}:
+    get:
+      summary: 获取特定候选池信息
+      parameters:
+        - name: pID
+          in: path
+          description: 候选池ID
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+
+  /pool:
+    get:
+      summary: 获取候选池列表
+      parameters:
+        - name: begin
+          in: query
+          description: 分页开始编号
+          required: true
+          type: integer
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+              
+    post:
+      summary: 报名进入候选池
+      parameters:
+        - name: pID
+          in: query
+          description: 候选池编号
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+    put:
+      summary: 新建候选池
+      parameters:
+        - name: createTime
+          in: query
+          description: 创建时间
+          required: true
+          type: date
+        - name: city
+          in: query
+          description: 城市
+          required: true
+          type: string
+        - name: realRequired
+          in: query
+          description: 是否需要真实信息
+          required: true
+          type: bool
+        - name: initChance
+          in: query
+          description: 初始的允许成功次数
+          required: true
+          type: integer
+        - name: removeTime
+          in: query
+          description: 自动到期时间
+          required: true
+          type: integer
+        - name: baseCharge
+          in: query
+          description: 基础费用
+          required: true
+          type: float
+        - name: boyBegin
+          in: query
+          description: 男生开始征收
+          required: true
+          type: integer
+        - name: girlBegin
+          in: query
+          description: 女生开始征收
+          required: true
+          type: integer
+        - name: ageIncrement
+          in: query
+          description: 每小一岁的增加
+          required: true
+          type: float
+        - name: sexIncrement
+          in: query
+          description: 每多一位异性的增加
+          required: true
+          type: float
+        - name: requirement
+          in: query
+          description: 加入要求
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+
+  /pool/love:
+    get:
+      summary: 查看全部异性
+      parameters:
+        - name: begin
+          in: query
+          description: 开始号
+          required: true
+          type: integer
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+
+  /pool/love/{uID}:
+    get:
+      summary: 查看某一异性信息
+      parameters:
+        - name: uID
+          in: path
+          description: 异性编号
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+    post:
+      summary: 对某一个异性产生好感
+
+      parameters:
+        - name: uID
+          in: path
+          description: 异性编号
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: An paged array of pets
+          headers:
+            x-next:
+              type: string
+              description: A link to the next page of responses
+
+
+
+
+definitions:
+  SchemaActivity:
+    required:
+      - url
+      - title
+      - abstract
+      - watch
+      - regislation
+    properties:
+      url:
+        type: string
+      title:
+        type: string
+      abstract:
+        type: string
+      watch:
+        type: integer
+      regislation:
+        type: integer
+  SchemeActivities:
+    type: array
+    items:
+      $ref: '#/definitions/SchemaActivity'
