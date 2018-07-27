@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from app import session
+from run import session
 from app.exceptions.UsernameNotFoundException import UsernameNotFoundException
 from app.model.User import User
 

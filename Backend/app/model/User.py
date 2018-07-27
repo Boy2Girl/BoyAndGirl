@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from app import Base
+from run import db
 from sqlalchemy import Column, Integer, CHAR, VARCHAR
 
 
-class User(Base):
+class User(db.Model):
+    print("init")
     __tablename__ = "User"
-    userName = Column(VARCHAR(20), primary_key=True)
-    passWord = Column(VARCHAR(20))
-    email = Column(VARCHAR(30))
+    userName = db.Column(VARCHAR(20), primary_key=True)
+    passWord = db.Column(VARCHAR(20))
+    email = db.Column(VARCHAR(30))
