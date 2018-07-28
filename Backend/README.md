@@ -1,4 +1,4 @@
-# FinBrain
+# BlandDate
 
 花旗杯python后端
 
@@ -7,5 +7,5 @@
 web framework生成指令：
 
 ``
-swagger_py_codegen --swagger-doc api.yml example-app --ui --spec
+swagger_py_codegen --swagger-doc api.yml BlindDate --ui --spec
 ``
