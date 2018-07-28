@@ -1,17 +1,27 @@
 # -*- coding: utf-8 -*-
+from publicdata import Role
 from run import db
-from sqlalchemy import VARCHAR,Boolean,DATE,DATETIME,Integer,Float
+from sqlalchemy import VARCHAR, Enum
+
+
+class TestModel(db.Model):
+    __tablename__ = "Test"
+    userName = db.Column(VARCHAR(20), primary_key=True)
+
+    def __init__(self, username):
+        self.userName = username
 
 
 class UserModel(db.Model):
     __tablename__ = "User"
-    userID = db.Column(VARCHAR(20), primary_key=True)
-    username = db.Column(VARCHAR(100))
-    password = db.Column(VARCHAR(100))
+    username = db.Column(VARCHAR(20), primary_key=True)
+    password = db.Column(VARCHAR(20))
+    role = db.Column(db.Enum(Role), default=Role.USER)
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, role):
         self.username = username
         self.password = password
+        self.role = role
 
 
 class UserInfoModel(db.Model):

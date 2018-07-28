@@ -1,5 +1,8 @@
 Flask
 Jinja2
 Flask-RESTful
+Flask_SQLAlchemy
 jsonschema
 six
+swagger-py-codegen
+PyJWT
