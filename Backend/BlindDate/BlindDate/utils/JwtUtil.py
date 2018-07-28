@@ -13,7 +13,7 @@ class JwtUtil(object):
             "username": username,
             "scopes": ['open']
         }
-        token = jwt.encode(payload, config.secret, algorithm='HS256')
+        token = str(jwt.encode(payload, config.secret, algorithm='HS256'), encoding="utf-8")
         return token
 
     @staticmethod
@@ -22,3 +22,8 @@ class JwtUtil(object):
         if payload:
             return True
         return False
+
+    @staticmethod
+    def get_token_username(token):
+        payload = jwt.decode(token, config.secret, algorithms=['HS256'])
+        return payload["username"]

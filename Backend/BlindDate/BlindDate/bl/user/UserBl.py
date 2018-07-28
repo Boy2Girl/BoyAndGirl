@@ -1,3 +1,4 @@
+from config import token_header
 from exceptions.UsernameNotFoundException import UsernameNotFoundException
 from factory import DaoFactory
 from utils.JwtUtil import JwtUtil
@@ -11,7 +12,7 @@ class UserBl(object):
     def save_user(self, user: UserModel):
         self.user_dao.insert_user(user)
         token = JwtUtil.create_token(user.username)
-        return token
+        return token_header + token
 
     def check_user(self, user: UserModel):
         try:

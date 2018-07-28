@@ -1,6 +1,6 @@
 # BlandDate
 
-花旗杯python后端
+python后端
 
 ## swagger
 
