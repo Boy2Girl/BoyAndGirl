@@ -10,11 +10,11 @@ from .. import schemas
 class User(Resource):
 
     def post(self):
-        print(g.args)
-
+        params = request.args
+        print(params)
         return None, 200, {}
 
     def put(self):
-        print(g.args)
-
+        username = request.form
+        print(username['username'])
         return None, 200, {}

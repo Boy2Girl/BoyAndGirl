@@ -10,6 +10,5 @@ from .. import schemas
 class PoolLove(Resource):
 
     def get(self):
-        print(g.args)
 
         return None, 200, {}

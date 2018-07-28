@@ -10,6 +10,5 @@ from .. import schemas
 class UserInfoUid(Resource):
 
     def post(self, uID):
-        print(g.args)
 
         return None, 200, None

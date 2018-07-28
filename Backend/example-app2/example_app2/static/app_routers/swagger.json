@@ -21,14 +21,14 @@
         "parameters": [
           {
             "name": "username",
-            "in": "query",
+            "in": "params",
             "description": "\u7528\u6237\u540d",
             "required": true,
             "type": "string"
           },
           {
             "name": "password",
-            "in": "query",
+            "in": "params",
             "description": "\u5bc6\u7801",
             "required": true,
             "type": "string"
@@ -51,14 +51,14 @@
         "parameters": [
           {
             "name": "username",
-            "in": "query",
+            "in": "params",
             "description": "\u7528\u6237\u540d",
             "required": true,
             "type": "string"
           },
           {
             "name": "password",
-            "in": "query",
+            "in": "params",
             "description": "\u5bc6\u7801",
             "required": true,
             "type": "string"
@@ -83,112 +83,112 @@
         "parameters": [
           {
             "name": "phone",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u7535\u8bdd",
             "type": "string"
           },
           {
             "name": "email",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u90ae\u7bb1",
             "type": "string"
           },
           {
             "name": "name",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u6635\u79f0",
             "type": "string"
           },
           {
             "name": "realName",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u771f\u5b9e\u59d3\u540d",
             "type": "string"
           },
           {
             "name": "gender",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u6027\u522b",
             "type": "string"
           },
           {
             "name": "bornDate",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u51fa\u751f\u65e5\u671f",
             "type": "Date"
           },
           {
             "name": "detailLocation",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5177\u4f53\u5730\u70b9",
             "type": "string"
           },
           {
             "name": "marriage",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5a5a\u59fb\u60c5\u51b5",
             "type": "string"
           },
           {
             "name": "friend",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u4ea4\u53cb\u8981\u6c42",
             "type": "string"
           },
           {
             "name": "hometown",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5bb6\u4e61",
             "type": "string"
           },
           {
             "name": "schoolLevel",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5b66\u5386",
             "type": "string"
           },
           {
             "name": "company",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u516c\u53f8\u540d\u79f0",
             "type": "string"
           },
           {
             "name": "livingPlace",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5c45\u4f4f\u5730\u70b9",
             "type": "string"
           },
           {
             "name": "job",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5de5\u4f5c",
             "type": "string"
           },
           {
             "name": "housingCondition",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u4f4f\u623f\u60c5\u51b5",
             "type": "string"
           },
           {
             "name": "enconomyCondition",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u7ecf\u6d4e\u60c5\u51b5",
             "type": "string"
@@ -205,7 +205,7 @@
         "parameters": [
           {
             "name": "uID",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u7528\u6237\u7f16\u53f7",
             "type": "string"
@@ -231,7 +231,7 @@
           },
           {
             "name": "result",
-            "in": "query",
+            "in": "params",
             "required": true,
             "description": "\u5ba1\u6838\u7ed3\u679c",
             "type": "string"
@@ -275,84 +275,84 @@
         "parameters": [
           {
             "name": "activityName",
-            "in": "query",
+            "in": "params",
             "description": "\u6d3b\u52a8\u540d\u79f0",
             "required": true,
             "type": "string"
           },
           {
             "name": "location",
-            "in": "query",
+            "in": "params",
             "description": "\u6d3b\u52a8\u5730\u70b9",
             "required": true,
             "type": "string"
           },
           {
             "name": "registerBeginTime",
-            "in": "query",
+            "in": "params",
             "description": "\u6ce8\u518c\u5f00\u59cb\u65f6\u95f4",
             "required": true,
             "type": "date"
           },
           {
             "name": "registerEndTime",
-            "in": "query",
+            "in": "params",
             "description": "\u6ce8\u518c\u7ed3\u675f\u65f6\u95f4",
             "required": true,
             "type": "date"
           },
           {
             "name": "selectBeginTime",
-            "in": "query",
+            "in": "params",
             "description": "\u4e92\u9009\u5f00\u59cb\u65f6\u95f4",
             "required": true,
             "type": "date"
           },
           {
             "name": "selectEndTime",
-            "in": "query",
+            "in": "params",
             "description": "\u4e92\u9009\u7ed3\u675f\u65f6\u95f4",
             "required": true,
             "type": "date"
           },
           {
             "name": "chargeRule",
-            "in": "query",
+            "in": "params",
             "description": "\u6536\u8d39\u6807\u51c6",
             "required": true,
             "type": "string"
           },
           {
             "name": "boyBeginAge",
-            "in": "query",
+            "in": "params",
             "description": "\u7537\u751f\u5f00\u59cb\u6536\u8d39\u5e74\u9f84",
             "required": true,
             "type": "integer"
           },
           {
             "name": "girlBeginAge",
-            "in": "query",
+            "in": "params",
             "description": "\u5973\u751f\u5f00\u59cb\u6536\u8d39\u5e74\u9f84",
             "required": true,
             "type": "integer"
           },
           {
             "name": "increment",
-            "in": "query",
+            "in": "params",
             "description": "\u6839\u636e\u5e74\u9f84\u9012\u589e\u7684\u6536\u8d39",
             "required": true,
             "type": "integer"
           },
           {
             "name": "wechat",
-            "in": "query",
+            "in": "params",
             "description": "\u53d1\u8d77\u4eba\u5fae\u4fe1\u53f7",
             "required": true,
             "type": "string"
           },
           {
             "name": "realName",
-            "in": "query",
+            "in": "params",
             "description": "\u662f\u5426\u9700\u8981\u771f\u5b9e\u4fe1\u606f",
             "required": true,
             "type": "bool"
@@ -375,7 +375,7 @@
         "parameters": [
           {
             "name": "aID",
-            "in": "query",
+            "in": "params",
             "description": "\u6d3b\u52a8\u7684ID",
             "required": true,
             "type": "string"
@@ -398,14 +398,14 @@
         "parameters": [
           {
             "name": "begin",
-            "in": "query",
+            "in": "params",
             "description": "\u5f00\u59cb\u7684\u7f16\u53f7\uff0c\u5206\u9875\u4f7f\u7528",
             "required": true,
             "type": "integer"
           },
           {
             "name": "isCurrent",
-            "in": "query",
+            "in": "params",
             "description": "\u662f\u5426\u662f\u5386\u53f2\u6d3b\u52a8",
             "required": true,
             "type": "bool"
@@ -455,7 +455,7 @@
         "parameters": [
           {
             "name": "begin",
-            "in": "query",
+            "in": "params",
             "description": "\u5206\u9875\u5f00\u59cb\u7f16\u53f7",
             "required": true,
             "type": "integer"
@@ -478,7 +478,7 @@
         "parameters": [
           {
             "name": "pID",
-            "in": "query",
+            "in": "params",
             "description": "\u5019\u9009\u6c60\u7f16\u53f7",
             "required": true,
             "type": "string"
@@ -501,77 +501,77 @@
         "parameters": [
           {
             "name": "createTime",
-            "in": "query",
+            "in": "params",
             "description": "\u521b\u5efa\u65f6\u95f4",
             "required": true,
             "type": "date"
           },
           {
             "name": "city",
-            "in": "query",
+            "in": "params",
             "description": "\u57ce\u5e02",
             "required": true,
             "type": "string"
           },
           {
             "name": "realRequired",
-            "in": "query",
+            "in": "params",
             "description": "\u662f\u5426\u9700\u8981\u771f\u5b9e\u4fe1\u606f",
             "required": true,
             "type": "bool"
           },
           {
             "name": "initChance",
-            "in": "query",
+            "in": "params",
             "description": "\u521d\u59cb\u7684\u5141\u8bb8\u6210\u529f\u6b21\u6570",
             "required": true,
             "type": "integer"
           },
           {
             "name": "removeTime",
-            "in": "query",
+            "in": "params",
             "description": "\u81ea\u52a8\u5230\u671f\u65f6\u95f4",
             "required": true,
             "type": "integer"
           },
           {
             "name": "baseCharge",
-            "in": "query",
+            "in": "params",
             "description": "\u57fa\u7840\u8d39\u7528",
             "required": true,
             "type": "float"
           },
           {
             "name": "boyBegin",
-            "in": "query",
+            "in": "params",
             "description": "\u7537\u751f\u5f00\u59cb\u5f81\u6536",
             "required": true,
             "type": "integer"
           },
           {
             "name": "girlBegin",
-            "in": "query",
+            "in": "params",
             "description": "\u5973\u751f\u5f00\u59cb\u5f81\u6536",
             "required": true,
             "type": "integer"
           },
           {
             "name": "ageIncrement",
-            "in": "query",
+            "in": "params",
             "description": "\u6bcf\u5c0f\u4e00\u5c81\u7684\u589e\u52a0",
             "required": true,
             "type": "float"
           },
           {
             "name": "sexIncrement",
-            "in": "query",
+            "in": "params",
             "description": "\u6bcf\u591a\u4e00\u4f4d\u5f02\u6027\u7684\u589e\u52a0",
             "required": true,
             "type": "float"
           },
           {
             "name": "requirement",
-            "in": "query",
+            "in": "params",
             "description": "\u52a0\u5165\u8981\u6c42",
             "required": true,
             "type": "string"
@@ -596,7 +596,7 @@
         "parameters": [
           {
             "name": "begin",
-            "in": "query",
+            "in": "params",
             "description": "\u5f00\u59cb\u53f7",
             "required": true,
             "type": "integer"

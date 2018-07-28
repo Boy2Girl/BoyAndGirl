@@ -18,12 +18,12 @@ paths:
       summary: 登录
       parameters:
         - name: username
-          in: query
+          in: params
           description: 用户名
           required: true
           type: string
         - name: password
-          in: query
+          in: params
           description: 密码
           required: true
           type: string
@@ -38,12 +38,12 @@ paths:
       summary: 注册
       parameters:
         - name: username
-          in: query
+          in: params
           description: 用户名
           required: true
           type: string
         - name: password
-          in: query
+          in: params
           description: 密码
           required: true
           type: string
@@ -61,82 +61,82 @@ paths:
       summary: 补充用户信息
       parameters:
         - name: phone
-          in: query
+          in: params
           required: true
           description: 电话
           type: string
         - name: email
-          in: query
+          in: params
           required: true
           description: 邮箱
           type: string
         - name: name
-          in: query
+          in: params
           required: true
           description: 昵称
           type: string
         - name: realName
-          in: query
+          in: params
           required: true
           description: 真实姓名
           type: string
         - name: gender
-          in: query
+          in: params
           required: true
           description: 性别
           type: string
         - name: bornDate
-          in: query
+          in: params
           required: true
           description: 出生日期
           type: Date
         - name: detailLocation
-          in: query
+          in: params
           required: true
           description: 具体地点
           type: string
         - name: marriage
-          in: query
+          in: params
           required: true
           description: 婚姻情况
           type: string
         - name: friend
-          in: query
+          in: params
           required: true
           description: 交友要求
           type: string
         - name: hometown
-          in: query
+          in: params
           required: true
           description: 家乡
           type: string
         - name: schoolLevel
-          in: query
+          in: params
           required: true
           description: 学历
           type: string
         - name: company
-          in: query
+          in: params
           required: true
           description: 公司名称
           type: string
         - name: livingPlace
-          in: query
+          in: params
           required: true
           description: 居住地点
           type: string
         - name: job
-          in: query
+          in: params
           required: true
           description: 工作
           type: string
         - name: housingCondition
-          in: query
+          in: params
           required: true
           description: 住房情况
           type: string
         - name: enconomyCondition
-          in: query
+          in: params
           required: true
           description: 经济情况
           type: string
@@ -149,7 +149,7 @@ paths:
       summary: 查看用户信息
       parameters:
         - name: uID
-          in: query
+          in: params
           required: true
           description: 用户编号
           type: string
@@ -168,7 +168,7 @@ paths:
           description: 用户编号
           type: string
         - name: result
-          in: query
+          in: params
           required: true
           description: 审核结果
           type: string
@@ -201,62 +201,62 @@ paths:
       summary: 增加活动
       parameters:
         - name: activityName
-          in: query
+          in: params
           description: 活动名称
           required: true
           type: string
         - name: location
-          in: query
+          in: params
           description: 活动地点
           required: true
           type: string
         - name: registerBeginTime
-          in: query
+          in: params
           description: 注册开始时间
           required: true
           type: date
         - name: registerEndTime
-          in: query
+          in: params
           description: 注册结束时间
           required: true
           type: date
         - name: selectBeginTime
-          in: query
+          in: params
           description: 互选开始时间
           required: true
           type: date
         - name: selectEndTime
-          in: query
+          in: params
           description: 互选结束时间
           required: true
           type: date
         - name: chargeRule
-          in: query
+          in: params
           description: 收费标准
           required: true
           type: string
         - name: boyBeginAge
-          in: query
+          in: params
           description: 男生开始收费年龄
           required: true
           type: integer
         - name: girlBeginAge
-          in: query
+          in: params
           description: 女生开始收费年龄
           required: true
           type: integer
         - name: increment
-          in: query
+          in: params
           description: 根据年龄递增的收费
           required: true
           type: integer
         - name: wechat
-          in: query
+          in: params
           description: 发起人微信号
           required: true
           type: string
         - name: realName
-          in: query
+          in: params
           description: 是否需要真实信息
           required: true
           type: bool
@@ -272,7 +272,7 @@ paths:
       summary: 报名参加活动
       parameters:
         - name: aID
-          in: query
+          in: params
           description: 活动的ID
           required: true
           type: string
@@ -287,12 +287,12 @@ paths:
       summary: 获取活动列表
       parameters:
         - name: begin
-          in: query
+          in: params
           description: 开始的编号，分页使用
           required: true
           type: integer
         - name: isCurrent
-          in: query
+          in: params
           description: 是否是历史活动
           required: true
           type: bool
@@ -328,7 +328,7 @@ paths:
       summary: 获取候选池列表
       parameters:
         - name: begin
-          in: query
+          in: params
           description: 分页开始编号
           required: true
           type: integer
@@ -345,7 +345,7 @@ paths:
       summary: 报名进入候选池
       parameters:
         - name: pID
-          in: query
+          in: params
           description: 候选池编号
           required: true
           type: string
@@ -362,57 +362,57 @@ paths:
       summary: 新建候选池
       parameters:
         - name: createTime
-          in: query
+          in: params
           description: 创建时间
           required: true
           type: date
         - name: city
-          in: query
+          in: params
           description: 城市
           required: true
           type: string
         - name: realRequired
-          in: query
+          in: params
           description: 是否需要真实信息
           required: true
           type: bool
         - name: initChance
-          in: query
+          in: params
           description: 初始的允许成功次数
           required: true
           type: integer
         - name: removeTime
-          in: query
+          in: params
           description: 自动到期时间
           required: true
           type: integer
         - name: baseCharge
-          in: query
+          in: params
           description: 基础费用
           required: true
           type: float
         - name: boyBegin
-          in: query
+          in: params
           description: 男生开始征收
           required: true
           type: integer
         - name: girlBegin
-          in: query
+          in: params
           description: 女生开始征收
           required: true
           type: integer
         - name: ageIncrement
-          in: query
+          in: params
           description: 每小一岁的增加
           required: true
           type: float
         - name: sexIncrement
-          in: query
+          in: params
           description: 每多一位异性的增加
           required: true
           type: float
         - name: requirement
-          in: query
+          in: params
           description: 加入要求
           required: true
           type: string
@@ -431,7 +431,7 @@ paths:
       summary: 查看全部异性
       parameters:
         - name: begin
-          in: query
+          in: params
           description: 开始号
           required: true
           type: integer
