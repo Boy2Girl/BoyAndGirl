@@ -13,12 +13,12 @@ class TestModel(db.Model):
 
 class UserModel(db.Model):
     __tablename__ = "User"
-    userName = db.Column(VARCHAR(20), primary_key=True)
-    passWord = db.Column(VARCHAR(20))
+    username = db.Column(VARCHAR(20), primary_key=True)
+    password = db.Column(VARCHAR(20))
 
-    def __init__(self, username,password):
-        self.userName = username
-        self.passWord = password
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
 
 db.create_all()

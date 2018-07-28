@@ -14,8 +14,9 @@ class User(Resource):
 
     """ 登录 """
     def post(self):
-
-        return None, 200, {}
+        username = request.form['username']
+        password = request.form['password']
+        return userBl.check_user(UserModel(username, password)), 200, {}
 
     """ 注册 """
     def put(self):

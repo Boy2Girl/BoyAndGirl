@@ -2,7 +2,7 @@
 from run import session,db
 from exceptions import UsernameNotFoundException
 from model import UserModel
-# import traceback
+import traceback
 
 
 class UserDao(object):
@@ -15,15 +15,15 @@ class UserDao(object):
             session.commit()
         except:
             print("error")
-            # traceback.print_exc()
+            traceback.print_exc()
         finally:
             session.close()
 
     def get_user_by_username(self, username):
         try:
-            user = session.query(UserModel).filter(UserModel.userName == username).one()
+            user = session.query(UserModel).filter(UserModel.username == username)
             if not user:
                 raise UsernameNotFoundException()
             return user
         except:
-            raise SystemError()
+            traceback.print_exc()
