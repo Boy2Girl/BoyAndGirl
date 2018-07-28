@@ -1,5 +1,17 @@
 # -*- coding: utf-8 -*-
-from dao.user.UserDao import UserDao
+from dao.UserDao import UserDao
+from dao.ActivityDao import ActivityDao
+from dao.LoveRelationDao import LoveRelationDao
+from dao.PoolDao import PoolDao
+from dao.PoolJoinDao import PoolJoinDao
+from dao.UserInfoDao import UserInfoDao
+from dao.ActivityJoinDao import ActivityJoinDao
 
 
 userDao = UserDao()
+activityJoinDao = ActivityJoinDao()
+activityDao = ActivityDao()
+loveRelationDao = LoveRelationDao()
+poolDao = PoolDao()
+poolJoinDao = PoolJoinDao()
+userInfoDao = UserInfoDao()

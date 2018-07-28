@@ -30,7 +30,6 @@ app = create_app()
 db = create_db(app)
 session = db.session
 
-db.create_all()
 
 if __name__ == '__main__':
     register(app)

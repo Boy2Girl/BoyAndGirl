@@ -1,3 +1,3 @@
-from bl.user.UserBl import UserBl
+from bl.UserBl import UserBl
 
 userBl = UserBl()
