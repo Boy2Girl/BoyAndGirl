@@ -12,11 +12,10 @@ class UserBl(object):
         self.user_dao: UserDao = DaoFactory.userDao
 
     def sign_up(self, user: UserModel):
-        try:
-            self.user_dao.get_user_by_username(user.username)
+        result = self.user_dao.get_user_by_username(user.username)
+        if result:
             raise UserAlreadyExists
-        except NotFoundException:
-            """成功注册"""
+        else:
             self.user_dao.insert(user)
             token = JwtUtil.create_token(user.username)
             return token

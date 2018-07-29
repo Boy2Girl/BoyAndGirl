@@ -35,5 +35,5 @@ class User(Resource):
         username = request.form['username']
         password = request.form['password']
         role = request.form['role']
-        token = userBl.save_user(UserModel(username, password, role_dict[role]))
+        token = userBl.sign_up(UserModel(username, password, role_dict[role]))
         return {'token': token}, 200

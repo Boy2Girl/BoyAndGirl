@@ -1,20 +1,14 @@
 # -*- coding: utf-8 -*-
 from publicdata import Role
 from run import db
-from sqlalchemy import VARCHAR, Enum
+from sqlalchemy import VARCHAR, Enum, DATE, Integer, Float, Boolean, DATETIME
 
-
-class TestModel(db.Model):
-    __tablename__ = "Test"
-    userName = db.Column(VARCHAR(20), primary_key=True)
-
-    def __init__(self, username):
-        self.userName = username
 
 
 class UserModel(db.Model):
     __tablename__ = "User"
-    username = db.Column(VARCHAR(20), primary_key=True)
+    userID = db.Column(Integer, primary_key=True)
+    username = db.Column(VARCHAR(20))
     password = db.Column(VARCHAR(20))
     role = db.Column(db.Enum(Role), default=Role.USER)
 
@@ -80,7 +74,7 @@ class PoolModel(db.Model):
 class ActivityJoinModel(db.Model):
     __tablename__ = "ActivityJoin"
     joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(VARCHAR(20), db.ForeignKey('User.userID'))
+    userID = db.Column(Integer, db.ForeignKey('User.userID'))
     activityID = db.Column(VARCHAR(20), db.ForeignKey('Activity.activityID'))
     joinTime = db.Column(DATETIME)
 
@@ -88,7 +82,7 @@ class ActivityJoinModel(db.Model):
 class PoolJoinModel(db.Model):
     __tablename__ = "PoolJoin"
     joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(VARCHAR(20), db.ForeignKey('User.userID'))
+    userID = db.Column(Integer, db.ForeignKey('User.userID'))
     poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
     joinTime = db.Column(DATETIME)
 
@@ -96,16 +90,16 @@ class PoolJoinModel(db.Model):
 class LoveRelationModel(db.Model):
     __tablename__ = "LoveRelation"
     loveID = db.Column(VARCHAR(20), primary_key=True)
-    fromID = db.Column(VARCHAR(20), db.ForeignKey('User.userID'))
-    toID = db.Column(VARCHAR(20), db.ForeignKey('User.userID'))
+    fromID = db.Column(Integer, db.ForeignKey('User.userID'))
+    toID = db.Column(Integer, db.ForeignKey('User.userID'))
     poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
     loveTime = db.Column(DATETIME)
 
 
 class WatchInfoModel(db.Model):
-    __tablename__ = "LoveRelation"
+    __tablename__ = "WatchInfo"
     activityID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(VARCHAR(20), db.ForeignKey('User.userID'))
+    userID = db.Column(Integer, db.ForeignKey('User.userID'))
     times = db.Column(Integer)
     watchTime = db.Column(DATETIME)
 
