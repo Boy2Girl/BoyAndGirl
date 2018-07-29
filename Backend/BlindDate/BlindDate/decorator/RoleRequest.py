@@ -10,7 +10,14 @@ from utils.JwtUtil import JwtUtil
 def login_require(*roles):
     def decorator(func):
         def wrapper(*args, **kws):
-            token = flask.request.headers.get("token").split(token_header)[1]
+            token = ""
+            try:
+                token = flask.request.headers.get("token").split(token_header)[1]
+            except:
+                response = flask.make_response(json.dumps(
+                    {"error": "access denied"}))
+                response.status_code = 403
+                return response
             if not JwtUtil.verify_bearer_token(token):
                 response = flask.make_response(json.dumps(
                     {"error": "wrong token"}))
