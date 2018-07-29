@@ -22,10 +22,14 @@ def register_api():
     from routers.user import ns as user_ns
     from routers.user_info import ns as user_info_ns
     from routers.Pool import ns as pool_ns
+    from routers.love import ns as love_ns
+    from routers.activity import ns as activity_ns
     from routers import api
     api.add_namespace(user_ns)
     api.add_namespace(user_info_ns)
     api.add_namespace(pool_ns)
+    api.add_namespace(love_ns)
+    api.add_namespace(activity_ns)
 
 
 def register(app):

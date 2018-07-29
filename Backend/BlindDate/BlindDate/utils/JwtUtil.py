@@ -28,4 +28,5 @@ class JwtUtil(object):
         if config.token_header in token:
             token = token.split(config.token_header)[1]
         payload = jwt.decode(token, config.secret, algorithms=['HS256'])
+        print(payload)
         return payload["username"]

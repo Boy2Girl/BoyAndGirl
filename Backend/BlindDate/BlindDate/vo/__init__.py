@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
-from model import UserModel, UserInfoModel
-from publicdata import Role
 from run import db
 from sqlalchemy import VARCHAR, DATE, Integer, Float, Boolean, DATETIME
 from datetime import datetime
 
 
 class UserVO:
-    __tablename__ = "User"
-    userID = db.Column(Integer, primary_key=True)
-    username = db.Column(VARCHAR(20))
-    password = db.Column(VARCHAR(20))
-    role = db.Column(db.Enum(Role), default=Role.USER)
 
     def __init__(self, *args, **kwargs):
         if not args:
@@ -32,7 +25,7 @@ class UserInfoVO:
 
     def __init__from_form(self, form_dict):
         form = form_dict['form']
-        self.userID = form['userID']
+        self.id = form['id']
         self.phone = form['phone']
         self.email = form['email']
         self.name = form['name']
@@ -52,30 +45,38 @@ class UserInfoVO:
 
 
 class ActivityVO:
-    __tablename__ = "Activity"
-    activityID = db.Column(VARCHAR(20), primary_key=True)
-    location = db.Column(VARCHAR(30))
-    registerBeginTime = db.Column(DATE)
-    registerEndTime = db.Column(DATE)
-    selectBeginTime = db.Column(DATE)
-    selectEndTime = db.Column(DATE)
-    chargeRule = db.Column(VARCHAR(100))
-    boyBeginAge = db.Column(Integer)
-    girlBeginAge = db.Column(Integer)
-    increment = db.Column(Float)
-    wechat = db.Column(VARCHAR(100))
-    realName = db.Column(Boolean)  # 是否需要真实信息
+
+    def __init__(self, *args, **kwargs):
+        if not args:
+            if kwargs:
+                self.__init__from_form(kwargs)
+
+    def __init__from_form(self, form_dict):
+        form = form_dict['form']
+        self.location = form['location']
+        self.registerBeginTime = form['registerBeginTime']
+        self.registerEndTime = form['registerEndTime']
+        self.selectBeginTime = form['selectBeginTime']
+        self.selectEndTime = form['selectEndTime']
+        self.chargeRule = form['chargeRule']
+        self.boyBeginAge = form['boyBeginAge']
+        self.girlBeginAge = form['girlBeginAge']
+        self.increment = form['increment']
+        self.wechat = form['wechat']
+        self.realName = form['realName'] == 'True'  # 是否需要真实信息
+
 
 
 class PoolVO:
 
     def __init__(self, *args, **kwargs):
         if not args:
-            self.__init__from_form(kwargs)
+            if kwargs:
+                self.__init__from_form(kwargs)
 
     def __init__from_form(self, form_dict):
         form = form_dict['form']
-        self.poolID = form['poolID']
+        self.id = 0
         self.createTime = form['createTime']
         self.city = form['city']
         self.realRequired = form['realRequired'] == 'True'

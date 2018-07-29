@@ -12,28 +12,28 @@ class ActivityDao(DaoUtil):
     """根据ID查询"""
     def get_activity(self, activity_id):
         try:
-            activity = session.query(ActivityModel).filter(ActivityModel.activityID == activity_id)
+            activity = session.query(ActivityModel).filter(ActivityModel.id == activity_id).first()
             if not activity:
                 raise NotFoundException
             return activity
+        except NotFoundException:
+            raise NotFoundException
         except:
             traceback.print_exc()
+            raise SystemError
 
     """获取活动列表"""
     def get_activity_list(self, begin, is_old):
         try:
             activity_list = []
             if is_old:
-                activity_list = session.query(ActivityModel).filter(ActivityModel.selectEndTime < datetime.datetime.now())
+                activity_list = session.query(ActivityModel)\
+                    .filter(ActivityModel.selectEndTime < datetime.datetime.now()).all()
             else:
-                activity_list = session.query(ActivityModel).filter(ActivityModel.selectEndTime <= datetime.datetime.now())
-            result = []
-            for i in range(8):
-                try:
-                    result.append(activity_list[begin+i])
-                except:
-                    pass
-            return result
+                activity_list = session.query(ActivityModel)\
+                    .filter(ActivityModel.selectEndTime <= datetime.datetime.now()).all()
+
+            return activity_list
         except:
             raise SystemError
 

@@ -3,8 +3,10 @@ import json
 
 from flask import request
 from flask_restplus import Resource, Namespace
+from sqlalchemy.exc import IntegrityError
 
 from decorator.RoleRequest import login_require
+from exceptions import NotFoundException, AlreadyExists, InsertException
 from factory.BlFactory import userInfoBl
 from model import UserInfoModel
 from publicdata import Role
@@ -27,17 +29,25 @@ def myconverter(o):
 @ns.response(500, 'system error')
 class UserInfo(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    # @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('填写')
     def put(self):
-        userInfoBl.add_user_info(UserInfoVO(form=request.form))
-        return None, 200, {}
+        try:
+            userInfoBl.add_user_info(UserInfoVO(form=request.form))
+            return None, 200, {}
+        except InsertException:
+            return None, 404
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('更新')
     def post(self):
-        userInfoBl.update_user_info(UserInfoVO(form=request.form))
-        return None, 200, {}
+        try:
+            userInfoBl.update_user_info(UserInfoVO(form=request.form))
+            return None, 200, {}
+        except AlreadyExists:
+            return None, 403
+        except NotFoundException:
+            return None, 404
 
 
 @ns.route('/<string:id>')
@@ -51,9 +61,11 @@ class UserInfoID(Resource):
     @ns.doc('查看')
     @ns.expect()
     def get(self, id):
-        result = userInfoBl.get_user_info(id)
-        result1 = DateEncoderUtil().changeDate(result)
-        print(result1)
-        return result1, 200
+        try:
+            result = userInfoBl.get_user_info(id)
+            result1 = DateEncoderUtil().changeDate(result)
+            return result1, 200
+        except NotFoundException:
+            return None, 404
 
 

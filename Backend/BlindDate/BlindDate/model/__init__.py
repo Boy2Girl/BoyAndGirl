@@ -7,7 +7,7 @@ from datetime import datetime
 
 class UserModel(db.Model):
     __tablename__ = "User"
-    userID = db.Column(Integer, primary_key=True)
+    id = db.Column(Integer, primary_key=True)
     username = db.Column(VARCHAR(20))
     password = db.Column(VARCHAR(20))
     role = db.Column(db.Enum(Role), default=Role.USER)
@@ -18,7 +18,7 @@ class UserModel(db.Model):
 
 class UserInfoModel(db.Model):
     __tablename__ = "UserInfo"
-    userID = db.Column(VARCHAR(20), primary_key=True)
+    id = db.Column(Integer, primary_key=True)
     phone = db.Column(VARCHAR(30))
     email = db.Column(VARCHAR(30))
     name = db.Column(VARCHAR(30))
@@ -42,7 +42,7 @@ class UserInfoModel(db.Model):
 
 class ActivityModel(db.Model):
     __tablename__ = "Activity"
-    activityID = db.Column(VARCHAR(20), primary_key=True)
+    id = db.Column(Integer, primary_key=True)
     location = db.Column(VARCHAR(30))
     registerBeginTime = db.Column(DATE)
     registerEndTime = db.Column(DATE)
@@ -55,10 +55,13 @@ class ActivityModel(db.Model):
     wechat = db.Column(VARCHAR(100))
     realName = db.Column(Boolean)  # 是否需要真实信息
 
+    def __init__(self, **kwargs):
+        pass
+
 
 class PoolModel(db.Model):
     __tablename__ = "Pool"
-    poolID = db.Column(Integer, primary_key=True)
+    id = db.Column(Integer, primary_key=True)
     createTime = db.Column(DATE)
     city = db.Column(VARCHAR(100))
     realRequired = db.Column(Boolean)
@@ -77,17 +80,22 @@ class PoolModel(db.Model):
 
 class ActivityJoinModel(db.Model):
     __tablename__ = "ActivityJoin"
-    joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    activityID = db.Column(VARCHAR(20), db.ForeignKey('Activity.activityID'))
+    id = db.Column(Integer, primary_key=True)
+    userID = db.Column(Integer, db.ForeignKey('User.id'))
+    activityID = db.Column(Integer, db.ForeignKey('Activity.id'))
     joinTime = db.Column(DATETIME)
+
+    def __init__(self, userID, activityID):
+        self.userID = userID
+        self.activityID = activityID
+        self.joinTime = datetime.now()
 
 
 class PoolJoinModel(db.Model):
     __tablename__ = "PoolJoin"
-    joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(Integer, db.ForeignKey('Pool.poolID'))
+    id = db.Column(Integer, primary_key=True)
+    userID = db.Column(Integer, db.ForeignKey('User.id'))
+    poolID = db.Column(Integer, db.ForeignKey('Pool.id'))
     joinTime = db.Column(DATETIME)
 
     def __init__(self, poolID, userID):
@@ -98,10 +106,10 @@ class PoolJoinModel(db.Model):
 
 class LoveRelationModel(db.Model):
     __tablename__ = "LoveRelation"
-    loveID = db.Column(VARCHAR(20), primary_key=True)
-    fromID = db.Column(Integer, db.ForeignKey('User.userID'))
-    toID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(Integer, db.ForeignKey('Pool.poolID'))
+    id = db.Column(Integer, primary_key=True)
+    fromID = db.Column(Integer, db.ForeignKey('User.id'))
+    toID = db.Column(Integer, db.ForeignKey('User.id'))
+    poolID = db.Column(Integer, db.ForeignKey('Pool.id'))
     loveTime = db.Column(DATETIME)
 
     def __init__(self, fromID, toID, poolID):
@@ -113,8 +121,8 @@ class LoveRelationModel(db.Model):
 
 class WatchInfoModel(db.Model):
     __tablename__ = "WatchInfo"
-    activityID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
+    id = db.Column(Integer, primary_key=True)
+    userID = db.Column(Integer, db.ForeignKey('User.id'))
     times = db.Column(Integer)
     watchTime = db.Column(DATETIME)
 

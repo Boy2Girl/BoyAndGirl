@@ -1,20 +1,20 @@
-from model import UserModel, UserInfoModel, PoolModel
-from vo import UserVO, UserInfoVO, PoolVO
+from model import UserModel, UserInfoModel, PoolModel, ActivityModel
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO
 
 
 class UserConverter:
 
     def toModel(self, userVO: UserVO):
         user = UserModel()
-        user.userID = userVO.userID
         user.username = userVO.username
         user.password = userVO.password
         user.role = userVO.role
+        print(user.__dict__)
         return user
 
     def toVO(self, userModel:UserModel):
         vo = UserVO(1)
-        vo.userID = userModel.userID
+        vo.id = userModel.id
         vo.username = userModel.username
         vo.password = userModel.password
         vo.role = userModel.role
@@ -25,7 +25,7 @@ class UserInfoConverter:
 
     def toModel(self, userInfoVO: UserInfoVO):
         user = UserInfoModel()
-        user.userID = userInfoVO.userID
+        user.id = userInfoVO.id
         user.phone = userInfoVO.phone
         user.email = userInfoVO.email
         user.name = userInfoVO.name
@@ -46,7 +46,7 @@ class UserInfoConverter:
 
     def toVO(self, model: UserInfoModel):
         vo = UserInfoVO(1)
-        vo.userID = model.userID
+        vo.id = model.id
         vo.phone = model.phone
         vo.email = model.email
         vo.name = model.name
@@ -70,7 +70,7 @@ class PoolConverter:
 
     def toModel(self, poolVO: PoolVO):
         pool = PoolModel()
-        pool.poolID = poolVO.poolID
+        # pool.poolID = poolVO.poolID
         pool.createTime = poolVO.createTime
         pool.city = poolVO.city
         pool.realRequired = poolVO.realRequired
@@ -86,7 +86,7 @@ class PoolConverter:
 
     def toVO(self, poolModel: PoolModel):
         pool = PoolVO()
-        pool.poolID = poolModel.poolID
+        pool.id = poolModel.id
         pool.createTime = poolModel.createTime
         pool.city = poolModel.city
         pool.realRequired = poolModel.realRequired
@@ -99,3 +99,38 @@ class PoolConverter:
         pool.sexIncrement = poolModel.sexIncrement
         pool.requirement = poolModel.requirement
         return pool
+
+
+class ActivityConverter:
+
+    def toModel(self, activityVO: ActivityVO):
+        activity = ActivityModel()
+        # id 暂且不管
+        activity.location = activityVO.location
+        activity.registerBeginTime = activityVO.registerBeginTime
+        activity.registerEndTime = activityVO.registerEndTime
+        activity.selectBeginTime = activityVO.selectBeginTime
+        activity.selectEndTime = activityVO.selectEndTime
+        activity.chargeRule = activityVO.chargeRule
+        activity.boyBeginAge = activityVO.boyBeginAge
+        activity.girlBeginAge = activityVO.girlBeginAge
+        activity.increment = activityVO.increment
+        activity.wechat = activityVO.wechat
+        activity.realName = activityVO.realName  # 是否需要真实信息
+        return activity
+
+    def toVO(self, activityModel: ActivityModel):
+        activity = ActivityVO()
+        activity.id = activityModel.id
+        activity.location = activityModel.location
+        activity.registerBeginTime = activityModel.registerBeginTime
+        activity.registerEndTime = activityModel.registerEndTime
+        activity.selectBeginTime = activityModel.selectBeginTime
+        activity.selectEndTime = activityModel.selectEndTime
+        activity.chargeRule = activityModel.chargeRule
+        activity.boyBeginAge = activityModel.boyBeginAge
+        activity.girlBeginAge = activityModel.girlBeginAge
+        activity.increment = activityModel.increment
+        activity.wechat = activityModel.wechat
+        activity.realName = activityModel.realName  # 是否需要真实信息
+        return activity

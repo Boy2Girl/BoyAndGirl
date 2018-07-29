@@ -1,28 +1,36 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy.exc import IntegrityError
+
+from exceptions import AlreadyExists, InsertException
 from run import db
 import traceback
 
 
 class DaoUtil(object):
     def __init__(self):
+        self.session = db.session
         pass
 
     def insert(self, object):
         try:
-            session = db.session
-            session.add(object)
-            session.commit()
-        except:
+            self.session = db.session
+            self.session.add(object)
+            self.session.commit()
+            return object.id
+        except IntegrityError:
+            """产生这个error的可能原因, 已经存在，外健问题"""
             traceback.print_exc()
-
+            raise InsertException
+        finally:
+            self.session.close()
 
     def delete(self, object):
         try:
-            session = db.session
-            session.delete(object)
-            session.commit()
+            self.session = db.session
+            self.session.delete(object)
+            self.session.commit()
         except:
             traceback.print_exc()
         finally:
-            session.close()
+            self.session.close()
 

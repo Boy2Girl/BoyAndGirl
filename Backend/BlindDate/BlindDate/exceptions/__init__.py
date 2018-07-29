@@ -10,5 +10,9 @@ class NotFoundException(Exception):
     print("username not found")
 
 
-class UserAlreadyExists(Exception):
+class AlreadyExists(Exception):
+    print("user already exists")
+
+
+class InsertException(Exception):
     print("user already exists")

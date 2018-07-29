@@ -1,4 +1,4 @@
-from exceptions import NotFoundException
+from exceptions import NotFoundException, AlreadyExists
 from factory import DaoFactory
 from factory.DaoFactory import userDao
 from model import PoolJoinModel, LoveRelationModel
@@ -13,32 +13,45 @@ class PoolBl(object):
         self.love_relation_dao = DaoFactory.loveRelationDao
         self.pool_join_dao = DaoFactory.poolJoinDao
 
+    """暂时不检查重复插入的问题，所有的都允许插入"""
     def add_pool(self, pool: PoolVO):
-        print(pool.__dict__)
         poolModel = PoolConverter().toModel(pool)
-        print(poolModel.__dict__)
-        self.pool_dao.insert(poolModel)
+        return self.pool_dao.insert(poolModel)
 
     def get_pool_by_id(self, pool_id):
-        return self.pool_dao.get_pool(pool_id)
+        return PoolConverter().toVO(self.pool_dao.get_pool(pool_id))
 
     def get_pool(self, begin):
-        return self.pool_dao.get_pool_list(begin)
+        return [PoolConverter().toVO(i) for i in self.pool_dao.get_pool_list(begin)]
 
     def get_pool_by_user(self, user_id):
         return self.pool_dao.get_pool_by_user(user_id)
 
     def join_pool(self, pID, username):
-        userID = userDao.get_user_by_username(username)
-        self.pool_join_dao.insert(PoolJoinModel(pID, userID))
+        """ 先检查有没有参加过　"""
+        print(str(pID)+" "+str(username))
+        user = userDao.get_user_by_username(username)
+        try:
+            self.pool_join_dao.getPoolJoin(user.id, pID)
+        except AlreadyExists:
+            raise AlreadyExists
+        self.pool_join_dao.insert(PoolJoinModel(pID, user.id))
 
     def love_some_one(self, uID, username, poolID):
-        userID = userDao.get_user_by_username(username)
-        self.love_relation_dao.insert(LoveRelationModel(userID, uID, poolID))
+        """还是要看是不是已经关注过了，在这个互选池中"""
+        """ todo: 还要做异性的检查... """
+        user = userDao.get_user_by_username(username)
+        try:
+            self.love_relation_dao.get_relation(user.id, uID, poolID)
+        except AlreadyExists:
+            raise AlreadyExists
+        self.love_relation_dao.insert(LoveRelationModel(user.id, uID, poolID))
 
-    def get_love(self, user_id):
-        return self.love_relation_dao.get_true_love(user_id)
+    def get_love(self, username, pool_id):
+        user = userDao.get_user_by_username(username)
+        return self.love_relation_dao.get_your_love(user.id, pool_id)
 
-    def get_true_love(self, user_id):
-        return self.get_true_love(user_id)
+    def get_true_love(self, username, pool_id):
+        user = userDao.get_user_by_username(username)
+        return self.love_relation_dao.get_true_love(user.id, pool_id)
 

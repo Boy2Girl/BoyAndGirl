@@ -1,9 +1,9 @@
 from flask import request
 from flask_restplus import Resource, fields, Namespace
 
-from exceptions import PasswordWrongException, NotFoundException, UserAlreadyExists
+from exceptions import PasswordWrongException, NotFoundException, AlreadyExists, InsertException
 from factory.BlFactory import userBl
-from model import UserModel
+from vo import UserVO
 
 ns = Namespace('user', description='关于用户')
 
@@ -25,7 +25,7 @@ class User(Resource):
     # @ns.expect(login_parameters)
     def post(self):
         try:
-            token = userBl.sign_in(UserModel(form=request.form))
+            token = userBl.sign_in(UserVO(form=request.form))
             print(token)
             return {'token': token}, 200
         except PasswordWrongException:
@@ -36,7 +36,7 @@ class User(Resource):
     @ns.doc('注册')
     def put(self):
         try:
-            token = userBl.sign_up(UserModel(form=request.form))
+            token = userBl.sign_up(UserVO(form=request.form))
             return {'token': token}, 200
-        except UserAlreadyExists:
+        except AlreadyExists:
             return None, 405
