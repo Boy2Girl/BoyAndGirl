@@ -2,7 +2,7 @@
 from publicdata import Role
 from run import db
 from sqlalchemy import VARCHAR, Enum, DATE, Integer, Float, Boolean, DATETIME
-
+from datetime import datetime
 
 
 class UserModel(db.Model):
@@ -12,10 +12,8 @@ class UserModel(db.Model):
     password = db.Column(VARCHAR(20))
     role = db.Column(db.Enum(Role), default=Role.USER)
 
-    def __init__(self, username, password, role):
-        self.username = username
-        self.password = password
-        self.role = role
+    def __init__(self, **kwargs):
+        pass
 
 
 class UserInfoModel(db.Model):
@@ -38,6 +36,9 @@ class UserInfoModel(db.Model):
     housingCondition = db.Column(VARCHAR(100))
     economyCondition = db.Column(VARCHAR(100))
 
+    def __init__(self, **kwargs):
+        pass
+
 
 class ActivityModel(db.Model):
     __tablename__ = "Activity"
@@ -52,12 +53,12 @@ class ActivityModel(db.Model):
     girlBeginAge = db.Column(Integer)
     increment = db.Column(Float)
     wechat = db.Column(VARCHAR(100))
-    realName = db.Column(Boolean) # 是否需要真实信息
+    realName = db.Column(Boolean)  # 是否需要真实信息
 
 
 class PoolModel(db.Model):
     __tablename__ = "Pool"
-    poolID = db.Column(VARCHAR(20), primary_key=True)
+    poolID = db.Column(Integer, primary_key=True)
     createTime = db.Column(DATE)
     city = db.Column(VARCHAR(100))
     realRequired = db.Column(Boolean)
@@ -69,6 +70,9 @@ class PoolModel(db.Model):
     ageIncrement = db.Column(Float)
     sexIncrement = db.Column(Float)
     requirement = db.Column(VARCHAR(200))
+
+    def __init__(self, **kwargs):
+        pass
 
 
 class ActivityJoinModel(db.Model):
@@ -83,8 +87,13 @@ class PoolJoinModel(db.Model):
     __tablename__ = "PoolJoin"
     joinID = db.Column(VARCHAR(20), primary_key=True)
     userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
+    poolID = db.Column(Integer, db.ForeignKey('Pool.poolID'))
     joinTime = db.Column(DATETIME)
+
+    def __init__(self, poolID, userID):
+        self.poolID = poolID
+        self.userID = userID
+        self.joinTime = datetime.now()
 
 
 class LoveRelationModel(db.Model):
@@ -92,8 +101,14 @@ class LoveRelationModel(db.Model):
     loveID = db.Column(VARCHAR(20), primary_key=True)
     fromID = db.Column(Integer, db.ForeignKey('User.userID'))
     toID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
+    poolID = db.Column(Integer, db.ForeignKey('Pool.poolID'))
     loveTime = db.Column(DATETIME)
+
+    def __init__(self, fromID, toID, poolID):
+        self.fromID = fromID
+        self.toID = toID
+        self.poolID = poolID
+        self.loveTime = datetime.now()
 
 
 class WatchInfoModel(db.Model):

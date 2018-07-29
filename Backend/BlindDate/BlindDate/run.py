@@ -8,12 +8,12 @@ def create_app():
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = 'wfhg9hr-1jfpjf-p3j-=vgf0pvmo3k=2-3rj0-3j=gn[=3-g[mj'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/BoyAndGirl'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     return app
 
 
 def create_db(app):
-    print("create db")
     db = SQLAlchemy(app)
     return db
 
@@ -21,9 +21,11 @@ def create_db(app):
 def register_api():
     from routers.user import ns as user_ns
     from routers.user_info import ns as user_info_ns
+    from routers.Pool import ns as pool_ns
     from routers import api
     api.add_namespace(user_ns)
     api.add_namespace(user_info_ns)
+    api.add_namespace(pool_ns)
 
 
 def register(app):

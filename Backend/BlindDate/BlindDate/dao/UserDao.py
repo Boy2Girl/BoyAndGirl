@@ -20,11 +20,9 @@ class UserDao(DaoUtil):
     def get_user_by_id(self, user_id):
         try:
             session = db.session
-            user = session.query(UserModel).filter(UserModel.id == user_id)
+            user = session.query(UserModel.username).filter(UserModel.id == user_id)
             if not user:
                 raise NotFoundException
             return user
         except:
             raise SystemError
-        finally:
-            session.close()

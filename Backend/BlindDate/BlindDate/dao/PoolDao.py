@@ -7,7 +7,7 @@ import traceback
 
 class PoolDao(DaoUtil):
 
-    def get_pool_list(self):
+    def get_pool_list(self, begin):
         try:
             pools = session.query(PoolModel)
             return pools
@@ -26,7 +26,7 @@ class PoolDao(DaoUtil):
     def get_pool_by_user(self, user_id):
         try:
             pools = session.query(PoolModel).join(PoolJoinModel).filter(PoolJoinModel.userID == user_id)
-            return pool
+            return pools
         except:
             raise SystemError
 
