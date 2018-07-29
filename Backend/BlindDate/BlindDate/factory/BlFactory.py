@@ -1,3 +1,4 @@
+from bl.ActivityBl import ActivityBl
 from bl.UserBl import UserBl
 from bl.ActivityBl import ActivityBl
 from bl.UserInfoBl import UserInfoBl

@@ -7,12 +7,12 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import unittest
 import time
-from factory.BlFactory import userBl
+from factory.BlFactory import user_bl
 
 
 class ConversationTest(unittest.TestCase):
     def setUp(self):
-        self.user_bl = userBl
+        self.user_bl = user_bl
 
     def test_update(self):
         self.assertLessEqual(self.user_bl.sign_up(UserModel("law", "123456", Role.USER)), 10)
