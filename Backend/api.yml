@@ -249,7 +249,7 @@ paths:
           in: params
           description: 根据年龄递增的收费
           required: true
-          type: integer
+          type: float
         - name: wechat
           in: params
           description: 发起人微信号

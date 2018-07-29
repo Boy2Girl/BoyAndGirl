@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource, fields, Namespace
 
 from decorator.RoleRequest import login_require
-from factory.BlFactory import userBl
+from factory.BlFactory import user_bl
 from model import UserModel
 from publicdata import Role, role_dict
 
@@ -35,5 +35,5 @@ class User(Resource):
         username = request.form['username']
         password = request.form['password']
         role = request.form['role']
-        token = userBl.sign_up(UserModel(username, password, role_dict[role]))
+        token = user_bl.sign_up(UserModel(username, password, role_dict[role]))
         return {'token': token}, 200
