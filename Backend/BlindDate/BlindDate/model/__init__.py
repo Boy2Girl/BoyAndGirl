@@ -127,4 +127,32 @@ class WatchInfoModel(db.Model):
     watchTime = db.Column(DATETIME)
 
 
+class PostsModel(db.Model):
+    __tablename__ = "Posts"
+    id = db.Column(Integer, primary_key=True)
+    userID = db.Column(Integer, db.ForeignKey('User.id'))
+    beginTime = db.Column(DATE)
+    endTime = db.Column(DATE)  # 要传入的参数
+
+    def __init__(self, userID, endTime):
+        self.endTime = endTime
+        self.userID = userID
+        self.beginTime = datetime.now()
+
+
+class RecruitModel(db.Model):
+    __tablename__ = "Recruit"
+    id = db.Column(Integer, primary_key=True)
+    userID = db.Column(Integer, db.ForeignKey('User.id'))
+    postsID = db.Column(Integer, db.ForeignKey('Posts.id'))
+    time = db.Column(DATE)
+    isSuccess = db.Column(Boolean)    # 是否要
+
+    def __init__(self, userID, postsID, isSuccess):
+        self.userID = userID
+        self.postsID = postsID
+        self.isSuccess = isSuccess
+        self.time = datetime.now()
+
+
 db.create_all()

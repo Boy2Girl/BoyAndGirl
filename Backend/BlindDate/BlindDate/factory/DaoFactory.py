@@ -6,7 +6,8 @@ from dao.PoolDao import PoolDao
 from dao.PoolJoinDao import PoolJoinDao
 from dao.UserInfoDao import UserInfoDao
 from dao.ActivityJoinDao import ActivityJoinDao
-
+from dao.PostsDao import PostsDao
+from dao.RecruitDao import RecruitDao
 
 userDao = UserDao()
 activityJoinDao = ActivityJoinDao()
@@ -15,3 +16,5 @@ loveRelationDao = LoveRelationDao()
 poolDao = PoolDao()
 poolJoinDao = PoolJoinDao()
 userInfoDao = UserInfoDao()
+postsDao = PostsDao()
+recruitDao = RecruitDao()
