@@ -16,6 +16,9 @@
       return {
         data: {},
       }
+    },
+    mounted(){
+      console.log('init')
     }
   }
 </script>
