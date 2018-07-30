@@ -11,8 +11,13 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: "base",
+    path: '/worker',
+    name: "worker_base",
+    component: BaseLayout
+  },
+  {
+    path: '/admin',
+    name: "admin_base",
     component: BaseLayout,
     children: [
       {

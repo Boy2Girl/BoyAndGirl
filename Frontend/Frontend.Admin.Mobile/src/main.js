@@ -4,7 +4,8 @@ import Vue from 'vue';
 import App from './App';
 import router from "./router";
 import 'iview/dist/styles/iview.css';
-
+import iView from 'iview';
+Vue.use(iView);
 console.log(router);
 Vue.config.productionTip = false;
 const myVue = new Vue({

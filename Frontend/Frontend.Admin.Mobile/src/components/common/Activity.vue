@@ -1,16 +1,14 @@
 <template>
   <div>
-    <file-uploader/>
+    <!-- <file-uploader/> -->
   </div>
 </template>
 
 <script>
-  import FileUploader from 'FileUploader';
+  // import FileUploader from 'FileUploader';
 
   export default {
-    components: {
-      FileUploader
-    },
+    
   }
 </script>
 
