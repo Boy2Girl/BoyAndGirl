@@ -1,11 +1,15 @@
 <template>
-
+  <user-list/>
 </template>
 
 <script>
-    export default {
-        name: "user-management-page"
-    }
+  import UserList from '../common/UserList.vue'
+
+  export default {
+    components: {
+      UserList
+    },
+  }
 </script>
 
 <style scoped>

@@ -25,21 +25,21 @@ const routes = [
         component: HomePage
       },
       {
-        path: '/activity',
+        path: 'activity',
         component: ActivityPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/pool',
+        path: 'pool',
         component: PoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/user',
+        path: 'user',
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
