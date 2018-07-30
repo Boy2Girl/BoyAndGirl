@@ -29,28 +29,28 @@ const routes = [
         component: HomePage
       },
       {
-        path: '/user/activity',
+        path: 'activity',
         component: UserActivityPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/user/pool',
+        path: 'pool',
         component: UserPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/user/posts',
+        path: 'posts',
         component: PostsPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/user/user',
+        path: 'user',
         component: UserPage,
         meta: {
           requireAuth: [UserType.ADMIN],
@@ -68,21 +68,21 @@ const routes = [
         component: HomePage
       },
       {
-        path: '/admin/activity',
+        path: 'activity',
         component: AdminActivityPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/admin/pool',
+        path: 'pool',
         component: AdminPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: '/admin/user',
+        path: 'user',
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
