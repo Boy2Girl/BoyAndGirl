@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Bar from '../common/Bar.vue'
+  import Bar from '../../common/UserBar.vue'
 
   export default {
     components: {

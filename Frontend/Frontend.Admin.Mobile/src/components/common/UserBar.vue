@@ -5,18 +5,21 @@
     <ul>
       <!--this inspection reports XML/HTML tags with missing mandatory attrbutes ,you can specify attrbute name that should not  be reported-->
       <!--home被点击后，一直处于激活状态，因此需要使用精确匹配模式，在router-link中添加exact属性-->
-
-      <router-link :to="{path: '/activity'}" tag="li">
+      <router-link :to="{path:'/user/activity'}" tag="li">
         <Icon type="social-buffer" size="20"/>
         <div class="font">{{tabBar1}}</div>
       </router-link>
-      <router-link :to="{name:'/pool'}" tag="li">
+      <router-link :to="{path:'/user/pool'}" tag="li">
         <Icon type="plus-circled" size="20"/>
         <div class="font">{{tabBar2}}</div>
       </router-link>
-      <router-link :to="{name:'/user'}" tag="li">
+      <router-link :to="{path:'/user/posts'}" tag="li">
         <Icon type="person" size="20"/>
         <div class="font">{{tabBar3}}</div>
+      </router-link>
+      <router-link :to="{path:'/user/user'}" tag="li">
+        <Icon type="person" size="20"/>
+        <div class="font">{{tabBar4}}</div>
       </router-link>
     </ul>
   </div>
@@ -24,17 +27,17 @@
 
 <script>
   import SENTENCES from "../../assets/sentences";
-  import {Icon} from "vux";
 
   export default {
     components: {
-      Icon
+      
     },
     data() {
       return {
-        tabBar1: SENTENCES.MENU.ACTIVITY,
-        tabBar2: SENTENCES.MENU.POOL,
-        tabBar3: SENTENCES.MENU.USER_MANAGEMENT
+        tabBar1: SENTENCES.User_MENU.ACTIVITY,
+        tabBar2: SENTENCES.User_MENU.POOL,
+        tabBar3: SENTENCES.User_MENU.POSTS,
+        tabBar4: SENTENCES.User_MENU.USER
       }
     }
   }

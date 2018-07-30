@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Login from '../common/Login.vue'
+  import Login from '../../common/Login.vue'
 
   export default {
     components: {
@@ -17,7 +17,7 @@
 
 <style scoped>
   .bg {
-    background: url('../../assets/background.jpg');
+    background: url('../../../assets/background.jpg');
     height: 1000px;
     text-align: center;
     line-height: 600px;
