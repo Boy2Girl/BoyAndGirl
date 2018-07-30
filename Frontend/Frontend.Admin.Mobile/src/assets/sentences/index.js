@@ -9,8 +9,8 @@ const SENTENCES = {
   },
   User_MENU: {
     LOGO_NAME: "姻缘网",
-    ACTIVITY: '活动',
-    POOL: '候选池',
+    ACTIVITY: '查看活动',
+    POOL:  '互选交友',
     POSTS: '发帖应征',
     USER: '用户中心'
   },
