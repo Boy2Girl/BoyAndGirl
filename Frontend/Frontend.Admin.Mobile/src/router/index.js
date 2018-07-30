@@ -3,6 +3,7 @@ import BaseLayout from '../components/page/BaseLayout';
 import HomePage from '../components/page/HomePage.vue';
 import ActivityPage from '../components/page/ActivityPage.vue';
 import PoolPage from '../components/page/PoolPage.vue';
+import PostPage from '../components/page/PostPage.vue';
 import UserManagementPage from '../components/page/UserManagementPage.vue';
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
@@ -36,6 +37,13 @@ const routes = [
         component: PoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: '/post',
+        component: PostPage,
+        meta: {
+          requireAuth: [UserType.USER],
         },
       },
       {

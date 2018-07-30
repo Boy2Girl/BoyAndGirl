@@ -14,9 +14,13 @@
         <Icon type="plus-circled" size="20"/>
         <div class="font">{{tabBar2}}</div>
       </router-link>
+      <router-link :to="{name:'/post'}" tag="li">
+        <Icon type="plus-circled" size="20"/>
+        <div class="font">{{tabBar3}}</div>
+      </router-link>
       <router-link :to="{name:'/user'}" tag="li">
         <Icon type="person" size="20"/>
-        <div class="font">{{tabBar3}}</div>
+        <div class="font">{{tabBar4}}</div>
       </router-link>
     </ul>
   </div>
@@ -34,7 +38,8 @@
       return {
         tabBar1: SENTENCES.MENU.ACTIVITY,
         tabBar2: SENTENCES.MENU.POOL,
-        tabBar3: SENTENCES.MENU.USER_MANAGEMENT
+        tabBar3: SENTENCES.MENU.POST,
+        tabBar4: SENTENCES.MENU.USER_MANAGEMENT
       }
     }
   }
