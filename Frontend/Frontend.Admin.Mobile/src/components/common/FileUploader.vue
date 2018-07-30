@@ -5,42 +5,33 @@
       :show-upload-list="false"
       :before-upload="handleBeforeUpload"
       multiple
-      :data="data"
-      action="http://www.injusalon.com/count/file/upload"
+      :data="params"
+      :action="url"
       style="display: inline-block;width:58px;">
-      <div style="width: 58px;height:58px;line-height: 58px;">
-        <icon type="camera" size="20"/>
+      <div>
+        <Button>上传图片</Button>
       </div>
     </Upload>
   </div>
 </template>
 <script>
-  import {Icon} from "vux";
-  import {Upload} from 'iview';
 
   export default {
-    components: {
-      Upload, Icon
+    props: {
+      url: String,
+      params: Object,
     },
     data() {
       return {
-        data: {
-          fileName: '11',
-          rID: '2'
-        },
+        
       }
     },
     methods: {
       handleBeforeUpload(file) {
-        console.log(file)
-        this.data.fileName = file.name;
-        this.data.rID = "2";
         return true;
       }
-    },
-    mounted() {
-      this.uploadList = this.$refs.upload.fileList;
     }
+
   }
 </script>
 <style>

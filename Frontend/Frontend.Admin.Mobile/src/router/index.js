@@ -12,6 +12,7 @@ import UserPoolPage from '../components/page/user/PoolPage';
 import UserPage from '../components/page/user/UserPage';
 import PostsPage from '../components/page/user/PostsPage';
 
+import FileUpLoader from '../components/common/FileUploader';
 
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
@@ -19,6 +20,11 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/test',
+    name: "test",
+    component: FileUpLoader,
+  },
   {
     path: '/user',
     name: "user_base",
