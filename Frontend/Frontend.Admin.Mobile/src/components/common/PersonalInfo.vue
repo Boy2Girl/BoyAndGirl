@@ -11,35 +11,33 @@
         基本信息
       </div>
       <group>
-        <cell class="cell-font" title="昵称:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="编号:"> {{city}}</cell>
-        <cell class="cell-font" title="性别：">{{isCheck}}</cell>
-        <cell class="cell-font" title="身高:">{{school}}</cell>
-        <cell class="cell-font" title="出生日期:">{{career}}</cell>
-        <cell class="cell-font" title="婚姻状况:">{{career}}</cell>
-        <cell class="cell-font" title="交友类型:">{{career}}</cell>
+        <cell class="cell-font" title="昵称:" :value="birthDate"/>
+        <cell class="cell-font" title="编号:" :value="index"/>
+        <cell class="cell-font" title="性别:" :value="gender"/>
+        <cell class="cell-font" title="身高:" :value="p_height"/>
+        <cell class="cell-font" title="出生日期:" :value="birthDate"/>
+        <cell class="cell-font" title="婚姻状况:" :value="state"/>
+        <cell class="cell-font" title="交友类型:" :value="type"/>
       </group>
 
       <div class="sub-title">
         坐标
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="家乡:" :value="hometown"/>
+        <cell class="cell-font" title="所在城市:" :value="city"/>
+        <cell class="cell-font" title="居住地点：" :value="live"/>
       </group>
 
       <div class="sub-title">
         学校
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="目前状态:" :value="studyState"/>
+        <cell class="cell-font" title="本科学校:" :value="collageSchool"/>
+        <cell class="cell-font" title="硕士学校:" :value="masterSchool"/>
+        <cell class="cell-font" title="博士学校:" :value="doctorSchool"/>
+        <cell class="cell-font" title="学历:" :value="education"/>
       </group>
 
       <div class="sub-title">
@@ -85,10 +83,22 @@
       },
       data() {
         return {
-          source: require(),
-          birthDate: '',
+          source: require('../../assets/background.jpg'),
+          nickname: ' ',
+          index: '',
+          gender: '',
+          p_height: '',
+          birthDate: '2828',
+          state: '',
+          type: '',
+          hometown: '',
           city: '',
-          school: "",
+          live: '',
+          studyState: '',
+          collageSchool: '',
+          masterSchool: '',
+          doctorSchool: '',
+          education: '',
           career: "",
           isCheck: "",
         }
