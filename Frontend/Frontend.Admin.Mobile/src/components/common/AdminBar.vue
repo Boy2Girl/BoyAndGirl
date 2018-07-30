@@ -16,7 +16,7 @@
       </router-link>
       <router-link :to="{path:'/admin/user'}" tag="li">
         <Icon type="person" size="20"/>
-        <div class="font">{{tabBar3}}</div>
+        <div class="font">{{tabBar4}}</div>
       </router-link>
     </ul>
   </div>
@@ -33,7 +33,8 @@
       return {
         tabBar1: SENTENCES.MENU.ACTIVITY,
         tabBar2: SENTENCES.MENU.POOL,
-        tabBar3: SENTENCES.MENU.USER_MANAGEMENT
+        tabBar3: SENTENCES.MENU.POST,
+        tabBar4: SENTENCES.MENU.USER_MANAGEMENT
       }
     }
   }

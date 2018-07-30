@@ -82,7 +82,18 @@ const routes = [
         },
       },
       {
+<<<<<<< HEAD
         path: '/admin/user',
+=======
+        path: '/post',
+        component: PostPage,
+        meta: {
+          requireAuth: [UserType.USER],
+        },
+      },
+      {
+        path: '/user',
+>>>>>>> 37c687922f8dd1558cff2de0e6bdd4f18b79ed32
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
