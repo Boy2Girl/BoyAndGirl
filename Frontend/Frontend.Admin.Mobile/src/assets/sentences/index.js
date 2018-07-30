@@ -3,8 +3,16 @@ const SENTENCES = {
     LOGO_NAME: "姻缘网",
     ACTIVITY: '发布活动',
     POOL: '发布候选池',
+    POST: '发帖应征',
     AUTHORITY: '权限分发',
     USER_MANAGEMENT: '用户管理'
+  },
+  User_MENU: {
+    LOGO_NAME: "姻缘网",
+    ACTIVITY: '活动',
+    POOL: '候选池',
+    POSTS: '发帖应征',
+    USER: '用户中心'
   },
   FOOTER: {
     TECHNIQUE: {

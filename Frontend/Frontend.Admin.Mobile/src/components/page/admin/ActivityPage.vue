@@ -1,13 +1,15 @@
 <template>
-  <user-list/>
+  <div>
+    <h1>admin activity page</h1>
+</div>
 </template>
 
 <script>
-  import UserList from '../common/UserList.vue'
+  import Activity from '../../common/Activity.vue';
 
   export default {
     components: {
-      UserList
+      Activity
     },
   }
 </script>

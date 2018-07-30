@@ -1,9 +1,18 @@
 import Vue from 'vue';
-import BaseLayout from '../components/page/BaseLayout';
-import HomePage from '../components/page/HomePage.vue';
-import ActivityPage from '../components/page/ActivityPage.vue';
-import PoolPage from '../components/page/PoolPage.vue';
-import UserManagementPage from '../components/page/UserManagementPage.vue';
+import AdminBaseLayout from '../components/page/admin/BaseLayout';
+import UserBaseLayout from '../components/page/user/BaseLayout';
+
+import HomePage from '../components/page/common/HomePage';
+import AdminActivityPage from '../components/page/admin/ActivityPage';
+import AdminPoolPage from '../components/page/admin/PoolPage';
+import UserManagementPage from '../components/page/admin/UserManagementPage';
+
+import UserActivityPage from '../components/page/user/ActivityPage';
+import UserPoolPage from '../components/page/user/PoolPage';
+import UserPage from '../components/page/user/UserPage';
+import PostsPage from '../components/page/user/PostsPage';
+
+
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
 
@@ -11,35 +20,80 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/worker',
-    name: "worker_base",
-    component: BaseLayout
-  },
-  {
-    path: '/admin',
-    name: "admin_base",
-    component: BaseLayout,
+    path: '/user',
+    name: "user_base",
+    component: UserBaseLayout,
     children: [
       {
         path: '',
         component: HomePage
       },
       {
-        path: 'activity',
-        component: ActivityPage,
+        path: '/user/activity',
+        component: UserActivityPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: 'pool',
-        component: PoolPage,
+        path: '/user/pool',
+        component: UserPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
-        path: 'user',
+        path: '/user/posts',
+        component: PostsPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: '/user/user',
+        component: UserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN],
+        },
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    name: "admin_base",
+    component: AdminBaseLayout,
+    children: [
+      {
+        path: '',
+        component: HomePage
+      },
+      {
+        path: '/admin/activity',
+        component: AdminActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: '/admin/pool',
+        component: AdminPoolPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+<<<<<<< HEAD
+        path: '/admin/user',
+=======
+        path: '/post',
+        component: PostPage,
+        meta: {
+          requireAuth: [UserType.USER],
+        },
+      },
+      {
+        path: '/user',
+>>>>>>> 37c687922f8dd1558cff2de0e6bdd4f18b79ed32
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
