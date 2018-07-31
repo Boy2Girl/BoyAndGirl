@@ -18,12 +18,12 @@
 </template>
 
 <script>
-  import {XInput, Datetime, XButton, Group, GroupTitle, Selector} from "vux";
+  import {XInput, Datetime, XButton, GroupTitle, Selector} from "vux";
   import Cell from "vux/src/components/cell/index";
 
   export default {
     components: {
-      Cell, XInput, Datetime, XButton, Group, GroupTitle, Selector
+      Cell, XInput, Datetime, XButton, GroupTitle, Selector
     },
     data() {
       return {
