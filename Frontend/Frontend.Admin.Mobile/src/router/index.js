@@ -11,6 +11,8 @@ import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolPage from '../components/page/user/PoolPage';
 import UserPage from '../components/page/user/UserPage';
 import PostsPage from '../components/page/user/PostsPage';
+import AdminPoolDetailPage from '../components/page/admin/AdminPoolDetailPage';
+import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
 
 import FileUpLoader from '../components/common/FileUploader';
 
@@ -53,6 +55,13 @@ const routes = [
         },
       },
       {
+        path: 'poolDetail',
+        component: UserPoolDetailPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
         path: 'posts',
         component: PostsPage,
         meta: {
@@ -87,6 +96,13 @@ const routes = [
       {
         path: 'pool',
         component: AdminPoolPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'poolDetail',
+        component: AdminPoolDetailPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },

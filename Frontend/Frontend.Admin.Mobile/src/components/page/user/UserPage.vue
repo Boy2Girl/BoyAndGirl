@@ -1,12 +1,17 @@
 <template>
-<div>
-    <h1>user center page</h1>
-</div>
+  <div>
+    <user-center/>
+  </div>
 </template>
 
 <script>
-    export default {
-    }
+  import UserCenter from '../../common/UserCenter.vue'
+
+  export default {
+    components: {
+      UserCenter
+    },
+  }
 </script>
 
 <style scoped>

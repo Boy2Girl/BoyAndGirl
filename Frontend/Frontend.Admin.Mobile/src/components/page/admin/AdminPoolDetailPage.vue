@@ -1,15 +1,15 @@
 <template>
   <div>
-    <pool-list/>
+    <admin-pool-detail/>
   </div>
 </template>
 
 <script>
-  import PoolList from '../../common/PoolList.vue'
+  import AdminPoolDetail from '../../common/AdminPoolDetail.vue'
 
   export default {
     components: {
-      PoolList
+      AdminPoolDetail
     },
   }
 </script>

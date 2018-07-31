@@ -21,7 +21,7 @@
      <group>
       <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="add_activity">增加</x-button>
     </group>
-    
+
     <group>
       <group-title slot="title">
         <div style="padding: 5%">详细信息：</div>
@@ -29,8 +29,8 @@
       <vue-html5-editor :content="detail" :height="400"
                         @change="updateData"></vue-html5-editor>
     </group>
-    
-   
+
+
   </div>
 </template>
 
