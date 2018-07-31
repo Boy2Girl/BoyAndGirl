@@ -10,15 +10,17 @@
       <cell title="每大一岁递增加收" :value="increment"/>
       <cell title="活动负责人微信" v-model="wechat"/>
     <!-- </group> -->
-    <group>
+    <!-- <group>
       <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="register_activity">报名活动</x-button>
-    </group>
+    </group> -->
     <group>
       <group-title slot="title">
-        <div style="padding: 5%">详细信息：</div>
+        <div style="padding: 5%;">详细信息：</div>
       </group-title>
       <div v-html='detail'></div>
     </group>
+    <x-button v-if="!isRegistered" type="primary" class="btn btn-bottom" @click.native="register_activity">确认报名</x-button>
+    <x-button v-else type="warn" class="btn btn-bottom" @click.native="cancel">取消报名</x-button>
   </div>
 </template>
 
@@ -70,6 +72,9 @@
       register_activity: function(){
         ActivityApi.registerActivity(1,this.registerSuccess, this.fail)
       },
+      cancel: function(){
+          
+      },
       success: function(status, text){
         if(status == 200){
           let result =  JSON.parse(text)
@@ -97,6 +102,14 @@
   }
 </script>
 
-<style scoped>
+<style lang="less" type="text/less">
+  .btn {
+  }
 
+  .btn-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 </style>
