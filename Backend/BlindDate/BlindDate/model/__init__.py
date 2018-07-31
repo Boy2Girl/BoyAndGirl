@@ -146,7 +146,7 @@ class RecruitModel(db.Model):
     userID = db.Column(Integer, db.ForeignKey('User.id'))
     postsID = db.Column(Integer, db.ForeignKey('Posts.id'))
     time = db.Column(DATE)
-    isSuccess = db.Column(Boolean)    # 是否要
+    isSuccess = db.Column(Boolean)  # 是否要
 
     def __init__(self, userID, postsID, isSuccess):
         self.userID = userID

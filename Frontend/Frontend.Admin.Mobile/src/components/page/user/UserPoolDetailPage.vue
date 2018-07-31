@@ -1,15 +1,15 @@
 <template>
   <div>
-    <pool-list/>
+    <user-pool-detail/>
   </div>
 </template>
 
 <script>
-  import PoolList from '../../common/PoolList.vue'
+  import UserPoolDetail from '../../common/UserPoolDetail.vue'
 
   export default {
     components: {
-      PoolList
+      UserPoolDetail
     },
   }
 </script>

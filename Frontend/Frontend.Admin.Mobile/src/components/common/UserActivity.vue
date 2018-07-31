@@ -1,5 +1,6 @@
 <template>
   <div>
+    <img :src="img" auto style="width:100%;margin:0 auto;" height="180px"/>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <cell title="活动时间" :value="activityTime" value-text-align="left"/>
       <cell title="活动地点" :value="address"/>
@@ -30,6 +31,7 @@
     },
     data() {
       return {
+        img: 'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff',
         isRegistered: true,
         activityTime: "07月29日14:30~07月29日17:30",
         address: "金陵大饭店",
