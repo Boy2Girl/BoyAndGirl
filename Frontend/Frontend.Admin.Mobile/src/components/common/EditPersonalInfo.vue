@@ -69,6 +69,16 @@
       <x-textarea class="cell-font" title="关于你:" v-model="about_you"/>
     </group>
 
+    <div class="sub-title">
+      学生证
+    </div>
+    <img src="../../assets/add.png" class="photo"/>
+
+    <div class="sub-title">
+      本科毕业证
+    </div>
+    <img src="../../assets/add.png" class="photo"/>
+
     <x-button style="margin-top: 10px" type="primary">保存</x-button>
   </div>
 </template>
@@ -147,8 +157,8 @@
   }
 
   .photo{
-    width: 30%;
-    height: 30%;
+    width: 25%;
+    height: 25%;
     margin: 5%;
   }
 </style>

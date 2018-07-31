@@ -1,8 +1,7 @@
 <template>
 <div>
-  <h1>user posts page</h1>
-  <Post></Post>
-  <Info></Info>
+  <Post/>
+  <Post/>
 </div>
 </template>
 

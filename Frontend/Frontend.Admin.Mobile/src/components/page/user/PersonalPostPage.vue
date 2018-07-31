@@ -1,12 +1,15 @@
 <template>
-  <div>
-    我的应征者
-  </div>
+  <Post/>
 </template>
 
 <script>
+  import Post from '../../common/Post.vue';
+  import Info from '../../common/PersonalInfo.vue';
+
   export default {
-    name: "personal-post-page"
+    components:{
+      Post, Info
+    }
   }
 </script>
 

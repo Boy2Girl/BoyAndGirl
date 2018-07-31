@@ -1,11 +1,16 @@
 <template>
   <div>
-    个人资料修改界面
+    <EditPersonalInfo></EditPersonalInfo>
   </div>
 </template>
 
 <script>
+  import EditPersonalInfo from '../../common/EditPersonalInfo.vue'
+
   export default {
+    components: {
+      EditPersonalInfo
+    },
     name: "personal-info-edit-page"
   }
 </script>
