@@ -20,6 +20,8 @@ class UserInfoBl(object):
     """这里会存在找不到的情况"""
     def get_user_info(self, user_id):
         model = self.user_info_dao.get_user_info(user_id)
+        if not model:
+            raise NotFoundException
         return UserInfoConverter().toVO(model)
 
 

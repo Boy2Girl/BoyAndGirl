@@ -1,5 +1,5 @@
 from model import UserModel, UserInfoModel, PoolModel, ActivityModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO
 
 
 class UserConverter:
@@ -106,6 +106,8 @@ class ActivityConverter:
     def toModel(self, activityVO: ActivityVO):
         activity = ActivityModel()
         # id 暂且不管
+        activity.url = activityVO.url
+        activity.name = activityVO.name
         activity.location = activityVO.location
         activity.registerBeginTime = activityVO.registerBeginTime
         activity.registerEndTime = activityVO.registerEndTime
@@ -116,11 +118,17 @@ class ActivityConverter:
         activity.girlBeginAge = activityVO.girlBeginAge
         activity.increment = activityVO.increment
         activity.wechat = activityVO.wechat
-        activity.realName = activityVO.realName  # 是否需要真实信息
+
+        # activity.realName = activityVO.realName  # 是否需要真实信息
+        activity.activityBeginTime = activityVO.activityBeginTime
+        activity.activityEndTime = activityVO.activityEndTime
+        activity.detail = activityVO.detail.encode()
         return activity
 
     def toVO(self, activityModel: ActivityModel):
         activity = ActivityVO()
+        activity.url = activityModel.url
+        activity.name = activityModel.name
         activity.id = activityModel.id
         activity.location = activityModel.location
         activity.registerBeginTime = activityModel.registerBeginTime
@@ -132,5 +140,23 @@ class ActivityConverter:
         activity.girlBeginAge = activityModel.girlBeginAge
         activity.increment = activityModel.increment
         activity.wechat = activityModel.wechat
-        activity.realName = activityModel.realName  # 是否需要真实信息
+        # activity.realName = activityModel.realName  # 是否需要真实信息
+        activity.activityBeginTime = activityModel.activityBeginTime
+        activity.activityEndTime = activityModel.activityEndTime
+        activity.detail = activityModel.detail.decode()
+        return activity
+
+
+class ActivityListConverter:
+
+    def toVO(self, activityModel: ActivityModel):
+        activity = ActivityListVO()
+        activity.id = activityModel.id
+        activity.url = activityModel.url
+        activity.title = activityModel.name
+        activity.time = str(activityModel.activityBeginTime) + " - " + str(activityModel.activityEndTime)
+        activity.address = activityModel.location
+        """这边先写一个mock"""
+        activity.numberOfRead = 10
+        activity.numberOfSign = 10
         return activity

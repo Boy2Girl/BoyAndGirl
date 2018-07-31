@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 
 def create_app():
     app = Flask(__name__, static_folder='static')
     app.config['DEBUG'] = True
+    cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config['SECRET_KEY'] = 'wfhg9hr-1jfpjf-p3j-=vgf0pvmo3k=2-3rj0-3j=gn[=3-g[mj'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/BoyAndGirl'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -25,6 +27,7 @@ def register_api():
     from routers.love import ns as love_ns
     from routers.activity import ns as activity_ns
     from routers.Posts import ns as posts_ns
+    from routers.test import ns as test_ns
     from routers import api
     api.add_namespace(user_ns)
     api.add_namespace(user_info_ns)
@@ -32,6 +35,7 @@ def register_api():
     api.add_namespace(love_ns)
     api.add_namespace(activity_ns)
     api.add_namespace(posts_ns)
+    api.add_namespace(test_ns)
 
 
 def register(app):

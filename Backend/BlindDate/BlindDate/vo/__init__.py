@@ -53,6 +53,8 @@ class ActivityVO:
 
     def __init__from_form(self, form_dict):
         form = form_dict['form']
+        self.url = form['url']
+        self.name = form['name']
         self.location = form['location']
         self.registerBeginTime = form['registerBeginTime']
         self.registerEndTime = form['registerEndTime']
@@ -63,7 +65,10 @@ class ActivityVO:
         self.girlBeginAge = form['girlBeginAge']
         self.increment = form['increment']
         self.wechat = form['wechat']
-        self.realName = form['realName'] == 'True'  # 是否需要真实信息
+        """新增的在下面，并且删掉了一些"""
+        self.activityBeginTime = form['activityBeginTime']
+        self.activityEndTime = form['activityEndTime']
+        self.detail = form['detail']
 
 
 
@@ -90,12 +95,9 @@ class PoolVO:
         self.requirement = form['requirement']
 
 
-class ActivityJoinVO:
-    __tablename__ = "ActivityJoin"
-    joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    activityID = db.Column(VARCHAR(20), db.ForeignKey('Activity.activityID'))
-    joinTime = db.Column(DATETIME)
+class ActivityListVO:
+    def __init__(self):
+        pass
 
 
 class PoolJoinVO:

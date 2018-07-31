@@ -30,6 +30,6 @@ class UserBl(object):
         if result.password == user.password:
             """成功登录"""
             token = JwtUtil.create_token(user.username)
-            return token
+            return token, result.id
         else:
             raise PasswordWrongException

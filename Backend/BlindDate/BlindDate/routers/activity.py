@@ -58,6 +58,7 @@ class Activity(Resource):
     @ns.doc('报名参加活动')
     @ns.expect(activity_post_parameters)
     def post(self):
+        print(request.form)
         aID = request.form['aID']
         try:
             activity_bl.join_activity(JwtUtil.get_token_username(flask.request.headers.get("token")), aID)
