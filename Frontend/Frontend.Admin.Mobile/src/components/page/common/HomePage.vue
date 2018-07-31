@@ -7,11 +7,13 @@
 
 <script>
   import Login from '../../common/Login.vue'
-
   export default {
     components: {
       Login
     },
+    mounted(){
+    },
+    
   }
 </script>
 
