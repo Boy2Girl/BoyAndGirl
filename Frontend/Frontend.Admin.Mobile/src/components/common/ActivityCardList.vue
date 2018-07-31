@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <card v-for="item in activityList" v-bind:key="item.id">
       <div slot="content" class="card-padding">
         <img :src="item.url"
@@ -46,6 +47,7 @@
 
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
+
 
   export default {
     components: {
