@@ -12,7 +12,6 @@
       <group-title slot="title">
         <div style="padding: 5%">简述</div>
       </group-title>
-      <cell title="所属城市">{{city}}</cell>
       <div v-html='detail'></div>
     </group>
   </div>

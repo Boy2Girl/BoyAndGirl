@@ -2,33 +2,33 @@
   <div>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <group-title slot="title">
-        <div style="padding: 5%">{{name}}</div>
+        <x-input style="padding: 5%" v-model="name"/>
       </group-title>
-      <cell title="创建时间">{{createTime}}</cell>
-      <cell title="所属城市">{{city}}</cell>
+      <datetime title="创建时间" v-model="createTime"/>
+      <selector placeholder="请选择城市" v-model="city" :options="cityList"></selector>
     </group>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <group-title slot="title">
         <div style="padding: 5%">简述</div>
       </group-title>
-      <cell title="创建时间">{{createTime}}</cell>
-      <cell title="所属城市">{{city}}</cell>
-      <div v-html='detail'></div>
+      <vue-html5-editor :content="detail" :height="400"
+                        @change="updateData"></vue-html5-editor>
     </group>
   </div>
 </template>
 
 <script>
-  import {XInput, Datetime, XButton, Group, GroupTitle} from "vux";
+  import {XInput, Datetime, XButton, Group, GroupTitle, Selector} from "vux";
   import Cell from "vux/src/components/cell/index";
 
   export default {
     components: {
-      Cell,
-      XInput, Datetime, XButton, Group, GroupTitle
+      Cell, XInput, Datetime, XButton, Group, GroupTitle, Selector
     },
     data() {
       return {
+        cityList: ["苏州", "南京"],
+
         name: "苏州互选池",
         createTime: "2018年02月20日",
         city: "苏州市",
