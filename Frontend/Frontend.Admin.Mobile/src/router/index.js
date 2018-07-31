@@ -16,6 +16,8 @@ import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
 
 import FileUpLoader from '../components/common/FileUploader';
 
+import EditPersonnalInfo from '../components/common/EditPersonalInfo.vue';
+
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
 
@@ -26,6 +28,11 @@ const routes = [
     path: '/test',
     name: "test",
     component: FileUpLoader,
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    component: EditPersonnalInfo
   },
   {
     path: '/user',
