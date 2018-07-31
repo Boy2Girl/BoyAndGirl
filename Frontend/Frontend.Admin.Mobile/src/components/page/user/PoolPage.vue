@@ -22,8 +22,6 @@
         },
         mounted(){
             UserApi.signIn("123", "12345634", UserApi.ROLE.USER, this.success, this.fail)
-            this.setToken("2222")
-            console.log(this.getToken())
         },
         methods: {
             ...mapMutations(['setToken']),

@@ -1,14 +1,17 @@
 <template>
   <div>
-    <group label-width="4.5em" label-margin-right="2em" label-align="right">
+    <!-- <group label-width="4.5em" label-margin-right="2em" label-align="right"> -->
       <cell title="活动时间" :value="activityTime" value-text-align="left"/>
       <cell title="活动地点" :value="address"/>
       <cell title="报名时间" :value="registerTime" value-text-align="left"/>
-      <cell title="互选时间" :value="selectBeginTime" value-text-align="left"/>
+      <cell title="互选时间" :value="selectTime" value-text-align="left"/>
       <cell title="收费规则" :value="chargeRule"/>
       <cell title="男/女年龄递增费用免收起始" :value="chargeBeginAge"/>
       <cell title="每大一岁递增加收" :value="increment"/>
       <cell title="活动负责人微信" v-model="wechat"/>
+    <!-- </group> -->
+    <group>
+      <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="register_activity">报名活动</x-button>
     </group>
     <group>
       <group-title slot="title">
@@ -20,25 +23,77 @@
 </template>
 
 <script>
-  import {Cell} from "vux";
+  import {Cell,Group,GroupTitle, XButton} from "vux";
+  import {mapGetters, mapMutations} from 'vuex'
+  import ActivityApi from '../../api/activity' 
 
   export default {
     components: {
-      Cell
+      Cell,Group,GroupTitle,XButton
     },
     data() {
       return {
-        activityTime: "07月29日14:30~07月29日17:30",
-        address: "金陵大饭店",
-        registerTime: "07月18日13:59~07月29日14:00",
-        selectTime: "07月29日14:00~08月03日23:55",
-        chargeRule: "顺序+年龄递增收费",
-        chargeBeginAge: "1991/1995",
-        increment: "￥5.00",
-        wechat: "1805318057",
-        detail: "<div style=\"text-align: center;\">【<font color=\"#990000\">活动时间</font>】</div><div style=\"text-align: center;\">dsa</div>"
+        activityTime: "",
+        address: "",
+        registerTime: "",
+        selectTime: "",
+        chargeRule: "",
+        chargeBeginAge: "",
+        increment: "",
+        wechat: "",
+        detail: ""
       }
     },
+    mounted(){
+      ActivityApi.getAllActivity(0,true,this.success,this.fail)
+      ActivityApi.getActivity(1,this.success,this.fail)
+    },
+    methods: {
+      registerSuccess: function(status, text){
+        if(status == 200){
+          console.log("成功报名活动")
+        }else if(status == 500){
+          console.log("报名活动失败")
+        }else if(status == 404){
+          console.log("抱歉，该活动不存在")
+        }else if(status == 405){
+          console.log("活动已经报名")
+        }
+      },
+      allSuccess: function(status, text){
+        if(status == 200){
+          console.log(JSON.parse(text))
+        }else if(status == 500){
+          console.log("获取活动列表失败")
+        }
+      },
+      register_activity: function(){
+        ActivityApi.registerActivity(1,this.registerSuccess, this.fail)
+      },
+      success: function(status, text){
+        if(status == 200){
+          let result =  JSON.parse(text)
+          console.log(result)
+          this.activityTime = result.activityBeginTime+" - "+result.activityEndTime
+          this.address = result.location
+          this.registerTime = result.registerBeginTime+" - "+result.registerEndTime
+          this.selectTime = result.selectBeginTime+" - "+result.selectEndTime
+          this.chargeRule = result.chargeRule
+          this.chargeBeginAge = "男　"+result.boyBeginAge+"/"+"女　"+ result.girlBeginAge
+          this.increment = result.increment
+          this.wechat = result.wechat
+          this.detail =  result.detail
+        }else if(status == 500){
+          console.log("获取活动失败")
+        }else if(status == 404){
+          console.log("没有该活动")
+        }
+      },
+      fail: function(err){
+        console.log("错误发生了！！！")
+        console.log(err)
+      }
+    }
   }
 </script>
 
