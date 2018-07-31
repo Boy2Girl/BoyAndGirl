@@ -47,7 +47,7 @@
 
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
-
+  import ActivityApi from '../../api/activity'
 
   export default {
     components: {
@@ -75,6 +75,22 @@
             numOfSign: 15
           }
         ]
+      }
+    },
+    mounted(){
+      ActivityApi.getAllActivity(0,false,this.success,this.fail)
+    },
+    methods:{
+      success:function(status,text){
+        if(status == 200){
+        let result = JSON.parse(text)
+        console.log(result)
+        this.activityList = result
+        }else
+        console.log("有错误发生了")
+      },
+      fail:function(err){
+        console.log(err)
       }
     }
   }
