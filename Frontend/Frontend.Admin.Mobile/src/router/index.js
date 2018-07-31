@@ -8,12 +8,17 @@ import AdminPoolPage from '../components/page/admin/PoolPage';
 import UserManagementPage from '../components/page/admin/UserManagementPage';
 import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
-import UserPoolPage from '../components/page/user/PoolPage';
+import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
 import PostsPage from '../components/page/user/PostsPage';
 import AdminPoolDetailPage from '../components/page/admin/AdminPoolDetailPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
-
+import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
+import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
+import PersonalPostPage from '../components/page/user/PersonalPostPage';
+import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
+import PoolSuccessPage from '../components/page/user/PoolSuccessPage';
+import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
 
 import {UserType} from "../models/user/UserType";
@@ -37,28 +42,22 @@ const routes = [
         component: HomePage
       },
       {
-        path: 'list',
-        component: ActivityListPage
+        path: 'activity',
+        component: ActivityListPage,
       },
       {
-        path: 'activity',
+        path: 'activity/:id',
         component: UserActivityPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
-        },
       },
       {
         path: 'pool',
-        component: UserPoolPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
-        },
+        component: UserPoolListPage,
       },
       {
-        path: 'poolDetail',
+        path: 'pool/:id',
         component: UserPoolDetailPage,
         meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
       },
       {
@@ -66,14 +65,56 @@ const routes = [
         component: PostsPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
-        },
+        }
       },
       {
         path: 'user',
         component: UserPage,
         meta: {
-          requireAuth: [UserType.ADMIN],
-        },
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'edit',
+        component: PersonalInfoEditPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'myPost',
+        component: PersonalPostPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'successPool',
+        component: PoolSuccessPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'info',
+        component: PersonalInfoPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'myActivity',
+        component: PersonalActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'historyActivity',
+        component: HistoryActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
       }
     ]
   },

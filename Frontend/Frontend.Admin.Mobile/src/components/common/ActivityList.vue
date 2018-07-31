@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Button style="width: 100%" type="text" icon="ios-search">往期活动</Button>
+    <router-link :to="{path:'/user/historyActivity'}">
+      <Button style="width: 100%" type="text" icon="ios-search">往期活动</Button>
+    </router-link>
     <swiper :list="activityList" auto style="width:100%;margin:0 auto;" height="180px" dots-class="custom-bottom"
             dots-position="center"/>
     <divider>活动报名</divider>
