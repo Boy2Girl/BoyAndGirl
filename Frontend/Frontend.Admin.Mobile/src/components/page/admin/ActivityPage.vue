@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>admin activity page</h1>
-</div>
+    <admin-activity/>
+  </div>
 </template>
 
 <script>
-  import Activity from '../../common/Activity.vue';
+  import AdminActivity from '../../common/AdminActivity.vue';
 
   export default {
     components: {
-      Activity
+      AdminActivity
     },
   }
 </script>

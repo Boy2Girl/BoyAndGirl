@@ -6,6 +6,10 @@ import router from "./router";
 import 'iview/dist/styles/iview.css';
 import iView from 'iview';
 import store from './store'
+import "font-awesome.css";
+import initRichText from './util/initHTMLEditor';
+
+initRichText();
 Vue.use(iView);
 console.log(router);
 Vue.config.productionTip = false;

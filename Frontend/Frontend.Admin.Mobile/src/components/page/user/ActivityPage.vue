@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <h1>user activity page</h1>
-</div>
+  <user-activity/>
 </template>
 
 <script>
-  import Activity from '../../common/Activity.vue';
+  import UserActivity from '../../common/UserActivity.vue';
 
   export default {
     components: {
-      Activity
+      UserActivity
     },
   }
 </script>
