@@ -21,6 +21,8 @@
     </group>
     <x-button v-if="!isRegistered" type="primary" class="btn btn-bottom" @click.native="register_activity">确认报名</x-button>
     <x-button v-else type="warn" class="btn btn-bottom" @click.native="cancel">取消报名</x-button>
+    <div class = "bottom">
+    </div>
   </div>
 </template>
 
@@ -43,7 +45,8 @@
         chargeBeginAge: "",
         increment: "",
         wechat: "",
-        detail: ""
+        detail: "",
+        isRegistered: true,
       }
     },
     mounted(){
@@ -73,7 +76,7 @@
         ActivityApi.registerActivity(1,this.registerSuccess, this.fail)
       },
       cancel: function(){
-          
+
       },
       success: function(status, text){
         if(status == 200){
@@ -107,9 +110,13 @@
   }
 
   .btn-bottom {
-    position: fixed;
+    position:absolute;
+    // z-index: 999;
     bottom: 0;
     left: 0;
     width: 100%;
+  }
+  .bottom{
+    height: 100px
   }
 </style>

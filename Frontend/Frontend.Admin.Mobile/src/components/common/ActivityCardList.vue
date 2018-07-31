@@ -2,7 +2,7 @@
   <div>
     <card v-for="item in activityList" v-bind:key="item.id">
       <div slot="content" class="card-padding">
-        <img src="http://placeholder.qiniudn.com/640x300"
+        <img :src="item.url"
              style="width:80px;height:80px;display:inline;padding-right: 2%">
         <div class="content">
           <div class="content-title">
@@ -56,6 +56,7 @@
         activityList: [
           {
             id: 1,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "周三-单身大作战",
             time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
             address: "专属微信群",
@@ -64,6 +65,7 @@
           },
           {
             id: 2,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "周三-单身大作战",
             time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
             address: "专属微信群",
