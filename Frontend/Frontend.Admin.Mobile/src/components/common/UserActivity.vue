@@ -4,7 +4,7 @@
       <cell title="活动时间" :value="activityTime" value-text-align="left"/>
       <cell title="活动地点" :value="address"/>
       <cell title="报名时间" :value="registerTime" value-text-align="left"/>
-      <cell title="互选时间" :value="selectBeginTime" value-text-align="left"/>
+      <cell title="互选时间" :value="selectTime" value-text-align="left"/>
       <cell title="收费规则" :value="chargeRule"/>
       <cell title="男/女年龄递增费用免收起始" :value="chargeBeginAge"/>
       <cell title="每大一岁递增加收" :value="increment"/>
@@ -12,22 +12,25 @@
     </group>
     <group>
       <group-title slot="title">
-        <div style="padding: 5%">详细信息：</div>
+        <div style="padding: 5%;">详细信息：</div>
       </group-title>
       <div v-html='detail'></div>
     </group>
+    <x-button v-if="!isRegistered" type="primary" class="btn btn-bottom" @click.native="register()">确认报名</x-button>
+    <x-button v-else type="warn" class="btn btn-bottom" @click.native="signOut()">取消报名</x-button>
   </div>
 </template>
 
 <script>
-  import {Cell} from "vux";
+  import {Cell, GroupTitle, Group, XButton} from "vux";
 
   export default {
     components: {
-      Cell
+      Cell, GroupTitle, Group, XButton
     },
     data() {
       return {
+        isRegistered: true,
         activityTime: "07月29日14:30~07月29日17:30",
         address: "金陵大饭店",
         registerTime: "07月18日13:59~07月29日14:00",
@@ -39,9 +42,25 @@
         detail: "<div style=\"text-align: center;\">【<font color=\"#990000\">活动时间</font>】</div><div style=\"text-align: center;\">dsa</div>"
       }
     },
+    methods: {
+      register() {
+        this.isRegistered = true;
+      },
+      signOut() {
+        this.isRegistered = false;
+      }
+    }
   }
 </script>
 
-<style scoped>
+<style lang="less" type="text/less">
+  .btn {
+  }
 
+  .btn-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 </style>

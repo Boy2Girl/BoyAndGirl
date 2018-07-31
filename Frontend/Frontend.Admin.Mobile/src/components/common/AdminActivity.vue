@@ -25,11 +25,11 @@
 </template>
 
 <script>
-  import {XInput, Datetime} from "vux";
+  import {XInput, Datetime, XButton, Group, GroupTitle} from "vux";
 
   export default {
     components: {
-      XInput, Datetime
+      XInput, Datetime, XButton, Group, GroupTitle
     },
     data() {
       return {
@@ -57,6 +57,5 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="less" type="text/less">
 </style>

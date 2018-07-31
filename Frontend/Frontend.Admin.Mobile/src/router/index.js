@@ -6,7 +6,7 @@ import HomePage from '../components/page/common/HomePage';
 import AdminActivityPage from '../components/page/admin/ActivityPage';
 import AdminPoolPage from '../components/page/admin/PoolPage';
 import UserManagementPage from '../components/page/admin/UserManagementPage';
-
+import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolPage from '../components/page/user/PoolPage';
 import UserPage from '../components/page/user/UserPage';
@@ -33,6 +33,10 @@ const routes = [
       {
         path: '',
         component: HomePage
+      },
+      {
+        path: 'list',
+        component: ActivityListPage
       },
       {
         path: 'activity',
