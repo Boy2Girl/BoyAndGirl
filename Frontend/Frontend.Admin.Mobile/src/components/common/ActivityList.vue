@@ -13,7 +13,7 @@
 <script>
   import {Swiper, Divider} from "vux";
   import ActivityCardList from './ActivityCardList.vue';
-
+ 
   export default {
     components: {
       Swiper, Divider, ActivityCardList
@@ -36,6 +36,7 @@
         ]
       }
     }
+
   }
 </script>
 

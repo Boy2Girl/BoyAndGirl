@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+    个人资料分享界面
+  </div>
 </template>
 
 <script>

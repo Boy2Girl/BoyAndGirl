@@ -1,13 +1,15 @@
 <template>
   <div>
     <card v-for="item in activityList" v-bind:key="item.id">
-      <router-link :to="{path:'/user/activity/'+item.id}">
-        <div slot="content" class="card-padding">
-          <img src="http://placeholder.qiniudn.com/640x300"
-               style="width:80px;height:80px;display:inline;padding-right: 2%">
-          <div class="content">
-            <div class="content-title">
-              {{item.title}}
+      <div slot="content" class="card-padding" @click="route(item.id)">
+        <img :src="item.url"
+             style="width:80px;height:80px;display:inline;padding-right: 2%">
+        <div class="content">
+          <div class="content-title">
+            {{item.title}}
+          </div>
+          <div class="content-tag">
+            <div class="content-tag" style="background-color: blue;color:white;">品牌活动
             </div>
             <div class="content-tag">
               <div class="content-tag" style="background-color: blue;color:white;">品牌活动
@@ -25,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div slot="footer" class="vux-1px-r">
+        <div slot="footer" class="card-footer">
           <flexbox>
             <flexbox-item>
               <div class="info">
@@ -41,13 +43,15 @@
             </flexbox-item>
           </flexbox>
         </div>
-      </router-link>
+      </div>
     </card>
   </div>
 </template>
 
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
+  import ActivityApi from '../../api/activity'
+  import router from "../../router";
 
   export default {
     components: {
@@ -58,6 +62,7 @@
         activityList: [
           {
             id: 1,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "周三-单身大作战",
             time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
             address: "专属微信群",
@@ -66,6 +71,7 @@
           },
           {
             id: 2,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "周三-单身大作战",
             time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
             address: "专属微信群",
@@ -73,6 +79,25 @@
             numOfSign: 15
           }
         ]
+      }
+    },
+    mounted() {
+      ActivityApi.getAllActivity(0, false, this.success, this.fail)
+    },
+    methods: {
+      route: (id) => {
+        router.push('/user/activity/' + id);
+      },
+      success: function (status, text) {
+        if (status == 200) {
+          let result = JSON.parse(text)
+          console.log(result)
+          this.activityList = result
+        } else
+          console.log("有错误发生了")
+      },
+      fail: function (err) {
+        console.log(err)
       }
     }
   }

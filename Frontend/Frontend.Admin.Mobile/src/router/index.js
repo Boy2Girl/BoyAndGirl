@@ -17,9 +17,11 @@ import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
 import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
 import PersonalPostPage from '../components/page/user/PersonalPostPage';
 import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
-import PoolSuccessPage from '../components/page/user/PoolSuccessPage';
+import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
 import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
+
+import EditPersonalInfo from '../components/common/EditPersonalInfo.vue';
 
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
@@ -31,6 +33,11 @@ const routes = [
     path: '/test',
     name: "test",
     component: FileUpLoader,
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    component: EditPersonalInfo
   },
   {
     path: '/user',
@@ -89,13 +96,6 @@ const routes = [
         }
       },
       {
-        path: 'successPool',
-        component: PoolSuccessPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        }
-      },
-      {
         path: 'info',
         component: PersonalInfoPage,
         meta: {
@@ -112,6 +112,13 @@ const routes = [
       {
         path: 'historyActivity',
         component: HistoryActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'successPool',
+        component: PersonalPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }

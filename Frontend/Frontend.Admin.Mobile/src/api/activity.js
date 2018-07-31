@@ -21,12 +21,14 @@ export default{
     * @param {function} resolve
     * @param {function} reject
 */
-async function addActivity(activityBeginTime,
+async function addActivity(name,url,activityBeginTime,
     activityEndTime,address,registerBeginTime,registerEndTime,selectBeginTime,
     selectEndTime,chargeRule,boyBeginAge,girlBeginAge,increment,wechat,detail,
 　　 resolve, reject) {
     console.log('in add activity:')
     var data = new FormData()
+    data.append('name', name)
+    data.append('url', url)
     data.append('location', address)
     data.append('registerBeginTime', registerBeginTime)
     data.append('registerEndTime', registerEndTime)

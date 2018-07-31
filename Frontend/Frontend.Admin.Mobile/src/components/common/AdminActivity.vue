@@ -1,6 +1,10 @@
 <template>
   <div>
+    <FileUPloader :url="actionUrl" v-on:child-say="listenToMyBoy">
+
+    </FileUPloader>
     <!-- <group label-width="4.5em" label-margin-right="2em" label-align="right"> -->
+       <x-input title="活动名称" v-model="name"/>
       <datetime title="活动开始时间" v-model="activityBeginTime" value-text-align="left"/>
       <datetime title="活动结束时间" v-model="activityEndTime" value-text-align="left"/>
       <x-input title="活动地点" v-model="address"/>
@@ -32,14 +36,19 @@
 
 <script>
   import {XInput, Datetime,Group,GroupTitle, XButton} from "vux";
-  import ActivityApi from '../../api/activity'
+  import {mapGetters, mapMutations} from 'vuex'
+  import ActivityApi from '../../api/activity' 
+  import FileUPloader from './FileUploader'
 
   export default {
     components: {
-      XInput, Datetime,Group,GroupTitle, XButton
+      XInput, Datetime,Group,GroupTitle, XButton,FileUPloader
     },
     data() {
       return {
+        actionUrl : "http://127.0.0.1:5000/api/test",
+        url: "",
+        name: "",
         activityBeginTime: "",
         activityEndTime: "",
         address: "",
@@ -61,7 +70,10 @@
         console.info(e);
       },
       add_activity(){
-        ActivityApi.addActivity(this.activityBeginTime,this.activityEndTime,this.address,this.registerBeginTime,
+        if(this.url == "")
+        console.log("请上传图片")
+        else
+        ActivityApi.addActivity(this.name, this.url, this.activityBeginTime,this.activityEndTime,this.address,this.registerBeginTime,
         this.registerEndTime,this.selectBeginTime,this.selectEndTime,this.chargeRule,this.boyBeginAge,this.girlBeginAge,
         this.increment,this.wechat, this.detail,this.success,this.fail);
       },
@@ -75,6 +87,9 @@
       fail: function(err){
         console.log("错误发生了！！！")
         console.log(err)
+      },
+      listenToMyBoy: function (somedata){
+        this.url = somedata
       }
     }
   }

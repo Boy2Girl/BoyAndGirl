@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from sqlalchemy.dialects.mysql import LONGBLOB
+
 from publicdata import Role
 from run import db
-from sqlalchemy import VARCHAR, Enum, DATE, Integer, Float, Boolean, DATETIME
+from sqlalchemy import VARCHAR, Enum, DATE, Integer, Float, Boolean, DATETIME, BLOB
 from datetime import datetime
 
 
@@ -43,6 +45,8 @@ class UserInfoModel(db.Model):
 class ActivityModel(db.Model):
     __tablename__ = "Activity"
     id = db.Column(Integer, primary_key=True)
+    name = db.Column(VARCHAR(30))
+    url = db.Column(VARCHAR(100))
     location = db.Column(VARCHAR(30))
     registerBeginTime = db.Column(DATE)
     registerEndTime = db.Column(DATE)
@@ -53,7 +57,10 @@ class ActivityModel(db.Model):
     girlBeginAge = db.Column(Integer)
     increment = db.Column(Float)
     wechat = db.Column(VARCHAR(100))
-    realName = db.Column(Boolean)  # 是否需要真实信息
+    # realName = db.Column(Boolean)  # 是否需要真实信息
+    activityBeginTime = db.Column(VARCHAR(100))
+    activityEndTime = db.Column(VARCHAR(100))
+    detail = db.Column(LONGBLOB)
 
     def __init__(self, **kwargs):
         pass

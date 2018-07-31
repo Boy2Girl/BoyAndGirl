@@ -38,39 +38,34 @@
         <cell class="cell-font" title="硕士学校:" :value="masterSchool"/>
         <cell class="cell-font" title="博士学校:" :value="doctorSchool"/>
         <cell class="cell-font" title="学历:" :value="education"/>
+        <cell class="cell-font" title="专业:" :value="major"/>
       </group>
 
       <div class="sub-title">
         工作
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="工作单位:" :value="corporation"/>
+        <cell class="cell-font" title="工作状况:" :value="work_state"/>
+        <cell class="cell-font" title="职业：" :value="career"/>
+        <cell class="cell-font" title="单位类型:" :value="corporation_type"/>
+        <cell class="cell-font" title="年收入（实际/预期）:" :value="income"/>
       </group>
 
       <div class="sub-title">
         住房/家庭情况
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="住房情况:" :value="house_state"/>
+        <cell class="cell-font" title="家庭情况:" :value="family_state"/>
       </group>
 
       <div class="sub-title">
         想说的话
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="关于我:" :value="about_me"/>
+        <cell class="cell-font" title="关于你:" :value="about_you"/>
       </group>
     </div>
 </template>
@@ -99,8 +94,18 @@
           masterSchool: '',
           doctorSchool: '',
           education: '',
-          career: "",
-          isCheck: "",
+          major: '',
+          corporation: '',
+          work_state: '',
+          career: '',
+          corporation_type: '',
+          income: '',
+          house_state: '',
+          family_state: '',
+          about_you: '',
+          about_me: '',
+
+
         }
       }
     }
@@ -126,6 +131,7 @@
 
   .photo{
     width: 30%;
+    height: 30%;
     margin: 5%;
   }
 </style>

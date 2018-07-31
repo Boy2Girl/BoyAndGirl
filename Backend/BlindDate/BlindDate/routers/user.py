@@ -25,9 +25,10 @@ class User(Resource):
     # @ns.expect(login_parameters)
     def post(self):
         try:
-            token = userBl.sign_in(UserVO(form=request.form))
+            print(request.form)
+            token, user_id = userBl.sign_in(UserVO(form=request.form))
             print(token)
-            return {'token': token}, 200
+            return {'token': token, "id": user_id}, 200
         except PasswordWrongException:
             return None, 403
         except NotFoundException:
