@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in postList"
+    <div v-for="item in postList" v-bind:key="item.id"
          style="border-color: #a8a7a9; width: 98%; height: 170px; border-style: solid; margin-left: 1%; margin-bottom: 2%">
       <div style="width: 65%; float: left; margin-top: 1%">
         <div style="margin-bottom: 2px">
@@ -35,6 +35,7 @@
       return {
         postList: [
           {
+            id: 1,
             education: '本',
             username: 'dhh',
             birthDate: '1980',
