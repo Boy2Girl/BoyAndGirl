@@ -126,6 +126,8 @@
         success: function(status, text){
           if(status == 200){
             console.log("成功插入")
+          　 let result = (JSON.parse(text))
+            this.form = result
           }else if(status == 500){
             console.log("上传用户信息失败")
           }

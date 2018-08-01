@@ -13,9 +13,9 @@ import {WechatPlugin, AjaxPlugin} from 'vux'
 Vue.use(WechatPlugin);
 Vue.use(AjaxPlugin);
 
-Vue.http.get('/api', ({data}) => {
-  Vue.wechat.config(data.data)
-});
+// Vue.http.get('/api', ({data}) => {
+//   Vue.wechat.config(data.data)
+// });
 initRichText();
 Vue.use(iView);
 console.log(router);
