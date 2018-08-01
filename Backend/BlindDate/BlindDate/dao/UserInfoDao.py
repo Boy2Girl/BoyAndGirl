@@ -11,7 +11,7 @@ class UserInfoDao(DaoUtil):
 
     def get_user_info(self, user_id):
         try:
-            user_info = session.query(UserInfoModel).filter(UserInfoModel.userID == user_id).first()
+            user_info = session.query(UserInfoModel).filter(UserInfoModel.id == user_id).first()
             if not user_info:
                 raise NotFoundException
             return user_info

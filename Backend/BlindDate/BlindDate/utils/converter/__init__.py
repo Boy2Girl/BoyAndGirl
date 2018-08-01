@@ -31,39 +31,75 @@ class UserInfoConverter:
         user.name = userInfoVO.name
         user.realName = userInfoVO.realName
         user.gender = userInfoVO.gender
-        user.bornDate = userInfoVO.bornDate
-        user.detailLocation = userInfoVO.detailLocation
-        user.marriage = userInfoVO.marriage
+        user.bornDate = userInfoVO.bornDate  # 出生日期
+        user.marriage = userInfoVO.marriage  # 婚姻状况
         user.friend = userInfoVO.friend  # 交友要求
         user.hometown = userInfoVO.hometown
-        user.schoolLevel = userInfoVO.schoolLevel
         user.company = userInfoVO.company
         user.livingPlace = userInfoVO.livingPlace
-        user.job = userInfoVO.livingPlace
+        user.job = userInfoVO.job
         user.housingCondition = userInfoVO.housingCondition
         user.economyCondition = userInfoVO.economyCondition
+        user.city = userInfoVO.city
+        user.p_height = userInfoVO.p_height
+        user.studyState = userInfoVO.studyState
+        user.collageSchool = userInfoVO.collageSchool
+        user.masterSchool = userInfoVO.masterSchool
+        user.doctorSchool = userInfoVO.doctorSchool
+        user.education = userInfoVO.education
+        user.major = userInfoVO.major
+        user.about_you = userInfoVO.about_you
+        user.about_me = userInfoVO.about_me
+        user.avatar = userInfoVO.avatar
+        user.personUrl = userInfoVO.personUrl
+        user.studentUrl = userInfoVO.studentUrl
+        user.graduateUrl = userInfoVO.graduateUrl
+        user.otherUrl = userInfoVO.otherUrl
+        user.qq = userInfoVO.qq
+        user.wechat = userInfoVO.wechat
+        user.income = userInfoVO.income
+        user.corporation_type = userInfoVO.corporation_type
+        user.work_state = userInfoVO.work_state
         return user
 
-    def toVO(self, model: UserInfoModel):
-        vo = UserInfoVO(1)
-        vo.id = model.id
-        vo.phone = model.phone
-        vo.email = model.email
-        vo.name = model.name
-        vo.realName = model.realName
-        vo.gender = model.gender
-        vo.bornDate = model.bornDate
-        vo.detailLocation = model.detailLocation
-        vo.marriage = model.marriage
-        vo.friend = model.friend  # 交友要求
-        vo.hometown = model.hometown
-        vo.schoolLevel = model.schoolLevel
-        vo.company = model.company
-        vo.livingPlace = model.livingPlace
-        vo.job = model.job
-        vo.housingCondition = model.housingCondition
-        vo.economyCondition = model.housingCondition
-        return vo
+    def toVO(self, userInfoVO: UserInfoModel):
+        user = UserInfoVO(1)
+        user.id = userInfoVO.id
+        user.phone = userInfoVO.phone
+        user.email = userInfoVO.email
+        user.name = userInfoVO.name
+        user.realName = userInfoVO.realName
+        user.gender = userInfoVO.gender
+        user.bornDate = userInfoVO.bornDate  # 出生日期
+        user.marriage = userInfoVO.marriage  # 婚姻状况
+        user.friend = userInfoVO.friend  # 交友要求
+        user.hometown = userInfoVO.hometown
+        user.company = userInfoVO.company
+        user.livingPlace = userInfoVO.livingPlace
+        user.job = userInfoVO.job
+        user.housingCondition = userInfoVO.housingCondition
+        user.economyCondition = userInfoVO.economyCondition
+        user.city = userInfoVO.city
+        user.p_height = userInfoVO.p_height
+        user.studyState = userInfoVO.studyState
+        user.collageSchool = userInfoVO.collageSchool
+        user.masterSchool = userInfoVO.masterSchool
+        user.doctorSchool = userInfoVO.doctorSchool
+        user.education = userInfoVO.education
+        user.major = userInfoVO.major
+        user.about_you = userInfoVO.about_you
+        user.about_me = userInfoVO.about_me
+        user.avatar = userInfoVO.avatar
+        user.personUrl = userInfoVO.personUrl
+        user.studentUrl = userInfoVO.studentUrl
+        user.graduateUrl = userInfoVO.graduateUrl
+        user.otherUrl = userInfoVO.otherUrl
+        user.qq = userInfoVO.qq
+        user.wechat = userInfoVO.wechat
+        user.income = userInfoVO.income
+        user.corporation_type = userInfoVO.corporation_type
+        user.work_state = userInfoVO.work_state
+        return user
 
 
 class PoolConverter:

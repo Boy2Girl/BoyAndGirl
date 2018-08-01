@@ -3,7 +3,6 @@ import json
 
 from flask import request
 from flask_restplus import Resource, Namespace
-from sqlalchemy.exc import IntegrityError
 
 from decorator.RoleRequest import login_require
 from exceptions import NotFoundException, AlreadyExists, InsertException
@@ -31,6 +30,8 @@ class UserInfo(Resource):
     @ns.doc('填写')
     def put(self):
         try:
+            for i in request.form:
+                print(i)
             userInfoBl.add_user_info(UserInfoVO(form=request.form))
             return None, 200, {}
         except InsertException:
