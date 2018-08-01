@@ -1,13 +1,17 @@
 <template>
-<div>
-    <h1>admin manage page</h1>
-</div>
+  <div>
+    <user-list/>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+  import UserList from '../../common/UserList';
+
+  export default {
+    components: {
+      UserList
+    },
+  }
 </script>
 
 <style scoped>

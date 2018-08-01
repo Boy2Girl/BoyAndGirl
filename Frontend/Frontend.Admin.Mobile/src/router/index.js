@@ -11,7 +11,7 @@ import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
 import PostsPage from '../components/page/user/PostsPage';
-import AdminPoolDetailPage from '../components/page/admin/AdminPoolDetailPage';
+import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
 import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
 import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
@@ -171,8 +171,8 @@ const routes = [
         },
       },
       {
-        path: 'poolDetail',
-        component: AdminPoolDetailPage,
+        path: 'poolAdd',
+        component: AdminPoolAddPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
