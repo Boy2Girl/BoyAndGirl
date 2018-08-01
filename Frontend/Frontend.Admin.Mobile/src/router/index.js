@@ -23,7 +23,7 @@ import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
 import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
 import EditPersonalInfo from '../components/common/EditPersonalInfo.vue';
-
+import PoolPeopleListPage from '../components/page/user/PoolPeopleListPage.vue';
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
 
@@ -64,6 +64,13 @@ const routes = [
       {
         path: 'pool/:id',
         component: UserPoolDetailPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        },
+      },
+      {
+        path: 'poolPeople',
+        component: PoolPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },

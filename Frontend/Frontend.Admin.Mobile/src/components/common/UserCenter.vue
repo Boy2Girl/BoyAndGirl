@@ -12,7 +12,8 @@
     </group>
     <group>
       <cell title="我的活动" link="/user/myActivity"/>
-      <cell title="我的应征者" link="/user/myPost"/>
+      <cell title="我应征的人" link="/user/myPostOne"/>
+      <cell title="应征我的人" link="/user/onePostMe"/>
       <cell title="互选池互选成功记录" link="/user/successPool"/>
     </group>
     <group>

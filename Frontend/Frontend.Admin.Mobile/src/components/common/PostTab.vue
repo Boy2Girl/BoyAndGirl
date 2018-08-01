@@ -22,7 +22,7 @@
         router.push('/user/posts');
       },
       onMineClick() {
-        router.push('/user/myPost');
+        router.push('/user/myPostOne');
       },
       onOneClick() {
         router.push('/user/OnePostMe');
