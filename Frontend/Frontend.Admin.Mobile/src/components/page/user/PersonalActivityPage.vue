@@ -1,16 +1,17 @@
 <template>
   <div>
-    我的活动
-    <activity-list/>
+    <activity-tab/>
+    <activity-card-list/>
   </div>
 </template>
 
 <script>
-  import ActivityList from '../../common/ActivityList.vue';
+  import ActivityCardList from '../../common/ActivityCardList.vue';
+  import ActivityTab from '../../common/ActivityTab';
 
   export default {
     components: {
-      ActivityList
+      ActivityCardList, ActivityTab
     },
   }
 </script>

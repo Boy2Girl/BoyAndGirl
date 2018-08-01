@@ -20,7 +20,7 @@ import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
 import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
 import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
-
+import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
 import EditPersonalInfo from '../components/common/EditPersonalInfo.vue';
 
 import {UserType} from "../models/user/UserType";
@@ -117,8 +117,15 @@ const routes = [
         }
       },
       {
-        path: 'successPool',
+        path: 'myPool',
         component: PersonalPoolPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'successPool',
+        component: SuccessPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }

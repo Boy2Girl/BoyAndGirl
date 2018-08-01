@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EditPersonalInfo></EditPersonalInfo>
+    <EditPersonalInfo/>
   </div>
 </template>
 
