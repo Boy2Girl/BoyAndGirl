@@ -1,12 +1,16 @@
 <template>
   <div>
-    个人资料分享界面
+    <info/>
   </div>
 </template>
 
 <script>
+  import Info from '../../common/PersonalInfo.vue';
+
   export default {
-    name: "personal-info-page"
+    components: {
+      Info
+    }
   }
 </script>
 

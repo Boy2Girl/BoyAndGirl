@@ -1,6 +1,9 @@
 <template>
   <div>
-    <group label-width="4.5em" label-margin-right="2em" label-align="right">
+    <div class="avatar-container">
+      <img class="avatar" :src="avatarUrl"/>
+    </div>
+    <group style="margin-top: -5%">
       <cell title="联系编号" :value="id"/>
       <cell title="个人资料（编辑）" link="/user/edit"/>
     </group>
@@ -25,12 +28,23 @@
     components: {Group, Cell},
     data() {
       return {
-        id: 10486
+        id: 10486,
+        avatarUrl: 'http://placeholder.qiniudn.com/640x300'
       }
     }
   }
 </script>
 
 <style scoped>
+  .avatar-container {
+    text-align: center;
+    padding: 10%;
+    background: url("../../assets/background.jpg");
+  }
 
+  .avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 70px;
+  }
 </style>

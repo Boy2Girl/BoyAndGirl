@@ -8,7 +8,14 @@ import iView from 'iview';
 import store from './store'
 import "font-awesome.css";
 import initRichText from './util/initHTMLEditor';
+import {WechatPlugin, AjaxPlugin} from 'vux'
 
+Vue.use(WechatPlugin);
+Vue.use(AjaxPlugin);
+
+Vue.http.get('/api', ({data}) => {
+  Vue.wechat.config(data.data)
+});
 initRichText();
 Vue.use(iView);
 console.log(router);

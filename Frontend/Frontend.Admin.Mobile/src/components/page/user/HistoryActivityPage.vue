@@ -1,12 +1,18 @@
 <template>
   <div>
-    往期活动
+    <activity-tab/>
+    <activity-card-list/>
   </div>
 </template>
 
 <script>
+  import ActivityCardList from '../../common/ActivityCardList.vue';
+  import ActivityTab from '../../common/ActivityTab';
+
   export default {
-    name: "history-activity-page"
+    components: {
+      ActivityCardList, ActivityTab
+    },
   }
 </script>
 

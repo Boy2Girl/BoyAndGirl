@@ -1,12 +1,18 @@
 <template>
   <div>
-    互选池互选成功记录
+    <pool-tab/>
+    <post-list/>
   </div>
 </template>
 
 <script>
+  import PostList from '../../common/PoolList.vue';
+  import PoolTab from '../../common/PoolTab.vue';
+
   export default {
-    name: "personal-pool-page"
+    components: {
+      PostList, PoolTab
+    }
   }
 </script>
 
