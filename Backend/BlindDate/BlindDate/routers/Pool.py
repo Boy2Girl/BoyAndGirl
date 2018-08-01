@@ -46,7 +46,7 @@ class Pool(Resource):
     @ns.doc('获取我的交友池列表')
     def fetch(self):
         begin = request.args['begin']
-        my_list=request.args['']
+        user_id = request.args['userId']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool(begin)]
         return result, 200
 
