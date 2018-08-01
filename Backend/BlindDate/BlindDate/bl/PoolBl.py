@@ -24,8 +24,10 @@ class PoolBl(object):
     def get_pool(self, begin):
         return [PoolListConverter().toVO(i) for i in self.pool_dao.get_pool_list(begin)]
 
-    def get_pool_by_user(self, user_id):
-        return self.pool_dao.get_pool_by_user(user_id)
+    def get_pool_by_user(self, username):
+        user = userDao.get_user_by_username(username)
+        print("get my")
+        return [PoolListConverter().toVO(i) for i in self.pool_dao.get_pool_by_user(user.id)]
 
     def join_pool(self, pID, username):
         """ 先检查有没有参加过　"""

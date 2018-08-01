@@ -1,7 +1,7 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addPool,getPool,registerPool,getAllPool
+  addPosts,recruit_someone
 }
 /**
    * @param {function} name
@@ -11,35 +11,17 @@ export default{
    * @param {function} resolve
    * @param {function} reject
 */
-async function addPool(url,name,createTime,city,
-    detail,resolve, reject) {
-    console.log('in add activity:')
+async function addPosts(resolve, reject) {
+    console.log('in add posts:')
     var data = new FormData()
-    data.append('url', url)
-    data.append('createTime', createTime)
-    data.append('name', name)
-    data.append('city', city)
-    data.append('detail', detail)
-    data.append('requirement', "")
-    base.query(data, resolve, reject, '/pool', METHOD.PUT)
+    data.append('endTime', "2018-7-12")
+    base.query(data, resolve, reject, '/posts', METHOD.PUT)
 }
 
 
-async function getPool(id,resolve, reject){
-    console.log('in get pool:')
+async function recruit_someone(postsID,resolve, reject) {
+    console.log('in add posts:')
     var data = new FormData()
-    base.query(data, resolve, reject, '/pool'+'/'+id, METHOD.GET)
-}           
-
-async function registerPool(id, resolve, reject){
-    console.log('in register activity:')
-    var data = new FormData()
-    data.append('pID', id)
-    base.query(data, resolve, reject, '/pool', METHOD.POST)
-}                           
-
-async function getAllPool(begin, resolve, reject){
-    console.log('in get pool list:')
-    var data = new FormData()
-    base.query(data, resolve, reject, '/pool'+'?begin='+begin, METHOD.GET)
+    data.append('postsID', postsID)
+    base.query(data, resolve, reject, '/posts', METHOD.POST)
 }

@@ -2,7 +2,6 @@
   <div>
     <post-tab/>
     <Post/>
-    <Post/>
   </div>
 </template>
 

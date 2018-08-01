@@ -25,6 +25,7 @@ import EditPersonalInfo from '../components/common/EditPersonalInfo.vue';
 
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
+import CheckApi from '../api/check'
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,7 @@ const routes = [
       {
         path: 'activity',
         component: ActivityListPage,
+        name: "activity"
       },
       {
         path: 'activity/:id',
@@ -59,6 +61,7 @@ const routes = [
       {
         path: 'pool',
         component: UserPoolListPage,
+        name: 'pool'
       },
       {
         path: 'pool/:id',
@@ -105,6 +108,7 @@ const routes = [
       {
         path: 'myActivity',
         component: PersonalActivityPage,
+        name: "myActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
@@ -112,12 +116,14 @@ const routes = [
       {
         path: 'historyActivity',
         component: HistoryActivityPage,
+        name:"historyActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
       },
       {
         path: 'myPool',
+        name: 'mypool',
         component: PersonalPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -125,6 +131,7 @@ const routes = [
       },
       {
         path: 'successPool',
+        name: 'successPool',
         component: SuccessPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -178,11 +185,26 @@ const router = new VueRouter({
 });
 
 export default router;
+function success(status, text){
+  if(status == 200){
+    console.log("成功")
+  }else if(status == 403){
+    console.log("失败")
+  }
+}
 
-// router.beforeEach((to, from, next) => {
-//   console.log("进入拦截");
-//   next();
-// if (to.meta.requireAuth) {
+function fail(err){
+  console.log("错误发生了")
+  console.log(err)
+}
+
+router.beforeEach((to, from, next) => {
+  console.log("进入拦截");
+  next();
+  if (to.meta.requireAuth||true) {
+    CheckApi.check(success,fail)
+  }
+})
 //   fetch(address+"user/checkState", {
 //     method: 'get',
 //     credentials: 'include',
@@ -211,7 +233,7 @@ export default router;
 //           // console.log(text)
 //           //  this.$router.push({name:name,query:{redirect:this.name}})
 //         })
-//
+
 //       // myVue.$store.state.name=text;
 //       next();
 //     }
@@ -222,7 +244,7 @@ export default router;
 //       })
 //     }
 //   })
-//
+
 // }
 // else {
 //   next();

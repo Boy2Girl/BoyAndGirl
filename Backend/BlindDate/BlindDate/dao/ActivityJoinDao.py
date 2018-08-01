@@ -10,8 +10,7 @@ class ActivityJoinDao(DaoUtil):
         try:
             join = session.query(ActivityJoinModel).filter(ActivityJoinModel.userID == user_id). \
                 filter(ActivityJoinModel.activityID == activity_id).first()
-            if join:
-                raise AlreadyExists
+            return join
         except AlreadyExists:
             raise AlreadyExists
         except:
