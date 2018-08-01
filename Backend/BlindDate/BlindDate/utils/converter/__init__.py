@@ -1,5 +1,5 @@
-from model import UserModel, UserInfoModel, PoolModel, ActivityModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO
+from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo
 
 
 class UserConverter:
@@ -12,7 +12,7 @@ class UserConverter:
         print(user.__dict__)
         return user
 
-    def toVO(self, userModel:UserModel):
+    def toVO(self, userModel: UserModel):
         vo = UserVO(1)
         vo.id = userModel.id
         vo.username = userModel.username
@@ -217,3 +217,12 @@ class PoolListConverter:
         pool.numOfBoy = 301
         pool.numOfGirl = 301
         return pool
+
+
+class RecruitListConverter:
+
+    def toVO(self, recruitModel: RecruitModel):
+        recruit = RecruitVo()
+        recruit.id = recruitModel.id
+        recruit.userId = recruitModel.userID
+        recruit.time = recruitModel.time

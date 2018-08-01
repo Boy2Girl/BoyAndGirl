@@ -47,7 +47,7 @@ class Pool(Resource):
     def fetch(self):
         begin = request.args['begin']
         user_id = request.args['userId']
-        result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool(begin)]
+        result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool_by_user(begin, user_id)]
         return result, 200
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)

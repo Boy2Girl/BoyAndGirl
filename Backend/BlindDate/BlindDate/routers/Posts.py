@@ -30,11 +30,18 @@ class Posts(Resource):
         try:
             postsID = request.form['postsID']
             username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
-            return postsBl.recruit_someone(username, postsID),200
+            return postsBl.recruit_someone(username, postsID), 200
         except AlreadyExists:
             return None, 405
         except InsertException:
             return None, 404
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('我的应征')
+    @ns.expect()
+    def fetch(self):
+        user_id = request.form['userId']
+        return postsBl.get_my_posts(user_id), 200
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('创建一个发帖应征')
