@@ -71,7 +71,6 @@ class ActivityVO:
         self.detail = form['detail']
 
 
-
 class PoolVO:
 
     def __init__(self, *args, **kwargs):
@@ -84,18 +83,26 @@ class PoolVO:
         self.id = 0
         self.createTime = form['createTime']
         self.city = form['city']
-        self.realRequired = form['realRequired'] == 'True'
-        self.initChance = form['initChance']
-        self.removeTime = form['removeTime']
-        self.baseCharge = form['baseCharge']
-        self.boyBegin = form['boyBegin']
-        self.girlBegin = form['girlBegin']
-        self.ageIncrement = form['ageIncrement']
-        self.sexIncrement = form['sexIncrement']
+        self.url = form['url']
+        self.name = form['name']
+        # self.realRequired = form['realRequired'] == 'True'
+        # self.initChance = form['initChance']
+        # self.removeTime = form['removeTime']
+        # self.baseCharge = form['baseCharge']
+        # self.boyBegin = form['boyBegin']
+        # self.girlBegin = form['girlBegin']
+        # self.ageIncrement = form['ageIncrement']
+        # self.sexIncrement = form['sexIncrement']
         self.requirement = form['requirement']
+        self.detail = form['detail']
 
 
 class ActivityListVO:
+    def __init__(self):
+        pass
+
+
+class PoolListVO:
     def __init__(self):
         pass
 

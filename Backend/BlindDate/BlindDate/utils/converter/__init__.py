@@ -1,5 +1,5 @@
 from model import UserModel, UserInfoModel, PoolModel, ActivityModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO
 
 
 class UserConverter:
@@ -73,31 +73,37 @@ class PoolConverter:
         # pool.poolID = poolVO.poolID
         pool.createTime = poolVO.createTime
         pool.city = poolVO.city
-        pool.realRequired = poolVO.realRequired
-        pool.initChance = poolVO.initChance
-        pool.removeTime = poolVO.removeTime
-        pool.baseCharge = poolVO.baseCharge
-        pool.boyBegin = poolVO.boyBegin
-        pool.girlBegin = poolVO.girlBegin
-        pool.ageIncrement = poolVO.ageIncrement
-        pool.sexIncrement = poolVO.sexIncrement
+        pool.url = poolVO.url
+        pool.name = poolVO.name
+        # pool.realRequired = poolVO.realRequired
+        # pool.initChance = poolVO.initChance
+        # pool.removeTime = poolVO.removeTime
+        # pool.baseCharge = poolVO.baseCharge
+        # pool.boyBegin = poolVO.boyBegin
+        # pool.girlBegin = poolVO.girlBegin
+        # pool.ageIncrement = poolVO.ageIncrement
+        # pool.sexIncrement = poolVO.sexIncrement
         pool.requirement = poolVO.requirement
+        pool.detail = poolVO.detail.encode()
         return pool
 
     def toVO(self, poolModel: PoolModel):
         pool = PoolVO()
         pool.id = poolModel.id
+        pool.url = poolModel.url
         pool.createTime = poolModel.createTime
         pool.city = poolModel.city
-        pool.realRequired = poolModel.realRequired
-        pool.initChance = poolModel.initChance
-        pool.removeTime = poolModel.removeTime
-        pool.baseCharge = poolModel.baseCharge
-        pool.boyBegin = poolModel.boyBegin
-        pool.girlBegin = poolModel.girlBegin
-        pool.ageIncrement = poolModel.ageIncrement
-        pool.sexIncrement = poolModel.sexIncrement
+        pool.name = poolModel.name
+        # pool.realRequired = poolModel.realRequired
+        # pool.initChance = poolModel.initChance
+        # pool.removeTime = poolModel.removeTime
+        # pool.baseCharge = poolModel.baseCharge
+        # pool.boyBegin = poolModel.boyBegin
+        # pool.girlBegin = poolModel.girlBegin
+        # pool.ageIncrement = poolModel.ageIncrement
+        # pool.sexIncrement = poolModel.sexIncrement
         pool.requirement = poolModel.requirement
+        pool.detail = poolModel.detail.decode()
         return pool
 
 
@@ -157,6 +163,21 @@ class ActivityListConverter:
         activity.time = str(activityModel.activityBeginTime) + " - " + str(activityModel.activityEndTime)
         activity.address = activityModel.location
         """这边先写一个mock"""
-        activity.numberOfRead = 10
-        activity.numberOfSign = 10
+        activity.numOfRead = 10
+        activity.numOfSign = 10
         return activity
+
+
+class PoolListConverter:
+
+    def toVO(self, poolModel: PoolModel):
+        pool = PoolListVO()
+        pool.id = poolModel.id
+        pool.url = poolModel.url
+        pool.title = poolModel.name
+        pool.time = poolModel.createTime
+        pool.address = poolModel.city
+        pool.requirement = "南京工作或在读"
+        pool.numOfBoy = 301
+        pool.numOfGirl = 301
+        return pool

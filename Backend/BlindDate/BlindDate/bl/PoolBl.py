@@ -3,7 +3,7 @@ from factory import DaoFactory
 from factory.DaoFactory import userDao
 from model import PoolJoinModel, LoveRelationModel
 from utils.JwtUtil import JwtUtil
-from utils.converter import PoolConverter
+from utils.converter import PoolConverter, PoolListConverter
 from vo import PoolVO
 
 
@@ -22,7 +22,7 @@ class PoolBl(object):
         return PoolConverter().toVO(self.pool_dao.get_pool(pool_id))
 
     def get_pool(self, begin):
-        return [PoolConverter().toVO(i) for i in self.pool_dao.get_pool_list(begin)]
+        return [PoolListConverter().toVO(i) for i in self.pool_dao.get_pool_list(begin)]
 
     def get_pool_by_user(self, user_id):
         return self.pool_dao.get_pool_by_user(user_id)
@@ -31,10 +31,7 @@ class PoolBl(object):
         """ 先检查有没有参加过　"""
         print(str(pID)+" "+str(username))
         user = userDao.get_user_by_username(username)
-        try:
-            self.pool_join_dao.getPoolJoin(user.id, pID)
-        except AlreadyExists:
-            raise AlreadyExists
+        self.pool_join_dao.getPoolJoin(user.id, pID)
         self.pool_join_dao.insert(PoolJoinModel(pID, user.id))
 
     def love_some_one(self, uID, username, poolID):

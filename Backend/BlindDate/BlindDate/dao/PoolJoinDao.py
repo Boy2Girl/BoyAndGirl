@@ -11,6 +11,7 @@ class PoolJoinDao(DaoUtil):
         try:
             join = session.query(PoolJoinModel).filter(PoolJoinModel.userID == user_id).\
                 filter(PoolJoinModel.poolID == pool_id).first()
+            print(join)
             if join:
                 raise AlreadyExists
         except AlreadyExists:
