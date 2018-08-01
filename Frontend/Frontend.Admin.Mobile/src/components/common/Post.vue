@@ -4,14 +4,14 @@
     <div style="width: 65%; float: left; margin-top: 1%">
       <div style="margin-bottom: 2px">
         <font style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{education}}</font>
-        <font style="font-weight: bolder">{{username}}</font>
+        <font style="font-weight: bolder">{{form.username}}</font>
       </div>
       <group>
-        <cell class="cell-font" title="出生年份:"> {{birthDate}}</cell>
-        <cell class="cell-font" title="所在城市:"> {{city}}</cell>
-        <cell class="cell-font" title="应征是否需要审核：">{{isCheck}}</cell>
-        <cell class="cell-font" title="本科学校:">{{school}}</cell>
-        <cell class="cell-font" title="职业:">{{career}}</cell>
+        <cell class="cell-font" title="出生年份:"> {{form.birthDate}}</cell>
+        <cell class="cell-font" title="所在城市:"> {{form.city}}</cell>
+        <cell class="cell-font" title="应征是否需要审核：">{{form.isCheck}}</cell>
+        <cell class="cell-font" title="本科学校:">{{form.school}}</cell>
+        <cell class="cell-font" title="职业:">{{form.career}}</cell>
       </group>
     </div>
     <div style="width: 30%; float: right; margin-right: 2%; margin-top: 30px">
@@ -31,15 +31,20 @@
         },
         data(){
           return {
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            isCheck: '是',
-            school: '南京大学',
-            career: '金融',
+            form:{
+              education: '本',
+              username: 'dhh',
+              birthDate: '1980',
+              city: '南京',
+              isCheck: '是',
+              school: '南京大学',
+              career: '金融',
+            },
             source: require("../../assets/logo.jpg")
           }
+        },
+        methods:{
+          
         }
     }
 </script>
