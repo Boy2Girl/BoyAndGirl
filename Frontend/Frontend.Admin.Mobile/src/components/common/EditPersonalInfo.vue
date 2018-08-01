@@ -15,7 +15,7 @@
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高:" v-model="form.p_height"/>
-      <datetime title="出生日期" v-model="form.birthDate" value-text-align="left"/>
+      <datetime class="cell-font" title="出生日期" v-model="form.birthDate" value-text-align="left"/>
       <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right"
                     v-model="form.marriage"/>
       <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="form.friend"/>
@@ -138,7 +138,7 @@
           index: '',
           gender: [],
           p_height: '',
-          birthDate: '2828',
+          birthDate: '',
           marriage: [],
           friend: [],
           hometown: '',
