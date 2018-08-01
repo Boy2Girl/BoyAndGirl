@@ -1,8 +1,6 @@
 <template>
   <div>
-    <FileUPloader :url="actionUrl" v-on:child-say="listenToMyBoy">
-
-    </FileUPloader>
+    <FileUPloader :url="actionUrl" v-on:child-say="listenToMyBoy"/>
     <!-- <group label-width="4.5em" label-margin-right="2em" label-align="right"> -->
        <x-input title="活动名称" v-model="name"/>
       <datetime title="活动开始时间" v-model="activityBeginTime" value-text-align="left"/>
