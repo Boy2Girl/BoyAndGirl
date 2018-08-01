@@ -133,3 +133,8 @@ class PostListVo:
 class RecruitVo:
     def __init__(self):
         pass
+
+
+class UserListVO:
+    def __init__(self):
+        pass

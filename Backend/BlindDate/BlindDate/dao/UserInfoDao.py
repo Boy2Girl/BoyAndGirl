@@ -12,8 +12,6 @@ class UserInfoDao(DaoUtil):
     def get_user_info(self, user_id):
         try:
             user_info = session.query(UserInfoModel).filter(UserInfoModel.id == user_id).first()
-            if not user_info:
-                raise NotFoundException
             return user_info
         except NotFoundException:
             raise NotFoundException
@@ -38,6 +36,13 @@ class UserInfoDao(DaoUtil):
             raise AlreadyExists
         finally:
             session.close()
+
+    def get_all(self):
+        try:
+            user_info = session.query(UserInfoModel).all()
+            return user_info
+        except:
+            traceback.print_exc()
 
 
 

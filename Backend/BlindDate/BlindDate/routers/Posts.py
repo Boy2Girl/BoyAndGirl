@@ -7,6 +7,7 @@ from factory.BlFactory import postsBl, userInfoBl
 from model import PoolModel
 from publicdata import Role
 from utils import JwtUtil
+from utils.DateEncoder import DateEncoderUtil
 
 ns = Namespace('posts', description='关于用户')
 
@@ -39,9 +40,23 @@ class Posts(Resource):
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('我的应征')
     @ns.expect()
-    def fetch(self):
-        user_id = request.form['userId']
-        return postsBl.get_my_posts(user_id), 200
+    def patch(self):
+        username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+        return [DateEncoderUtil().changeDate(i) for i in postsBl.get_my_posts(username)], 200
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('获取全部应征')
+    @ns.expect()
+    def get(self):
+        # username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+        return [DateEncoderUtil().changeDate(i) for i in postsBl.get_all()], 200
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('获取全部应征')
+    @ns.expect()
+    def delete(self):
+        username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+        return [DateEncoderUtil().changeDate(i) for i in postsBl.get_my(username)], 200
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('创建一个发帖应征')

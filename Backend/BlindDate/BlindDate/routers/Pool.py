@@ -44,12 +44,12 @@ class Pool(Resource):
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取我的交友池列表')
-    
     def patch(self):
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         # begin = request.args['begin']
         # my_list=request.args['']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool_by_user(username)]
+        return result
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('报名进入候选池')
@@ -72,6 +72,18 @@ class Pool(Resource):
             result = poolBl.add_pool(PoolVO(form=request.form))
             return result, 200
         except InsertException:
+            return None, 404
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('检查是不是报名了这个交友池')
+    def delete(self):
+        try:
+            pID = request.form['pID']
+            username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+            result = poolBl.check_register(username, pID)
+            print("返回了")
+            return result.poolID, 200
+        except NotFoundException:
             return None, 404
 
 

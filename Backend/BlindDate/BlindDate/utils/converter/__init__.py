@@ -1,5 +1,5 @@
 from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo, UserListVO
 
 
 class UserConverter:
@@ -226,3 +226,34 @@ class RecruitListConverter:
         recruit.id = recruitModel.id
         recruit.userId = recruitModel.userID
         recruit.time = recruitModel.time
+
+
+class PostsListConverter:
+
+    def toVO(self, posts: PostsModel, userInfo: UserInfoModel):
+        post = PostListVo()
+        post.id = posts.id
+        post.education = userInfo.education
+        post.username = userInfo.name
+        post.birthDate = userInfo.bornDate
+        post.city = userInfo.city
+        post.school = userInfo.collageSchool
+        post.career = userInfo.job
+        post.source = userInfo.avatar
+        return post
+
+
+class UserListConverter:
+
+    def toVO(self, userInfo: UserInfoModel):
+        post = UserListVO()
+        post.id = userInfo.id
+        post.education = userInfo.education
+        post.username = userInfo.name
+        post.birthDate = userInfo.bornDate
+        post.city = userInfo.city
+        post.school = userInfo.collageSchool
+        post.career = userInfo.job
+        post.source = userInfo.avatar
+        return post
+

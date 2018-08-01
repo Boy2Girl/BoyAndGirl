@@ -33,7 +33,10 @@ class PoolBl(object):
         """ 先检查有没有参加过　"""
         print(str(pID)+" "+str(username))
         user = userDao.get_user_by_username(username)
-        self.pool_join_dao.getPoolJoin(user.id, pID)
+        result = self.pool_join_dao.getPoolJoin(user.id, pID)
+        print(result)
+        if result:
+            raise AlreadyExists
         self.pool_join_dao.insert(PoolJoinModel(pID, user.id))
 
     def love_some_one(self, uID, username, poolID):
@@ -53,4 +56,14 @@ class PoolBl(object):
     def get_true_love(self, username, pool_id):
         user = userDao.get_user_by_username(username)
         return self.love_relation_dao.get_true_love(user.id, pool_id)
+
+    def check_register(self, username, pID):
+        print(str(pID) + " " + str(username))
+        user = userDao.get_user_by_username(username)
+        print(str(pID) + " " + str(user.id))
+        result = self.pool_join_dao.getPoolJoin(user.id, pID)
+        print(result)
+        if not result:
+            raise NotFoundException
+        return result
 
