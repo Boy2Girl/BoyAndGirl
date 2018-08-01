@@ -19,6 +19,10 @@
       <x-input class="cell-font" title="出生日期:" :value="birthDate"/>
       <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right" v-model="state"/>
       <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="type"/>
+      <x-input class="cell-font" title="电话:" :value="phone"/>
+      <x-input class="cell-font" title="邮箱:" :value="email"/>
+      <x-input class="cell-font" title="qq:" :value="qq"/>
+      <x-input class="cell-font" title="微信:" :value="wechat"/>
     </group>
 
     <div class="sub-title">
@@ -70,6 +74,11 @@
     </group>
 
     <div class="sub-title">
+      身份证
+    </div>
+    <img src="../../assets/add.png" class="photo"/>
+
+    <div class="sub-title">
       学生证
     </div>
     <img src="../../assets/add.png" class="photo"/>
@@ -79,12 +88,34 @@
     </div>
     <img src="../../assets/add.png" class="photo"/>
 
+    <div class="sub-title">
+      其他身份学历及证明
+    </div>
+    <group>
+      <img :src="source" class="photo"/>
+      <img src="../../assets/add.png" class="photo"/>
+    </group>
+
     <x-button style="margin-top: 10px" type="primary">保存</x-button>
   </div>
 </template>
 
 <script>
-  import { XButton, GroupTitle, Group, Cell, XInput, Selector, PopupPicker, Datetime, XNumber, ChinaAddressData, XAddress, XTextarea, XSwitch } from 'vux'
+  import {
+    XButton,
+    GroupTitle,
+    Group,
+    Cell,
+    XInput,
+    Selector,
+    PopupPicker,
+    Datetime,
+    XNumber,
+    ChinaAddressData,
+    XAddress,
+    XTextarea,
+    XSwitch
+  } from 'vux'
 
   export default {
     components: {
@@ -101,9 +132,13 @@
       XTextarea,
       XSwitch
     },
-    data () {
+    data() {
       return {
         source: require('../../assets/background.jpg'),
+        phone: ' ',
+        email: ' ',
+        qq: '',
+        wechat: '',
         nickname: ' ',
         index: '',
         gender: [],
@@ -129,7 +164,7 @@
         family_state: '',
         about_you: '',
         about_me: '',
-        list_gender: [['男','女']],
+        list_gender: [['男', '女']],
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
         list_type: [['恋爱', '结婚']]
       }
@@ -138,7 +173,7 @@
 </script>
 
 <style scoped>
-  .sub-title{
+  .sub-title {
     background-color: #875927;
     color: white;
     padding: 4px;
@@ -149,14 +184,14 @@
     margin-top: 20px;
   }
 
-  .cell-font{
+  .cell-font {
     font-size: smaller;
     padding-bottom: 2px;
     padding-top: 2px;
     value-text-align: right;
   }
 
-  .photo{
+  .photo {
     width: 25%;
     height: 25%;
     margin: 5%;

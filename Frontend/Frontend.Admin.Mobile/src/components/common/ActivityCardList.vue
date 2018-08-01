@@ -8,9 +8,7 @@
           <div class="content-title">
             {{item.title}}
           </div>
-          <div class="content-tag">
-            <div class="content-tag" style="background-color: blue;color:white;">品牌活动
-            </div>
+          <div>
             <div class="content-tag">
               <div class="content-tag" style="background-color: blue;color:white;">品牌活动
               </div>
@@ -27,22 +25,22 @@
             </div>
           </div>
         </div>
-        <div slot="footer" class="card-footer">
-          <flexbox>
-            <flexbox-item>
-              <div class="info">
-                <Icon type="ios-heart-outline"/>
-                {{item.numOfRead}} 阅读
-              </div>
-            </flexbox-item>
-            <flexbox-item>
-              <div class="info">
-                <Icon type="ios-people" style="color: deepskyblue"/>
-                {{item.numOfSign}} 报名
-              </div>
-            </flexbox-item>
-          </flexbox>
-        </div>
+      </div>
+      <div slot="footer">
+        <flexbox>
+          <flexbox-item>
+            <div class="info">
+              <Icon type="ios-heart-outline"/>
+              {{item.numOfRead}} 阅读
+            </div>
+          </flexbox-item>
+          <flexbox-item>
+            <div class="info">
+              <Icon type="ios-people" style="color: deepskyblue"/>
+              {{item.numOfSign}} 报名
+            </div>
+          </flexbox-item>
+        </flexbox>
       </div>
     </card>
   </div>
@@ -130,12 +128,14 @@
     text-align: center;
     padding: 1px;
     border-radius: 5px;
+    opacity: 0.85;
   }
 
   .content-time {
   }
 
   .content-address {
+    float: left;
   }
 
   .info {
