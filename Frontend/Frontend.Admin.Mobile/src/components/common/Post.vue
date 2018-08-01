@@ -29,6 +29,7 @@
 <script>
   import {CellFormPreview, Group, Cell, XButton} from 'vux'
   import PostsApi from '../../api/posts'
+import posts from '../../api/posts';
   export default {
 
     components: {
@@ -62,6 +63,15 @@
           console.log("上传互选池失败")
         }
       },
+      getSuccess: function(status, text){
+        if(status == 200){
+          let result = (JSON.parse(text))
+          console.log(result)
+          this.postList = result
+        }else if(status == 500){
+          console.log("上传互选池失败")
+        }
+      },
       fail: function(err){
         console.log("错误发生了！！！")
         console.log(err)
@@ -69,6 +79,17 @@
       recruit(){
         PostsApi.recruit_someone(3,this.success,this.fail)
       }
+    },
+    mounted(){
+      let name = this.$route.name
+      if(name == 'posts')
+        PostsApi.getAll(this.getSuccess, this.fail)
+      else if(name == 'myPostOne')
+        PostsApi.getByUser(this.getSuccess,this.fail)
+      else if(name == 'OnePostMe'){
+        PostsApi.getMy(this.getSuccess,this.fail)
+      }
+
     }
   }
 </script>

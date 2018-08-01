@@ -1,7 +1,7 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addPosts,recruit_someone
+  addPosts,recruit_someone,getByUser,getAll,getMy
 }
 /**
    * @param {function} name
@@ -24,4 +24,22 @@ async function recruit_someone(postsID,resolve, reject) {
     var data = new FormData()
     data.append('postsID', postsID)
     base.query(data, resolve, reject, '/posts', METHOD.POST)
+}
+
+async function getByUser(resolve, reject) {
+    console.log('in add posts:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/posts', METHOD.PATCH)
+}
+
+async function getAll(resolve, reject) {
+    console.log('in add posts:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/posts', METHOD.GET)
+}
+
+async function getMy(resolve, reject) {
+    console.log('in add posts:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/posts', METHOD.DELETE)
 }

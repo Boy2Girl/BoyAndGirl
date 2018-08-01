@@ -81,6 +81,7 @@ const routes = [
       {
         path: 'posts',
         component: PostsPage,
+        name: 'posts',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         }
@@ -102,6 +103,7 @@ const routes = [
       {
         path: 'myPostOne',
         component: MyPostOnePage,
+        name: "myPostOne",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
@@ -109,6 +111,7 @@ const routes = [
       {
         path: 'OnePostMe',
         component: OnePostMePage,
+        name: 'OnePostMe',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }

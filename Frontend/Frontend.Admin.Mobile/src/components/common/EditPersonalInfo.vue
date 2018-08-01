@@ -142,7 +142,6 @@
         actionUrl : "http://127.0.0.1:5000/api/test",
         source: require('../../assets/background.jpg'),
         form:{
-          id: 1,
           avatarUrl:'',
           personUrl: '',
           studentUrl: '',
