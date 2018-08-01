@@ -43,6 +43,14 @@ class Pool(Resource):
         return result, 200
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('获取我的交友池列表')
+    def fetch(self):
+        begin = request.args['begin']
+        my_list=request.args['']
+        result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool(begin)]
+        return result, 200
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('报名进入候选池')
     @ns.expect(pool_parameters)
     def post(self):
