@@ -51,8 +51,14 @@ export default{
     var data = new FormData()
     base.query(data, resolve, reject, '/user/info'+'/'+id, METHOD.GET)
   },
-  addUserInfo
+  addUserInfo,getUserList
 
+}
+
+async function getUserList(resolve, reject) {
+  console.log('in add userInfo:')
+  var data = new FormData()
+  base.query(data, resolve, reject, '/user', METHOD.GET)
 }
 
 /**

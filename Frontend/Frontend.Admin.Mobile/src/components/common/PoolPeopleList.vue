@@ -37,7 +37,7 @@
 
 <script>
   import {Card} from 'vux';
-
+  import UserApi from '../../api/user' 
   export default {
 
     components: {
@@ -59,6 +59,24 @@
           }
         ]
       }
+    },
+    methods:{
+      success: function (status, text) {
+        if (status === 200) {
+          let result = JSON.parse(text);
+          console.log(result);
+          this.poolPeopleList = result
+        }
+        else
+          console.log("有错误发生了")
+      },
+    
+      fail: function (err) {
+        console.log(err)
+      }
+    },
+    mounted(){
+      UserApi.getUserList(this.success,this.fail)
     }
   }
 </script>
