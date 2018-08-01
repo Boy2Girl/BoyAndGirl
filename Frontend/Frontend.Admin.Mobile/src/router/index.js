@@ -15,7 +15,8 @@ import AdminPoolDetailPage from '../components/page/admin/AdminPoolDetailPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
 import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
 import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
-import PersonalPostPage from '../components/page/user/PersonalPostPage';
+import MyPostOnePage from '../components/page/user/MyPostOnePage';
+import OnePostMePage from '../components/page/user/OnePostMePage'
 import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
 import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
 import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
@@ -89,8 +90,15 @@ const routes = [
         }
       },
       {
-        path: 'myPost',
-        component: PersonalPostPage,
+        path: 'myPostOne',
+        component: MyPostOnePage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
+        path: 'OnePostMe',
+        component: OnePostMePage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
