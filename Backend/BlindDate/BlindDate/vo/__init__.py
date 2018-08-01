@@ -125,40 +125,11 @@ class PoolListVO:
         pass
 
 
-class PoolJoinVO:
-    __tablename__ = "PoolJoin"
-    joinID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
-    joinTime = db.Column(DATETIME)
-
-    def __init__(self, poolID, userID):
-        self.poolID = poolID
-        self.userID = userID
-        self.joinTime = datetime.now()
+class PostListVo:
+    def __init__(self):
+        pass
 
 
-class LoveRelationVO:
-    __tablename__ = "LoveRelation"
-    loveID = db.Column(VARCHAR(20), primary_key=True)
-    fromID = db.Column(Integer, db.ForeignKey('User.userID'))
-    toID = db.Column(Integer, db.ForeignKey('User.userID'))
-    poolID = db.Column(VARCHAR(20), db.ForeignKey('Pool.poolID'))
-    loveTime = db.Column(DATETIME)
-
-    def __init__(self, fromID, toID, poolID):
-        self.fromID = fromID
-        self.toID = toID
-        self.poolID = poolID
-        self.loveTime = datetime.now()
-
-
-class WatchInfoVO:
-    __tablename__ = "WatchInfo"
-    activityID = db.Column(VARCHAR(20), primary_key=True)
-    userID = db.Column(Integer, db.ForeignKey('User.userID'))
-    times = db.Column(Integer)
-    watchTime = db.Column(DATETIME)
-
-
-db.create_all()
+class RecruitVo:
+    def __init__(self):
+        pass

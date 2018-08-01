@@ -44,12 +44,12 @@ class Pool(Resource):
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取我的交友池列表')
+    
     def patch(self):
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         # begin = request.args['begin']
         # my_list=request.args['']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool_by_user(username)]
-        return result, 200
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('报名进入候选池')

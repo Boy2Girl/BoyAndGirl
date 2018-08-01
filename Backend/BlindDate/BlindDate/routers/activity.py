@@ -33,6 +33,11 @@ activity_get_parameters = ns.model('ActivityGetParameters', {
     'begin': fields.Integer(required=True, description='开始的编号，分页使用'),
     'isCurrent': fields.Boolean(required=True, description='是否是历史活动')
 })
+activity_mine_get_parameters = ns.model('ActivityMineGetParameters', {
+    'begin': fields.Integer(required=True, description='开始的编号，分页使用'),
+    'isCurrent': fields.Boolean(required=True, description='是否是历史活动'),
+    'userId': fields.String(required=True, description='用户ID')
+})
 
 activity_bl = BlFactory.activityBl
 
@@ -92,6 +97,20 @@ class Activity(Resource):
         is_current = request.args['isCurrent']
         try:
             activity_list = activity_bl.get_activity(begin, not is_current)
+            return [DateEncoderUtil().changeDate(i) for i in activity_list]
+        except NotFoundException:
+            return {"error": "can not find the page"}, 404
+        except SystemErrorException:
+            return {"error": "system is error"}, 500
+
+    @ns.doc('获取我的活动列表')
+    @ns.expect(activity_mine_get_parameters)
+    def fetch(self):
+        begin = request.args['begin']
+        is_current = request.args['isCurrent']
+        user_id = request.args['userId']
+        try:
+            activity_list = activity_bl.get_activity_by_id(begin, not is_current, user_id)
             return [DateEncoderUtil().changeDate(i) for i in activity_list]
         except NotFoundException:
             return {"error": "can not find the page"}, 404

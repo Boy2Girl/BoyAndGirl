@@ -3,7 +3,7 @@ from factory import DaoFactory
 from factory.DaoFactory import userDao
 from utils.JwtUtil import JwtUtil
 from model import ActivityModel, ActivityJoinModel, PostsModel, RecruitModel
-from utils.converter import ActivityConverter
+from utils.converter import ActivityConverter, RecruitListConverter
 from vo import ActivityVO
 
 
@@ -22,7 +22,5 @@ class PostsBl(object):
         self.recruit_dao.get_recruit(user.id, postsID)
         return self.recruit_dao.insert(RecruitModel(user.id, postsID, False))
 
-
-
-
-
+    def get_my_posts(self, user_id):
+        return [RecruitListConverter().toVO(i) for i in self.posts_dao.get_posts_by_user_id(user_id)]

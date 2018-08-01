@@ -1,18 +1,18 @@
 <template>
   <div>
-    <pool-tab/>
-    <pool-people-list/>
+    <post-tab/>
+    <Post/>
   </div>
 </template>
 
 <script>
-  import PoolPeopleList from '../../common/PoolPeopleList.vue';
+  import Post from '../../common/Post.vue';
   import Info from '../../common/PersonalInfo.vue';
-  import PoolTab from '../../common/PoolTab.vue';
+  import PostTab from '../../common/PostTab.vue';
 
   export default {
     components: {
-      PoolTab, PoolPeopleList
+      Post, Info, PostTab
     }
   }
 </script>
