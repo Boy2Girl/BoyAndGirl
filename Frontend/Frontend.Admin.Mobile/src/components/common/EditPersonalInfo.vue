@@ -9,16 +9,15 @@
       <!-- <img src="../../assets/add.png" class="photo"/> -->
     </group>
 
-    <div class="sub-title">
-      基本信息
-    </div>
+    <sub-title value="基本信息"/>
     <group>
       <cell class="cell-font" title="昵称:" v-model="form.nickname"/>
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高:" v-model="form.p_height"/>
-       <datetime title="出生日期" v-model="form.birthDate" value-text-align="left"/>
-      <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right" v-model="form.marriage"/>
+      <datetime title="出生日期" v-model="form.birthDate" value-text-align="left"/>
+      <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right"
+                    v-model="form.marriage"/>
       <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="form.friend"/>
       <x-input class="cell-font" title="电话:" v-model="form.phone"/>
       <x-input class="cell-font" title="邮箱:" v-model="form.email"/>
@@ -26,18 +25,15 @@
       <x-input class="cell-font" title="微信:" v-model="form.wechat"/>
     </group>
 
-    <div class="sub-title">
-      坐标
-    </div>
+
+    <sub-title value="坐标"/>
     <group>
       <x-input class="cell-font" title="家乡:" v-model="form.hometown"/>
       <x-input class="cell-font" title="所在城市:" v-model="form.city"/>
       <x-input class="cell-font" title="居住地点：" v-model="form.live"/>
     </group>
 
-    <div class="sub-title">
-      学校
-    </div>
+    <sub-title value="学校"/>
     <group>
       <x-input class="cell-font" title="目前状态:" v-model="form.studyState"/>
       <x-input class="cell-font" title="本科学校:" v-model="form.collageSchool"/>
@@ -47,9 +43,7 @@
       <x-input class="cell-font" title="专业:" v-model="form.major"/>
     </group>
 
-    <div class="sub-title">
-      工作
-    </div>
+    <sub-title value="工作"/>
     <group>
       <x-input class="cell-font" title="工作单位:" v-model="form.corporation"/>
       <x-input class="cell-font" title="工作状况:" v-model="form.work_state"/>
@@ -58,41 +52,28 @@
       <x-input class="cell-font" title="年收入（实际/预期）:" v-model="form.income"/>
     </group>
 
-    <div class="sub-title">
-      住房/家庭情况
-    </div>
+    <sub-title value="住房/家庭情况"/>
     <group>
       <x-input class="cell-font" title="住房情况:" v-model="form.house_state"/>
       <x-input class="cell-font" title="家庭情况:" v-model="form.family_state"/>
     </group>
 
-    <div class="sub-title">
-      想说的话
-    </div>
+    <sub-title value="想说的话"/>
     <group>
       <x-textarea class="cell-font" title="关于我:" v-model="form.about_me"/>
       <x-textarea class="cell-font" title="关于你:" v-model="form.about_you"/>
     </group>
 
-    <div class="sub-title">
-      
-      身份证
-    </div>
+    <sub-title value="身份证"/>
     <FileUPloader :url="actionUrl" v-on:child-say="getPerson"/>
 
-    <div class="sub-title">
-      学生证
-    </div>
+    <sub-title value="学生证"/>
     <FileUPloader :url="actionUrl" v-on:child-say="getStudent"/>
 
-    <div class="sub-title">
-      本科毕业证
-    </div>
+    <sub-title value="本科毕业证"/>
     <FileUPloader :url="actionUrl" v-on:child-say="getGraduate"/>
 
-    <div class="sub-title">
-      其他身份学历及证明
-    </div>
+    <sub-title value="其他身份学历及证明"/>
     <group>
       <!-- <img :src="source" class="photo"/> -->
       <FileUPloader :url="actionUrl" v-on:child-say="getOthers"/>
@@ -104,7 +85,8 @@
 
 <script>
   import FileUPloader from './FileUploader'
-  import UserApi from '../../api/user' 
+  import UserApi from '../../api/user'
+  import SubTitle from './SubTitle'
   import {
     XButton,
     GroupTitle,
@@ -123,6 +105,7 @@
 
   export default {
     components: {
+      SubTitle,
       FileUPloader,
       XButton,
       Group,
@@ -139,11 +122,11 @@
     },
     data() {
       return {
-        actionUrl : "http://127.0.0.1:5000/api/test",
+        actionUrl: "http://127.0.0.1:5000/api/test",
         source: require('../../assets/background.jpg'),
-        form:{
+        form: {
           id: 1,
-          avatarUrl:'',
+          avatarUrl: '',
           personUrl: '',
           studentUrl: '',
           graduateUrl: '',
@@ -183,34 +166,34 @@
         list_type: [['恋爱', '结婚']]
       }
     },
-    methods:{
-      getAvatar(url){
+    methods: {
+      getAvatar(url) {
         this.form.avatarUrl = url;
       },
-      getPerson(url){
+      getPerson(url) {
         this.form.personUrl = url
       },
-      getStudent(url){
+      getStudent(url) {
         this.form.studentUrl = url
       },
-      getGraduate(url){
+      getGraduate(url) {
         this.form.studentUrl = url
       },
-      getOthers(url){
+      getOthers(url) {
         this.form.otherUrl = url
       },
-      save_info(){
+      save_info() {
         console.log(this.form)
-        UserApi.addUserInfo(this.form,this.success,this.fail)
+        UserApi.addUserInfo(this.form, this.success, this.fail)
       },
-      success: function(status, text){
-        if(status == 200){
+      success: function (status, text) {
+        if (status == 200) {
           console.log("成功插入")
-        }else if(status == 500){
+        } else if (status == 500) {
           console.log("上传用户信息失败")
         }
       },
-      fail: function(err){
+      fail: function (err) {
         console.log("错误发生了！！！")
         console.log(err)
       }
@@ -219,17 +202,6 @@
 </script>
 
 <style scoped>
-  .sub-title {
-    background-color: #875927;
-    color: white;
-    padding: 4px;
-    width: 110%;
-    height: 110%;
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-top: 20px;
-  }
-
   .cell-font {
     font-size: smaller;
     padding-bottom: 2px;

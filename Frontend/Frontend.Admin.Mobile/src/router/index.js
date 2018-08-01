@@ -73,6 +73,7 @@ const routes = [
       },
       {
         path: 'poolPeople',
+        name: 'poolPeople',
         component: PoolPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -131,14 +132,14 @@ const routes = [
       {
         path: 'historyActivity',
         component: HistoryActivityPage,
-        name:"historyActivity",
+        name: "historyActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
       },
       {
         path: 'myPool',
-        name: 'mypool',
+        name: 'myPool',
         component: PersonalPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -200,15 +201,16 @@ const router = new VueRouter({
 });
 
 export default router;
-function success(status, text){
-  if(status == 200){
+
+function success(status, text) {
+  if (status === 200) {
     console.log("成功")
-  }else if(status == 403){
+  } else if (status === 403) {
     console.log("失败")
   }
 }
 
-function fail(err){
+function fail(err) {
   console.log("错误发生了")
   console.log(err)
 }
@@ -216,8 +218,8 @@ function fail(err){
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   next();
-  if (to.meta.requireAuth||true) {
-    CheckApi.check(success,fail)
+  if (to.meta.requireAuth || true) {
+    CheckApi.check(success, fail)
   }
 })
 //   fetch(address+"user/checkState", {

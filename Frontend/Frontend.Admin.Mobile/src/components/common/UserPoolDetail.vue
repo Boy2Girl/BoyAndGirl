@@ -22,7 +22,7 @@
 <script>
   import {XInput, Datetime, XButton, GroupTitle, Swiper} from "vux";
   import Cell from "vux/src/components/cell/index";
-  import PoolApi from '../../api/pool' 
+  import PoolApi from '../../api/pool'
 
   export default {
     components: {
@@ -42,37 +42,37 @@
         this.detail = e;
         console.info(e);
       },
-      success: function(status, text){
-        if(status == 200){
-          let result = JSON.parse(text)
-          this.img = result.url
-          this.city = result.city
-          this.name = result.name
-          this.detail = result.detail
-          this.createTime = result.createTime
-        }else if(status == 404){
+      success: function (status, text) {
+        if (status === 200) {
+          let result = JSON.parse(text);
+          this.img = result.url;
+          this.city = result.city;
+          this.name = result.name;
+          this.detail = result.detail;
+          this.createTime = result.createTime;
+        } else if (status === 404) {
           console.log("没有找到该候选池")
         }
       },
-      register_success: function(){
-        if(status == 200){
-           console.log("报名成功")
-        }else if(status == 404){
+      register_success: function () {
+        if (status === 200) {
+          console.log("报名成功")
+        } else if (status === 404) {
           console.log("没有找到这个候选池")
-        }else if(status == 403){
+        } else if (status === 403) {
           console.log("已经报名了这个候选池")
         }
       },
-      register_pool: function(){
-         PoolApi.registerPool(1, this.register_success, this.fail)
+      register_pool: function () {
+        PoolApi.registerPool(1, this.register_success, this.fail)
       },
-      fail: function(err){
+      fail: function (err) {
         console.log("错误发生了！！！")
         console.log(err)
       }
     },
-    mounted(){
-      PoolApi.getPool(this.$route.params.id, this.success, this.fail)
+    mounted() {
+      PoolApi.getPool(this.$route.params.id, this.success, this.fail);
     }
   }
 </script>

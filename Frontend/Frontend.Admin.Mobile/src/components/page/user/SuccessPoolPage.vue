@@ -7,7 +7,6 @@
 
 <script>
   import PoolPeopleList from '../../common/PoolPeopleList.vue';
-  import Info from '../../common/PersonalInfo.vue';
   import PoolTab from '../../common/PoolTab.vue';
 
   export default {
