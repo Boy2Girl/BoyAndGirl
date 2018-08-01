@@ -8,6 +8,8 @@
       <cell title="创建时间">{{createTime}}</cell>
       <cell title="所属城市">{{city}}</cell>
     </group>
+    <x-button type="primary" class="btn btn-bottom" @click.native="register_pool">确认报名
+    </x-button>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <group-title slot="title">
         <div style="padding: 5%">简述</div>
@@ -20,6 +22,7 @@
 <script>
   import {XInput, Datetime, XButton, GroupTitle, Swiper} from "vux";
   import Cell from "vux/src/components/cell/index";
+  import PoolApi from '../../api/pool' 
 
   export default {
     components: {
@@ -38,7 +41,39 @@
       updateData(e = '') {
         this.detail = e;
         console.info(e);
+      },
+      success: function(status, text){
+        if(status == 200){
+          let result = JSON.parse(text)
+          this.img = result.url
+          this.city = result.city
+          this.name = result.name
+          this.detail = result.detail
+          this.createTime = result.createTime
+        }else if(status == 404){
+          console.log("没有找到该候选池")
+        }
+      },
+      register_success: function(){
+        if(status == 200){
+           console.log("报名成功")
+        }else if(status == 404){
+          console.log("没有找到这个候选池")
+        }else if(status == 403){
+          console.log("已经报名了这个候选池")
+        }
+      },
+      register_pool: function(){
+         PoolApi.registerPool(1, this.register_success, this.fail)
+      },
+      fail: function(err){
+        console.log("错误发生了！！！")
+        console.log(err)
       }
+    },
+    mounted(){
+      PoolApi.getPool(1, this.success, this.fail)
+      
     }
   }
 </script>

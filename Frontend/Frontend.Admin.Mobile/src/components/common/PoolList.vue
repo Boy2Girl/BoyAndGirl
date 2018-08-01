@@ -2,7 +2,7 @@
   <div>
     <card v-for="item in poolList" v-bind:key="item.id">
       <div slot="content" class="card-padding">
-        <img src="http://placeholder.qiniudn.com/640x300"
+        <img :src="item.url"
              style="width:80px;height:80px;display:inline;padding-right: 2%">
         <div class="content">
           <div class="content-title">
@@ -39,7 +39,7 @@
 
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
-
+  import PoolApi from '../../api/pool'
   export default {
     components: {
       Card, XButton, Flexbox, FlexboxItem
@@ -49,6 +49,7 @@
         poolList: [
           {
             id: 1,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "南京互选池",
             time: "2018年02月21日",
             address: "南京",
@@ -58,6 +59,7 @@
           },
           {
             id: 1,
+            url: "http://placeholder.qiniudn.com/640x300",
             title: "南京互选池",
             time: "2018年02月21日",
             address: "南京",
@@ -67,6 +69,23 @@
           }
         ]
       }
+    },
+    methods: {
+      success:function(status,text){
+        if(status == 200){
+        let result = JSON.parse(text)
+        console.log(result)
+        this.poolList = result
+        }
+        else
+        console.log("有错误发生了")
+      },
+      fail:function(err){
+        console.log(err)
+      }
+    },
+    mounted(){
+      PoolApi.getAllPool(1,this.success,this.fail)
     }
   }
 </script>

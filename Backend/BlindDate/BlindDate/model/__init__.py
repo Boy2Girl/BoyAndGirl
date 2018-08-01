@@ -69,17 +69,20 @@ class ActivityModel(db.Model):
 class PoolModel(db.Model):
     __tablename__ = "Pool"
     id = db.Column(Integer, primary_key=True)
+    name = db.Column(VARCHAR(100))
+    url = db.Column(VARCHAR(100))
     createTime = db.Column(DATE)
     city = db.Column(VARCHAR(100))
-    realRequired = db.Column(Boolean)
-    initChance = db.Column(Integer)
-    removeTime = db.Column(DATE)
-    baseCharge = db.Column(Float)
-    boyBegin = db.Column(Integer)
-    girlBegin = db.Column(Integer)
-    ageIncrement = db.Column(Float)
-    sexIncrement = db.Column(Float)
+    # realRequired = db.Column(Boolean)
+    # initChance = db.Column(Integer)
+    # removeTime = db.Column(DATE)
+    # baseCharge = db.Column(Float)
+    # boyBegin = db.Column(Integer)
+    # girlBegin = db.Column(Integer)
+    # ageIncrement = db.Column(Float)
+    # sexIncrement = db.Column(Float)
     requirement = db.Column(VARCHAR(200))
+    detail = db.Column(LONGBLOB)
 
     def __init__(self, **kwargs):
         pass

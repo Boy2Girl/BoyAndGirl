@@ -8,9 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from decorator.RoleRequest import login_require
 from exceptions import NotFoundException, AlreadyExists, InsertException
 from factory.BlFactory import userInfoBl
-from model import UserInfoModel
 from publicdata import Role
-from utils import DateEncoder
 from utils.DateEncoder import DateEncoderUtil
 from vo import UserInfoVO
 
