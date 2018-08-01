@@ -52,31 +52,44 @@
       }
     },
     methods: {
-      success:function(status,text){
-        if(status == 200){
-        let result = JSON.parse(text)
-        console.log(result)
-        this.poolList = result
+      success: function (status, text) {
+        if (status === 200) {
+          let result = JSON.parse(text);
+          console.log(result);
+          this.poolList = result
         }
         else
-        console.log("有错误发生了")
+          console.log("有错误发生了")
       },
-      fail:function(err){
+      
+      route: function(id){
+        console.log("打印")
+        console.log(this)
+        PoolApi.checkRegister(id, this.checkSuccess, this.fail)
+      },
+      fail: function (err) {
         console.log(err)
       },
-      route: (id) => {
-        router.push('/user/pool/' + id);
+      checkSuccess(status,text){
+        if(status == 200){
+           console.log(text)
+           console.log("已经报名")
+           router.push('/user/poolPeople/'+text);
+        }else if(status == 404){
+          router.push('/user/pool/' + text);
+          console.log("没有报名")
+        }
       }
     },
-    mounted(){
+    mounted() {
       let name = this.$route.name;
       console.log(name)
-      if(name == 'pool'){
-        PoolApi.getAllPool(0,this.success,this.fail)
-      }else if(name == 'mypool'){
-        PoolApi.getPoolByUser(this.success,this.fail)
-      }else if(name == 'successPool'){
-        PoolApi.getAllPool(0, this.success,this.fail)
+      if (name === 'pool') {
+        PoolApi.getAllPool(0, this.success, this.fail)
+      } else if (name === 'myPool') {
+        PoolApi.getPoolByUser(this.success, this.fail)
+      } else if (name === 'successPool') {
+        PoolApi.getAllPool(0, this.success, this.fail)
       }
     }
   }

@@ -11,7 +11,7 @@ import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
 import PostsPage from '../components/page/user/PostsPage';
-import AdminPoolDetailPage from '../components/page/admin/AdminPoolDetailPage';
+import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
 import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
 import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
@@ -72,7 +72,8 @@ const routes = [
         },
       },
       {
-        path: 'poolPeople',
+        path: 'poolPeople/:id',
+        name: 'poolPeople',
         component: PoolPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -134,14 +135,14 @@ const routes = [
       {
         path: 'historyActivity',
         component: HistoryActivityPage,
-        name:"historyActivity",
+        name: "historyActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
       },
       {
         path: 'myPool',
-        name: 'mypool',
+        name: 'myPool',
         component: PersonalPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -181,8 +182,8 @@ const routes = [
         },
       },
       {
-        path: 'poolDetail',
-        component: AdminPoolDetailPage,
+        path: 'poolAdd',
+        component: AdminPoolAddPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
@@ -203,15 +204,16 @@ const router = new VueRouter({
 });
 
 export default router;
-function success(status, text){
-  if(status == 200){
+
+function success(status, text) {
+  if (status === 200) {
     console.log("成功")
-  }else if(status == 403){
+  } else if (status === 403) {
     console.log("失败")
   }
 }
 
-function fail(err){
+function fail(err) {
   console.log("错误发生了")
   console.log(err)
 }
@@ -219,8 +221,8 @@ function fail(err){
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   next();
-  if (to.meta.requireAuth||true) {
-    CheckApi.check(success,fail)
+  if (to.meta.requireAuth || true) {
+    CheckApi.check(success, fail)
   }
 })
 //   fetch(address+"user/checkState", {
