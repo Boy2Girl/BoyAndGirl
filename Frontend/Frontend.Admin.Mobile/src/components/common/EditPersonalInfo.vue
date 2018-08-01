@@ -1,106 +1,110 @@
 <template>
   <div>
     <div class="sub-title">
-      个人相册
+      头像
     </div>
     <group>
-      <img :src="source" class="photo"/>
-      <img src="../../assets/add.png" class="photo"/>
+      <FileUPloader :url="actionUrl" v-on:child-say="getAvatar"/>
+      <!-- <img :src="source" class="photo"/> -->
+      <!-- <img src="../../assets/add.png" class="photo"/> -->
     </group>
 
     <div class="sub-title">
       基本信息
     </div>
     <group>
-      <cell class="cell-font" title="昵称:" :value="birthDate"/>
-      <cell class="cell-font" title="编号:" :value="index"/>
-      <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="gender"/>
-      <x-input class="cell-font" title="身高:" :value="p_height"/>
-      <x-input class="cell-font" title="出生日期:" :value="birthDate"/>
-      <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right" v-model="state"/>
-      <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="type"/>
-      <x-input class="cell-font" title="电话:" :value="phone"/>
-      <x-input class="cell-font" title="邮箱:" :value="email"/>
-      <x-input class="cell-font" title="qq:" :value="qq"/>
-      <x-input class="cell-font" title="微信:" :value="wechat"/>
+      <cell class="cell-font" title="昵称:" v-model="form.nickname"/>
+      <cell class="cell-font" title="编号:" v-model="form.index"/>
+      <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
+      <x-input class="cell-font" title="身高:" v-model="form.p_height"/>
+       <datetime title="出生日期" v-model="form.birthDate" value-text-align="left"/>
+      <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right" v-model="form.marriage"/>
+      <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="form.friend"/>
+      <x-input class="cell-font" title="电话:" v-model="form.phone"/>
+      <x-input class="cell-font" title="邮箱:" v-model="form.email"/>
+      <x-input class="cell-font" title="qq:" v-model="form.qq"/>
+      <x-input class="cell-font" title="微信:" v-model="form.wechat"/>
     </group>
 
     <div class="sub-title">
       坐标
     </div>
     <group>
-      <x-input class="cell-font" title="家乡:" v-model="hometown"/>
-      <x-input class="cell-font" title="所在城市:" v-model="city"/>
-      <x-input class="cell-font" title="居住地点：" v-model="live"/>
+      <x-input class="cell-font" title="家乡:" v-model="form.hometown"/>
+      <x-input class="cell-font" title="所在城市:" v-model="form.city"/>
+      <x-input class="cell-font" title="居住地点：" v-model="form.live"/>
     </group>
 
     <div class="sub-title">
       学校
     </div>
     <group>
-      <x-input class="cell-font" title="目前状态:" v-model="studyState"/>
-      <x-input class="cell-font" title="本科学校:" v-model="collageSchool"/>
-      <x-input class="cell-font" title="硕士学校:" v-model="masterSchool"/>
-      <x-input class="cell-font" title="博士学校:" v-model="doctorSchool"/>
-      <x-input class="cell-font" title="学历:" v-model="education"/>
-      <x-input class="cell-font" title="专业:" v-model="major"/>
+      <x-input class="cell-font" title="目前状态:" v-model="form.studyState"/>
+      <x-input class="cell-font" title="本科学校:" v-model="form.collageSchool"/>
+      <x-input class="cell-font" title="硕士学校:" v-model="form.masterSchool"/>
+      <x-input class="cell-font" title="博士学校:" v-model="form.doctorSchool"/>
+      <x-input class="cell-font" title="学历:" v-model="form.education"/>
+      <x-input class="cell-font" title="专业:" v-model="form.major"/>
     </group>
 
     <div class="sub-title">
       工作
     </div>
     <group>
-      <x-input class="cell-font" title="工作单位:" v-model="corporation"/>
-      <x-input class="cell-font" title="工作状况:" v-model="work_state"/>
-      <x-input class="cell-font" title="职业：" v-model="career"/>
-      <x-input class="cell-font" title="单位类型:" v-model="corporation_type"/>
-      <x-input class="cell-font" title="年收入（实际/预期）:" v-model="income"/>
+      <x-input class="cell-font" title="工作单位:" v-model="form.corporation"/>
+      <x-input class="cell-font" title="工作状况:" v-model="form.work_state"/>
+      <x-input class="cell-font" title="职业：" v-model="form.career"/>
+      <x-input class="cell-font" title="单位类型:" v-model="form.corporation_type"/>
+      <x-input class="cell-font" title="年收入（实际/预期）:" v-model="form.income"/>
     </group>
 
     <div class="sub-title">
       住房/家庭情况
     </div>
     <group>
-      <x-input class="cell-font" title="住房情况:" v-model="house_state"/>
-      <x-input class="cell-font" title="家庭情况:" v-model="family_state"/>
+      <x-input class="cell-font" title="住房情况:" v-model="form.house_state"/>
+      <x-input class="cell-font" title="家庭情况:" v-model="form.family_state"/>
     </group>
 
     <div class="sub-title">
       想说的话
     </div>
     <group>
-      <x-textarea class="cell-font" title="关于我:" v-model="about_me"/>
-      <x-textarea class="cell-font" title="关于你:" v-model="about_you"/>
+      <x-textarea class="cell-font" title="关于我:" v-model="form.about_me"/>
+      <x-textarea class="cell-font" title="关于你:" v-model="form.about_you"/>
     </group>
 
     <div class="sub-title">
+      
       身份证
     </div>
-    <img src="../../assets/add.png" class="photo"/>
+    <FileUPloader :url="actionUrl" v-on:child-say="getPerson"/>
 
     <div class="sub-title">
       学生证
     </div>
-    <img src="../../assets/add.png" class="photo"/>
+    <FileUPloader :url="actionUrl" v-on:child-say="getStudent"/>
 
     <div class="sub-title">
       本科毕业证
     </div>
-    <img src="../../assets/add.png" class="photo"/>
+    <FileUPloader :url="actionUrl" v-on:child-say="getGraduate"/>
 
     <div class="sub-title">
       其他身份学历及证明
     </div>
     <group>
-      <img :src="source" class="photo"/>
-      <img src="../../assets/add.png" class="photo"/>
+      <!-- <img :src="source" class="photo"/> -->
+      <FileUPloader :url="actionUrl" v-on:child-say="getOthers"/>
     </group>
 
-    <x-button style="margin-top: 10px" type="primary">保存</x-button>
+    <x-button style="margin-top: 10px" type="primary" @click.native="save_info">保存</x-button>
   </div>
 </template>
 
 <script>
+  import FileUPloader from './FileUploader'
+  import UserApi from '../../api/user' 
   import {
     XButton,
     GroupTitle,
@@ -119,6 +123,7 @@
 
   export default {
     components: {
+      FileUPloader,
       XButton,
       Group,
       GroupTitle,
@@ -134,39 +139,80 @@
     },
     data() {
       return {
+        actionUrl : "http://127.0.0.1:5000/api/test",
         source: require('../../assets/background.jpg'),
-        phone: ' ',
-        email: ' ',
-        qq: '',
-        wechat: '',
-        nickname: ' ',
-        index: '',
-        gender: [],
-        p_height: '',
-        birthDate: '2828',
-        state: [],
-        type: [],
-        hometown: '',
-        city: '',
-        live: '',
-        studyState: '',
-        collageSchool: '',
-        masterSchool: '',
-        doctorSchool: '',
-        education: '',
-        major: '',
-        corporation: '',
-        work_state: '',
-        career: '',
-        corporation_type: '',
-        income: '',
-        house_state: '',
-        family_state: '',
-        about_you: '',
-        about_me: '',
+        form:{
+          id: 1,
+          avatarUrl:'',
+          personUrl: '',
+          studentUrl: '',
+          graduateUrl: '',
+          otherUrl: '',
+          phone: ' ',
+          email: ' ',
+          qq: '',
+          wechat: '',
+          nickname: ' ',
+          index: '',
+          gender: [],
+          p_height: '',
+          birthDate: '2828',
+          marriage: [],
+          friend: [],
+          hometown: '',
+          city: '',
+          live: '',
+          studyState: '',
+          collageSchool: '',
+          masterSchool: '',
+          doctorSchool: '',
+          education: '',
+          major: '',
+          corporation: '',
+          work_state: '',
+          career: '',
+          corporation_type: '',
+          income: '',
+          house_state: '',
+          family_state: '',
+          about_you: '',
+          about_me: '',
+        },
         list_gender: [['男', '女']],
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
         list_type: [['恋爱', '结婚']]
+      }
+    },
+    methods:{
+      getAvatar(url){
+        this.form.avatarUrl = url;
+      },
+      getPerson(url){
+        this.form.personUrl = url
+      },
+      getStudent(url){
+        this.form.studentUrl = url
+      },
+      getGraduate(url){
+        this.form.studentUrl = url
+      },
+      getOthers(url){
+        this.form.otherUrl = url
+      },
+      save_info(){
+        console.log(this.form)
+        UserApi.addUserInfo(this.form,this.success,this.fail)
+      },
+      success: function(status, text){
+        if(status == 200){
+          console.log("成功插入")
+        }else if(status == 500){
+          console.log("上传用户信息失败")
+        }
+      },
+      fail: function(err){
+        console.log("错误发生了！！！")
+        console.log(err)
       }
     }
   }

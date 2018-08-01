@@ -30,7 +30,6 @@
           CellFormPreview, Group, Cell
         },
         data(){
-
           return {
             education: '本',
             username: 'dhh',
