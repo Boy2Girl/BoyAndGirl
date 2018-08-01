@@ -75,6 +75,21 @@ class Activity(Resource):
         except AlreadyExists:
             return {"error": "already exists"}, 405
 
+    @login_require(Role.USER)
+    @ns.doc('报名参加活动')
+    @ns.expect(activity_post_parameters)
+    def delete(self):
+        aID = request.form['aID']
+        try:
+            activity_bl.leave_activity(JwtUtil.get_token_username(flask.request.headers.get("token")), aID)
+            return None, 200
+        except NotFoundException:
+            return {"error": "can not find user or activity"}, 404
+        except InsertException:
+            return {"error": "system is error"}, 500
+        except AlreadyExists:
+            return {"error": "already exists"}, 405
+
     @ns.doc('获取活动列表')
     @ns.expect(activity_get_parameters)
     def get(self):
@@ -116,6 +131,39 @@ class ActivityAID(Resource):
         try:
             activity = activity_bl.get_activity_by_id(aID)
             return DateEncoderUtil().changeDate(activity), 200
+        except NotFoundException:
+            return {"error": "can not find the activity"}, 404
+        except SystemErrorException:
+            return {"error": "system is error"}, 500
+
+
+@ns.route('/user')
+@ns.response(200, 'OK')
+@ns.response(404, 'activity not found')
+@ns.response(403, 'access denied')
+@ns.response(500, 'system error')
+class ActivityAID(Resource):
+
+    @ns.doc('获取某一个特定的活动信息')
+    @ns.param(name="aId", description="活动的ID", _in="path")
+    def get(self):
+        try:
+            username = JwtUtil.get_token_username(flask.request.headers.get("token"))
+            activity = activity_bl.get_activity_by_user(username)
+            return [DateEncoderUtil().changeDate(i) for i in activity]
+        except NotFoundException:
+            return {"error": "can not find the activity"}, 404
+        except SystemErrorException:
+            return {"error": "system is error"}, 500
+
+    @ns.doc('检查有没有报名活动')
+    @ns.param(name="aId", description="活动的ID", _in="path")
+    def post(self):
+        try:
+            aID = request.form['aID']
+            username = JwtUtil.get_token_username(flask.request.headers.get("token"))
+            activity = activity_bl.check_register(username, aID)
+            return None,200
         except NotFoundException:
             return {"error": "can not find the activity"}, 404
         except SystemErrorException:

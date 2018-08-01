@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card v-for="item in poolList" v-bind:key="item.id">
+    <card v-for="item in poolList" v-bind:key="item.id" @click.native="route(item.id)">
       <div slot="content" class="card-padding">
         <img :src="item.url"
              style="width:80px;height:80px;display:inline;padding-right: 2%">
@@ -48,28 +48,7 @@
     },
     data() {
       return {
-        poolList: [
-          {
-            id: 1,
-            url: "http://placeholder.qiniudn.com/640x300",
-            title: "南京互选池",
-            time: "2018年02月21日",
-            address: "南京",
-            requirement: "南京工作或在读",
-            numOfBoy: 301,
-            numOfGirl: 301,
-          },
-          {
-            id: 1,
-            url: "http://placeholder.qiniudn.com/640x300",
-            title: "南京互选池",
-            time: "2018年02月21日",
-            address: "南京",
-            requirement: "南京工作或在读",
-            numOfBoy: 301,
-            numOfGirl: 301
-          }
-        ]
+        poolList: []
       }
     },
     methods: {
@@ -90,7 +69,15 @@
       }
     },
     mounted(){
-      PoolApi.getAllPool(1,this.success,this.fail)
+      let name = this.$route.name;
+      console.log(name)
+      if(name == 'pool'){
+        PoolApi.getAllPool(0,this.success,this.fail)
+      }else if(name == 'mypool'){
+        PoolApi.getPoolByUser(this.success,this.fail)
+      }else if(name == 'successPool'){
+        PoolApi.getAllPool(0, this.success,this.fail)
+      }
     }
   }
 </script>

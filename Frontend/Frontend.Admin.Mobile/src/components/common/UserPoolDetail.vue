@@ -72,8 +72,7 @@
       }
     },
     mounted(){
-      PoolApi.getPool(1, this.success, this.fail)
-      
+      PoolApi.getPool(this.$route.params.id, this.success, this.fail)
     }
   }
 </script>

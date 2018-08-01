@@ -5,7 +5,7 @@
       <div style="width: 65%; float: left; margin-top: 1%">
         <div style="margin-bottom: 2px">
           <font
-            style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{education}}</font>
+            style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{item.education}}</font>
           <font style="font-weight: bolder">{{item.username}}</font>
         </div>
         <group>
@@ -16,19 +16,23 @@
         </group>
       </div>
       <div style="width: 30%; float: right; margin-right: 2%; margin-top: 30px">
-        <img :src="source" style="width: 130px"/>
+        <img :src="item.source" style="width: 130px"/>
       </div>
     </div>
+    <group>
+      <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="addPosts">增加</x-button>
+     <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="recruit">应征某人</x-button>
+    </group>
   </div>
 </template>
 
 <script>
-  import {CellFormPreview, Group, Cell} from 'vux'
-
+  import {CellFormPreview, Group, Cell, XButton} from 'vux'
+  import PostsApi from '../../api/posts'
   export default {
 
     components: {
-      CellFormPreview, Group, Cell
+      CellFormPreview, Group, Cell, XButton
     },
     data() {
 
@@ -45,6 +49,25 @@
             source: require("../../assets/logo.jpg")
           }
         ]
+      }
+    },
+    methods:{
+      addPosts(){
+        PostsApi.addPosts(this.success,this.fail)
+      },
+      success: function(status, text){
+        if(status == 200){
+          console.log("成功插入")
+        }else if(status == 500){
+          console.log("上传互选池失败")
+        }
+      },
+      fail: function(err){
+        console.log("错误发生了！！！")
+        console.log(err)
+      },
+      recruit(){
+        PostsApi.recruit_someone(3,this.success,this.fail)
       }
     }
   }

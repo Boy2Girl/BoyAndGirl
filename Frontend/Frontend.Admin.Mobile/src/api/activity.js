@@ -1,23 +1,23 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addActivity,getActivity,registerActivity,getAllActivity
+  addActivity,getActivity,registerActivity,getAllActivity,leaveActivity,getByUser,checkRegister
 }
 /**
     *
    * @param {function} activityBeginTime
-   * @param {function}    activityEndTime
+   * @param {function} activityEndTime
    * @param {function}  address
    * @param {function}  registerBeginTime
    * @param {function}  registerEndTime
-    * @param {function}  selectBeginTime
-    * @param {function}  selectEndTime
-    * @param {function}  chargeRule
-    * @param {function}   boyBeginAge
-    * @param {function}   girlBeginAge
+    * @param {function} selectBeginTime
+    * @param {function} selectEndTime
+    * @param {function} chargeRule
+    * @param {function} boyBeginAge
+    * @param {function} girlBeginAge
     * @param {function} increment
-    * @param {function}  wechat
-    * @param {function}  detail
+    * @param {function} wechat
+    * @param {function} detail
     * @param {function} resolve
     * @param {function} reject
 */
@@ -61,8 +61,29 @@ async function registerActivity(id, resolve, reject){
     base.query(data, resolve, reject, '/activity', METHOD.POST)
 }
 
+async function leaveActivity(id, resolve, reject){
+    console.log('in leave activity:')
+    var data = new FormData()
+    data.append('aID', id)
+    base.query(data, resolve, reject, '/activity', METHOD.DELETE)
+}
+
 async function getAllActivity(begin, isCurrent, resolve, reject){
     console.log('in register activity:')
     var data = new FormData()
     base.query(data, resolve, reject, '/activity'+'?begin='+begin+'&isCurrent='+isCurrent, METHOD.GET)
+}
+
+
+async function getByUser(resolve, reject){
+    console.log('in get by user:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/activity/user', METHOD.GET)
+}
+
+async function checkRegister(aID, resolve, reject){
+    console.log('in get by user:')
+    var data = new FormData()
+    data.append("aID", aID)
+    base.query(data, resolve, reject, '/activity/user', METHOD.POST)
 }

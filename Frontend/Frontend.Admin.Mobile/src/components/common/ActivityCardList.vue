@@ -80,7 +80,14 @@
       }
     },
     mounted() {
-      ActivityApi.getAllActivity(0, false, this.success, this.fail)
+      let name = this.$route.name;
+      if(name == "activity"){
+        ActivityApi.getAllActivity(0, false, this.success, this.fail)
+      }else if(name == "myActivity"){
+        ActivityApi.getByUser(this.success, this.fail);
+      }else if(name = "historyActivity"){
+        ActivityApi.getAllActivity(0, false, this.success, this.fail)
+      }
     },
     methods: {
       route: (id) => {

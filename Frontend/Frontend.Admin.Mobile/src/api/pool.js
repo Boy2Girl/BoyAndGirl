@@ -1,7 +1,7 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addPool,getPool,registerPool,getAllPool
+  addPool,getPool,registerPool,getAllPool,getPoolByUser
 }
 /**
    * @param {function} name
@@ -42,4 +42,10 @@ async function getAllPool(begin, resolve, reject){
     console.log('in get pool list:')
     var data = new FormData()
     base.query(data, resolve, reject, '/pool'+'?begin='+begin, METHOD.GET)
+}
+
+async function getPoolByUser(resolve, reject){
+    console.log('in get pool list:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/pool', METHOD.PATCH)
 }

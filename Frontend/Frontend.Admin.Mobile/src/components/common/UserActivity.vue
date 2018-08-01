@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="img" auto style="width:100%;margin:0 auto;" height="180px"/>
+    <img :src="url" auto style="width:100%;margin:0 auto;" height="180px"/>
     <!-- <group label-width="4.5em" label-margin-right="2em" label-align="right"> -->
     <cell title="活动时间" :value="activityTime" value-text-align="left"/>
     <cell title="活动地点" :value="address"/>
@@ -48,16 +48,42 @@
         increment: "",
         wechat: "",
         detail: "",
-        isRegistered: true,
+        isRegistered: false,
+        url: ''
       }
     },
     mounted() {
-      ActivityApi.getAllActivity(0, true, this.success, this.fail)
-      ActivityApi.getActivity(1, this.success, this.fail)
+      ActivityApi.checkRegister(this.$route.params.id,this.checkSuccess,this.fail)
+      console.log(this.$route)
+      ActivityApi.getActivity(this.$route.params.id, this.success, this.fail)
     },
     methods: {
+      checkSuccess: function (status, text) {
+        if (status == 200) {
+          this.isRegistered = true;
+        } else if (status == 500) {
+          console.log("取消报名活动失败")
+        } else if (status == 404) {
+          this.isRegistered = false;
+        } else if (status == 405) {
+          console.log("您还没有报名活动")
+        }
+      },
       registerSuccess: function (status, text) {
         if (status == 200) {
+          this.isRegistered = true;
+          console.log("成功取消活动")
+        } else if (status == 500) {
+          console.log("取消报名活动失败")
+        } else if (status == 404) {
+          console.log("抱歉，该活动不存在")
+        } else if (status == 405) {
+          console.log("您还没有报名活动")
+        }
+      },
+      leaveSuccess: function (status, text) {
+        if (status == 200) {
+          this.isRegistered = false;
           console.log("成功报名活动")
         } else if (status == 500) {
           console.log("报名活动失败")
@@ -75,10 +101,10 @@
         }
       },
       register_activity: function () {
-        ActivityApi.registerActivity(1, this.registerSuccess, this.fail)
+        ActivityApi.registerActivity(this.$route.params.id, this.registerSuccess, this.fail)
       },
       cancel: function(){
-
+        ActivityApi.leaveActivity(this.$route.params.id, this.leaveSuccess, this.fail)
       },
       success: function (status, text) {
         if (status == 200) {
@@ -93,6 +119,7 @@
           this.increment = result.increment
           this.wechat = result.wechat
           this.detail = result.detail
+          this.url = result.url;
         } else if (status == 500) {
           console.log("获取活动失败")
         } else if (status == 404) {
