@@ -40,6 +40,8 @@
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
   import PoolApi from '../../api/pool'
+  import router from "../../router";
+
   export default {
     components: {
       Card, XButton, Flexbox, FlexboxItem
@@ -55,7 +57,7 @@
             address: "南京",
             requirement: "南京工作或在读",
             numOfBoy: 301,
-            numOfGirl: 301
+            numOfGirl: 301,
           },
           {
             id: 1,
@@ -82,6 +84,9 @@
       },
       fail:function(err){
         console.log(err)
+      },
+      route: (id) => {
+        router.push('/user/pool/' + id);
       }
     },
     mounted(){

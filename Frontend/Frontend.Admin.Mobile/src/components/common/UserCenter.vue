@@ -2,15 +2,15 @@
   <div>
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <cell title="联系编号" :value="id"/>
-      <cell title="个人资料（编辑）" link="/user/"/>
+      <cell title="个人资料（编辑）" link="/user/edit"/>
     </group>
     <group>
-      <cell title="我的资料（分享）" link="/user"/>
+      <cell title="我的资料（分享）" link="/user/info"/>
     </group>
     <group>
-      <cell title="我的活动" link="/user/list"/>
-      <cell title="我的应征者" link="/user/post"/>
-      <cell title="互选池互选成功记录" link=""/>
+      <cell title="我的活动" link="/user/myActivity"/>
+      <cell title="我的应征者" link="/user/myPost"/>
+      <cell title="互选池互选成功记录" link="/user/successPool"/>
     </group>
     <group>
       <cell title="网站使用指南" link="/user/about"/>

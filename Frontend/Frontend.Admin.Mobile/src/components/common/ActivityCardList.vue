@@ -1,8 +1,7 @@
 <template>
   <div>
-    
     <card v-for="item in activityList" v-bind:key="item.id">
-      <div slot="content" class="card-padding">
+      <div slot="content" class="card-padding" @click="route(item.id)">
         <img :src="item.url"
              style="width:80px;height:80px;display:inline;padding-right: 2%">
         <div class="content">
@@ -12,34 +11,38 @@
           <div class="content-tag">
             <div class="content-tag" style="background-color: blue;color:white;">品牌活动
             </div>
-            <div class="content-tag" style="background-color: yellow;color:black;">互动交友
+            <div class="content-tag">
+              <div class="content-tag" style="background-color: blue;color:white;">品牌活动
+              </div>
+              <div class="content-tag" style="background-color: yellow;color:black;">互动交友
+              </div>
+              <div class="content-tag" style="background-color: red;color:white;">轻松快乐
+              </div>
             </div>
-            <div class="content-tag" style="background-color: red;color:white;">轻松快乐
+            <div class="content-time">
+              时间：{{item.time}}
             </div>
-          </div>
-          <div class="content-time">
-            时间：{{item.time}}
-          </div>
-          <div class="content-address">
-            地点：{{item.address}}
+            <div class="content-address">
+              地点：{{item.address}}
+            </div>
           </div>
         </div>
-      </div>
-      <div slot="footer" class="vux-1px-r">
-        <flexbox>
-          <flexbox-item>
-            <div class="info">
-              <Icon type="ios-heart-outline"/>
-              {{item.numOfRead}} 阅读
-            </div>
-          </flexbox-item>
-          <flexbox-item>
-            <div class="info">
-              <Icon type="ios-people" style="color: deepskyblue"/>
-              {{item.numOfSign}} 报名
-            </div>
-          </flexbox-item>
-        </flexbox>
+        <div slot="footer" class="card-footer">
+          <flexbox>
+            <flexbox-item>
+              <div class="info">
+                <Icon type="ios-heart-outline"/>
+                {{item.numOfRead}} 阅读
+              </div>
+            </flexbox-item>
+            <flexbox-item>
+              <div class="info">
+                <Icon type="ios-people" style="color: deepskyblue"/>
+                {{item.numOfSign}} 报名
+              </div>
+            </flexbox-item>
+          </flexbox>
+        </div>
       </div>
     </card>
   </div>
@@ -48,6 +51,7 @@
 <script>
   import {Card, XButton, Flexbox, FlexboxItem} from "vux";
   import ActivityApi from '../../api/activity'
+  import router from "../../router";
 
   export default {
     components: {
@@ -77,19 +81,22 @@
         ]
       }
     },
-    mounted(){
-      ActivityApi.getAllActivity(0,false,this.success,this.fail)
+    mounted() {
+      ActivityApi.getAllActivity(0, false, this.success, this.fail)
     },
-    methods:{
-      success:function(status,text){
-        if(status == 200){
-        let result = JSON.parse(text)
-        console.log(result)
-        this.activityList = result
-        }else
-        console.log("有错误发生了")
+    methods: {
+      route: (id) => {
+        router.push('/user/activity/' + id);
       },
-      fail:function(err){
+      success: function (status, text) {
+        if (status == 200) {
+          let result = JSON.parse(text)
+          console.log(result)
+          this.activityList = result
+        } else
+          console.log("有错误发生了")
+      },
+      fail: function (err) {
         console.log(err)
       }
     }

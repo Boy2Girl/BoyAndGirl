@@ -14,8 +14,8 @@
         <cell class="cell-font" title="职业:">{{career}}</cell>
       </group>
     </div>
-    <div style="width: 30%; float: right; margin-right: 2%; margin-top: 1%">
-      <img :src="source" style="width: 100%"/>
+    <div style="width: 30%; float: right; margin-right: 2%; margin-top: 30px">
+      <img :src="source" style="width: 130px"/>
     </div>
   </div>
   </div>
