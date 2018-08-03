@@ -26,7 +26,7 @@
   .btn-bottom {
     position: absolute;
     /*z-index: 999;*/
-    bottom: 6.5%;
+    bottom: 48px;
     left: 0;
     width: 100%;
   }
