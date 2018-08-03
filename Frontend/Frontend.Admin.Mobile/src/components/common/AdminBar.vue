@@ -27,7 +27,7 @@
 
   export default {
     components: {
-      
+
     },
     data() {
       return {
@@ -42,6 +42,7 @@
 
 <style lang="less" type="text/less">
   .tabs {
+    z-index: 2000;
     position: fixed;
     bottom: 0;
     left: 0;

@@ -120,6 +120,7 @@ const routes = [
       {
         path: 'info',
         component: PersonalInfoPage,
+        name: 'info',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
