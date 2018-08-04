@@ -7,12 +7,11 @@
 
 <script>
   import Post from '../../common/Post.vue';
-  import Info from '../../common/PersonalInfo.vue';
   import PostTab from '../../common/PostTab.vue';
 
   export default {
     components: {
-      Post, Info, PostTab
+      Post, PostTab
     }
   }
 </script>

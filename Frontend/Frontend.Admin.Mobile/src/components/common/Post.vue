@@ -1,39 +1,40 @@
 <template>
   <div>
-    <div v-for="item in postList" v-bind:key="item.id"
-         style="border-color: #a8a7a9; width: 98%; height: 170px; border-style: solid; margin-left: 1%; margin-bottom: 2%">
-      <div style="width: 65%; float: left; margin-top: 1%">
-        <div style="margin-bottom: 2px">
-          <font
-            style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{item.education}}</font>
-          <font style="font-weight: bolder">{{item.username}}</font>
+    <card v-for="item in postList" v-bind:key="item.id">
+      <div slot="content" class="card-padding" @click="route(item.id, toPost)">
+        <div class="content">
+          <div>
+            <font
+             style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{item.education}}</font>
+            <font style="font-weight: bolder">{{item.username}}</font>
+          </div>
+          <group>
+            <cell class="cell-font" title="出生年份:" :style="'width:'+windowSize*0.65+'px'"> {{item.birthDate}}</cell>
+            <cell class="cell-font" title="所在城市:"> {{item.city}}</cell>
+            <cell class="cell-font" title="本科学校:">{{item.school}}</cell>
+            <cell class="cell-font" title="职业:">{{item.career}}</cell>
+          </group>
         </div>
-        <group>
-          <cell class="cell-font" title="出生年份:"> {{item.birthDate}}</cell>
-          <cell class="cell-font" title="所在城市:"> {{item.city}}</cell>
-          <cell class="cell-font" title="本科学校:">{{item.school}}</cell>
-          <cell class="cell-font" title="职业:">{{item.career}}</cell>
-        </group>
+        <img :src="item.source" :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; margin-top: 20px'"/>
       </div>
-      <div style="width: 30%; float: right; margin-right: 2%; margin-top: 30px">
-        <img :src="item.source" style="width: 130px"/>
-      </div>
-    </div>
+    </card>
+
     <group>
-      <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="addPosts">增加</x-button>
-     <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="recruit">应征某人</x-button>
+      <x-button class='button1' style="position:fixed; bottom:48px;" v-if="toPost" :gradients="['#a66dcb','#e015fa']" @click.native="addPosts">增加</x-button>
     </group>
   </div>
 </template>
 
 <script>
-  import {CellFormPreview, Group, Cell, XButton} from 'vux'
+  import {Card, CellFormPreview, Group, Cell, XButton} from 'vux'
   import PostsApi from '../../api/posts'
-import posts from '../../api/posts';
+  import posts from '../../api/posts';
+  import router from '../../router/index.js'
+
   export default {
 
     components: {
-      CellFormPreview, Group, Cell, XButton
+      Card, CellFormPreview, Group, Cell, XButton
     },
     data() {
 
@@ -48,11 +49,33 @@ import posts from '../../api/posts';
             school: '南京大学',
             career: '金融',
             source: require("../../assets/logo.jpg")
+          },
+          {
+            id: 2,
+            education: '本',
+            username: 'dhh',
+            birthDate: '1980',
+            city: '南京',
+            school: '南京大学',
+            career: '金融',
+            source: require("../../assets/logo.jpg")
           }
-        ]
+        ],
+        windowSize: document.body.clientWidth,
+        toPost: false
       }
     },
     methods:{
+      route: (id, toPost)=> {
+        router.push({
+          name:'info',
+          params: {
+            id:id,
+            toPost: toPost
+          }
+        });
+        // router.push('/user/info/'+id);
+      } ,
       addPosts(){
         PostsApi.addPosts(this.success,this.fail)
       },
@@ -81,15 +104,21 @@ import posts from '../../api/posts';
       }
     },
     mounted(){
-      let name = this.$route.name
-      if(name == 'posts')
-        PostsApi.getAll(this.getSuccess, this.fail)
-      else if(name == 'myPostOne')
-        PostsApi.getByUser(this.getSuccess,this.fail)
-      else if(name == 'OnePostMe'){
-        PostsApi.getMy(this.getSuccess,this.fail)
+      let name = this.$route.name;
+      let toPost = this.toPost
+      if(name == 'posts'){
+        PostsApi.getAll(this.getSuccess, this.fail);
+        toPost=true;
       }
-
+      else if(name == 'myPostOne'){
+        PostsApi.getByUser(this.getSuccess,this.fail);
+        toPost=false;
+      }
+      else if(name == 'OnePostMe'){
+        PostsApi.getMy(this.getSuccess,this.fail);
+        toPost=false;
+      }
+      this.toPost = toPost
     }
   }
 </script>
@@ -99,5 +128,12 @@ import posts from '../../api/posts';
     font-size: smaller;
     padding-bottom: 2px;
     padding-top: 2px;
+  }
+  .card-padding {
+    display: flex;
+    margin: 3%;
+  }
+  .content {
+    display: inline;
   }
 </style>
