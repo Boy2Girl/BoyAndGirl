@@ -14,7 +14,7 @@
         <div class="font">{{tabBar2}}</div>
       </router-link>
       <router-link :to="{path:'/user/posts'}" tag="li">
-        <Icon type="person" size="20"/>
+        <Icon type="ios-copy" size="20"/>
         <div class="font">{{tabBar3}}</div>
       </router-link>
       <router-link :to="{path:'/user/user'}" tag="li">

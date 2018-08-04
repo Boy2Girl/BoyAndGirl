@@ -4,30 +4,28 @@
       <div slot="content">
         <div class="content">
           <div style="display: inline-block;">
-            <div style="display: inline;margin:2%">
-              <div style="display: inline;">
-                <div class="content-tag">{{item.education}}</div>
-              </div>
-              <div class="content-title">
-                {{item.username}}
+            <div style="display: inline; margin-top: 10px">
+              <div style="display: inline; margin-top: 10px; margin-bottom: 10px">
+                <font class="content-tag">{{item.education}}</font>
+                <font class="content-title">{{item.username}}</font>
               </div>
             </div>
-            <div class="content-time">
+            <div class="cell-text" style="margin-top: 7px">
               出生年份：{{item.birthDate}}
             </div>
-            <div class="content-address">
+            <div class="cell-text">
               所在城市：{{item.city}}
             </div>
-            <div class="content-address">
+            <div class="cell-text">
               本科学校：{{item.school}}
             </div>
-            <div class="content-address">
+            <div class="cell-text">
               职业：{{item.career}}
             </div>
           </div>
           <div style="display: inline;float: right;padding: 10px;padding-left: 150px">
             <img :src="item.source"
-                 style="width:80px;height:80px;display:inline;padding-right: 2%;float: right">
+                 :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; display:inline; padding-right: 2%;float: right; margin-top: -120px'">
           </div>
         </div>
       </div>
@@ -37,7 +35,7 @@
 
 <script>
   import {Card} from 'vux';
-  import UserApi from '../../api/user' 
+  import UserApi from '../../api/user'
   export default {
 
     components: {
@@ -56,8 +54,19 @@
             school: '南京大学',
             career: '金融',
             source: require("../../assets/logo.jpg")
+          },
+          {
+            id: 2,
+            education: '本',
+            username: '娜扎阿拉提',
+            birthDate: '1980',
+            city: '南京',
+            school: '南京大学',
+            career: '金融',
+            source: require("../../assets/logo.jpg")
           }
-        ]
+        ],
+        windowSize: document.body.clientWidth,
       }
     },
     methods:{
@@ -70,7 +79,7 @@
         else
           console.log("有错误发生了")
       },
-    
+
       fail: function (err) {
         console.log(err)
       }
@@ -84,8 +93,9 @@
 <style scoped>
   .card-padding {
     display: flex;
-    margin: 3%;
-    padding: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-top: 1.5%;
   }
 
   .content {
@@ -99,21 +109,22 @@
   }
 
   .content-tag {
-    display: inline;
     font-size: 10px;
     font-weight: bold;
     margin-right: 5px;
     text-align: center;
-    padding: 1px;
-    border-radius: 5px;
-    opacity: 0.85;
-    background-color: #00CC66;
+    padding: 4px;
+    border-radius: 4px;
+    width: 110%;
+    height: 110%;
+    background-color: #17872b;
+    color: white;
   }
 
-  .content-time {
-  }
-
-  .content-address {
+  .cell-text{
+    font-size: smaller;
+    padding-bottom: 0px;
+    padding-top: 2px;
   }
 
 </style>

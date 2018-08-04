@@ -88,6 +88,7 @@
           let token = JSON.parse(text)
           this.setToken(token.token)
           this.setUserID(token.id)
+
           UserApi.getUserInfo(this.getUserID(), this.userInfoSuccess, this.fail);
         }else if(status == 404){
           this.setState("失败", "改用户不存在");
@@ -117,7 +118,7 @@
         }
       },
       fail: function (e) {
-        console.log("发现错误！！！！")
+        console.log("发现错误！！！")
         console.log(e)
       },
       signIn: function(){
@@ -144,10 +145,25 @@
          return role
       },
       onShow: function(){
-        if(this.getRole() == UserApi.ROLE.ADMIN && this.isLogIn == true)
-          router.push('admin/activity');
-        else if(this.getRole() == UserApi.ROLE.USER && this.isLogIn == true)
-          router.push('user/activity');
+        if(this.getRole() == UserApi.ROLE.ADMIN && this.isLogIn == true){
+          if(this.$router.redirect == location.hostname){
+            this.$router.go(-1);
+          }
+          else {
+            this.$router.push('/admin/activity');
+          }
+          //router.push('admin/activity');
+        }
+        else if(this.getRole() == UserApi.ROLE.USER && this.isLogIn == true){
+          if(this.$router.redirect == location.hostname){
+            this.$router.go(-1);
+          }
+          else {
+            this.$router.push('/user/activity');
+          }
+          //router.push('user/activity');
+        }
+
       },
       onHide: function(){
         if(this.title == "成功"){

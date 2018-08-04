@@ -7,7 +7,7 @@
       :on-success="handleSuccess"
       multiple
       :action="url"
-      style="display: inline-block;width:58px;">
+      style="display: inline-block;width:58px; padding-left: 10px; margin-bottom: 10px;">
       <div>
         <Button>上传图片</Button>
       </div>
@@ -15,14 +15,14 @@
   </div>
 </template>
 <script>
-   import Base from '../../api/basequery' 
+   import Base from '../../api/basequery'
   export default {
     props: {
       url: String
     },
     data() {
       return {
-        
+
       }
     },
     methods: {
@@ -40,5 +40,5 @@
   }
 </script>
 <style>
-  
+
 </style>
