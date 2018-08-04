@@ -29,17 +29,17 @@ pool_parameters = ns.model('PoolParameters', {
 
 login_parser = ns.parser()
 login_parser.add_argument('createTime', type=str, help='创建时间', location='form')
-        # self.createTime = form['createTime']
+# self.createTime = form['createTime']
 login_parser.add_argument('city', type=str, help='所在城市', location='form')
-        # self.city = form['city']
+# self.city = form['city']
 login_parser.add_argument('url', type=str, help='交友池照片', location='form')
-        # self.url = form['url']
+# self.url = form['url']
 login_parser.add_argument('name', type=str, help='交友池名称', location='form')
-        # self.name = form['name']
+# self.name = form['name']
 login_parser.add_argument('requirement', type=str, help='加入要求', location='form')
-        # self.requirement = form['requirement']
+# self.requirement = form['requirement']
 login_parser.add_argument('detail', type=str, help='细节', location='form')
-        # self.detail = form['detail']
+# self.detail = form['detail']
 
 get_parser = ns.parser()
 get_parser.add_argument('pID', type=str, help='交友池的ID', location='form')

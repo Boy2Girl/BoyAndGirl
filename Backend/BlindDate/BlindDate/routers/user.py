@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource, fields, Namespace
 
 from exceptions import PasswordWrongException, NotFoundException, AlreadyExists, InsertException
-from factory.BlFactory import userBl,userInfoBl
+from factory.BlFactory import userBl, userInfoBl
 from utils.DateEncoder import DateEncoderUtil
 from vo import UserVO
 
@@ -56,4 +56,3 @@ class User(Resource):
             return [DateEncoderUtil().changeDate(i) for i in userInfoBl.get_all_user()], 200
         except AlreadyExists:
             return None, 405
-

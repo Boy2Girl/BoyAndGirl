@@ -13,35 +13,35 @@ from vo import ActivityVO
 ns = Namespace('activity', description='关于活动')
 login_parser = ns.parser()
 login_parser.add_argument('url', type=str, help='活动的照片', location='form')
-        # self.url = form['url']
+# self.url = form['url']
 login_parser.add_argument('name', type=str, help="活动名称", location='form')
-        # self.name = form['name']
+# self.name = form['name']
 login_parser.add_argument('location', type=str, help='活动地点', location='form')
-        # self.location = form['location']
+# self.location = form['location']
 login_parser.add_argument('registerBeginTime', type=str, help='注册开始时间', location='form')
-        # self.registerBeginTime = form['registerBeginTime']
+# self.registerBeginTime = form['registerBeginTime']
 login_parser.add_argument('registerEndTime', type=str, help='注册结束时间', location='form')
-        # self.registerEndTime = form['registerEndTime']
+# self.registerEndTime = form['registerEndTime']
 login_parser.add_argument('selectBeginTime', type=str, help='互选开始时间', location='form')
-        # self.selectBeginTime = form['selectBeginTime']
+# self.selectBeginTime = form['selectBeginTime']
 login_parser.add_argument('selectEndTime', type=str, help='互选结束时间', location='form')
-        # self.selectEndTime = form['selectEndTime']
+# self.selectEndTime = form['selectEndTime']
 login_parser.add_argument('chargeRule', type=str, help='收费标准', location='form')
-        # self.chargeRule = form['chargeRule']
+# self.chargeRule = form['chargeRule']
 login_parser.add_argument('boyBeginAge', type=str, help='男生收费开始年龄', location='form')
-        # self.boyBeginAge = form['boyBeginAge']
+# self.boyBeginAge = form['boyBeginAge']
 login_parser.add_argument('girlBeginAge', type=str, help='女生收费开始年龄', location='form')
-        # self.girlBeginAge = form['girlBeginAge']
+# self.girlBeginAge = form['girlBeginAge']
 login_parser.add_argument('increment', type=str, help='每增一岁递增收费', location='form')
-        # self.increment = form['increment']
+# self.increment = form['increment']
 login_parser.add_argument('wechat', type=str, help='活动负责人微信号', location='form')
-        # self.wechat = form['wechat']
+# self.wechat = form['wechat']
 login_parser.add_argument('activityBeginTime', type=str, help='活动开始时间', location='form')
-        # self.activityBeginTime = form['activityBeginTime']
+# self.activityBeginTime = form['activityBeginTime']
 login_parser.add_argument('activityEndTime', type=str, help='活动结束时间', location='form')
-        # self.activityEndTime = form['activityEndTime']
+# self.activityEndTime = form['activityEndTime']
 login_parser.add_argument('detail', type=str, help='活动详情', location='form')
-        # self.detail = form['detail']
+# self.detail = form['detail']
 
 get_parser = ns.parser()
 get_parser.add_argument('aID', type=str, help='活动的ID', location='form')
@@ -66,7 +66,6 @@ activity_bl = BlFactory.activityBl
 @ns.response(500, '内部错误')
 class Activity(Resource):
 
-
     @ns.doc('增加活动')
     @ns.expect(login_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
@@ -76,7 +75,6 @@ class Activity(Resource):
             return result, 200
         except InsertException:
             return None, 500
-
 
     @ns.doc('报名参加活动')
     @ns.expect(get_parser)
@@ -94,7 +92,6 @@ class Activity(Resource):
             return {"error": "system is error"}, 500
         except AlreadyExists:
             return {"error": "already exists"}, 405
-
 
     @ns.doc('取消报名活动')
     @ns.expect(get_parser)
@@ -169,4 +166,3 @@ class ActivityAID(Resource):
             return {"error": "can not find the activity"}, 404
         except SystemErrorException:
             return {"error": "system is error"}, 500
-

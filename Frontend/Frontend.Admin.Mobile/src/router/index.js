@@ -215,7 +215,7 @@ function success(status, text) {
 }
 
 function fail(err) {
-  console.log("错误发生了")
+  console.log("错误发生了");
   console.log(err)
 }
 
@@ -225,7 +225,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth || true) {
     CheckApi.check(success, fail)
   }
-})
+});
 //   fetch(address+"user/checkState", {
 //     method: 'get',
 //     credentials: 'include',

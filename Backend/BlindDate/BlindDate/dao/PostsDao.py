@@ -19,7 +19,7 @@ class PostsDao(DaoUtil):
     ### 我应征的人
     def get_posts_by_user_id(self, user_id):
         try:
-            posts = session.query(PostsModel).join(RecruitModel).\
+            posts = session.query(PostsModel).join(RecruitModel). \
                 filter(RecruitModel.userID == user_id).filter(PostsModel.id == RecruitModel.postsID).all()
             return posts
         except:
