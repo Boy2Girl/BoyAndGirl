@@ -6,7 +6,7 @@ from factory.BlFactory import userBl,userInfoBl
 from utils.DateEncoder import DateEncoderUtil
 from vo import UserVO
 
-ns = Namespace('user', description='关于用户')
+ns = Namespace('user', description='关于用户（登录注册）')
 
 login_parameters = ns.model('LoginParameters', {
     'username': fields.String(required=True, description='用户名'),
@@ -14,16 +14,21 @@ login_parameters = ns.model('LoginParameters', {
     'role': fields.String(required=True, description='角色')
 })
 
+login_parser = ns.parser()
+login_parser.add_argument('username', type=str, help='用户名', location='form')
+login_parser.add_argument('password', type=str, help='密码', location='form')
+login_parser.add_argument('role', type=str, help='角色', location='form')
+
 
 @ns.route('')
 @ns.response(200, 'OK')
-@ns.response(404, 'user not found')
-@ns.response(403, 'access denied')
-@ns.response(500, 'system error')
+@ns.response(404, '没有找到用户名或者密码')
+@ns.response(403, '用户名或者密码不正确')
+@ns.response(500, '内部错误')
 class User(Resource):
 
-    @ns.doc('登录')
-    # @ns.expect(login_parameters)
+    @ns.doc(decription="登录")
+    @ns.expect(login_parser)
     def post(self):
         try:
             print(request.form)
@@ -35,7 +40,9 @@ class User(Resource):
         except NotFoundException:
             return None, 404
 
+    # @ns.marshal_with(login_parameters)
     @ns.doc('注册')
+    @ns.expect(login_parser)
     def put(self):
         try:
             token = userBl.sign_up(UserVO(form=request.form))

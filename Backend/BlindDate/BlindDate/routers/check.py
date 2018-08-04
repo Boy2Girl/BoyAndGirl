@@ -5,12 +5,12 @@ from decorator.RoleRequest import login_require
 from publicdata import Role
 from utils import JwtUtil
 
-ns = Namespace('check', description='关于用户')
+ns = Namespace('check', description='检查用户登录状态')
 
-login_parameters = ns.model('LoginParameters', {
-    'username': fields.String(required=True, description='用户名'),
-    'password': fields.String(required=True, description='密码')
-})
+# login_parameters = ns.model('LoginParameters', {
+#     'username': fields.String(required=True, description='用户名'),
+#     'password': fields.String(required=True, description='密码')
+# })
 
 
 @ns.route('')
@@ -22,7 +22,7 @@ class Check(Resource):
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('查看产生好感的全部异性')
-    @ns.expect(login_parameters)
+    # @ns.expect(login_parameters)
     def post(self):
         try:
             username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))

@@ -10,10 +10,21 @@ from utils import JwtUtil
 
 ns = Namespace('pool/love', description='关于用户')
 
-login_parameters = ns.model('LoginParameters', {
-    'username': fields.String(required=True, description='用户名'),
-    'password': fields.String(required=True, description='密码')
-})
+# login_parameters = ns.model('LoginParameters', {
+#     'username': fields.String(required=True, description='用户名'),
+#     'password': fields.String(required=True, description='密码')
+# })
+
+list_parser = ns.parser()
+list_parser.add_argument('begin', type=str, help='开始编号', location='form')
+list_parser.add_argument('poolID', type=str, help='交友池编号', location='form')
+list_parser.add_argument('truth', type=str, help='是否是真爱', location='form')
+
+put_parser = ns.parser()
+put_parser.add_argument('begin', type=str, help='开始编号', location='form')
+put_parser.add_argument('poolID', type=str, help='交友池编号', location='form')
+# put_parser.add_argument('truth', type=str, help='是否是真爱', location='form')
+
 
 
 @ns.route('')
@@ -23,9 +34,9 @@ login_parameters = ns.model('LoginParameters', {
 @ns.response(500, 'system error')
 class Love(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('查看产生好感的全部异性')
-    @ns.expect(login_parameters)
+    @ns.expect(list_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
         begin = request.form['begin']
         poolID = request.form['poolID']
@@ -36,9 +47,9 @@ class Love(Resource):
         else:
             return poolBl.get_true_love(username, poolID)
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('对某个异性产生好感')
-    @ns.expect(login_parameters)
+    @ns.expect(put_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def put(self):
         try:
             uID = request.form['uID']

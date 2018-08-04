@@ -144,9 +144,9 @@
          return role
       },
       onShow: function(){
-        if(this.getRole() == UserApi.ROLE.ADMIN)
+        if(this.getRole() == UserApi.ROLE.ADMIN && this.isLogIn == true)
           router.push('admin/activity');
-        else
+        else if(this.getRole() == UserApi.ROLE.USER && this.isLogIn == true)
           router.push('user/activity');
       },
       onHide: function(){

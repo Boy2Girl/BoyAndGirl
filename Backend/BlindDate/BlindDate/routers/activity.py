@@ -11,47 +11,65 @@ from utils.JwtUtil import JwtUtil
 from vo import ActivityVO
 
 ns = Namespace('activity', description='关于活动')
+login_parser = ns.parser()
+login_parser.add_argument('url', type=str, help='活动的照片', location='form')
+        # self.url = form['url']
+login_parser.add_argument('name', type=str, help="活动名称", location='form')
+        # self.name = form['name']
+login_parser.add_argument('location', type=str, help='活动地点', location='form')
+        # self.location = form['location']
+login_parser.add_argument('registerBeginTime', type=str, help='注册开始时间', location='form')
+        # self.registerBeginTime = form['registerBeginTime']
+login_parser.add_argument('registerEndTime', type=str, help='注册结束时间', location='form')
+        # self.registerEndTime = form['registerEndTime']
+login_parser.add_argument('selectBeginTime', type=str, help='互选开始时间', location='form')
+        # self.selectBeginTime = form['selectBeginTime']
+login_parser.add_argument('selectEndTime', type=str, help='互选结束时间', location='form')
+        # self.selectEndTime = form['selectEndTime']
+login_parser.add_argument('chargeRule', type=str, help='收费标准', location='form')
+        # self.chargeRule = form['chargeRule']
+login_parser.add_argument('boyBeginAge', type=str, help='男生收费开始年龄', location='form')
+        # self.boyBeginAge = form['boyBeginAge']
+login_parser.add_argument('girlBeginAge', type=str, help='女生收费开始年龄', location='form')
+        # self.girlBeginAge = form['girlBeginAge']
+login_parser.add_argument('increment', type=str, help='每增一岁递增收费', location='form')
+        # self.increment = form['increment']
+login_parser.add_argument('wechat', type=str, help='活动负责人微信号', location='form')
+        # self.wechat = form['wechat']
+login_parser.add_argument('activityBeginTime', type=str, help='活动开始时间', location='form')
+        # self.activityBeginTime = form['activityBeginTime']
+login_parser.add_argument('activityEndTime', type=str, help='活动结束时间', location='form')
+        # self.activityEndTime = form['activityEndTime']
+login_parser.add_argument('detail', type=str, help='活动详情', location='form')
+        # self.detail = form['detail']
 
-activity_put_parameters = ns.model('ActivityPutParameters', {
-    'activityName': fields.String(required=True, description='活动名称'),
-    'location': fields.String(required=True, description='密码'),
-    'registerBeginTime': fields.Date(required=True, description='注册开始时间'),
-    'registerEndTime': fields.Date(required=True, description='注册结束时间'),
-    'selectBeginTime': fields.Date(required=True, description='互选开始时间'),
-    'selectEndTime': fields.Date(required=True, description='互选结束时间'),
-    'chargeRule': fields.String(required=True, description='收费标准'),
-    'boyBeginAge': fields.Integer(required=True, description='男生开始收费年龄'),
-    'girlBeginAge': fields.Integer(required=True, description='女生开始收费年龄'),
-    'increment': fields.Float(required=True, description='根据年龄递增的收费'),
-    'wechat': fields.String(required=True, description='发起人微信号'),
-    'realName': fields.String(required=True, description='是否需要真实信息')
-})
-activity_post_parameters = ns.model('ActivityPostParameters', {
-    'aID': fields.String(required=True, description='活动的ID')
-})
-activity_get_parameters = ns.model('ActivityGetParameters', {
-    'begin': fields.Integer(required=True, description='开始的编号，分页使用'),
-    'isCurrent': fields.Boolean(required=True, description='是否是历史活动')
-})
-activity_mine_get_parameters = ns.model('ActivityMineGetParameters', {
-    'begin': fields.Integer(required=True, description='开始的编号，分页使用'),
-    'isCurrent': fields.Boolean(required=True, description='是否是历史活动'),
-    'userId': fields.String(required=True, description='用户ID')
-})
+get_parser = ns.parser()
+get_parser.add_argument('aID', type=str, help='活动的ID', location='form')
+
+list_parser = ns.parser()
+list_parser.add_argument('begin', type=str, help='开始编号', location='form')
+list_parser.add_argument('isCurrent', type=str, help='是否是当前活动（或者历史活动）', location='form')
+
+my_list_parser = ns.parser()
+my_list_parser.add_argument('begin', type=str, help='开始编号', location='form')
+my_list_parser.add_argument('isCurrent', type=str, help='是否是当前活动（或者历史活动）', location='form')
+my_list_parser.add_argument('userID', type=str, help='用户的ID', location='form')
 
 activity_bl = BlFactory.activityBl
 
 
 @ns.route('')
-@ns.response(200, 'OK')
-@ns.response(404, 'activity not found')
+@ns.response(200, 'OK，若返回活动或者活动列表，格式和参数相同')
+@ns.response(404, '没有找到活动')
 @ns.response(403, 'access denied')
-@ns.response(500, 'system error')
+@ns.response(405, '已经存在')
+@ns.response(500, '内部错误')
 class Activity(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+
     @ns.doc('增加活动')
-    @ns.expect(activity_put_parameters)
+    @ns.expect(login_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def put(self):
         try:
             result = activity_bl.add_activity(ActivityVO(form=request.form))
@@ -59,9 +77,11 @@ class Activity(Resource):
         except InsertException:
             return None, 500
 
-    @login_require(Role.USER)
+
     @ns.doc('报名参加活动')
-    @ns.expect(activity_post_parameters)
+    @ns.expect(get_parser)
+    # @ns.marshal_with(activity_post_parameters, as_list=True, code=200)
+    @login_require(Role.USER)
     def post(self):
         print(request.form)
         aID = request.form['aID']
@@ -75,9 +95,10 @@ class Activity(Resource):
         except AlreadyExists:
             return {"error": "already exists"}, 405
 
+
+    @ns.doc('取消报名活动')
+    @ns.expect(get_parser)
     @login_require(Role.USER)
-    @ns.doc('报名参加活动')
-    @ns.expect(activity_post_parameters)
     def delete(self):
         aID = request.form['aID']
         try:
@@ -91,7 +112,7 @@ class Activity(Resource):
             return {"error": "already exists"}, 405
 
     @ns.doc('获取活动列表')
-    @ns.expect(activity_get_parameters)
+    @ns.expect(list_parser)
     def get(self):
         begin = request.args['begin']
         is_current = request.args['isCurrent']
@@ -104,7 +125,7 @@ class Activity(Resource):
             return {"error": "system is error"}, 500
 
     @ns.doc('获取我的活动列表')
-    @ns.expect(activity_mine_get_parameters)
+    @ns.expect(my_list_parser)
     def fetch(self):
         begin = request.args['begin']
         is_current = request.args['isCurrent']
@@ -126,7 +147,7 @@ class Activity(Resource):
 class ActivityAID(Resource):
 
     @ns.doc('获取某一个特定的活动信息')
-    @ns.param(name="aId", description="活动的ID", _in="path")
+    @ns.param(name="aID", description="活动的ID", _in="path")
     def get(self, aID):
         try:
             activity = activity_bl.get_activity_by_id(aID)
@@ -136,35 +157,16 @@ class ActivityAID(Resource):
         except SystemErrorException:
             return {"error": "system is error"}, 500
 
-
-@ns.route('/user')
-@ns.response(200, 'OK')
-@ns.response(404, 'activity not found')
-@ns.response(403, 'access denied')
-@ns.response(500, 'system error')
-class ActivityAID(Resource):
-
-    @ns.doc('获取某一个特定的活动信息')
-    @ns.param(name="aId", description="活动的ID", _in="path")
-    def get(self):
-        try:
-            username = JwtUtil.get_token_username(flask.request.headers.get("token"))
-            activity = activity_bl.get_activity_by_user(username)
-            return [DateEncoderUtil().changeDate(i) for i in activity]
-        except NotFoundException:
-            return {"error": "can not find the activity"}, 404
-        except SystemErrorException:
-            return {"error": "system is error"}, 500
-
     @ns.doc('检查有没有报名活动')
-    @ns.param(name="aId", description="活动的ID", _in="path")
+    @ns.param(name="aID", description="活动的ID", _in="path")
     def post(self):
         try:
             aID = request.form['aID']
             username = JwtUtil.get_token_username(flask.request.headers.get("token"))
             activity = activity_bl.check_register(username, aID)
-            return None,200
+            return None, 200
         except NotFoundException:
             return {"error": "can not find the activity"}, 404
         except SystemErrorException:
             return {"error": "system is error"}, 500
+
