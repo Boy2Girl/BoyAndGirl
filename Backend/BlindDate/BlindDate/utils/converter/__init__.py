@@ -1,10 +1,7 @@
-<<<<<<< HEAD
+
 from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel, CheckingUserInfoModel
 from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo
-=======
-from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo, UserListVO
->>>>>>> 09d5531c52f3a52b8666cfec0e1c00a1627f795a
+
 
 
 class UserConverter:
