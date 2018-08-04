@@ -10,9 +10,9 @@ from utils import JwtUtil
 from utils.DateEncoder import DateEncoderUtil
 from vo import PoolVO
 
-ns = Namespace('pool', description='关于用户')
+ns = Namespace('pool', description='关于交友池')
 
-pool_parameters = ns.model('LoginParameters', {
+pool_parameters = ns.model('PoolParameters', {
     'poolID': fields.Integer(required=True, description='用户名'),
     'createTime': fields.Date(required=True, description='密码'),
     'city': fields.String(required=True, description='密码'),
@@ -27,6 +27,26 @@ pool_parameters = ns.model('LoginParameters', {
     'requirement': fields.Boolean(required=True, description='密码')
 })
 
+login_parser = ns.parser()
+login_parser.add_argument('createTime', type=str, help='创建时间', location='form')
+        # self.createTime = form['createTime']
+login_parser.add_argument('city', type=str, help='所在城市', location='form')
+        # self.city = form['city']
+login_parser.add_argument('url', type=str, help='交友池照片', location='form')
+        # self.url = form['url']
+login_parser.add_argument('name', type=str, help='交友池名称', location='form')
+        # self.name = form['name']
+login_parser.add_argument('requirement', type=str, help='加入要求', location='form')
+        # self.requirement = form['requirement']
+login_parser.add_argument('detail', type=str, help='细节', location='form')
+        # self.detail = form['detail']
+
+get_parser = ns.parser()
+get_parser.add_argument('pID', type=str, help='交友池的ID', location='form')
+
+list_parser = ns.parser()
+list_parser.add_argument('begin', type=str, help='开始编号', location='form')
+
 
 @ns.route('')
 @ns.response(200, 'OK')
@@ -35,8 +55,9 @@ pool_parameters = ns.model('LoginParameters', {
 @ns.response(500, 'system error')
 class Pool(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取交友池列表')
+    @ns.expect(list_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self):
         begin = request.args['begin']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool(begin)]
@@ -44,16 +65,15 @@ class Pool(Resource):
 
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取我的交友池列表')
-    
     def patch(self):
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         # begin = request.args['begin']
         # my_list=request.args['']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool_by_user(username)]
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('报名进入候选池')
-    @ns.expect(pool_parameters)
+    @ns.expect(get_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
         try:
             pID = request.form['pID']
@@ -65,8 +85,9 @@ class Pool(Resource):
         except InsertException:
             return None, 404
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.expect(login_parser)
     @ns.doc('增加交友池')
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def put(self):
         try:
             result = poolBl.add_pool(PoolVO(form=request.form))

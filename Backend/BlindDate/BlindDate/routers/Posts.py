@@ -8,13 +8,16 @@ from model import PoolModel
 from publicdata import Role
 from utils import JwtUtil
 
-ns = Namespace('posts', description='关于用户')
+ns = Namespace('posts', description='关于发帖')
 
-login_parameters = ns.model('LoginParameters', {
-    'username': fields.String(required=True, description='用户名'),
-    'password': fields.String(required=True, description='密码')
-})
+get_parser = ns.parser()
+get_parser.add_argument('postsID', type=str, help='帖子id', location='form')
 
+list_parser = ns.parser()
+list_parser.add_argument('userId', type=str, help='用户id', location='form')
+
+end_parser = ns.parser()
+end_parser.add_argument('endTime', type=str, help='结束时间', location='form')
 
 @ns.route('')
 @ns.response(200, 'OK')
@@ -23,9 +26,9 @@ login_parameters = ns.model('LoginParameters', {
 @ns.response(500, 'system error')
 class Posts(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('应征某个发帖')
-    @ns.expect(login_parameters)
+    @ns.expect(get_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
         try:
             postsID = request.form['postsID']
@@ -36,16 +39,16 @@ class Posts(Resource):
         except InsertException:
             return None, 404
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('我的应征')
-    @ns.expect()
+    @ns.expect(list_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def fetch(self):
         user_id = request.form['userId']
         return postsBl.get_my_posts(user_id), 200
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('创建一个发帖应征')
-    @ns.expect(login_parameters)
+    @ns.expect(end_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def put(self):
         try:
             endTime = request.form['endTime']
