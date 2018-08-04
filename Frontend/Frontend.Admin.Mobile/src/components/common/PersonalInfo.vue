@@ -1,9 +1,7 @@
 <template>
   <div>
     <sub-title value="个人相册"/>
-    <group>
-      <img :src="source" class="photo"/>
-    </group>
+    <img v-for="item in form.photoList" :src="item.source" style="width:100px; height:100px; display:inline; padding: 2%"/>
 
     <sub-title value="基本信息"/>
     <group>
@@ -14,6 +12,10 @@
       <cell class="cell-font" title="出生日期:" :value="form.birthDate"/>
       <cell class="cell-font" title="婚姻状况:" :value="form.marriage"/>
       <cell class="cell-font" title="交友类型:" :value="form.friend"/>
+      <cell class="cell-font" v-if="!to_post" title="电话:" text-align="right" v-model="form.phone"/>
+      <cell class="cell-font" v-if="!to_post"  title="邮箱:" text-align="right" v-model="form.email"/>
+      <cell class="cell-font" v-if="!to_post" title="qq:" text-align="right" v-model="form.qq"/>
+      <cell class="cell-font" v-if="!to_post" title="微信:" text-align="right" v-model="form.wechat"/>
     </group>
 
     <sub-title value="坐标"/>
@@ -50,24 +52,28 @@
 
     <sub-title value="想说的话"/>
     <group>
-      <cell class="cell-font" title="关于我:" :value="form.about_me"/>
-      <cell class="cell-font" title="关于你:" :value="form.about_you"/>
+      <x-textarea :disabled='disabled' class="cell-font" title="关于我:" :value="form.about_me"/>
+      <x-textarea :disabled='disabled' style="margin-bottom: 48px; " class="cell-font" title="关于你:" :value="form.about_you"/>
     </group>
+
+    <x-button class='button1' style="margin-bottom: 48px" v-if="to_post" :gradients="['#a66dcb','#e015fa']" @click.native="recruit">应征某人</x-button>
   </div>
 </template>
 
 <script>
-  import {CellFormPreview, Group, Cell} from 'vux'
+  import {XTextarea, CellFormPreview, Group, Cell, XButton} from 'vux'
   import UserApi from '../../api/user'
   import SubTitle from './SubTitle'
+  import PostsApi from '../../api/posts'
 
   export default {
     components: {
-      CellFormPreview, Group, Cell, SubTitle
+      XTextarea, CellFormPreview, Group, Cell, SubTitle, XButton
     },
     data() {
       return {
-        source: require('../../assets/background.jpg'),
+        to_post: false,
+        disabled: true,
         form: {
           id: 1,
           avatarUrl: '',
@@ -81,11 +87,11 @@
           wechat: '',
           nickname: ' ',
           index: '',
-          gender: [],
+          gender: '',
           p_height: '',
           birthDate: '2828',
-          marriage: [],
-          friend: [],
+          marriage: '未婚',
+          friend: '',
           hometown: '',
           city: '',
           live: '',
@@ -102,13 +108,30 @@
           income: '',
           house_state: '',
           family_state: '',
-          about_you: '',
+          about_you: 'adsjkfbdjksfbjksdhfjkhsdjkfhjksdhfjkhsahdjhasdhkkhjksdfjkjekg',
           about_me: '',
+          photoList: [
+            {
+              id: 1,
+              source: require('../../assets/background.jpg')
+            },
+            {
+              id: 2,
+              source: require('../../assets/background.jpg')
+            }
+          ]
         },
       }
     },
+    created() {
+      let to_post = this.$route.params.toPost;
+      let id = this.$route.params.id;
+      this.to_post = to_post;
+      this.form.id = id;
+      console.log(this.to_post + '是否加载aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    },
     mounted() {
-      UserApi.getUserInfo(1, this.success, this.fail)
+      UserApi.getUserInfo(1, this.success, this.fail);
     },
     methods: {
       success: function (status, text) {
@@ -123,6 +146,9 @@
       fail: function (err) {
         console.log("错误发生了！！！")
         console.log(err)
+      },
+      recruit(){
+        PostsApi.recruit_someone(3,this.success,this.fail)
       }
     }
   }
@@ -146,9 +172,4 @@
     padding-top: 2px;
   }
 
-  .photo {
-    width: 30%;
-    height: 30%;
-    margin: 5%;
-  }
 </style>

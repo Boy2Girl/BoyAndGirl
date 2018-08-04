@@ -17,9 +17,9 @@
     <x-input title="活动负责人微信" v-model="wechat"/>
     <group>
       <group-title slot="title">
-        <div style="padding: 5%">详细信息：</div>
+        <div style="padding: 0; color: black">详细信息：</div>
       </group-title>
-      <vue-html5-editor :content="detail" :height="400"
+      <vue-html5-editor :content="detail" :height="300" :z-index="index"
                         @change="updateData"></vue-html5-editor>
     </group>
     <x-button type="primary" class="btn btn-bottom" @click.native="add_activity">确认增加
@@ -53,7 +53,8 @@
         girlBeginAge: "",
         increment: "",
         wechat: "",
-        detail: ""
+        detail: "",
+        index: 1
       }
     },
     methods: {
@@ -92,8 +93,7 @@
   }
 
   .btn-bottom {
-    position: absolute;
-    z-index: 999;
+    position: fixed;
     bottom: 47px;
     left: 0;
     width: 100%;

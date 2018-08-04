@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-      <alert v-model="show" :title="title" 
+      <alert v-model="show" :title="title"
       @on-show="onShow" @on-hide="onHide">
          {{ content }}
       </alert>
@@ -55,7 +55,9 @@
 
   import {Card, XInput, Group, XButton,Alert} from 'vux';
   import {mapGetters, mapMutations} from 'vuex'
-  import UserApi from '../../api/user' 
+  import UserApi from '../../api/user'
+  import router from '../../router/index.js'
+
   export default {
     components: {
       Card, XInput, Group, XButton,Alert
@@ -74,7 +76,7 @@
       }
     },
     mounted() {
-      
+
     },
     methods: {
       ...mapMutations(['setToken','setUserID']),
@@ -141,7 +143,11 @@
          }
          return role
       },
-      onShow: function(){  
+      onShow: function(){
+        if(this.getRole() == UserApi.ROLE.ADMIN && this.isLogIn == true)
+          router.push('admin/activity');
+        else if(this.getRole() == UserApi.ROLE.USER && this.isLogIn == true)
+          router.push('user/activity');
       },
       onHide: function(){
         if(this.title == "成功"){
@@ -159,7 +165,7 @@
     right: 10px;
     text-align: center;
   }
-  
+
   .button1 {
     width: 85%;
   }
