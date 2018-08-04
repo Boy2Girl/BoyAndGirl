@@ -64,5 +64,10 @@ class ActivityBl(object):
         else:
             return join
 
+    def update_activity(self, activityVO: ActivityVO):
+        pass
+
+
+
 
 

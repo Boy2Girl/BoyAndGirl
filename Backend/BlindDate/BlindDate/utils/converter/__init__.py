@@ -1,4 +1,4 @@
-from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel
+from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel, CheckingUserInfoModel
 from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo
 
 
@@ -24,7 +24,8 @@ class UserConverter:
 class UserInfoConverter:
 
     def toModel(self, userInfoVO: UserInfoVO):
-        user = UserInfoModel()
+        ### 只能直接转化成待审核的状态
+        user = CheckingUserInfoModel()
         user.id = userInfoVO.id
         user.phone = userInfoVO.phone
         user.email = userInfoVO.email
@@ -60,6 +61,7 @@ class UserInfoConverter:
         user.income = userInfoVO.income
         user.corporation_type = userInfoVO.corporation_type
         user.work_state = userInfoVO.work_state
+        user.isReject = False
         return user
 
     def toVO(self, userInfoVO: UserInfoModel):
@@ -99,6 +101,46 @@ class UserInfoConverter:
         user.income = userInfoVO.income
         user.corporation_type = userInfoVO.corporation_type
         user.work_state = userInfoVO.work_state
+        return user
+
+    def mockToReal(self, userInfoVO: CheckingUserInfoModel):
+        user = UserInfoModel()
+        user.id = userInfoVO.id
+        user.phone = userInfoVO.phone
+        user.email = userInfoVO.email
+        user.name = userInfoVO.name
+        user.realName = userInfoVO.realName
+        user.gender = userInfoVO.gender
+        user.bornDate = userInfoVO.bornDate  # 出生日期
+        user.marriage = userInfoVO.marriage  # 婚姻状况
+        user.friend = userInfoVO.friend  # 交友要求
+        user.hometown = userInfoVO.hometown
+        user.company = userInfoVO.company
+        user.livingPlace = userInfoVO.livingPlace
+        user.job = userInfoVO.job
+        user.housingCondition = userInfoVO.housingCondition
+        user.economyCondition = userInfoVO.economyCondition
+        user.city = userInfoVO.city
+        user.p_height = userInfoVO.p_height
+        user.studyState = userInfoVO.studyState
+        user.collageSchool = userInfoVO.collageSchool
+        user.masterSchool = userInfoVO.masterSchool
+        user.doctorSchool = userInfoVO.doctorSchool
+        user.education = userInfoVO.education
+        user.major = userInfoVO.major
+        user.about_you = userInfoVO.about_you
+        user.about_me = userInfoVO.about_me
+        user.avatar = userInfoVO.avatar
+        user.personUrl = userInfoVO.personUrl
+        user.studentUrl = userInfoVO.studentUrl
+        user.graduateUrl = userInfoVO.graduateUrl
+        user.otherUrl = userInfoVO.otherUrl
+        user.qq = userInfoVO.qq
+        user.wechat = userInfoVO.wechat
+        user.income = userInfoVO.income
+        user.corporation_type = userInfoVO.corporation_type
+        user.work_state = userInfoVO.work_state
+        user.isReject = False
         return user
 
 

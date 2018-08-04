@@ -60,6 +60,53 @@ class UserInfoModel(db.Model):
         pass
 
 
+'''用来保存新的用户表'''
+
+
+class CheckingUserInfoModel(db.Model):
+    __tablename__ = "CheckingUserInfo"
+    id = db.Column(Integer, primary_key=True)
+    phone = db.Column(VARCHAR(100))
+    email = db.Column(VARCHAR(100))
+    name = db.Column(VARCHAR(100))
+    realName = db.Column(VARCHAR(100))
+    gender = db.Column(VARCHAR(100))
+    bornDate = db.Column(DATE)  # 出生日期
+    marriage = db.Column(VARCHAR(100)) # 婚姻状况
+    friend = db.Column(VARCHAR(100))  # 交友要求
+    hometown = db.Column(VARCHAR(100))
+    company = db.Column(VARCHAR(100))
+    livingPlace = db.Column(VARCHAR(100))
+    job = db.Column(VARCHAR(100))
+    housingCondition = db.Column(VARCHAR(100))
+    economyCondition = db.Column(VARCHAR(100))
+    city = db.Column(VARCHAR(100))
+    p_height = db.Column(Integer)
+    studyState = db.Column(VARCHAR(100))
+    collageSchool = db.Column(VARCHAR(100))
+    masterSchool = db.Column(VARCHAR(100))
+    doctorSchool = db.Column(VARCHAR(100))
+    education = db.Column(VARCHAR(100))
+    major = db.Column(VARCHAR(100))
+    about_you = db.Column(VARCHAR(100))
+    about_me = db.Column(VARCHAR(100))
+    avatar = db.Column(VARCHAR(100))
+    personUrl = db.Column(VARCHAR(100))
+    studentUrl = db.Column(VARCHAR(100))
+    graduateUrl = db.Column(VARCHAR(100))
+    otherUrl = db.Column(VARCHAR(100))
+    qq = db.Column(VARCHAR(100))
+    wechat = db.Column(VARCHAR(100))
+    income = db.Column(VARCHAR(100))
+    corporation_type = db.Column(VARCHAR(100))
+    work_state = db.Column(VARCHAR(100))
+
+    isReject = db.Column(Boolean)
+
+    def __init__(self, **kwargs):
+        pass
+
+
 class ActivityModel(db.Model):
     __tablename__ = "Activity"
     id = db.Column(Integer, primary_key=True)

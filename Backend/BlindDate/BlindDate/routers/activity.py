@@ -66,7 +66,6 @@ activity_bl = BlFactory.activityBl
 @ns.response(500, '内部错误')
 class Activity(Resource):
 
-
     @ns.doc('增加活动')
     @ns.expect(login_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
@@ -76,7 +75,6 @@ class Activity(Resource):
             return result, 200
         except InsertException:
             return None, 500
-
 
     @ns.doc('报名参加活动')
     @ns.expect(get_parser)
@@ -94,7 +92,6 @@ class Activity(Resource):
             return {"error": "system is error"}, 500
         except AlreadyExists:
             return {"error": "already exists"}, 405
-
 
     @ns.doc('取消报名活动')
     @ns.expect(get_parser)
@@ -126,7 +123,7 @@ class Activity(Resource):
 
     @ns.doc('获取我的活动列表')
     @ns.expect(my_list_parser)
-    def fetch(self):
+    def patch(self):
         begin = request.args['begin']
         is_current = request.args['isCurrent']
         user_id = request.args['userId']
@@ -169,4 +166,16 @@ class ActivityAID(Resource):
             return {"error": "can not find the activity"}, 404
         except SystemErrorException:
             return {"error": "system is error"}, 500
+
+    @ns.doc('更新某个活动信息')
+    @ns.param(name="aID", description="活动的ID", _in="path")
+    def patch(self, aID):
+        try:
+            activity = activity_bl.check_register(username, aID)
+            return None, 200
+        except NotFoundException:
+            return {"error": "can not find the activity"}, 404
+        except SystemErrorException:
+            return {"error": "system is error"}, 500
+
 

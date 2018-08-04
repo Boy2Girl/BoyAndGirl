@@ -86,6 +86,9 @@ login_parser.add_argument('work_state', type=str, help='工作状态', location=
 #         self.work_state = form['work_state']
 
 
+end_parser = ns.parser()
+end_parser.add_argument('isChecked', type=bool, help='是否实名认证过的', location='args')
+
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
@@ -121,6 +124,27 @@ class UserInfo(Resource):
         except NotFoundException:
             return None, 404
 
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('获取没有实名认证过的用户信息列表')
+    def get(self):
+        try:
+            return userInfoBl.get_un_checking_list(), 200, {}
+        except AlreadyExists:
+            return None, 403
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('审批一个用户的用户信息提交')
+    def patch(self):
+        try:
+            userID = request.form['userID']
+            isPass = request.form['isPass'] == 'True'
+            userInfoBl.check_user_info(userID, isPass)
+            return None, 200
+        except AlreadyExists:
+            return None, 403
+
+
+
 
 @ns.route('/<string:id>')
 @ns.response(200, '返回用户信息，格式和参数相同')
@@ -132,7 +156,8 @@ class UserInfoID(Resource):
     @ns.expect()
     def get(self, id):
         try:
-            result = userInfoBl.get_user_info(id)
+            is_check = request.args['isChecked'] == 'True'
+            result = userInfoBl.get_user_info(id, is_check)
             result1 = DateEncoderUtil().changeDate(result)
             return result1, 200
         except NotFoundException:

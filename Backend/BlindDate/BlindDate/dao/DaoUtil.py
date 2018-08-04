@@ -13,7 +13,7 @@ class DaoUtil(object):
 
     def insert(self, object):
         try:
-            self.session = db.session
+            # self.session = db.session
             self.session.add(object)
             self.session.commit()
             return object.id

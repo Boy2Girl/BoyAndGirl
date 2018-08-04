@@ -20,9 +20,15 @@ class UserDao(DaoUtil):
     def get_user_by_id(self, user_id):
         try:
             session = db.session
-            user = session.query(UserModel.username).filter(UserModel.id == user_id)
-            if not user:
-                raise NotFoundException
+            user = session.query(UserModel).filter(UserModel.id == user_id).first()
             return user
+        except:
+            raise SystemError
+
+    def updateUserRole(self, user_id, user_role):
+        try:
+            session = db.session
+            session.query(UserModel).filter(UserModel.id == user_id).update(dict(role=user_role))
+            session.commit()
         except:
             raise SystemError
