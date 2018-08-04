@@ -46,7 +46,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow: 0 2px 4px #000;
     width: 100%;
     & > ul, & > ul > li {

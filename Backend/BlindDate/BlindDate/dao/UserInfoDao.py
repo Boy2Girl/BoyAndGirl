@@ -67,6 +67,12 @@ class UserInfoDao(DaoUtil):
             self.session.commit()
         user_info = [i[0] for i in session.query(CheckingUserInfoModel.id).all()]
         return user_info
+    def get_all(self):
+        try:
+            user_info = session.query(UserInfoModel).all()
+            return user_info
+        except:
+            traceback.print_exc()
 
 
 

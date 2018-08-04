@@ -205,4 +205,8 @@
   .subtitle{
     margin-top: 20px;
   }
+
+  .cell-font{
+    font-size: smaller;
+  }
 </style>

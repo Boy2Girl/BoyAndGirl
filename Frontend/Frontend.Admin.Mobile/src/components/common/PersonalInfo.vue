@@ -56,7 +56,7 @@
       <x-textarea :disabled='disabled' style="margin-bottom: 48px; " class="cell-font" title="关于你:" :value="form.about_you"/>
     </group>
 
-    <x-button class='button1' style="margin-bottom: 48px" v-if="to_post" :gradients="['#a66dcb','#e015fa']" @click.native="recruit">应征某人</x-button>
+    <x-button class='button1' style="margin-bottom: 48px" v-if="to_post" :gradients="['#c6634b','#e9672c']" @click.native="recruit">应征某人</x-button>
   </div>
 </template>
 
@@ -128,7 +128,6 @@
       let id = this.$route.params.id;
       this.to_post = to_post;
       this.form.id = id;
-      console.log(this.to_post + '是否加载aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
     },
     mounted() {
       UserApi.getUserInfo(1, this.success, this.fail);

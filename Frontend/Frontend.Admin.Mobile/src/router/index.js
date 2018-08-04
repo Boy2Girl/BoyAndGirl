@@ -22,7 +22,6 @@ import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
 import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
 import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
-import EditPersonalInfo from '../components/common/EditPersonalInfo.vue';
 import PoolPeopleListPage from '../components/page/user/PoolPeopleListPage.vue';
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
@@ -37,9 +36,9 @@ const routes = [
     component: FileUpLoader,
   },
   {
-    path: '/edit',
-    name: 'edit',
-    component: EditPersonalInfo
+    path: '/login',
+    component: HomePage,
+
   },
   {
     path: '/user',
@@ -48,7 +47,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: HomePage
+        component: ActivityListPage
       },
       {
         path: 'activity',
@@ -58,11 +57,17 @@ const routes = [
       {
         path: 'activity/:id',
         component: UserActivityPage,
+        meta: {
+          requireAuth: [UserType.USER],
+        },
       },
       {
         path: 'pool',
         component: UserPoolListPage,
-        name: 'pool'
+        name: 'pool',
+        meta: {
+          requireAuth: [UserType.USER],
+        },
       },
       {
         path: 'pool/:id',
@@ -84,7 +89,7 @@ const routes = [
         component: PostsPage,
         name: 'posts',
         meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+          requireAuth: [UserType.USER, UserType.ADMIN, UserType.PUBLISHER],
         }
       },
       {
@@ -208,9 +213,19 @@ export default router;
 
 function success(status, text) {
   if (status === 200) {
-    console.log("成功")
-  } else if (status === 403) {
-    console.log("失败")
+    if(text === 'false'){
+      console.log('没有登陆')
+    }
+    console.log("成功");
+  } else {
+    console.log("失败");
+    // this.$router.push({
+    //   path: '/login',
+    //   query: {
+    //     redirect: location.hostname
+    //   }
+    // });
+    //window.location='http://localhost:8081/#/login';
   }
 }
 
@@ -222,11 +237,12 @@ function fail(err) {
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   next();
-  if (to.meta.requireAuth || true) {
+  if (to.meta.requireAuth) {//查看是否需要权限登陆
     CheckApi.check(success, fail)
   }
-})
-//   fetch(address+"user/checkState", {
+
+ });
+//   fetch('http://127.0.0.1:5000/api/'+"user/checkState", {
 //     method: 'get',
 //     credentials: 'include',
 //   }).then(res => {
@@ -254,7 +270,7 @@ router.beforeEach((to, from, next) => {
 //           // console.log(text)
 //           //  this.$router.push({name:name,query:{redirect:this.name}})
 //         })
-
+//
 //       // myVue.$store.state.name=text;
 //       next();
 //     }
@@ -265,7 +281,7 @@ router.beforeEach((to, from, next) => {
 //       })
 //     }
 //   })
-
+//
 // }
 // else {
 //   next();

@@ -2,25 +2,36 @@
   <div>
     <card v-for="item in postList" v-bind:key="item.id">
       <div slot="content" class="card-padding" @click="route(item.id, toPost)">
-        <div class="content">
-          <div>
-            <font
-             style="background-color: #17872b; color: white; padding: 4px; width: 110%; height: 110%; margin-left: 1%; margin-right: 1%">{{item.education}}</font>
-            <font style="font-weight: bolder">{{item.username}}</font>
+          <div class="content">
+            <div style="display: inline-block;">
+              <div style="display: inline; margin-top: 10px">
+                <div style="display: inline; margin-top: 10px; margin-bottom: 10px">
+                  <font class="content-tag">{{item.education}}</font>
+                  <font class="content-title">{{item.username}}</font>
+                </div>
+              </div>
+              <div class="cell-text" style="margin-top: 7px">
+                出生年份：{{item.birthDate}}
+              </div>
+              <div class="cell-text">
+                所在城市：{{item.city}}
+              </div>
+              <div class="cell-text">
+                本科学校：{{item.school}}
+              </div>
+              <div class="cell-text">
+                职业：{{item.career}}
+              </div>
+            </div>
+            <div style="display: inline;float: right;padding: 10px;padding-left: 150px">
+              <img :src="item.source"
+                   :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; display:inline; padding-right: 2%;float: right; margin-top: -120px'">
+            </div>
           </div>
-          <group>
-            <cell class="cell-font" title="出生年份:" :style="'width:'+windowSize*0.65+'px'"> {{item.birthDate}}</cell>
-            <cell class="cell-font" title="所在城市:"> {{item.city}}</cell>
-            <cell class="cell-font" title="本科学校:">{{item.school}}</cell>
-            <cell class="cell-font" title="职业:">{{item.career}}</cell>
-          </group>
         </div>
-        <img :src="item.source" :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; margin-top: 20px'"/>
-      </div>
     </card>
-
     <group>
-      <x-button class='button1' style="position:fixed; bottom:48px;" v-if="toPost" :gradients="['#a66dcb','#e015fa']" @click.native="addPosts">增加</x-button>
+      <x-button class='button1' style="position:fixed; bottom:48px;" v-if="toPost" :gradients="['#c6634b','#e9672c']" @click.native="addPosts">增加</x-button>
     </group>
   </div>
 </template>
@@ -88,15 +99,15 @@
       },
       getSuccess: function(status, text){
         if(status == 200){
-          let result = (JSON.parse(text))
-          console.log(result)
+          let result = (JSON.parse(text));
+          console.log(result);
           this.postList = result
         }else if(status == 500){
           console.log("上传互选池失败")
         }
       },
       fail: function(err){
-        console.log("错误发生了！！！")
+        console.log("错误发生了！！！");
         console.log(err)
       },
       recruit(){
@@ -105,7 +116,7 @@
     },
     mounted(){
       let name = this.$route.name;
-      let toPost = this.toPost
+      let toPost = this.toPost;
       if(name == 'posts'){
         PostsApi.getAll(this.getSuccess, this.fail);
         toPost=true;
@@ -124,16 +135,39 @@
 </script>
 
 <style scoped>
-  .cell-font {
-    font-size: smaller;
-    padding-bottom: 2px;
-    padding-top: 2px;
-  }
   .card-padding {
     display: flex;
-    margin: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-top: 1.5%;
   }
+
   .content {
     display: inline;
+  }
+
+  .content-title {
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+  }
+
+  .content-tag {
+    font-size: 10px;
+    font-weight: bold;
+    margin-right: 5px;
+    text-align: center;
+    padding: 4px;
+    border-radius: 4px;
+    width: 110%;
+    height: 110%;
+    background-color: #17872b;
+    color: white;
+  }
+
+  .cell-text{
+    font-size: smaller;
+    padding-bottom: 0px;
+    padding-top: 2px;
   }
 </style>

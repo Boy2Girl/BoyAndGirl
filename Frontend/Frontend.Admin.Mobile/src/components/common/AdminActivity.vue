@@ -1,20 +1,22 @@
 <template>
   <div>
-    <FileUPloader :url="actionUrl" v-on:child-say="listenToMyBoy"/>
-    <!-- <group label-width="4.5em" label-margin-right="2em" label-align="right"> -->
-    <x-input title="活动名称" v-model="name"/>
-    <datetime title="活动开始时间" v-model="activityBeginTime" value-text-align="left"/>
-    <datetime title="活动结束时间" v-model="activityEndTime" value-text-align="left"/>
-    <x-input title="活动地点" v-model="address"/>
-    <datetime title="报名开始时间" v-model="registerBeginTime" value-text-align="left"/>
-    <datetime title="报名结束时间" v-model="registerEndTime" value-text-align="left"/>
-    <datetime title="互选开始时间" v-model="selectBeginTime" value-text-align="left"/>
-    <datetime title="互选结束时间" v-model="selectEndTime" value-text-align="left"/>
-    <x-input title="收费标准" v-model="chargeRule"/>
+    <img src="../../assets/activity.png" style="height: 35px; width: 35px; position: absolute; top: 20px; left: 10px"/>
+    <x-input title="活动名称" style="padding: 5%; font-weight: bold; font-size: 24px; color: #464448; width: 90%; margin-left: 10%"
+        placeholder="请输入活动名称"     v-model="name"/>
+    <!--<x-input title="活动名称" text-align="right" v-model="name"/>-->
+    <datetime title="活动开始时间" v-model="activityBeginTime" value-text-align="right"/>
+    <datetime title="活动结束时间" v-model="activityEndTime" value-text-align="right"/>
+    <x-input title="活动地点" text-align="right" v-model="address"/>
+    <datetime title="报名开始时间" v-model="registerBeginTime" value-text-align="right"/>
+    <datetime title="报名结束时间" v-model="registerEndTime" value-text-align="right"/>
+    <datetime title="互选开始时间" v-model="selectBeginTime" value-text-align="right"/>
+    <datetime title="互选结束时间" v-model="selectEndTime" value-text-align="right"/>
+    <x-input title="收费标准" text-align="right" v-model="chargeRule"/>
     <datetime format="YYYY" title="男士年龄递增费用免收起始" v-model="boyBeginAge"/>
     <datetime format="YYYY" title="女士年龄递增费用免收起始" v-model="girlBeginAge"/>
-    <x-input type="number" title="每大一岁递增加收" v-model="increment"/>
-    <x-input title="活动负责人微信" v-model="wechat"/>
+    <x-input type="number" text-align="right" title="每大一岁递增加收" v-model="increment"/>
+    <x-input title="活动负责人微信" text-align="right" v-model="wechat"/>
+    <FileUPloader :url="actionUrl" v-on:child-say="listenToMyBoy"/>
     <group>
       <group-title slot="title">
         <div style="padding: 0; color: black">详细信息：</div>

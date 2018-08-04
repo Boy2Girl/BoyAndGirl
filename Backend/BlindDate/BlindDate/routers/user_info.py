@@ -7,7 +7,9 @@ from flask_restplus import Resource, Namespace
 from decorator.RoleRequest import login_require
 from exceptions import NotFoundException, AlreadyExists, InsertException
 from factory.BlFactory import userInfoBl
+from factory.DaoFactory import userDao
 from publicdata import Role
+from utils import JwtUtil
 from utils.DateEncoder import DateEncoderUtil
 from vo import UserInfoVO
 
@@ -106,9 +108,8 @@ class UserInfo(Resource):
     @ns.expect(login_parser)
     def put(self):
         try:
-            for i in request.form:
-                print(i)
-            userInfoBl.add_user_info(UserInfoVO(form=request.form))
+            username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+            userInfoBl.add_user_info(UserInfoVO(form=request.form), username)
             return None, 200, {}
         except InsertException:
             return None, 500

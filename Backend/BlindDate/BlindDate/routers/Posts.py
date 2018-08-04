@@ -19,6 +19,7 @@ list_parser.add_argument('userId', type=str, help='用户id', location='form')
 end_parser = ns.parser()
 end_parser.add_argument('endTime', type=str, help='结束时间', location='form')
 
+
 @ns.route('')
 @ns.response(200, 'OK')
 @ns.response(404, 'user not found')
@@ -38,13 +39,18 @@ class Posts(Resource):
             return None, 405
         except InsertException:
             return None, 404
+        except SystemError:
+            return None, 500
 
     @ns.doc('我的应征')
     @ns.expect(list_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def fetch(self):
-        user_id = request.form['userId']
-        return postsBl.get_my_posts(user_id), 200
+        try:
+            user_id = request.form['userId']
+            return postsBl.get_my_posts(user_id), 200
+        except SystemError:
+            return None, 500
 
     @ns.doc('创建一个发帖应征')
     @ns.expect(end_parser)
@@ -59,3 +65,14 @@ class Posts(Resource):
         except InsertException:
             """用户或者候选池不存在"""
             return None, 404
+        except SystemError:
+            return None, 500
+
+    @ns.doc('获得所有发帖应征')
+    @ns.expect(list_parser)
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    def get(self):
+        try:
+            return postsBl.get_all()
+        except SystemError:
+            return None, 500
