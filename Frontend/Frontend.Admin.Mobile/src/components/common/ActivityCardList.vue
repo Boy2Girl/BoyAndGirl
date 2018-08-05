@@ -30,7 +30,7 @@
         <flexbox>
           <flexbox-item>
             <div class="info">
-              <Icon type="ios-heart-outline"/>
+              <Icon type="ios-heart-outline"></Icon>
               {{item.numOfRead}} 阅读
             </div>
           </flexbox-item>
@@ -58,34 +58,34 @@
     data() {
       return {
         activityList: [
-          {
-            id: 1,
-            url: "http://placeholder.qiniudn.com/640x300",
-            title: "周三-单身大作战",
-            time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
-            address: "专属微信群",
-            numOfRead: 168,
-            numOfSign: 15
-          },
-          {
-            id: 2,
-            url: "http://placeholder.qiniudn.com/640x300",
-            title: "周三-单身大作战",
-            time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
-            address: "专属微信群",
-            numOfRead: 168,
-            numOfSign: 15
-          }
+          // {
+          //   id: 1,
+          //   url: "http://placeholder.qiniudn.com/640x300",
+          //   title: "周三-单身大作战",
+          //   time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
+          //   address: "专属微信群",
+          //   numOfRead: 168,
+          //   numOfSign: 15
+          // },
+          // {
+          //   id: 2,
+          //   url: "http://placeholder.qiniudn.com/640x300",
+          //   title: "周三-单身大作战",
+          //   time: "2018-08-01 19:00 ~ 2018-08-01 22:00",
+          //   address: "专属微信群",
+          //   numOfRead: 168,
+          //   numOfSign: 15
+          // }
         ]
       }
     },
     mounted() {
       let name = this.$route.name;
-      if(name == "activity"){
+      if (name === "activity") {
         ActivityApi.getAllActivity(0, false, this.success, this.fail)
-      }else if(name == "myActivity"){
+      } else if (name === "myActivity") {
         ActivityApi.getByUser(this.success, this.fail);
-      }else if(name = "historyActivity"){
+      } else if (name === "historyActivity") {
         ActivityApi.getAllActivity(0, false, this.success, this.fail)
       }
     },
@@ -94,7 +94,7 @@
         router.push('/user/activity/' + id);
       },
       success: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           let result = JSON.parse(text)
           console.log(result)
           this.activityList = result

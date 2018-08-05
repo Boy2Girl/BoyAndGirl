@@ -91,6 +91,7 @@ login_parser.add_argument('work_state', type=str, help='工作状态', location=
 end_parser = ns.parser()
 end_parser.add_argument('isChecked', type=bool, help='是否实名认证过的', location='args')
 
+
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
@@ -145,8 +146,6 @@ class UserInfo(Resource):
             return None, 403
 
 
-
-
 @ns.route('/<string:id>')
 @ns.response(200, '返回用户信息，格式和参数相同')
 @ns.response(404, '没有找到该用户信息')
@@ -163,5 +162,3 @@ class UserInfoID(Resource):
             return result1, 200
         except NotFoundException:
             return None, 404
-
-

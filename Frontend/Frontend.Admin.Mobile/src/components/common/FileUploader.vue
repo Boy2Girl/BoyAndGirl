@@ -15,25 +15,22 @@
   </div>
 </template>
 <script>
-   import Base from '../../api/basequery'
   export default {
     props: {
       url: String
     },
     data() {
-      return {
-
-      }
+      return {}
     },
     methods: {
       handleBeforeUpload(file) {
         console.log(file)
-        this.$emit('child-say',file.name);
+        this.$emit('child-say', file.name);
         return true;
       },
-      handleSuccess(res){
+      handleSuccess(res) {
         console.log(res)
-        this.$emit('child-say', "http://127.0.0.1:5000" + '/static/'+res);
+        this.$emit('child-say', "http://127.0.0.1:5000" + '/static/' + res);
       }
     }
 

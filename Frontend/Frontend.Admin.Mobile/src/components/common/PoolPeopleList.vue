@@ -29,7 +29,7 @@
               职业：{{item.career}}
             </div>
           </div>
-          <div style="display: inline;float: right;padding: 10px;padding-left: 150px">
+          <div style="display: inline;float: right;padding: 10px 10px 10px 150px;">
             <img :src="item.source"
                  :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; display:inline; padding-right: 2%;float: right; margin-top: -120px'">
           </div>
@@ -42,6 +42,7 @@
 <script>
   import {Card} from 'vux';
   import UserApi from '../../api/user'
+
   export default {
 
     components: {
@@ -51,31 +52,31 @@
 
       return {
         poolPeopleList: [
-          {
-            id: 1,
-            education: '本',
-            username: '娜扎阿拉提',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 2,
-            education: '本',
-            username: '娜扎阿拉提',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          }
+          // {
+          //   id: 1,
+          //   education: '本',
+          //   username: '娜扎阿拉提',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 2,
+          //   education: '本',
+          //   username: '娜扎阿拉提',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // }
         ],
         windowSize: document.body.clientWidth,
       }
     },
-    methods:{
+    methods: {
       success: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text);
@@ -95,8 +96,8 @@
 
       }
     },
-    mounted(){
-      UserApi.getUserList(this.success,this.fail)
+    mounted() {
+      UserApi.getUserList(this.success, this.fail)
     }
   }
 </script>
@@ -132,7 +133,7 @@
     color: white;
   }
 
-  .cell-text{
+  .cell-text {
     font-size: smaller;
     padding-bottom: 0px;
     padding-top: 2px;

@@ -64,66 +64,66 @@
 
       return {
         postList: [
-          {
-            id: 1,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 2,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 3,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 4,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 5,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          },
-          {
-            id: 6,
-            education: '本',
-            username: 'dhh',
-            birthDate: '1980',
-            city: '南京',
-            school: '南京大学',
-            career: '金融',
-            source: require("../../assets/logo.jpg")
-          }
+          // {
+          //   id: 1,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 2,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 3,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 4,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 5,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // },
+          // {
+          //   id: 6,
+          //   education: '本',
+          //   username: 'dhh',
+          //   birthDate: '1980',
+          //   city: '南京',
+          //   school: '南京大学',
+          //   career: '金融',
+          //   source: require("../../assets/logo.jpg")
+          // }
         ],
         windowSize: document.body.clientWidth,
         toPost: false
@@ -144,18 +144,18 @@
         PostsApi.addPosts(this.success, this.fail)
       },
       success: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           console.log("成功插入")
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("上传互选池失败")
         }
       },
       getSuccess: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           let result = (JSON.parse(text));
           console.log(result);
           this.postList = result
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("上传互选池失败")
         }
       },
@@ -175,15 +175,15 @@
     mounted() {
       let name = this.$route.name;
       let toPost = this.toPost;
-      if (name == 'posts') {
+      if (name === 'posts') {
         PostsApi.getAll(this.getSuccess, this.fail);
         toPost = true;
       }
-      else if (name == 'myPostOne') {
+      else if (name === 'myPostOne') {
         PostsApi.getByUser(this.getSuccess, this.fail);
         toPost = false;
       }
-      else if (name == 'OnePostMe') {
+      else if (name === 'OnePostMe') {
         PostsApi.getMy(this.getSuccess, this.fail);
         toPost = false;
       }

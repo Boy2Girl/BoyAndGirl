@@ -80,7 +80,7 @@
         }
       },
       fail: function (err) {
-        console.log("错误发生了！！！")
+        console.log("错误发生了！！！");
         console.log(err)
       },
       listenToMyBoy: function (somedata) {

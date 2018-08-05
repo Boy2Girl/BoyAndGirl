@@ -29,9 +29,7 @@
   import SENTENCES from "../../assets/sentences";
 
   export default {
-    components: {
-
-    },
+    components: {},
     data() {
       return {
         tabBar1: SENTENCES.User_MENU.ACTIVITY,

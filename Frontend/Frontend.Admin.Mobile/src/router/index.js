@@ -218,7 +218,7 @@ export default router;
 
 function success(status, text) {
   if (status === 200) {
-    if(text === 'false'){
+    if (text === 'false') {
       console.log('没有登陆')
     }
     console.log("成功");
@@ -241,12 +241,12 @@ function fail(err) {
 
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
-  next();
   if (to.meta.requireAuth) {//查看是否需要权限登陆
     CheckApi.check(success, fail)
+  } else {
+    next()
   }
-
- });
+});
 //   fetch('http://127.0.0.1:5000/api/'+"user/checkState", {
 //     method: 'get',
 //     credentials: 'include',

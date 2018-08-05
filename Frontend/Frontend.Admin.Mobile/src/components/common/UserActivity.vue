@@ -23,7 +23,7 @@
     <x-button v-if="!isRegistered" type="primary" class="btn btn-bottom" @click.native="register_activity">确认报名
     </x-button>
     <x-button v-else type="warn" class="btn btn-bottom" @click.native="cancel">取消报名</x-button>
-    <div class = "bottom">
+    <div class="bottom">
     </div>
   </div>
 </template>
@@ -53,61 +53,61 @@
       }
     },
     mounted() {
-      ActivityApi.checkRegister(this.$route.params.id,this.checkSuccess,this.fail)
+      ActivityApi.checkRegister(this.$route.params.id, this.checkSuccess, this.fail)
       console.log(this.$route)
       ActivityApi.getActivity(this.$route.params.id, this.success, this.fail)
     },
     methods: {
       checkSuccess: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           this.isRegistered = true;
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("取消报名活动失败")
-        } else if (status == 404) {
+        } else if (status === 404) {
           this.isRegistered = false;
-        } else if (status == 405) {
+        } else if (status === 405) {
           console.log("您还没有报名活动")
         }
       },
       registerSuccess: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           this.isRegistered = true;
           console.log("成功取消活动")
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("取消报名活动失败")
-        } else if (status == 404) {
+        } else if (status === 404) {
           console.log("抱歉，该活动不存在")
-        } else if (status == 405) {
+        } else if (status === 405) {
           console.log("您还没有报名活动")
         }
       },
       leaveSuccess: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           this.isRegistered = false;
           console.log("成功报名活动")
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("报名活动失败")
-        } else if (status == 404) {
+        } else if (status === 404) {
           console.log("抱歉，该活动不存在")
-        } else if (status == 405) {
+        } else if (status === 405) {
           console.log("活动已经报名")
         }
       },
       allSuccess: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           console.log(JSON.parse(text))
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("获取活动列表失败")
         }
       },
       register_activity: function () {
         ActivityApi.registerActivity(this.$route.params.id, this.registerSuccess, this.fail)
       },
-      cancel: function(){
+      cancel: function () {
         ActivityApi.leaveActivity(this.$route.params.id, this.leaveSuccess, this.fail)
       },
       success: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           let result = JSON.parse(text)
           console.log(result)
           this.activityTime = result.activityBeginTime + " - " + result.activityEndTime
@@ -120,9 +120,9 @@
           this.wechat = result.wechat
           this.detail = result.detail
           this.url = result.url;
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("获取活动失败")
-        } else if (status == 404) {
+        } else if (status === 404) {
           console.log("没有该活动")
         }
       },
@@ -139,13 +139,14 @@
   }
 
   .btn-bottom {
-    position:absolute;
+    position: absolute;
     // z-index: 999;
     bottom: 0;
     left: 0;
     width: 100%;
   }
-  .bottom{
+
+  .bottom {
     height: 100px
   }
 </style>

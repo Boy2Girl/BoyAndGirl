@@ -181,18 +181,18 @@
         this.form.otherUrl = url
       },
       save_info() {
-        console.log(this.form)
+        console.log(this.form);
         UserApi.addUserInfo(this.form, this.success, this.fail)
       },
       success: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           console.log("成功插入")
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("上传用户信息失败")
         }
       },
       fail: function (err) {
-        console.log("错误发生了！！！")
+        console.log("错误发生了！！！");
         console.log(err)
       }
     }
