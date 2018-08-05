@@ -134,7 +134,7 @@
     margin-right: 5px;
     text-align: center;
     padding: 1px;
-    border-radius: 5px;
+    border-radius: 3px;
     opacity: 0.85;
   }
 

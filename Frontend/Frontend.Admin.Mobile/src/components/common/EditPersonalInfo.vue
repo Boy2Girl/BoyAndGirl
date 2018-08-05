@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div class="sub-title">
-      头像
-    </div>
-    <group>
+    <sub-title class="sub-title" value="头像"/>
+    <group class="group-type">
       <FileUPloader :url="actionUrl" v-on:child-say="getAvatar"/>
       <!-- <img :src="source" class="photo"/> -->
       <!-- <img src="../../assets/add.png" class="photo"/> -->
@@ -203,10 +201,14 @@
 
 <style scoped>
   .subtitle{
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .cell-font{
     font-size: smaller;
+  }
+
+  .group-type{
+    margin-top: 5px;
   }
 </style>
