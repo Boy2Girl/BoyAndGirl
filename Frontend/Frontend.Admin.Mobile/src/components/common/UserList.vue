@@ -1,14 +1,21 @@
 <template>
-  <div style="margin:5%">
-    <Input style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"/>
-    <Table border stripe :columns="userList" :data="userData"></Table>
+  <div>
+    <div style="margin:5%">
+      <Input style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"/>
+      <Table border stripe :columns="userList" :data="userData"></Table>
+    </div>
+    <x-button type="primary" style="position:fixed; bottom: 47px;" link="/admin/verify">审核用户</x-button>
   </div>
 </template>
 
 <script>
   import {UserType} from "../../models/user/UserType";
+  import {XButton} from "vux";
 
   export default {
+    components: {
+      XButton
+    },
     data() {
       return {
         userList: [

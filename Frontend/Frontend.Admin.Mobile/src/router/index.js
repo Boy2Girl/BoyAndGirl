@@ -10,6 +10,7 @@ import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
+import VerifyUserPage from '../components/page/admin/VerifyUserPage'
 import PostsPage from '../components/page/user/PostsPage';
 import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
@@ -200,6 +201,10 @@ const routes = [
         meta: {
           requireAuth: [UserType.ADMIN],
         },
+      },
+      {
+        path: 'verify',
+        component: VerifyUserPage
       }
     ]
   }
