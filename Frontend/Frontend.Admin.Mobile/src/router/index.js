@@ -37,17 +37,17 @@ const routes = [
     component: FileUpLoader,
   },
   {
-    path: '/login',
-    component: HomePage,
-  },
-  {
     path: '/user',
     name: "user_base",
     component: UserBaseLayout,
     children: [
       {
+        path: '/login',
+        component: HomePage,
+      },
+      {
         path: '',
-        component: ActivityListPage
+        component: HomePage
       },
       {
         path: 'activity',
