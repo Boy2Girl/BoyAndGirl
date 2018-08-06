@@ -1,7 +1,8 @@
 <template>
   <div>
     <div style="margin:5%">
-      <Input style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"/>
+      <Input v-model="keyId" style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"
+             @input="search"/>
       <Table border stripe :columns="userList" :data="userData"></Table>
     </div>
     <x-button type="primary" style="position:fixed; bottom: 47px;" link="/admin/verify">审核用户</x-button>
@@ -19,6 +20,7 @@
     },
     data() {
       return {
+        keyId: "",
         userList: [
           {
             title: 'ID',
@@ -64,10 +66,20 @@
             }
           }
         ],
+        rawUserData: [],
         userData: []
       }
     },
     methods: {
+      search: function () {
+        let result = [];
+        for (let i = 0; i < this.rawUserData.length; i++) {
+          if ((this.rawUserData[i].uID + "").indexOf(this.keyId) >= 0) {
+            result.push(this.rawUserData[i]);
+          }
+        }
+        this.userData = result;
+      },
       loadUserList: function () {
         UserApi.getUserList(this.success, this.fail);
       },
@@ -87,9 +99,11 @@
         if (status === 200) {
           let result = JSON.parse(text);
           console.log(result.length);
-          this.userData = that.listConvert(result)
+          this.rawUserData = that.listConvert(result);
+          this.userData = this.rawUserData;
+          this.search();
         } else if (status === 500) {
-          console.log("上传互选池失败")
+          console.log("上传互选池失败");
         }
       },
       fail: function (err) {

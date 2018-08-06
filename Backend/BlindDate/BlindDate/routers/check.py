@@ -36,7 +36,7 @@ class Check(Resource):
         except:
             return None, 403
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @login_require(Role.ADMIN)
     @ns.doc('更新用户的权限')
     def patch(self):
         try:
