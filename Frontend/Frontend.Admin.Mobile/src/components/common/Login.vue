@@ -23,7 +23,7 @@
           <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="changeState">注册</x-button>
         </div>
       </card>
-     
+
     </div>
     <div v-else class="content content-front">
       <Group>

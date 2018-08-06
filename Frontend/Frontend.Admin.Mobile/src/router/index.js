@@ -216,7 +216,7 @@ function success(status, text) {
   console.log(text);
   if (status === 401) {
     console.log('请先登录');
-    router.push('/login')
+    router.push('/user/login');
   }
   if (status === 200) {
     if (text === 'false') {
