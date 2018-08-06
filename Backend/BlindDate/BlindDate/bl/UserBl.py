@@ -36,4 +36,4 @@ class UserBl(object):
 
     def get_all_user(self):
         model = self.user_dao.get_all_user()
-        return [UserConverter().toVO(i) for i in model]
+        return [UserConverter().toVO(i).serialize() for i in model]

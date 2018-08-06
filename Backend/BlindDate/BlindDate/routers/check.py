@@ -1,3 +1,5 @@
+import traceback
+
 from flask import request
 from flask_restplus import Resource, Namespace
 
@@ -39,7 +41,7 @@ class Check(Resource):
     def patch(self):
         try:
             userID = request.form['userID']
-            increase = request.form['increase'] == 'True'
+            increase = request.form['increase'] == 'true'
             userDao = DaoFactory.userDao
             user = userDao.get_user_by_id(userID)
             print(user.role)
@@ -54,4 +56,5 @@ class Check(Resource):
                 return None, 403
             return None, 200
         except:
+            traceback.print_exc()
             return None, 403

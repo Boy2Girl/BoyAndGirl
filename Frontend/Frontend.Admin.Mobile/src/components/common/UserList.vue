@@ -41,7 +41,7 @@
                     },
                     on: {
                       click: () => {
-
+                        UserApi.updateUserAuth(this.userData[params.index].uID, true, this.updateSuccess, this.fail);
                       }
                     }
                   }, '给予权限')
@@ -55,7 +55,7 @@
                     },
                     on: {
                       click: () => {
-
+                        UserApi.updateUserAuth(this.userData[params.index].uID, false, this.updateSuccess, this.fail);
                       }
                     }
                   }, '剥夺权限')
@@ -64,40 +64,30 @@
             }
           }
         ],
-        userData: [
-          {
-            uID: '1312312312',
-            username: '123',
-            password: '123',
-            role: UserType.USER
-          },
-          {
-            uID: '2',
-            username: '1234',
-            password: '1235',
-            role: UserType.PUBLISHER
-          },
-          {
-            uID: '3',
-            username: '1238',
-            password: '1239',
-            role: UserType.ADMIN
-          },
-          {
-            uID: '4',
-            username: '54',
-            password: '46',
-            role: UserType.USER
-          }
-        ]
+        userData: []
       }
     },
     methods: {
+      loadUserList: function () {
+        UserApi.getUserList(this.success, this.fail);
+      },
+      updateSuccess: function (status, text) {
+        if (status === 200) {
+          this.loadUserList();
+        } else if (status === 403) {
+          console.log("无权限")
+        } else if (status === 404) {
+          console.log("用户不存在")
+        } else {
+          console.log("系统错误")
+        }
+      },
       success: function (status, text) {
+        let that = this;
         if (status === 200) {
           let result = JSON.parse(text);
-          console.log(result);
-          this.poolPeopleList = result
+          console.log(result.length);
+          this.userData = that.listConvert(result)
         } else if (status === 500) {
           console.log("上传互选池失败")
         }
@@ -106,9 +96,22 @@
         console.log("错误发生了！！！");
         console.log(err)
       },
+      listConvert: function (userList) {
+        let result = [];
+        for (let i = 0; i < userList.length; i++) {
+          let user = {
+            "uID": userList[i].id,
+            "username": userList[i].username,
+            "password": userList[i].password,
+            "role": userList[i].role,
+          };
+          result.push(user);
+        }
+        return result;
+      }
     },
     mounted() {
-      UserApi.getUserList(this.success, this.fail);
+      this.loadUserList();
     }
   }
 </script>

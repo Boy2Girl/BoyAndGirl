@@ -52,7 +52,7 @@ export default {
     var data = new FormData()
     base.query(data, resolve, reject, '/user/info' + '/' + id, METHOD.GET)
   },
-  addUserInfo, getUserList
+  addUserInfo, getUserList, updateUserAuth
 
 }
 
@@ -111,5 +111,21 @@ async function addUserInfo(form, resolve, reject) {
   data.append('about_me', form.about_me)
   console.log(data)
   base.query(data, resolve, reject, '/user/info', METHOD.PUT)
+}
+
+/**
+ *
+ * @param userID
+ * @param increase
+ * @param resolve
+ * @param reject
+ * @returns {Promise<void>}
+ */
+async function updateUserAuth(userID, increase, resolve, reject) {
+  console.log('in update userAuth:');
+  let data = new FormData();
+  data.append('userID', userID);
+  data.append('increase', increase);
+  base.query(data, resolve, reject, '/check', METHOD.PATCH);
 }
 
