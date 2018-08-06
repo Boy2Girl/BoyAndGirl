@@ -1,4 +1,3 @@
-<script src="../constant.js"></script>
 <template>
   <div>
     <div>
@@ -144,11 +143,11 @@
       },
       changeState: function () {
         this.isLogIn = !this.isLogIn
-        if (this.isLogIn){
+        if (this.isLogIn) {
           this.buttonText = '注册';
           this.titleText = '登  录';
         }
-        else{
+        else {
           this.buttonText = '返回登录';
           this.titleText = '注  册';
         }
