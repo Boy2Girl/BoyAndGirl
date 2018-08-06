@@ -106,7 +106,7 @@
           this.activityList = result
         } else {
           console.log("有错误发生了");
-          this.setState('错误', "发生了错误");
+          this.setState('错误', "您没有参加过活动");
         }
       },
       fail: function (err) {

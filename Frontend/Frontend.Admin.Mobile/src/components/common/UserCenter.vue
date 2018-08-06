@@ -41,6 +41,7 @@
 <script>
   import {Group, Cell} from "vux";
   import Icon from "vux/src/components/icon/index";
+  import {mapGetters} from 'vuex';
 
   export default {
     components: {
@@ -48,9 +49,15 @@
       Group, Cell},
     data() {
       return {
-        id: 10486,
+        id: 0,
         avatarUrl: 'http://placeholder.qiniudn.com/640x300'
       }
+    },
+    methods: {
+      ...mapGetters(['getToken', 'getUserID']),
+    },
+    mounted(){
+      this.id = this.getUserID();
     }
   }
 </script>
