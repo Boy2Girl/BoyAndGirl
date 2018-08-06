@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <card v-for="item in poolPeopleList" v-bind:key="item.id" class="card-padding"
           :style="'box-shadow: -4px 4px 2px #dddddd; margin-left: 10px; margin-right: 10px; border-left: 15px '+
           generateColor(item.id) +' solid;border-radius: 15px'">
@@ -40,13 +43,13 @@
 </template>
 
 <script>
-  import {Card} from 'vux';
+  import {Card, Alert} from 'vux';
   import UserApi from '../../api/user'
 
   export default {
 
     components: {
-      Card
+      Card, Alert
     },
     data() {
 
@@ -73,6 +76,9 @@
           //   source: require("../../assets/logo.jpg")
           // }
         ],
+        show: false,
+        content: '',
+        title: '',
         windowSize: document.body.clientWidth,
       }
     },
@@ -83,17 +89,25 @@
           console.log(result);
           this.poolPeopleList = result
         }
-        else
-          console.log("有错误发生了")
+        else{
+          this.setState("错误", "目前无法获得互选池信息╮(╯_╰)╭");
+        }
+
       },
 
       fail: function (err) {
-        console.log(err)
+        console.log(err);
+        this.setState("错误", "网络错误");
       },
       generateColor: function (id) {
         let array = ['#2f8bc3', '#a53cc3', '#29a83b', '#c3271e'];
         return array[id % 4];
 
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     },
     mounted() {

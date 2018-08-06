@@ -56,20 +56,26 @@
       },
       add_pool: function () {
         if (this.url === "")
-          console.log("请上传图片");
+          this.setState("失败", "请上传图片");
         else
           PoolApi.addPool(this.url, this.name, this.createTime, this.city, this.detail, this.success, this.fail);
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
+          console.log("成功插入");
+          this.$router.go(-1);
         } else if (status === 500) {
-          console.log("上传互选池失败")
+          this.setState("错误", "上传互选池失败");
         }
       },
       fail: function (err) {
-        console.log("错误发生了！！！")
         console.log(err)
+        this.setState("错误", "网络错误");
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     }
   }

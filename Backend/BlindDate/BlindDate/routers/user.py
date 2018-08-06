@@ -2,8 +2,7 @@ from flask import request
 from flask_restplus import Resource, fields, Namespace
 
 from exceptions import PasswordWrongException, NotFoundException, AlreadyExists
-from factory.BlFactory import userBl, userInfoBl
-from utils.DateEncoder import DateEncoderUtil
+from factory.BlFactory import userBl
 from vo import UserVO
 
 ns = Namespace('user', description='关于用户（登录注册）')
@@ -53,6 +52,6 @@ class User(Resource):
     @ns.doc('获取用户列表')
     def get(self):
         try:
-            return [DateEncoderUtil().changeDate(i) for i in userInfoBl.get_all_user()], 200
+            return userBl.get_all_user(), 200
         except AlreadyExists:
             return None, 405

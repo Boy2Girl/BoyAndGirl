@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+import traceback
+
 from dao.DaoUtil import DaoUtil
-from exceptions import NotFoundException
 from model import UserModel
 from run import db
-import traceback
 
 
 class UserDao(DaoUtil):
@@ -30,5 +30,13 @@ class UserDao(DaoUtil):
             session = db.session
             session.query(UserModel).filter(UserModel.id == user_id).update(dict(role=user_role))
             session.commit()
+        except:
+            raise SystemError
+
+    def get_all_user(self):
+        try:
+            session = db.session
+            user_list = session.query(UserModel).all()
+            return user_list
         except:
             raise SystemError

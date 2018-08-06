@@ -1,3 +1,5 @@
+import traceback
+
 from flask import request
 from flask_restplus import Resource, Namespace
 
@@ -34,12 +36,12 @@ class Check(Resource):
         except:
             return None, 403
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @login_require(Role.ADMIN)
     @ns.doc('更新用户的权限')
     def patch(self):
         try:
             userID = request.form['userID']
-            increase = request.form['increase'] == 'True'
+            increase = request.form['increase'] == 'true'
             userDao = DaoFactory.userDao
             user = userDao.get_user_by_id(userID)
             print(user.role)
@@ -54,4 +56,5 @@ class Check(Resource):
                 return None, 403
             return None, 200
         except:
+            traceback.print_exc()
             return None, 403
