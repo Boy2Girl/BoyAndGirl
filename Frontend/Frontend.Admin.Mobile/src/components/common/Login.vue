@@ -1,14 +1,15 @@
+<script src="../constant.js"></script>
 <template>
   <div>
     <div>
       <alert v-model="show" :title="title" :content="content"
              @on-show="onShow" @on-hide="onHide"/>
     </div>
-    <div v-if="isLogIn" class="content content-front"
-         :style="'width: 100%; height: 180%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
-      <div class="title" style="margin-top: 70px; margin-bottom: -80px;">登&nbsp&nbsp陆</div>
+    <div class="content content-front"
+         :style="'width: 100%; height: 170%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
+      <div class="title" style="margin-top: 40px; margin-bottom: -80px;">{{titleText}}</div>
       <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #ffffff; box-shadow: -4px 4px 2px #dddddd;">
-        <div style="margin: 5%" slot="content">
+        <div slot="content">
           <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
             <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
           </x-input>
@@ -17,51 +18,32 @@
           </x-input>
           <div class="middle">
           </div>
-          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signIn" style="margin-top: 10px;">
-            登陆
-          </x-button>
-          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="changeState"
-                    style="margin-top: 3px;">注册
-          </x-button>
-        </div>
-      </card>
-
-    </div>
-    <div v-else class="content content-front"
-         :style="'width: 100%; height: 180%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
-      <div class="title" style="margin-top: 60px; margin-bottom: -100px;">
-        注&nbsp&nbsp册
-      </div>
-      <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #f5f5f5; box-shadow: -4px 4px 2px #dddddd;">
-        <div style="margin: 3%" slot="content">
-          <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
-            <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
-          </x-input>
-          <x-input title="" placeholder="密码" v-model="password" class="input" type="password">
+          <x-input v-if="!isLogIn" title="" placeholder="再次输入密码" v-model="password2" class="input" type="password">
             <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
           </x-input>
-          <x-input title="" placeholder="再次输入密码" v-model="password2" class="input" type="password">
-            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
-          </x-input>
-          <x-input placeholder="验证码" class="input">
+          <x-input v-if="!isLogIn" placeholder="验证码" class="input">
             <x-button slot="right" type="primary" mini>发送验证码</x-button>
           </x-input>
-          <div class="middle">
-          </div>
-          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signUp" style="margin-top: 10px;">
+          <x-button v-if="isLogIn" class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signIn"
+                    style="margin-top: 10px;">
+            登陆
+          </x-button>
+          <x-button v-if="!isLogIn" class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signUp"
+                    style="margin-top: 10px;">
             注册
           </x-button>
           <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="changeState"
-                    style="margin-top: 3px;">返回登录
+                    style="margin-top: 3px; margin-bottom: 10px">{{buttonText}}
           </x-button>
+
         </div>
       </card>
+
     </div>
   </div>
 </template>
 
 <script>
-
   import {Card, XInput, Group, XButton, Alert} from 'vux';
   import {mapGetters, mapMutations} from 'vuex'
   import UserApi from '../../api/user'
@@ -80,7 +62,9 @@
         isLogIn: true,
         show: false,
         title: '',
-        content: 'hhh'
+        content: 'hhh',
+        buttonText: '注册',
+        titleText: '登  录'
       }
     },
     mounted() {
@@ -97,6 +81,24 @@
           this.setToken(token.token);
           this.setUserID(token.id);
 
+          if (this.getRole() === UserApi.ROLE.ADMIN && this.isLogIn === true) {
+            if (this.$router.redirect === location.hostname) {
+              this.$router.go(-1);
+            }
+            else {
+              this.$router.push('/admin/activity');
+            }
+            //router.push('admin/activity');
+          }
+          else if (this.getRole() === UserApi.ROLE.USER && this.isLogIn === true) {
+            if (this.$router.redirect === location.hostname) {
+              this.$router.go(-1);
+            }
+            else {
+              this.$router.push('/user/activity');
+            }
+            //router.push('user/activity');
+          }
           //UserApi.getUserInfo(this.getUserID(), this.userInfoSuccess, this.fail);
         } else if (status === 404) {
           this.setState("失败", "该用户不存在");
@@ -116,24 +118,6 @@
           this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
           this.setState("错误", "该用户已经存在");
-        }
-        if (this.getRole() === UserApi.ROLE.ADMIN && this.isLogIn === true) {
-          if (this.$router.redirect === location.hostname) {
-            this.$router.go(-1);
-          }
-          else {
-            this.$router.push('/admin/activity');
-          }
-          //router.push('admin/activity');
-        }
-        else if (this.getRole() === UserApi.ROLE.USER && this.isLogIn === true) {
-          if (this.$router.redirect === location.hostname) {
-            this.$router.go(-1);
-          }
-          else {
-            this.$router.push('/user/activity');
-          }
-          //router.push('user/activity');
         }
       },
       userInfoSuccess: function (status, text) {
@@ -160,6 +144,14 @@
       },
       changeState: function () {
         this.isLogIn = !this.isLogIn
+        if (this.isLogIn){
+          this.buttonText = '注册';
+          this.titleText = '登  录';
+        }
+        else{
+          this.buttonText = '返回登录';
+          this.titleText = '注  册';
+        }
       },
       getRole: function () {
         let role = '';
@@ -171,24 +163,24 @@
         return role
       },
       onShow: function () {
-        if (this.getRole() === UserApi.ROLE.ADMIN && this.isLogIn === true) {
-          if (this.$router.redirect === location.hostname) {
-            this.$router.go(-1);
-          }
-          else {
-            this.$router.push('/admin/activity');
-          }
-          //router.push('admin/activity');
-        }
-        else if (this.getRole() === UserApi.ROLE.USER && this.isLogIn === true) {
-          if (this.$router.redirect === location.hostname) {
-            this.$router.go(-1);
-          }
-          else {
-            this.$router.push('/user/activity');
-          }
-          //router.push('user/activity');
-        }
+        // if (this.getRole() === UserApi.ROLE.ADMIN && this.isLogIn === true) {
+        //   if (this.$router.redirect === location.hostname) {
+        //     this.$router.go(-1);
+        //   }
+        //   else {
+        //     this.$router.push('/admin/activity');
+        //   }
+        //   //router.push('admin/activity');
+        // }
+        // else if (this.getRole() === UserApi.ROLE.USER && this.isLogIn === true) {
+        //   if (this.$router.redirect === location.hostname) {
+        //     this.$router.go(-1);
+        //   }
+        //   else {
+        //     this.$router.push('/user/activity');
+        //   }
+        //   //router.push('user/activity');
+        // }
 
       },
       onHide: function () {
