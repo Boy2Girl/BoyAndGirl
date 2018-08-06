@@ -50,7 +50,7 @@ export default {
   getUserInfo: async function (id, resolve, reject) {
     console.log('in get user info:')
     var data = new FormData()
-    base.query(data, resolve, reject, '/user/info' + '/' + id, METHOD.GET)
+    base.query(data, resolve, reject, '/user/info' + '/' + id+'?isChecked=True', METHOD.GET)
   },
   addUserInfo, getUserList
 

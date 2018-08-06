@@ -42,12 +42,12 @@ const routes = [
     component: UserBaseLayout,
     children: [
       {
-        path: '/login',
-        component: HomePage,
+        path: '',
+        component: ActivityListPage
       },
       {
-        path: '',
-        component: HomePage
+        path: 'login',
+        component: HomePage,
       },
       {
         path: 'activity',
@@ -166,6 +166,10 @@ const routes = [
       {
         path: '',
         component: HomePage
+      },
+      {
+        path: 'login',
+        component: HomePage,
       },
       {
         path: 'activity',

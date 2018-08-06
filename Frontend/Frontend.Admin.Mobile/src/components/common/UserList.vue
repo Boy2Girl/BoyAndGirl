@@ -79,34 +79,34 @@
           }
         ],
         userData: [
-          // {
-          //   uID: '1312312312',
-          //   username: '123',
-          //   password: '123',
-          //   sex: '男',
-          //   role: UserType.USER
-          // },
-          // {
-          //   uID: '2',
-          //   username: '1234',
-          //   password: '1235',
-          //   sex: '男',
-          //   role: UserType.PUBLISHER
-          // },
-          // {
-          //   uID: '3',
-          //   username: '1238',
-          //   password: '1239',
-          //   sex: '男',
-          //   role: UserType.ADMIN
-          // },
-          // {
-          //   uID: '4',
-          //   username: '54',
-          //   password: '46',
-          //   sex: '男',
-          //   role: UserType.USER
-          // }
+          {
+            uID: '1312312312',
+            username: '123',
+            password: '123',
+            sex: '男',
+            role: UserType.USER
+          },
+          {
+            uID: '2',
+            username: '1234',
+            password: '1235',
+            sex: '男',
+            role: UserType.PUBLISHER
+          },
+          {
+            uID: '3',
+            username: '1238',
+            password: '1239',
+            sex: '男',
+            role: UserType.ADMIN
+          },
+          {
+            uID: '4',
+            username: '54',
+            password: '46',
+            sex: '男',
+            role: UserType.USER
+          }
         ]
       }
     },
@@ -126,7 +126,7 @@
       },
     },
     mounted() {
-      UserApi.getUserList(success, fail);
+      UserApi.getUserList(this.success, this.fail);
     }
   }
 </script>

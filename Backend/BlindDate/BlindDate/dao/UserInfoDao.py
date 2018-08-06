@@ -1,11 +1,11 @@
+import traceback
+
 from sqlalchemy.exc import IntegrityError
 
 from dao.DaoUtil import DaoUtil
 from exceptions import NotFoundException, AlreadyExists
-from run import session,db
-from model import UserModel, UserInfoModel, CheckingUserInfoModel
-import traceback
-
+from model import UserInfoModel, CheckingUserInfoModel
+from run import session, db
 from utils.converter import UserInfoConverter
 
 
@@ -28,7 +28,8 @@ class UserInfoDao(DaoUtil):
     def update_user_info(self, userInfoModel: UserInfoModel):
         try:
             self.session = db.session
-            user_info: UserInfoModel = session.query(UserInfoModel).filter(UserInfoModel.userID == userInfoModel.userID).first()
+            user_info: UserInfoModel = session.query(UserInfoModel).filter(
+                UserInfoModel.userID == userInfoModel.userID).first()
             """先设置成删除然后去增加的，后面再修改"""
             if not user_info:
                 raise NotFoundException
@@ -61,18 +62,16 @@ class UserInfoDao(DaoUtil):
             self.delete(user_info)
             self.session.commit()
         else:
-            session.query(CheckingUserInfoModel).filter(CheckingUserInfoModel.id == user_id)\
+            session.query(CheckingUserInfoModel).filter(CheckingUserInfoModel.id == user_id) \
                 .update(dict(isReject=True))
             # user_info.isRejected = True
             self.session.commit()
         user_info = [i[0] for i in session.query(CheckingUserInfoModel.id).all()]
         return user_info
+
     def get_all(self):
         try:
             user_info = session.query(UserInfoModel).all()
             return user_info
         except:
             traceback.print_exc()
-
-
-
