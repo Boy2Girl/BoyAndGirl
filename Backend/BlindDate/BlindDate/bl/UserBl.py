@@ -1,10 +1,10 @@
 from dao.UserDao import UserDao
-from exceptions import PasswordWrongException
-from exceptions import NotFoundException
 from exceptions import AlreadyExists
+from exceptions import NotFoundException
+from exceptions import PasswordWrongException
 from factory import DaoFactory
-from utils.JwtUtil import JwtUtil
 from model import UserModel
+from utils.JwtUtil import JwtUtil
 from utils.converter import UserConverter
 from vo import UserVO
 
@@ -33,3 +33,7 @@ class UserBl(object):
             return token, result.id
         else:
             raise PasswordWrongException
+
+    def get_all_user(self):
+        model = self.user_dao.get_all_user()
+        return [UserConverter().toVO(i) for i in model]

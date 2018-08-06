@@ -1,10 +1,9 @@
 from flask import request
-from flask_restplus import Resource, fields, Namespace
+from flask_restplus import Resource, Namespace
 
 from decorator.RoleRequest import login_require
 from exceptions import AlreadyExists, InsertException
-from factory.BlFactory import postsBl, userInfoBl
-from model import PoolModel
+from factory.BlFactory import postsBl
 from publicdata import Role
 from utils import JwtUtil
 
@@ -73,6 +72,6 @@ class Posts(Resource):
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self):
         try:
-            return postsBl.get_all()
+            return postsBl.get_all(), 200
         except SystemError:
             return None, 500
