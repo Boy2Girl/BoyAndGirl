@@ -6,10 +6,10 @@
         {{ content }}
       </alert>
     </div>
-    <div v-if="isLogIn" class="content content-front">
-
-      <card :header="{title: '用户登陆',style:'font-size:40px; color: #6A005F;' }"
-            style="border-radius: 5%;margin: 40% 5% 5%;">
+    <div v-if="isLogIn" class="content content-front"
+         :style="'width: 100%; height: 170%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
+      <div class="title" style="margin-top: 70px; margin-bottom: -80px;">登&nbsp&nbsp陆</div>
+      <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #ffffff; box-shadow: -4px 4px 2px #dddddd;">
         <div style="margin: 5%" slot="content">
           <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
             <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"/>
@@ -19,35 +19,45 @@
           </x-input>
           <div class="middle">
           </div>
-          <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="signIn">登陆</x-button>
-          <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="changeState">注册</x-button>
+          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signIn" style="margin-top: 10px;">
+            登陆
+          </x-button>
+          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="changeState"
+                    style="margin-top: 3px;">注册
+          </x-button>
         </div>
       </card>
 
     </div>
-    <div v-else class="content content-front">
-      <Group>
-        <card :header="{title: '用户注册',style:'font-size:20px;' }" style="border-radius: 5%;margin: 40% 5% 5%;">
-          <div style="margin: 5%" slot="content">
-            <x-input placeholder="  手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
-              <Icon slot="label" type="person" size="27" color="#6A005F"></Icon>
-            </x-input>
-            <x-input title="" placeholder="  密码" v-model="password" class="input" type="password">
-              <Icon slot="label" type="locked" size="27" color="#6A005F"></Icon>
-            </x-input>
-            <x-input title="" placeholder="  再次输入密码" v-model="password2" class="input" type="password">
-              <Icon slot="label" type="locked" size="27" color="#6A005F"></Icon>
-            </x-input>
-            <x-input placeholder="  验证码" class="input">
-              <x-button slot="right" type="primary" mini>发送验证码</x-button>
-            </x-input>
-            <div class="middle">
-            </div>
-            <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="signUp">注册</x-button>
-            <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="changeState">返回登录</x-button>
+    <div v-else class="content content-front"
+         :style="'width: 100%; height: 170%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
+      <div class="title" style="margin-top: 60px; margin-bottom: -100px;">
+        注&nbsp&nbsp册
+      </div>
+      <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #f5f5f5; box-shadow: -4px 4px 2px #dddddd;">
+        <div style="margin: 3%" slot="content">
+          <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
+            <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
+          </x-input>
+          <x-input title="" placeholder="密码" v-model="password" class="input" type="password">
+            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
+          </x-input>
+          <x-input title="" placeholder="再次输入密码" v-model="password2" class="input" type="password">
+            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
+          </x-input>
+          <x-input placeholder="验证码" class="input">
+            <x-button slot="right" type="primary" mini>发送验证码</x-button>
+          </x-input>
+          <div class="middle">
           </div>
-        </card>
-      </Group>
+          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signUp" style="margin-top: 10px;">
+            注册
+          </x-button>
+          <x-button class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="changeState"
+                    style="margin-top: 3px;">返回登录
+          </x-button>
+        </div>
+      </card>
     </div>
   </div>
 </template>
@@ -169,6 +179,13 @@
         if (this.title === "成功") {
           this.isLogIn = true
         }
+      },
+      getpath: function () {
+        let js = document.scripts;
+        //js[js.length - 1] 就是当前的js文件的路径
+        js = js[js.length - 1].src.substring(0, js[js.length - 1].src.lastIndexOf("/") + 1);
+
+        return js;
       }
     }
   }
@@ -177,8 +194,6 @@
 <style scoped>
   .content-front {
     position: absolute;
-    left: 10px;
-    right: 10px;
     text-align: center;
   }
 
@@ -187,8 +202,25 @@
   }
 
   .input {
-    width: 85%;
-    padding-left: 20px;
+    width: 90%;
+    padding-left: 4px;
+    border-bottom: 1px solid #797979;
+    margin-left: 5%;
+  }
+
+  .title {
+    -webkit-text-fill-color: #ffffff; /*伪空心的文字，与背景色有关*/
+    -webkit-text-stroke-color: #9e9e9e;
+    -webkit-text-stroke-width: 1px;
+    /*W3C标准*/
+    text-fill-color: #d1d1d1;
+    text-stroke-color: #9e9e9e;
+    text-stroke-width: 1px;
+
+    font-weight: bolder;
+    font-size: 40px;
+
+    text-shadow: -5px 5px 5px #313131, -0px 0px 2px #d77c35, -2px 2px 3px #0b807d; /**/
   }
 </style>
 
