@@ -189,7 +189,7 @@ const routes = [
         },
       },
       {
-        path: 'user',
+        path: '/admin/user',
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
@@ -244,6 +244,7 @@ router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   if (to.meta.requireAuth) {//查看是否需要权限登陆
     CheckApi.check(success, fail)
+    next()
   } else {
     next()
   }
