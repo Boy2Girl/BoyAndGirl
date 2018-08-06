@@ -9,7 +9,7 @@ class UserVO:
 
     def __init__from_form(self, form_dict):
         form = form_dict['form']
-        self.id = form['id']
+        # self.id = form['id']
         self.username = form['username']
         self.password = form['password']
         self.role = form['role']
