@@ -66,6 +66,7 @@
   import UserApi from '../../api/user'
   import SubTitle from './SubTitle'
   import PostsApi from '../../api/posts'
+  import {mapGetters, mapMutations} from 'vuex';
 
   export default {
     components: {
@@ -76,7 +77,6 @@
         to_post: false,
         disabled: true,
         form: {
-          id: 1,
           avatarUrl: '',
           personUrl: '',
           studentUrl: '',
@@ -129,12 +129,15 @@
       let to_post = this.$route.params.toPost;
       let id = this.$route.params.id;
       this.to_post = to_post;
-      this.form.id = id;
+      this.form.index = id;
     },
     mounted() {
-      UserApi.getUserInfo(1, this.success, this.fail);
+      this.form.index = this.getUserID();
+      UserApi.getUserInfo(this.form.index , this.success, this.fail);
     },
     methods: {
+      ...mapMutations(['setToken', 'setUserID']),
+      ...mapGetters(['getToken', 'getUserID']),
       success: function (status, text) {
         if (status == 200) {
           console.log("成功插入")

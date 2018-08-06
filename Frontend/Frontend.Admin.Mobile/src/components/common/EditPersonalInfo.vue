@@ -12,7 +12,8 @@
 
     <sub-title class="subtitle" value="基本信息"/>
     <group>
-      <cell class="cell-font" title="昵称:" v-model="form.nickname"/>
+      <x-input class="cell-font" title="昵称:" text-align="right" v-model="form.nickname"/>
+      <x-input class="cell-font" title="姓名:" text-align="right" v-model="form.name"/>
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
@@ -85,9 +86,10 @@
 </template>
 
 <script>
-  import FileUPloader from './FileUploader'
-  import UserApi from '../../api/user'
-  import SubTitle from './SubTitle'
+  import FileUPloader from './FileUploader';
+  import UserApi from '../../api/user';
+  import SubTitle from './SubTitle';
+  import {mapGetters, mapMutations} from 'vuex';
   import {
     XButton,
     GroupTitle,
@@ -139,11 +141,11 @@
           wechat: '',
           nickname: '',
           index: '',
-          gender: [],
+          gender: ['男'],
           p_height: '',
           birthDate: '',
-          marriage: [],
-          friend: [],
+          marriage: ['未婚'],
+          friend: ['恋爱'],
           hometown: '',
           city: '',
           live: '',
@@ -151,7 +153,7 @@
           collageSchool: '',
           masterSchool: '',
           doctorSchool: '',
-          education: [],
+          education: ['本科'],
           major: '',
           corporation: '',
           work_state: '',
@@ -173,6 +175,8 @@
       }
     },
     methods: {
+      ...mapMutations(['setToken', 'setUserID']),
+      ...mapGetters(['getToken', 'getUserID']),
       getAvatar(url) {
         this.form.avatarUrl = url;
       },
@@ -211,7 +215,11 @@
         this.title = title;
         this.content = content;
         this.show = true;
-      }
+      },
+    },
+    mounted(){
+      this.form.index = this.getUserID();
+      //this.form = UserApi.getUserInfo(1, false, this.fail);
     }
   }
 </script>
