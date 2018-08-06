@@ -1,62 +1,63 @@
 <template>
   <div>
-    <sub-title value="个人相册"/>
-    <img v-for="item in form.photoList" :src="item.source" style="width:100px; height:100px; display:inline; padding: 2%"/>
+    <div class="sub">个人相册</div>
+    <img v-for="item in form.photoList" :src="item.source"
+         style="width:100px; height:100px; display:inline; padding: 2%"/>
 
-    <sub-title value="基本信息"/>
-    <group>
-      <cell class="cell-font" title="昵称:" :value="form.nickname"/>
-      <cell class="cell-font" title="编号:" :value="form.index"/>
-      <cell class="cell-font" title="性别:" :value="form.gender"/>
-      <cell class="cell-font" title="身高:" :value="form.p_height"/>
-      <cell class="cell-font" title="出生日期:" :value="form.birthDate"/>
-      <cell class="cell-font" title="婚姻状况:" :value="form.marriage"/>
-      <cell class="cell-font" title="交友类型:" :value="form.friend"/>
-      <cell class="cell-font" v-if="!to_post" title="电话:" text-align="right" v-model="form.phone"/>
-      <cell class="cell-font" v-if="!to_post"  title="邮箱:" text-align="right" v-model="form.email"/>
-      <cell class="cell-font" v-if="!to_post" title="qq:" text-align="right" v-model="form.qq"/>
-      <cell class="cell-font" v-if="!to_post" title="微信:" text-align="right" v-model="form.wechat"/>
-    </group>
+    <div class="sub">基本信息</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '昵称', value: form.nickname},
+    {label: '编号', value: form.index},
+    {label: '性别', value: form.gender},
+    {label: '身高（cm）', value: form.p_height},
+    {label: '出生日期', value: form.birthDate},
+    {label: '婚姻状况', value: form.marriage},
+    {label: '交友类型', value: form.friend}]"/>
 
-    <sub-title value="坐标"/>
-    <group>
-      <cell class="cell-font" title="家乡:" :value="form.hometown"/>
-      <cell class="cell-font" title="所在城市:" :value="form.city"/>
-      <cell class="cell-font" title="居住地点：" :value="form.live"/>
-    </group>
+    <div class="sub">联系方式</div>
+    <cell-form-preview class="form-text" v-if="!to_post" :list="[
+    {label: '电话', value: form.phone},
+    {label: '邮箱', value: form.email},
+    {label: 'qq', value: form.qq},
+    {label: '微信', value: form.wechat}]"/>
 
-    <sub-title value="学校"/>
-    <group>
-      <cell class="cell-font" title="目前状态:" :value="form.studyState"/>
-      <cell class="cell-font" title="本科学校:" :value="form.collageSchool"/>
-      <cell class="cell-font" title="硕士学校:" :value="form.masterSchool"/>
-      <cell class="cell-font" title="博士学校:" :value="form.doctorSchool"/>
-      <cell class="cell-font" title="学历:" :value="form.education"/>
-      <cell class="cell-font" title="专业:" :value="form.major"/>
-    </group>
+    <div class="sub">坐标</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '家乡', value: form.hometown},
+    {label: '所在城市', value: form.city},
+    {label: '居住地点', value: form.live}]"/>
 
-    <sub-title value="工作"/>
-    <group>
-      <cell class="cell-font" title="工作单位:" :value="form.corporation"/>
-      <cell class="cell-font" title="工作状况:" :value="form.work_state"/>
-      <cell class="cell-font" title="职业：" :value="form.career"/>
-      <cell class="cell-font" title="单位类型:" :value="form.corporation_type"/>
-      <cell class="cell-font" title="年收入（实际/预期）:" :value="form.income"/>
-    </group>
+    <div class="sub">学习情况</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '目前状态', value: form.studyState},
+    {label: '本科学校', value: form.collageSchool},
+    {label: '硕士学校', value: form.masterSchool},
+    {label: '博士学校', value: form.doctorSchool},
+    {label: '学历', value: form.education},
+    {label: '专业', value: form.major}]"/>
 
-    <sub-title value="住房/家庭情况"/>
-    <group>
-      <cell class="cell-font" title="住房情况:" :value="form.house_state"/>
-      <cell class="cell-font" title="家庭情况:" :value="form.family_state"/>
-    </group>
+    <div class="sub">工作</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '工作单位', value: form.corporation},
+    {label: '工作状况', value: form.work_state},
+    {label: '职业', value: form.career},
+    {label: '单位类型', value: form.corporation_type},
+    {label: '年收入（实际/预期）', value: form.income}]"/>
 
-    <sub-title value="想说的话"/>
-    <group>
-      <x-textarea :disabled='disabled' class="cell-font" title="关于我:" :value="form.about_me"/>
-      <x-textarea :disabled='disabled' style="margin-bottom: 48px; " class="cell-font" title="关于你:" :value="form.about_you"/>
-    </group>
+    <div class="sub">住房/家庭情况</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '住房情况', value: form.house_state},
+    {label: '家庭情况', value: form.family_state}]"/>
 
-    <x-button class='button1' style="margin-bottom: 48px" v-if="to_post" :gradients="['#c6634b','#e9672c']" @click.native="recruit">应征某人</x-button>
+    <div class="sub">想说的话</div>
+    <x-textarea :disabled='disabled' class="cell-font" title="关于我:" :value="form.about_me"/>
+    <x-textarea :disabled='disabled' style="margin-bottom: 48px; " class="cell-font" title="关于你:"
+                :value="form.about_you"/>
+
+
+    <x-button class='button1' style="margin-bottom: 48px" v-if="to_post" type="primary"
+              @click.native="recruit">应征某人
+    </x-button>
   </div>
 </template>
 
@@ -85,7 +86,7 @@
           email: ' ',
           qq: '',
           wechat: '',
-          nickname: ' ',
+          nickname: 'kiki',
           index: '',
           gender: '',
           p_height: '',
@@ -121,6 +122,7 @@
             }
           ]
         },
+
       }
     },
     created() {
@@ -146,29 +148,35 @@
         console.log("错误发生了！！！")
         console.log(err)
       },
-      recruit(){
-        PostsApi.recruit_someone(3,this.success,this.fail)
+      recruit() {
+        PostsApi.recruit_someone(3, this.success, this.fail)
       }
     }
   }
 </script>
 
 <style scoped>
-  .sub-title {
-    background-color: #FF66FF;
+  .sub {
+    background-color: #6732af;
     color: white;
     padding: 4px;
-    width: 110%;
-    height: 110%;
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-top: 20px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
   }
 
   .cell-font {
-    font-size: smaller;
+    font-size: 14px;
     padding-bottom: 2px;
     padding-top: 2px;
+    border-style: hidden;
+  }
+
+  .form-text {
+    font-size: 14px;
+    color: #292929;
+    font-color: #292929;
   }
 
 </style>

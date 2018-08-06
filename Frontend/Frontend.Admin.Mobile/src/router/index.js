@@ -10,6 +10,7 @@ import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
+import VerifyUserPage from '../components/page/admin/VerifyUserPage'
 import PostsPage from '../components/page/user/PostsPage';
 import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
@@ -36,18 +37,17 @@ const routes = [
     component: FileUpLoader,
   },
   {
-    path: '/login',
-    component: HomePage,
-
-  },
-  {
     path: '/user',
     name: "user_base",
     component: UserBaseLayout,
     children: [
       {
+        path: '/login',
+        component: HomePage,
+      },
+      {
         path: '',
-        component: ActivityListPage
+        component: HomePage
       },
       {
         path: 'activity',
@@ -56,17 +56,14 @@ const routes = [
       },
       {
         path: 'activity/:id',
-        component: UserActivityPage,
-        meta: {
-          requireAuth: [UserType.USER],
-        },
+        component: UserActivityPage
       },
       {
         path: 'pool',
         component: UserPoolListPage,
         name: 'pool',
         meta: {
-          requireAuth: [UserType.USER],
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
       },
       {
@@ -94,10 +91,7 @@ const routes = [
       },
       {
         path: 'user',
-        component: UserPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        }
+        component: UserPage
       },
       {
         path: 'edit',
@@ -200,6 +194,13 @@ const routes = [
         meta: {
           requireAuth: [UserType.ADMIN],
         },
+      },
+      {
+        path: 'verify',
+        component: VerifyUserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
       }
     ]
   }
@@ -212,9 +213,14 @@ const router = new VueRouter({
 export default router;
 
 function success(status, text) {
+  console.log(text);
+  if (status === 401) {
+    console.log('请先登录');
+    router.push('/user/login');
+  }
   if (status === 200) {
-    if(text === 'false'){
-      console.log('没有登陆')
+    if (text === 'false') {
+      console.log('没有登陆');
     }
     console.log("成功");
   } else {
@@ -236,12 +242,12 @@ function fail(err) {
 
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
-  next();
   if (to.meta.requireAuth) {//查看是否需要权限登陆
     CheckApi.check(success, fail)
+  } else {
+    next()
   }
-
- });
+});
 //   fetch('http://127.0.0.1:5000/api/'+"user/checkState", {
 //     method: 'get',
 //     credentials: 'include',

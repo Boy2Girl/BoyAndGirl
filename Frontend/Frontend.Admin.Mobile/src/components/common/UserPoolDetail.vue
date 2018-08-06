@@ -70,15 +70,15 @@
         console.log("错误发生了！！！")
         console.log(err)
       },
-      checkSuccess(status,text){
-        if(status == 200){
-           console.log("已经报名")
-        }else if(status == 404){
+      checkSuccess(status, text) {
+        if (status === 200) {
+          console.log("已经报名")
+        } else if (status === 404) {
           console.log("没有报名")
         }
       }
     },
-    mounted(){
+    mounted() {
       console.log("here")
       PoolApi.getPool(this.$route.params.id, this.success, this.fail)
     }

@@ -1,5 +1,5 @@
 from flask import request
-from flask_restplus import Resource, fields, Namespace
+from flask_restplus import Resource, Namespace
 
 from decorator.RoleRequest import login_require
 from exceptions import NotFoundException
@@ -8,6 +8,7 @@ from publicdata import Role
 from utils import JwtUtil
 
 ns = Namespace('check', description='检查用户登录状态')
+
 
 @ns.route('')
 @ns.response(200, 'OK')
@@ -54,4 +55,3 @@ class Check(Resource):
             return None, 200
         except:
             return None, 403
-
