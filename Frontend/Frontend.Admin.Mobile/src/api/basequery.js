@@ -21,6 +21,7 @@ async function query(params, resolve, reject, root, method) {
     headers.append('token', 'Bearer '+localStorage.getItem('token')); 
     request.headers = headers;
     request.method = method;
+    console.log(request)
     if (method !== 'GET') request.body = params;
     let res = await fetch(this.baseUrl + root, request)
     let result = await res.text();

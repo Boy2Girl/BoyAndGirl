@@ -9,14 +9,14 @@ class UserVO:
 
     def __init__from_form(self, form_dict):
         form = form_dict['form']
-        self.id = form['id']
+        # self.id = form['id']
         self.username = form['username']
         self.password = form['password']
         self.role = form['role']
 
     def serialize(self):
         return {
-            'id': self.id,
+            # 'id': self.id,
             'username': self.username,
             'password': self.password,
             'role': self.role

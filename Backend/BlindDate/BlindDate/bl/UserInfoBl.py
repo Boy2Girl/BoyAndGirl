@@ -14,6 +14,13 @@ class UserInfoBl(object):
     def add_user_info(self, user_info: UserInfoVO, username):
         user = userDao.get_user_by_username(username)
         user_info.id = user.id
+        ### 如果存在先删除
+        try:
+            userInfo = self.user_info_dao.get_user_info(user.id, False)
+            print(userInfo)
+            self.user_info_dao.delete(userInfo)
+        except NotFoundException:
+            pass
         self.user_info_dao.insert(UserInfoConverter().toModel(user_info))
 
     def update_user_info(self, user_info: UserInfoVO):
