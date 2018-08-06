@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource, fields, Namespace
 
-from exceptions import PasswordWrongException, NotFoundException, AlreadyExists, InsertException
+from exceptions import PasswordWrongException, NotFoundException, AlreadyExists
 from factory.BlFactory import userBl, userInfoBl
 from utils.DateEncoder import DateEncoderUtil
 from vo import UserVO
@@ -36,9 +36,9 @@ class User(Resource):
             print(token)
             return {'token': token, "id": user_id}, 200
         except PasswordWrongException:
-            return None, 403
+            return {'error': 'wrong password'}, 403
         except NotFoundException:
-            return None, 404
+            return {'error': 'user not found'}, 404
 
     # @ns.marshal_with(login_parameters)
     @ns.doc('注册')

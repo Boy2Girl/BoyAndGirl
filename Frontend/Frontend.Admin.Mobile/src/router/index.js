@@ -39,7 +39,6 @@ const routes = [
   {
     path: '/login',
     component: HomePage,
-
   },
   {
     path: '/user',
@@ -57,17 +56,14 @@ const routes = [
       },
       {
         path: 'activity/:id',
-        component: UserActivityPage,
-        meta: {
-          requireAuth: [UserType.USER],
-        },
+        component: UserActivityPage
       },
       {
         path: 'pool',
         component: UserPoolListPage,
         name: 'pool',
         meta: {
-          requireAuth: [UserType.USER],
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
       },
       {
@@ -95,10 +91,7 @@ const routes = [
       },
       {
         path: 'user',
-        component: UserPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        }
+        component: UserPage
       },
       {
         path: 'edit',
@@ -204,7 +197,10 @@ const routes = [
       },
       {
         path: 'verify',
-        component: VerifyUserPage
+        component: VerifyUserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
       }
     ]
   }
@@ -217,9 +213,14 @@ const router = new VueRouter({
 export default router;
 
 function success(status, text) {
+  console.log(text);
+  if (status === 401) {
+    console.log('请先登录');
+    router.push('/login')
+  }
   if (status === 200) {
     if (text === 'false') {
-      console.log('没有登陆')
+      console.log('没有登陆');
     }
     console.log("成功");
   } else {

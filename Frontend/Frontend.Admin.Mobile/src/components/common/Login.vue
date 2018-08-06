@@ -29,13 +29,13 @@
         <card :header="{title: '用户注册',style:'font-size:20px;' }" style="border-radius: 5%;margin: 40% 5% 5%;">
           <div style="margin: 5%" slot="content">
             <x-input placeholder="  手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
-              <Icon slot="label" type="person" size="27" color="#6A005F"/>
+              <Icon slot="label" type="person" size="27" color="#6A005F"></Icon>
             </x-input>
             <x-input title="" placeholder="  密码" v-model="password" class="input" type="password">
-              <Icon slot="label" type="locked" size="27" color="#6A005F"/>
+              <Icon slot="label" type="locked" size="27" color="#6A005F"></Icon>
             </x-input>
             <x-input title="" placeholder="  再次输入密码" v-model="password2" class="input" type="password">
-              <Icon slot="label" type="locked" size="27" color="#6A005F"/>
+              <Icon slot="label" type="locked" size="27" color="#6A005F"></Icon>
             </x-input>
             <x-input placeholder="  验证码" class="input">
               <x-button slot="right" type="primary" mini>发送验证码</x-button>
@@ -68,7 +68,6 @@
         password: '',
         password2: '',
         code: '',
-        password: '',
         isLogIn: true,
         show: false,
         title: '',
@@ -82,17 +81,17 @@
       ...mapMutations(['setToken', 'setUserID']),
       ...mapGetters(['getToken', 'getUserID']),
       signinSuccess: function (status, text) {
-        console.log('请求结果')
-        console.log(text + " " + status)
-        if (status == 200) {
-          let token = JSON.parse(text)
-          this.setToken(token.token)
-          this.setUserID(token.id)
+        console.log('请求结果');
+        console.log(text + " " + status);
+        if (status === 200) {
+          let token = JSON.parse(text);
+          this.setToken(token.token);
+          this.setUserID(token.id);
 
           UserApi.getUserInfo(this.getUserID(), this.userInfoSuccess, this.fail);
-        } else if (status == 404) {
-          this.setState("失败", "改用户不存在");
-        } else if (status == 403) {
+        } else if (status === 404) {
+          this.setState("失败", "该用户不存在");
+        } else if (status === 403) {
           this.setState("失败", "用户名或者密码错误");
         }
       },
@@ -102,8 +101,8 @@
         this.show = true;
       },
       signupSuccess: function (status, text) {
-        console.log('请求结果')
-        console.log(text + " " + status)
+        console.log('请求结果');
+        console.log(text + " " + status);
         if (status === 200) {
           this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
@@ -118,7 +117,7 @@
         }
       },
       fail: function (e) {
-        console.log("发现错误！！！")
+        console.log("发现错误！！！");
         console.log(e)
       },
       signIn: function () {
@@ -126,11 +125,11 @@
       },
       signUp: function () {
         if (this.username === '' || this.password === '')
-          this.setState("错误", "用户名或者密码不能为空")
+          this.setState("错误", "用户名或者密码不能为空");
         else if (this.password === this.password2)
-          UserApi.signUp(this.username, this.password, this.getRole(), this.signupSuccess, this.fail)
+          UserApi.signUp(this.username, this.password, this.getRole(), this.signupSuccess, this.fail);
         else
-          this.setState("错误", "您两次输入的密码不一致")
+          this.setState("错误", "您两次输入的密码不一致");
       },
       changeState: function () {
         this.isLogIn = !this.isLogIn
