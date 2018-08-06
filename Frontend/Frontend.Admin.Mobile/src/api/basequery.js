@@ -19,9 +19,12 @@ export default{
     console.log(params)
     try{
       let request = {};
-      request.headers = {'token': 'Bearer '+localStorage.getItem('token')};
+      var headers = new Headers();
+      headers.append('token', 'Bearer '+localStorage.getItem('token')); 
+      request.headers = headers;
       request.method = method;
       if(method != 'GET') request.body = params;
+      console.log(request)
       let res = await fetch(this.baseUrl + root, request)
       let result = await res.text()
       resolve(res.status, result)    
