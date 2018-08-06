@@ -7,22 +7,23 @@
       </alert>
     </div>
     <div v-if="isLogIn" class="content content-front">
-      <Group>
-        <card :header="{title: '用户登陆',style:'font-size:20px;' }" style="border-radius: 5%;margin: 40% 5% 5%;">
-          <div style="margin: 5%" slot="content">
-            <x-input placeholder="  手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
-              <Icon slot="label" type="person" size="27" color="#6A005F"/>
-            </x-input>
-            <x-input title="" placeholder="  密码" v-model="password" class="input">
-              <Icon slot="label" type="locked" size="27" color="#6A005F"/>
-            </x-input>
-            <div class="middle">
-            </div>
-            <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="signIn">登陆</x-button>
-            <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="changeState">注册</x-button>
+
+      <card :header="{title: '用户登陆',style:'font-size:40px; color: #6A005F;' }"
+            style="border-radius: 5%;margin: 40% 5% 5%;">
+        <div style="margin: 5%" slot="content">
+          <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
+            <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"/>
+          </x-input>
+          <x-input title="" placeholder="密码" v-model="password" class="input" type="password">
+            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"/>
+          </x-input>
+          <div class="middle">
           </div>
-        </card>
-      </Group>
+          <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="signIn">登陆</x-button>
+          <x-button class='button1' :gradients="['#a66dcb','#e015fa']" @click.native="changeState">注册</x-button>
+        </div>
+      </card>
+     
     </div>
     <div v-else class="content content-front">
       <Group>
@@ -72,7 +73,7 @@
         isLogIn: true,
         show: false,
         title: '',
-        content: ''
+        content: 'hhh'
       }
     },
     mounted() {
@@ -188,6 +189,7 @@
 
   .input {
     width: 85%;
+    padding-left: 20px;
   }
 </style>
 
