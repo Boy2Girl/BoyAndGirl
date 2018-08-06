@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from flask import request
 from flask_restplus import Resource, Namespace
@@ -7,7 +6,6 @@ from flask_restplus import Resource, Namespace
 from decorator.RoleRequest import login_require
 from exceptions import NotFoundException, AlreadyExists, InsertException
 from factory.BlFactory import userInfoBl
-from factory.DaoFactory import userDao
 from publicdata import Role
 from utils import JwtUtil
 from utils.DateEncoder import DateEncoderUtil
@@ -115,8 +113,8 @@ class UserInfo(Resource):
         except InsertException:
             return None, 500
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('更新')
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
         try:
             userInfoBl.update_user_info(UserInfoVO(form=request.form))
@@ -126,16 +124,16 @@ class UserInfo(Resource):
         except NotFoundException:
             return None, 404
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取没有实名认证过的用户信息列表')
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self):
         try:
             return userInfoBl.get_un_checking_list(), 200, {}
         except AlreadyExists:
             return None, 403
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('审批一个用户的用户信息提交')
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def patch(self):
         try:
             userID = request.form['userID']
@@ -151,9 +149,8 @@ class UserInfo(Resource):
 @ns.response(404, '没有找到该用户信息')
 class UserInfoID(Resource):
 
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('查看')
-    @ns.expect()
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self, id):
         try:
             is_check = request.args['isChecked'] == 'True'

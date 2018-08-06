@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import json, make_response, request
+
 import config
 from factory import DaoFactory
 from publicdata import Role
@@ -45,8 +46,6 @@ def login_require(*roles: Role):
 
                 if not user.role in roles:
                     return respond_err("Bad role", 403)
-
-                request.args.add("current_role", user)
                 return func(*args, **kws)
 
         return wrapper
