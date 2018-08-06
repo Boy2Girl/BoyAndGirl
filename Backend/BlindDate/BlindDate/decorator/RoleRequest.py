@@ -32,7 +32,9 @@ def login_require(*roles: Role):
         @wraps(func)
         @api.doc(security='apikey')
         def wrapper(*args, **kws):
+            print(request.headers)
             token = request.headers.get(config.token_header_key)
+            print(token)
             if not token:
                 return respond_err("No token", 401)
 
