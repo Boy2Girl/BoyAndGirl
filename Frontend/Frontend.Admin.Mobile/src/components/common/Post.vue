@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <card v-for="item in postList" v-bind:key="item.id" class="mycard"
           :style="'box-shadow: -4px 4px 2px #dddddd; margin-left: 10px; margin-right: 10px; border-left: 15px '+
           generateColor(item.id) +' solid;border-radius: 15px'">
@@ -36,13 +39,9 @@
         </div>
       </div>
     </card>
+
     <group>
-      <x-button class='button1' style="margin-bottom: 12px" v-if="toPost" type="primary"
-                @click.native="addPosts">增加
-      </x-button>
-    </group>
-    <group>
-      <x-button class='button1' style="position:fixed; bottom:47px;" v-if="toPost" type="primary"
+      <x-button class='button1' style="position:fixed; bottom:47px;" :gradients="['#43aaa7','#55bdd9']" v-if="toPost"
                 @click.native="addPosts">增加
       </x-button>
     </group>
@@ -50,7 +49,7 @@
 </template>
 
 <script>
-  import {Card, CellFormPreview, Group, Cell, XButton} from 'vux'
+  import {Card, CellFormPreview, Group, Cell, XButton, Alert} from 'vux'
   import PostsApi from '../../api/posts'
   import posts from '../../api/posts';
   import router from '../../router/index.js'
@@ -58,75 +57,16 @@
   export default {
 
     components: {
-      Card, CellFormPreview, Group, Cell, XButton
+      Card, CellFormPreview, Group, Cell, XButton, Alert
     },
     data() {
-
       return {
-        postList: [
-          // {
-          //   id: 1,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 2,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 3,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 4,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 5,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 6,
-          //   education: '本',
-          //   username: 'dhh',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // }
-        ],
+        postList: [],
         windowSize: document.body.clientWidth,
-        toPost: false
+        toPost: false,
+        show: false,
+        title: '',
+        content: ''
       }
     },
     methods: {
@@ -145,9 +85,11 @@
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
+          console.log("成功插入");
+          this.setState("成功", "您已成功参与互选");
         } else if (status === 500) {
-          console.log("上传互选池失败")
+          console.log("上传互选池失败");
+          this.setState("失败", "发帖失败");
         }
       },
       getSuccess: function (status, text) {
@@ -156,12 +98,14 @@
           console.log(result);
           this.postList = result
         } else if (status === 500) {
-          console.log("上传互选池失败")
+          console.log("获取帖子失败");
+          this.setState("错误", "无法获得目前所有帖子╮(╯_╰)╭");
         }
       },
       fail: function (err) {
         console.log("错误发生了！！！");
         console.log(err)
+        this.setState("失败", "网络错误");
       },
       recruit() {
         PostsApi.recruit_someone(3, this.success, this.fail)
@@ -170,6 +114,11 @@
         let array = ['#2f8bc3', '#a53cc3', '#29a83b', '#c3271e'];
         return array[id % 4];
 
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     },
     mounted() {

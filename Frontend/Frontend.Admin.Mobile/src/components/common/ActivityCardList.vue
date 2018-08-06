@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <card v-for="item in activityList" v-bind:key="item.id">
       <div slot="content" class="card-padding" @click="route(item.id)">
         <img :src="item.url"
@@ -47,13 +50,13 @@
 </template>
 
 <script>
-  import {Card, XButton, Flexbox, FlexboxItem} from "vux";
+  import {Card, XButton, Flexbox, FlexboxItem, Alert} from "vux";
   import ActivityApi from '../../api/activity'
   import router from "../../router";
 
   export default {
     components: {
-      Card, XButton, Flexbox, FlexboxItem
+      Card, XButton, Flexbox, FlexboxItem, Alert
     },
     data() {
       return {
@@ -76,7 +79,10 @@
           //   numOfRead: 168,
           //   numOfSign: 15
           // }
-        ]
+        ],
+        show: false,
+        content: '',
+        title: ''
       }
     },
     mounted() {
@@ -96,13 +102,21 @@
       success: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text)
-          console.log(result)
+          console.log(result);
           this.activityList = result
-        } else
-          console.log("有错误发生了")
+        } else {
+          console.log("有错误发生了");
+          this.setState('错误', "发生了错误");
+        }
       },
       fail: function (err) {
+        this.setState('错误', err);
         console.log(err)
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     }
   }
