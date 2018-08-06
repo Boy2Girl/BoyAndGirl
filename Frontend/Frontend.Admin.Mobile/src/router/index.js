@@ -10,7 +10,8 @@ import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
-import VerifyUserPage from '../components/page/admin/VerifyUserPage'
+import VerifyUserPage from '../components/page/admin/VerifyUserPage';
+import VertfyUserListPage from '../components/page/admin/VertfyUserListPage';
 import PostsPage from '../components/page/user/PostsPage';
 import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
@@ -200,8 +201,15 @@ const routes = [
         },
       },
       {
-        path: 'verify',
+        path: 'verify/:id',
         component: VerifyUserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'verify',
+        component: VertfyUserListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },

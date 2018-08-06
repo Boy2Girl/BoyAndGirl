@@ -34,34 +34,19 @@
             title: '操作',
             key: 'action',
             render: (h, params) => {
-              if (this.userData[params.index].role === UserType.USER) {
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'primary'
-                    },
-                    on: {
-                      click: () => {
-                        UserApi.updateUserAuth(this.userData[params.index].uID, true, this.updateSuccess, this.fail);
-                      }
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: () => {
+                      UserApi.updateUserAuth(this.userData[params.index].uID, true, this.updateSuccess, this.fail);
                     }
-                  }, '给予权限')
-                ]);
-              }
-              else {
-                return h('div', [
-                  h('Button', {
-                    props: {
-                      type: 'error'
-                    },
-                    on: {
-                      click: () => {
-                        UserApi.updateUserAuth(this.userData[params.index].uID, false, this.updateSuccess, this.fail);
-                      }
-                    }
-                  }, '剥夺权限')
-                ]);
-              }
+                  }
+                }, '审核')
+              ]);
+
             }
           }
         ],
@@ -80,18 +65,7 @@
         this.userData = result;
       },
       loadUserList: function () {
-        UserApi.getUserList(this.success, this.fail);
-      },
-      updateSuccess: function (status, text) {
-        if (status === 200) {
-          this.loadUserList();
-        } else if (status === 403) {
-          console.log("无权限")
-        } else if (status === 404) {
-          console.log("用户不存在")
-        } else {
-          console.log("系统错误")
-        }
+        UserApi.getVerifyUserList(this.success, this.fail);
       },
       success: function (status, text) {
         let that = this;
@@ -102,25 +76,12 @@
           this.userData = this.rawUserData;
           this.search();
         } else if (status === 500) {
-          console.log("上传互选池失败");
+          console.log("加载失败");
         }
       },
       fail: function (err) {
         console.log("错误发生了！！！");
-        console.log(err)
-      },
-      listConvert: function (userList) {
-        let result = [];
-        for (let i = 0; i < userList.length; i++) {
-          let user = {
-            "uID": userList[i].id,
-            "username": userList[i].username,
-            "password": userList[i].password,
-            "role": userList[i].role,
-          };
-          result.push(user);
-        }
-        return result;
+        console.log(err);
       }
     },
     mounted() {

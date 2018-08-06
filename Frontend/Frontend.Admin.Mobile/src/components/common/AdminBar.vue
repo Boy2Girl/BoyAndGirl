@@ -7,15 +7,19 @@
       <!--home被点击后，一直处于激活状态，因此需要使用精确匹配模式，在router-link中添加exact属性-->
 
       <router-link :to="{path: '/admin/activity'}" tag="li">
-        <Icon type="social-buffer" size="20"/>
+        <Icon type="social-buffer" size="20"></Icon>
         <div class="font">{{tabBar1}}</div>
       </router-link>
       <router-link :to="{path:'/admin/pool'}" tag="li">
-        <Icon type="plus-circled" size="20"/>
+        <Icon type="plus-circled" size="20"></Icon>
         <div class="font">{{tabBar2}}</div>
       </router-link>
+      <router-link :to="{path:'/admin/verify'}" tag="li">
+        <Icon type="ios-alarm" size="20"></Icon>
+        <div class="font">{{tabBar3}}</div>
+      </router-link>
       <router-link :to="{path:'/admin/user'}" tag="li">
-        <Icon type="person" size="20"/>
+        <Icon type="person" size="20"></Icon>
         <div class="font">{{tabBar4}}</div>
       </router-link>
     </ul>
@@ -26,14 +30,12 @@
   import SENTENCES from "../../assets/sentences";
 
   export default {
-    components: {
-
-    },
+    components: {},
     data() {
       return {
         tabBar1: SENTENCES.MENU.ACTIVITY,
         tabBar2: SENTENCES.MENU.POOL,
-        tabBar3: SENTENCES.MENU.POST,
+        tabBar3: SENTENCES.MENU.USER_VERIFY,
         tabBar4: SENTENCES.MENU.USER_MANAGEMENT
       }
     }

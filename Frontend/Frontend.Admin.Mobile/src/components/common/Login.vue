@@ -10,10 +10,10 @@
       <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #ffffff; box-shadow: -4px 4px 2px #dddddd;">
         <div style="margin: 5%" slot="content">
           <x-input placeholder="手机号" v-model="username" :max="13" is-type="china-mobile" class="input">
-            <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"/>
+            <Icon slot="label" type="person" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
           </x-input>
           <x-input title="" placeholder="密码" v-model="password" class="input" type="password">
-            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"/>
+            <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
           </x-input>
           <div class="middle">
           </div>
