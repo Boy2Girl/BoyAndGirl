@@ -42,12 +42,12 @@ const routes = [
     component: UserBaseLayout,
     children: [
       {
-        path: '/login',
-        component: HomePage,
+        path: '',
+        component: ActivityListPage
       },
       {
-        path: '',
-        component: HomePage
+        path: 'login',
+        component: HomePage,
       },
       {
         path: 'activity',
@@ -168,6 +168,10 @@ const routes = [
         component: HomePage
       },
       {
+        path: 'login',
+        component: HomePage,
+      },
+      {
         path: 'activity',
         component: AdminActivityPage,
         meta: {
@@ -243,7 +247,8 @@ function fail(err) {
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   if (to.meta.requireAuth) {//查看是否需要权限登陆
-    CheckApi.check(success, fail)
+    CheckApi.check(success, fail);
+    next();
   } else {
     next()
   }

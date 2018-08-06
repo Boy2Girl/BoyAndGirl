@@ -1,5 +1,6 @@
-import jwt
 import time
+
+import jwt
 
 import config
 
@@ -18,10 +19,13 @@ class JwtUtil(object):
 
     @staticmethod
     def verify_bearer_token(token):
-        payload = jwt.decode(token, config.secret, algorithms=['HS256'])
-        if payload:
-            return True
-        return False
+        try:
+            payload = jwt.decode(token, config.secret, algorithms=['HS256'])
+            if payload:
+                return True
+            return False
+        except:
+            return False
 
     @staticmethod
     def get_token_username(token):
