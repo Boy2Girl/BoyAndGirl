@@ -1,10 +1,12 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
-export default{
+
+export default {
   check
 }
+
 async function check(resolve, reject) {
-    console.log('in add posts:')
-    var data = new FormData()
-    base.query(data, resolve, reject, '/check', METHOD.POST)
+  console.log('in add posts:');
+  let data = new FormData();
+  base.query(data, resolve, reject, '/check', METHOD.POST)
 }

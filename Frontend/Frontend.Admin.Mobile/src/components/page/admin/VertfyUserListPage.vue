@@ -1,10 +1,14 @@
 <template>
-
+  <verify-user-list/>
 </template>
 
 <script>
+  import VerifyUserList from '../../common/VerifyUserList.vue';
+
   export default {
-    name: "vertfy-user-list-page"
+    components: {
+      VerifyUserList
+    }
   }
 </script>
 

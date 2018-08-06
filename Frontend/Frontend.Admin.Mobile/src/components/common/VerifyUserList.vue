@@ -9,14 +9,10 @@
 </template>
 
 <script>
-  import {UserType} from "../../models/user/UserType";
-  import {XButton} from "vux";
   import UserApi from '../../api/user';
+  import router from "../../router";
 
   export default {
-    components: {
-      XButton
-    },
     data() {
       return {
         keyId: "",
@@ -41,7 +37,7 @@
                   },
                   on: {
                     click: () => {
-                      UserApi.updateUserAuth(this.userData[params.index].uID, true, this.updateSuccess, this.fail);
+                      router.push('/admin/verify/' + this.userData[params.index].uID);
                     }
                   }
                 }, '审核')
@@ -82,6 +78,19 @@
       fail: function (err) {
         console.log("错误发生了！！！");
         console.log(err);
+      },
+      listConvert: function (userList) {
+        let result = [];
+        for (let i = 0; i < userList.length; i++) {
+          let user = {
+            "uID": userList[i].id,
+            "username": userList[i].username,
+            "password": userList[i].password,
+            "role": userList[i].role,
+          };
+          result.push(user);
+        }
+        return result;
       }
     },
     mounted() {

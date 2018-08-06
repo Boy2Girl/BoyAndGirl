@@ -52,7 +52,7 @@ export default {
     var data = new FormData()
     base.query(data, resolve, reject, '/user/info' + '/' + id, METHOD.GET)
   },
-  addUserInfo, getUserList, updateUserAuth
+  addUserInfo, getUserList, updateUserAuth, getVerifyUserList, verifyOneUser
 
 }
 
@@ -129,3 +129,17 @@ async function updateUserAuth(userID, increase, resolve, reject) {
   base.query(data, resolve, reject, '/check', METHOD.PATCH);
 }
 
+
+async function getVerifyUserList(resolve, reject) {
+  console.log('in update get verify user list:');
+  let data = new FormData();
+  base.query(data, resolve, reject, '/user/info', METHOD.GET);
+}
+
+async function verifyOneUser(userID, isPass, resolve, reject) {
+  console.log('in update get verify user list:');
+  let data = new FormData();
+  data.append('userID', userID);
+  data.append('isPass', isPass);
+  base.query(data, resolve, reject, '/user/info', METHOD.PATCH);
+}

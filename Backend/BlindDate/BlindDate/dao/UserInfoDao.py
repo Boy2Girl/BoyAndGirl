@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from dao.DaoUtil import DaoUtil
 from exceptions import NotFoundException, AlreadyExists
-from model import UserInfoModel, CheckingUserInfoModel
+from model import UserInfoModel, CheckingUserInfoModel, UserModel
 from run import session, db
 from utils.converter import UserInfoConverter
 
@@ -46,8 +46,8 @@ class UserInfoDao(DaoUtil):
             session.close()
 
     def get_un_checking_list(self):
-        user_info = [i[0] for i in session.query(CheckingUserInfoModel.id).all()]
-        return user_info
+        user_list = session.query(UserModel).join(CheckingUserInfoModel).all()
+        return user_list
 
     def check_user_info(self, user_id, result):
         if result:
