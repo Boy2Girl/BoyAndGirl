@@ -7,6 +7,9 @@
       <cell class="cell-text" title="联系编号" :value="id">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/index.png">
       </cell>
+      <cell class="cell-text" title="我的状态" :value="state">
+        <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/find.png">
+      </cell>
       <cell class="cell-text" title="个人资料（编辑）" link="/user/edit">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/edit_color.png">
       </cell>
@@ -35,6 +38,7 @@
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/about.png">
       </cell>
     </group>
+    <div style="height: 50px"></div>
   </div>
 </template>
 
@@ -42,6 +46,7 @@
   import {Group, Cell} from "vux";
   import Icon from "vux/src/components/icon/index";
   import {mapGetters} from 'vuex';
+  import check from '../../api/check'
 
   export default {
     components: {
@@ -50,14 +55,33 @@
     data() {
       return {
         id: 0,
-        avatarUrl: 'http://placeholder.qiniudn.com/640x300'
+        avatarUrl: 'http://placeholder.qiniudn.com/640x300',
+        state: '待审核'
       }
     },
     methods: {
       ...mapGetters(['getToken', 'getUserID']),
+      success: function (state, text) {
+        if(state == 200){
+          let result = (JSON.parse(text));
+          console.log(result);
+          console.log(result['isReal']);
+          if(!result['isReal'])
+            this.state = '待审核';
+          else
+            this.state = '已审核';
+        }
+      },
+      fail: function () {
+        console.log('error')
+      }
     },
     mounted(){
       this.id = this.getUserID();
+
+      check.check(this.success, this.fail)
+      // 得到用户目前状态
+
     }
   }
 </script>
@@ -67,7 +91,7 @@
     text-align: center;
     padding: 10%;
     width: 100%;
-    height: 30%;
+    height: 20%;
     background: url("../../assets/background.jpg");
   }
 

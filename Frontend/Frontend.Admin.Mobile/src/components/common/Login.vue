@@ -5,7 +5,7 @@
              @on-show="onShow" @on-hide="onHide"/>
     </div>
     <div class="content content-front"
-         :style="'width: 100%; height: 170%; background: url(' + require('../../assets/login.jpg') + '; background-repeat:no-repeat;'">
+         :style="'width: 100%; height: 170%; background: url(' + require('../../assets/login.jpg') + ';'">
       <div class="title" style="margin-top: 40px; margin-bottom: -80px;">{{titleText}}</div>
       <card style="border-radius: 5%;margin: 35% 5% 5%; border: 4px solid #ffffff; box-shadow: -4px 4px 2px #dddddd;">
         <div slot="content">
