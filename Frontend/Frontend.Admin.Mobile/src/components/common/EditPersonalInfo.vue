@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <sub-title class="sub-title" value="头像"/>
     <group class="group-type">
       <FileUPloader :url="actionUrl" v-on:child-say="getAvatar"/>
@@ -98,7 +101,8 @@
     ChinaAddressData,
     XAddress,
     XTextarea,
-    XSwitch
+    XSwitch,
+    Alert
   } from 'vux'
 
   export default {
@@ -116,7 +120,8 @@
       Datetime,
       XNumber,
       XTextarea,
-      XSwitch
+      XSwitch,
+      Alert
     },
     data() {
       return {
@@ -132,8 +137,8 @@
           email: ' ',
           qq: '',
           wechat: '',
-          nickname: 'hhh',
-          index: '9384',
+          nickname: '',
+          index: '',
           gender: [],
           p_height: '',
           birthDate: '',
@@ -162,6 +167,9 @@
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
         list_type: [['恋爱', '结婚']],
         list_education: [['小学', '初中', '高中', '大专', '本科', '硕士', '博士']],
+        show: false,
+        title: '',
+        content: ''
       }
     },
     methods: {
@@ -187,13 +195,22 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入")
+          // 返回
+          this.$router.go(-1);
         } else if (status === 500) {
           console.log("上传用户信息失败")
+          this.setState("错误", "上传用户信息失败");
         }
       },
       fail: function (err) {
+        this.setState("错误", "网络错误");
         console.log("错误发生了！！！");
         console.log(err)
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     }
   }
