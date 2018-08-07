@@ -16,7 +16,7 @@ class UserVO:
 
     def serialize(self):
         return {
-            # 'id': self.id,
+            'id': self.id,
             'username': self.username,
             'password': self.password,
             'role': self.role

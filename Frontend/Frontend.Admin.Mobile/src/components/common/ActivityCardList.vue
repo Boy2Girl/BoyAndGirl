@@ -87,6 +87,7 @@
     },
     mounted() {
       let name = this.$route.name;
+      console.log(name)
       if (name === "activity") {
         ActivityApi.getAllActivity(0, false, this.success, this.fail)
       } else if (name === "myActivity") {

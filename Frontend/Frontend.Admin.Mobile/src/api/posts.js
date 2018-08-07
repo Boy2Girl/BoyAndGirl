@@ -37,7 +37,7 @@ async function get(type, id, resolve, reject) {
     var data = new FormData();
     data.append('id', id);
     data.append('type', type);
-    base.query(data, resolve, reject, '/posts', METHOD.GET)
+    base.query(data, resolve, reject, '/posts?id='+id+'&type='+type, METHOD.GET)
 }
 
 async function getMy(resolve, reject) {

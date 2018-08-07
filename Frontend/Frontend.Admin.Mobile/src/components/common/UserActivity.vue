@@ -69,20 +69,20 @@
           this.isRegistered = true;
         } else if (status === 500) {
           console.log("取消报名活动失败");
-          this.setState("失败", "取消报名活动失败");
+          // this.setState("失败", "取消报名活动失败");
         } else if (status === 404) {
           this.isRegistered = false;
-          this.setState("失败", "取消报名活动失败");
+          // this.setState("失败", "取消报名活动失败");
         } else if (status === 405) {
           console.log("您还没有报名活动");
-          this.setState("失败", "您尚未报名该活动");
+          // this.setState("失败", "您尚未报名该活动");
         }
       },
       registerSuccess: function (status, text) {
         if (status === 200) {
           this.isRegistered = true;
           console.log("成功取消活动")
-          this.setState("成功", "成功取消报名该活动");
+          this.setState("成功", "成功报名该活动");
         } else if (status === 500) {
           console.log("取消报名活动失败");
           this.setState("失败", "取消报名活动失败");
@@ -98,7 +98,7 @@
         if (status === 200) {
           this.isRegistered = false;
           console.log("成功报名活动");
-          this.setState("成功", "报名活动成功");
+          this.setState("成功", "取消报名活动成功");
         } else if (status === 500) {
           console.log("报名活动失败");
           this.setState("失败", "报名活动失败");

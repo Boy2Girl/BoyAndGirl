@@ -51,6 +51,7 @@
 <script>
   import {Card, CellFormPreview, Group, Cell, XButton, Alert} from 'vux'
   import PostsApi from '../../api/posts';
+  import CheckApi from '../../api/check';
   import router from '../../router/index.js';
   import {mapGetters} from 'vuex';
 
@@ -82,7 +83,20 @@
         // router.push('/user/info/'+id);
       },
       addPosts() {
-        PostsApi.addPosts(this.success, this.fail)
+        /**
+         *  先检查有没有实名认证
+         */
+        CheckApi.check(this.checkSuccess, this.fail)
+      },
+      checkSuccess: function(status, text){
+        if (status === 200) {
+          let result = JSON.parse(text)
+          if(result.isReal == false){
+            this.setState("失败", "您还没有实名认证，不能进行发帖应征");
+          }else{
+            PostsApi.addPosts(this.success, this.fail)
+          }
+        } 
       },
       success: function (status, text) {
         if (status === 200) {

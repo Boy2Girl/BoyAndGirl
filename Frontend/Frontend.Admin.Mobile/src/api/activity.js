@@ -5,11 +5,11 @@ export default{
 }
 /**
     *
-   * @param {function} activityBeginTime
-   * @param {function} activityEndTime
-   * @param {function}  address
-   * @param {function}  registerBeginTime
-   * @param {function}  registerEndTime
+    * @param {function} activityBeginTime
+    * @param {function} activityEndTime
+    * @param {function}  address
+    * @param {function}  registerBeginTime
+    * @param {function}  registerEndTime
     * @param {function} selectBeginTime
     * @param {function} selectEndTime
     * @param {function} chargeRule
@@ -75,15 +75,17 @@ async function getAllActivity(begin, isCurrent, resolve, reject){
 }
 
 
-async function getByUser(resolve, reject){
+async function getByUser(isCurrent,resolve, reject){
     console.log('in get by user:')
     var data = new FormData()
-    base.query(data, resolve, reject, '/activity/user', METHOD.GET)
+    data.append("icCurrent", true)
+    data.append("begin", 0)
+    base.query(data, resolve, reject, '/activity', METHOD.PATCH)
 }
 
 async function checkRegister(aID, resolve, reject){
     console.log('in get by user:')
     var data = new FormData()
-    data.append("aID", aID)
-    base.query(data, resolve, reject, '/activity/user', METHOD.POST)
+    // data.append("aID", aID)
+    base.query(data, resolve, reject, '/activity/'+aID, METHOD.POST)
 }

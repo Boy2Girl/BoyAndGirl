@@ -67,6 +67,7 @@
         let that = this;
         if (status === 200) {
           let result = JSON.parse(text);
+          console.log(result)
           console.log(result.length);
           this.rawUserData = that.listConvert(result);
           this.userData = this.rawUserData;

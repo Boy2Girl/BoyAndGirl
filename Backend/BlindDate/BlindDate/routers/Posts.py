@@ -73,10 +73,10 @@ class Posts(Resource):
     def get(self):
         type = request.args['type']
         if type == 'all':
-            pass
-        if type == 'myPost':
             id = request.args['id']
-        if type == 'postMy':
+        elif type == 'myPost':
+            id = request.args['id']
+        elif type == 'postMy':
             id = request.args['id']
         try:
             return postsBl.get_all(), 200

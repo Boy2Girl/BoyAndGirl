@@ -128,7 +128,9 @@ class UserInfo(Resource):
     @login_require(Role.ADMIN, Role.PUBLISHER)
     def get(self):
         try:
-            return userInfoBl.get_un_checking_list(), 200, {}
+            result = userInfoBl.get_un_checking_list()
+            print(result)
+            return result, 200, {}
         except AlreadyExists:
             return None, 403
 

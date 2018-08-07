@@ -125,10 +125,10 @@ class Activity(Resource):
     @ns.expect(my_list_parser)
     def patch(self):
         begin = request.args['begin']
-        is_current = request.args['isCurrent']
-        user_id = request.args['userId']
+        is_current = request.args['isCurrent'] == 'True'
+        username = JwtUtil.get_token_username(flask.request.headers.get("token"))
         try:
-            activity_list = activity_bl.get_activity_by_id(begin, not is_current, user_id)
+            activity_list = activity_bl.get_activity_by_user(username)
             return [DateEncoderUtil().changeDate(i) for i in activity_list]
         except NotFoundException:
             return {"error": "can not find the page"}, 404
@@ -156,9 +156,8 @@ class ActivityAID(Resource):
 
     @ns.doc('检查有没有报名活动')
     @ns.param(name="aID", description="活动的ID", _in="path")
-    def post(self):
+    def post(self, aID):
         try:
-            aID = request.form['aID']
             username = JwtUtil.get_token_username(flask.request.headers.get("token"))
             activity = activity_bl.check_register(username, aID)
             return None, 200
@@ -171,6 +170,7 @@ class ActivityAID(Resource):
     @ns.param(name="aID", description="活动的ID", _in="path")
     def patch(self, aID):
         try:
+            username = JwtUtil.get_token_username(flask.request.headers.get("token"))
             activity = activity_bl.check_register(username, aID)
             return None, 200
         except NotFoundException:

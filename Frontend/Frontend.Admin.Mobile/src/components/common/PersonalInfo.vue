@@ -143,7 +143,7 @@
     mounted() {
       this.form.index = this.getUserID();
       check.check(this.checkSuccess, this.fail);
-      UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
+      // UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
     },
     methods: {
       ...mapMutations(['setToken', 'setUserID']),
@@ -160,6 +160,7 @@
           this.isChecked = 'True';
         else
           this.isChecked = 'False';
+        UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
       },
       success: function (status, text) {
         if (status === 200) {

@@ -32,7 +32,7 @@ class PostsBl(object):
         posts = self.posts_dao.get_all()
         return [PostsListConverter().toVO(i, self.user_info_dao.get_user_info(i.userID, True)) for i in posts]
 
-    def get_my(self,username):
+    def get_my(self, username):
         user = userDao.get_user_by_username(username)
         posts = self.posts_dao.get_my(user.id)
         return [PostsListConverter().toVO(i, self.user_info_dao.get_user_info(i.userID)) for i in posts]

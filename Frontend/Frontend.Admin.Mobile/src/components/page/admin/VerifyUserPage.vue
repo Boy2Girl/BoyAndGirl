@@ -4,9 +4,9 @@
     <br>
     <br>
     <br>
-    <x-button type="primary" style="position: fixed; bottom: 47px; width: 50%; margin-left: 50%" @click="pass">审核通过
+    <x-button type="primary" style="position: fixed; bottom: 47px; width: 50%; margin-left: 50%"  @click.native="pass">审核通过
     </x-button>
-    <x-button type="warn" style="position: fixed; bottom: 47px; width: 50%" @click="reject">审核不通过</x-button>
+    <x-button type="warn" style="position: fixed; bottom: 47px; width: 50%"  @click.native="reject">审核不通过</x-button>
   </div>
 </template>
 
@@ -39,7 +39,7 @@
       pass() {
         const segments = this.$route.path.split('/');
         const userID = segments[segments.length - 1];
-        UserApi.verifyOneUser(userID, true, success, fail);
+        UserApi.verifyOneUser(userID, true, this.success, this.fail);
       },
       reject() {
         const segments = this.$route.path.split('/');
