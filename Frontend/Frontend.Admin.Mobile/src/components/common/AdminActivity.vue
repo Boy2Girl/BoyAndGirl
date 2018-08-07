@@ -83,7 +83,6 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入");
-          this.$router.go(-1);
         } else if (status === 500) {
           this.setState("错误", "上传活动失败");
         }
@@ -111,7 +110,7 @@
 
   .btn-bottom {
     position: fixed;
-    bottom: 47px;
+    bottom: 48px;
     left: 0;
     width: 100%;
   }

@@ -126,6 +126,14 @@ const routes = [
         }
       },
       {
+        path: 'info/:id',
+        component: PersonalInfoPage,
+        name: 'info',
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        }
+      },
+      {
         path: 'myActivity',
         component: PersonalActivityPage,
         name: "myActivity",
