@@ -71,6 +71,13 @@ class Posts(Resource):
     @ns.expect(list_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self):
+        type = request.args['type']
+        if type == 'all':
+            pass
+        if type == 'myPost':
+            id = request.args['id']
+        if type == 'postMy':
+            id = request.args['id']
         try:
             return postsBl.get_all(), 200
         except SystemError:

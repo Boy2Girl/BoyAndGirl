@@ -66,7 +66,7 @@ class UserInfoConverter:
         user.isReject = False
         return user
 
-    def toVO(self, userInfoVO: UserInfoModel):
+    def toVO(self, userInfoVO:  UserInfoModel):
         user = UserInfoVO(1)
         user.id = userInfoVO.id
         user.phone = userInfoVO.phone
