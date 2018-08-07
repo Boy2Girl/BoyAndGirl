@@ -47,10 +47,10 @@ export default {
    * @param {String} passWord
    * @param {function} reject
    */
-  getUserInfo: async function (id, resolve, reject) {
+  getUserInfo: async function (id, isChecked, resolve, reject) {
     console.log('in get user info:')
     var data = new FormData()
-    base.query(data, resolve, reject, '/user/info' + '/' + id+'?isChecked=True', METHOD.GET)
+    base.query(data, resolve, reject, '/user/info' + '/' + id+'?isChecked=' + isChecked, METHOD.GET)
   },
   addUserInfo, getUserList, updateUserAuth, getVerifyUserList, verifyOneUser
 

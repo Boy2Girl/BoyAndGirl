@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content" @on-hide="onHide"/>
+    </div>
     <div class="sub">个人相册</div>
     <img v-for="item in form.photoList" :src="item.source"
          style="width:100px; height:100px; display:inline; padding: 2%"/>
@@ -62,20 +65,26 @@
 </template>
 
 <script>
-  import {XTextarea, CellFormPreview, Group, Cell, XButton} from 'vux'
+  import {XTextarea, CellFormPreview, Group, Cell, XButton, Alert} from 'vux'
   import UserApi from '../../api/user'
   import SubTitle from './SubTitle'
   import PostsApi from '../../api/posts'
   import {mapGetters, mapMutations} from 'vuex';
+  import check from '../../api/check';
+  import router from '../../router/index.js'
 
   export default {
     components: {
-      XTextarea, CellFormPreview, Group, Cell, SubTitle, XButton
+      XTextarea, CellFormPreview, Group, Cell, SubTitle, XButton, Alert
     },
     data() {
       return {
+        isChecked: 'False',
         to_post: false,
         disabled: true,
+        title: '',
+        content: '',
+        show: false,
         form: {
           avatarUrl: '',
           personUrl: '',
@@ -133,17 +142,31 @@
     },
     mounted() {
       this.form.index = this.getUserID();
-      UserApi.getUserInfo(this.form.index , this.success, this.fail);
+      check.check(this.checkSuccess, this.fail);
+      UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
     },
     methods: {
       ...mapMutations(['setToken', 'setUserID']),
       ...mapGetters(['getToken', 'getUserID']),
+      checkSuccess: function (status, text) {
+        console.log(status + text);
+        let result = (JSON.parse(text));
+        console.log(result['role']);
+        if(!result['isReal'] && result['role'] === 'USER'){
+          this.setState('失败', '您还没有通过系统审核');
+        }
+
+        if(result['isReal'])
+          this.isChecked = 'True';
+        else
+          this.isChecked = 'False';
+      },
       success: function (status, text) {
-        if (status == 200) {
+        if (status === 200) {
           console.log("成功插入")
           let result = (JSON.parse(text))
           this.form = result
-        } else if (status == 500) {
+        } else if (status === 500) {
           console.log("上传用户信息失败")
         }
       },
@@ -152,7 +175,15 @@
         console.log(err)
       },
       recruit() {
-        PostsApi.recruit_someone(3, this.success, this.fail)
+        PostsApi.recruit_someone(this.form.index, this.success, this.fail)
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
+      },
+      onHide: function () {
+        this.$router.push('/user/user');
       }
     }
   }

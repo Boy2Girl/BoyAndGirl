@@ -50,9 +50,9 @@
 
 <script>
   import {Card, CellFormPreview, Group, Cell, XButton, Alert} from 'vux'
-  import PostsApi from '../../api/posts'
-  import posts from '../../api/posts';
-  import router from '../../router/index.js'
+  import PostsApi from '../../api/posts';
+  import router from '../../router/index.js';
+  import {mapGetters} from 'vuex';
 
   export default {
 
@@ -70,6 +70,7 @@
       }
     },
     methods: {
+      ...mapGetters(['getToken', 'getUserID']),
       route: (id, toPost) => {
         router.push({
           name: 'info',
@@ -86,25 +87,30 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入");
-          this.setState("成功", "您已成功参与互选");
+          let name = this.$route.name;
+          if (name === 'posts') {
+            this.setState("成功", "您已成功参与互选");
+          }
+          else if (name === 'myPostOne') {
+            this.setState("成功", "您已应征此人，静静等待他的回复吧");
+          }
         } else if (status === 500) {
           console.log("上传互选池失败");
-          this.setState("失败", "发帖失败");
+          this.setState("失败", "系统没有找到你qaq");
         }
       },
       getSuccess: function (status, text) {
         if (status === 200) {
           let result = (JSON.parse(text));
-          console.log(result);
           this.postList = result
         } else if (status === 500) {
           console.log("获取帖子失败");
-          this.setState("错误", "无法获得目前所有帖子╮(╯_╰)╭");
+          this.setState("糟糕", "目前没有人发帖，赶快来做第一个哦～");
         }
       },
       fail: function (err) {
         console.log("错误发生了！！！");
-        console.log(err)
+        console.log(err);
         this.setState("失败", "网络错误");
       },
       recruit() {
@@ -123,17 +129,17 @@
     },
     mounted() {
       let name = this.$route.name;
-      let toPost = this.toPost;
+      let toPost = false;
       if (name === 'posts') {
-        PostsApi.getAll(this.getSuccess, this.fail);
+        PostsApi.get('all', 1, this.getSuccess, this.fail);
         toPost = true;
       }
       else if (name === 'myPostOne') {
-        PostsApi.getByUser(this.getSuccess, this.fail);
+        PostsApi.get('myPost', this.getUserID(), this.getSuccess, this.fail);
         toPost = false;
       }
       else if (name === 'OnePostMe') {
-        PostsApi.getMy(this.getSuccess, this.fail);
+        PostsApi.get('postMy', this.getUserID(), this.getSuccess, this.fail);
         toPost = false;
       }
       this.toPost = toPost
