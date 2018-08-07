@@ -1,0 +1,7 @@
+Flask
+Jinja2
+flask-restplus
+Flask-SQLAlchemy
+jsonschema
+six
+PyJWT
