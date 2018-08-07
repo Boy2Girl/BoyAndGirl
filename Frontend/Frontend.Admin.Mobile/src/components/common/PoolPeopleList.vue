@@ -45,7 +45,8 @@
 <script>
   import {Card, Alert} from 'vux';
   import UserApi from '../../api/user'
-
+  import PoolApi from '../../api/pool'
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
 
     components: {
@@ -83,7 +84,10 @@
       }
     },
     methods: {
+      ...mapMutations(['setToken', 'setUserID','setPoolID']),
+      ...mapGetters(['getToken', 'getUserID','getPoolID']),
       success: function (status, text) {
+        console.log("success")
         if (status === 200) {
           let result = JSON.parse(text);
           console.log(result);
@@ -92,7 +96,6 @@
         else{
           this.setState("错误", "目前无法获得互选池信息╮(╯_╰)╭");
         }
-
       },
 
       fail: function (err) {
@@ -111,7 +114,16 @@
       }
     },
     mounted() {
-      UserApi.getUserList(this.success, this.fail)
+      let name = this.$route.name;
+      console.log(name)
+      console.log(this.getPoolID())
+      if (name === "poolPeople") {
+        UserApi.getUserList(this.success, this.fail);
+      }else if(name == 'poolMyPeople'){
+        PoolApi.getLove(this.getPoolID(),'False',this.success,this.fail);
+      }else if(name == 'poolTwoPeople'){
+        PoolApi.getLove(this.getPoolID(),'False',this.success,this.fail);
+      }
     }
   }
 </script>

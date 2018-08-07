@@ -56,9 +56,10 @@ async function checkRegister(pID, resolve, reject){
     base.query(data, resolve, reject, '/pool'+'/'+pID, METHOD.POST)
 }
 
-async function getLove(poolID, resolve, reject){
+async function getLove(poolID,truth,resolve, reject){
     console.log('in get pool list:')
     var data = new FormData()
     data.append('poolID', poolID)
+    data.append('truth', truth)
     base.query(data, resolve, reject, '/pool/love', METHOD.POST)
 }

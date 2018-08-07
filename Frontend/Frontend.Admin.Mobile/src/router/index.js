@@ -251,9 +251,9 @@ const router = new VueRouter({
 export default router;
 
 function success(status, text) {
-  console.log(text);
+  // console.log(text);
   if (status === 401) {
-    console.log('请先登录');
+    // console.log('请先登录');
     if(router.app.$route.path.split('/')[1] == 'admin'){
       router.push('/admin');
     }else{
@@ -262,11 +262,11 @@ function success(status, text) {
   }
   if (status === 200) {
     if (text === 'false') {
-      console.log('没有登陆');
+      // console.log('没有登陆');
     }
-    console.log("成功");
+    // console.log("成功");
   } else {
-    console.log("失败");
+    // console.log("失败");
     // this.$router.push({
     //   path: '/login',
     //   query: {

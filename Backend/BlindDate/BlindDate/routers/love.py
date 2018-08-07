@@ -42,9 +42,11 @@ class Love(Resource):
         truth = request.form['truth'] == 'True'
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         if not truth:
-            return poolBl.get_love(username, poolID)
+            result = poolBl.get_love(username, poolID)
         else:
-            return poolBl.get_true_love(username, poolID)
+            result = poolBl.get_true_love(username, poolID)
+        print(result)
+        return result
 
     @ns.doc('对某个异性产生好感')
     @ns.expect(put_parser)

@@ -67,3 +67,14 @@ class PoolBl(object):
             raise NotFoundException
         return result
 
+    def get_people_in_pool(self, pID):
+        # print(str(pID) + " " + str(username))
+        # user = userDao.get_user_by_username(username)
+        # print(str(pID) + " " + str(user.id))
+        # result = self.pool_join_dao.getPoolJoin(user.id, pID)
+        # print(result)
+        # if not result:
+        #     raise NotFoundException
+        # return result
+        pass
+

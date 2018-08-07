@@ -125,3 +125,16 @@ class PoolID(Resource):
         else:
             return None, 404
 
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('获取候选池里所有的用户')
+    @ns.expect()
+    def post(self, id):
+        # username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+        # user = userDao.get_user_by_username(username)
+        # result = poolJoinDao.getPoolJoin(user.id, id)
+        # if result:
+        #     return None, 200
+        # else:
+        #     return None, 404
+        pass
+
