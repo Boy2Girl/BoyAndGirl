@@ -53,6 +53,7 @@
   import PostsApi from '../../api/posts';
   import router from '../../router/index.js';
   import {mapGetters} from 'vuex';
+  import check from '../../api/check';
 
   export default {
 
@@ -82,7 +83,18 @@
         // router.push('/user/info/'+id);
       },
       addPosts() {
-        PostsApi.addPosts(this.success, this.fail)
+        check.check(this.checkSuccess, this.fail);
+      },
+      checkSuccess: function (status, text) {
+        if (status === 200) {
+          let result = (JSON.parse(text));
+          console.log(result['role']);
+          if(!result['isReal']){
+            this.setState('失败', '您还没有通过系统审核');
+          }
+          else
+            PostsApi.addPosts(this.success, this.fail);
+        }
       },
       success: function (status, text) {
         if (status === 200) {
@@ -105,7 +117,7 @@
           this.postList = result
         } else if (status === 500) {
           console.log("获取帖子失败");
-          this.setState("糟糕", "目前没有人发帖，赶快来做第一个哦～");
+          this.setState("提醒", "目前没有记录，请耐心等待");
         }
       },
       fail: function (err) {
