@@ -8,14 +8,17 @@
       <cell title="创建时间">{{createTime}}</cell>
       <cell title="所属城市">{{city}}</cell>
     </group>
-    <x-button type="primary" class="btn btn-bottom" @click.native="register_pool">确认报名
-    </x-button>
+   
     <group label-width="4.5em" label-margin-right="2em" label-align="right">
       <group-title slot="title">
         <div style="padding: 5%">简述</div>
       </group-title>
       <div v-html='detail'></div>
     </group>
+     <x-button type="primary" class="btn btn-bottom" @click.native="register_pool">确认报名
+    </x-button>
+    <div class = "bottom">
+    </div>
   </div>
 </template>
 
@@ -86,4 +89,7 @@
 </script>
 
 <style lang="less" type="text/less">
+.bottom{
+  height: 100px;
+}
 </style>

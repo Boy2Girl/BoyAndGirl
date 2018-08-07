@@ -25,6 +25,8 @@ import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
 import FileUpLoader from '../components/common/FileUploader';
 import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
 import PoolPeopleListPage from '../components/page/user/PoolPeopleListPage.vue';
+import PoolMyPeopleListPage from '../components/page/user/PoolMyPeopleListPage.vue';
+import PoolTwoPeopleListPage from '../components/page/user/PoolTwoPeopleListPage.vue';
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
 import CheckApi from '../api/check'
@@ -75,9 +77,25 @@ const routes = [
         },
       },
       {
-        path: 'poolPeople/:id',
+        path: 'poolPeople',
         name: 'poolPeople',
         component: PoolPeopleListPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        },
+      },
+      {
+        path: 'poolMyPeople',
+        name: 'poolMyPeople',
+        component: PoolMyPeopleListPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        },
+      },
+      {
+        path: 'poolTwoPeople',
+        name: 'poolTwoPeople',
+        component: PoolTwoPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },

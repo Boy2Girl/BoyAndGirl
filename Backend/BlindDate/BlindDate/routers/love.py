@@ -38,7 +38,6 @@ class Love(Resource):
     @ns.expect(list_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
-        begin = request.form['begin']
         poolID = request.form['poolID']
         truth = request.form['truth'] == 'True'
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))

@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from decorator.RoleRequest import login_require
 from exceptions import AlreadyExists, NotFoundException, InsertException
 from factory.BlFactory import poolBl
+from factory.DaoFactory import userDao, poolJoinDao
 from publicdata import Role
 from utils import JwtUtil
 from utils.DateEncoder import DateEncoderUtil
@@ -67,9 +68,9 @@ class Pool(Resource):
     @ns.doc('获取我的交友池列表')
     def patch(self):
         username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
-        # begin = request.args['begin']
-        # my_list=request.args['']
         result = [DateEncoderUtil().changeDate(i) for i in poolBl.get_pool_by_user(username)]
+        print(result)
+        return result
 
     @ns.doc('报名进入候选池')
     @ns.expect(get_parser)
@@ -111,3 +112,16 @@ class PoolID(Resource):
             return DateEncoderUtil().changeDate(poolBl.get_pool_by_id(id)), 200
         except NotFoundException:
             return None, 404
+
+    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @ns.doc('判断是不是报名了')
+    @ns.expect()
+    def post(self, id):
+        username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
+        user = userDao.get_user_by_username(username)
+        result = poolJoinDao.getPoolJoin(user.id, id)
+        if result:
+            return None, 200
+        else:
+            return None, 404
+

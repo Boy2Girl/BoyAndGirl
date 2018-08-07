@@ -68,18 +68,18 @@ class Posts(Resource):
         except SystemError:
             return None, 500
 
-    @ns.doc('获得所有发帖应征')
+    @ns.doc('获得发帖应征')
     @ns.expect(list_parser)
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def get(self):
+        username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         type = request.args['type']
         if type == 'all':
             id = request.args['id']
+            return [DateEncoderUtil().changeDate(i) for i in postsBl.get_all()], 200
         elif type == 'myPost':
             id = request.args['id']
+            return [DateEncoderUtil().changeDate(i) for i in postsBl.get_my_posts(username)], 200
         elif type == 'postMy':
             id = request.args['id']
-        try:
-            return [DateEncoderUtil().changeDate(i) for i in postsBl.get_all()], 200
-        except SystemError:
-            return None, 500
+            return [DateEncoderUtil().changeDate(i) for i in postsBl.get_my(username)], 200
