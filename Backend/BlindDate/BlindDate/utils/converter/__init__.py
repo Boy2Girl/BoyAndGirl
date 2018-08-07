@@ -276,11 +276,12 @@ class PostsListConverter:
         post.id = posts.id
         post.education = userInfo.education
         post.username = userInfo.name
-        post.birthDate = userInfo.bornDate
+        post.birthDate = str(userInfo.bornDate)
         post.city = userInfo.city
         post.school = userInfo.collageSchool
         post.career = userInfo.job
         post.source = userInfo.avatar
+        print(post)
         return post
 
 

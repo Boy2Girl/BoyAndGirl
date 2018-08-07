@@ -124,8 +124,6 @@ class Activity(Resource):
     @ns.doc('获取我的活动列表')
     @ns.expect(my_list_parser)
     def patch(self):
-        begin = request.args['begin']
-        is_current = request.args['isCurrent'] == 'True'
         username = JwtUtil.get_token_username(flask.request.headers.get("token"))
         try:
             activity_list = activity_bl.get_activity_by_user(username)

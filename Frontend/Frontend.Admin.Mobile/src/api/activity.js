@@ -75,11 +75,9 @@ async function getAllActivity(begin, isCurrent, resolve, reject){
 }
 
 
-async function getByUser(isCurrent,resolve, reject){
+async function getByUser(resolve, reject){
     console.log('in get by user:')
     var data = new FormData()
-    data.append("icCurrent", true)
-    data.append("begin", 0)
     base.query(data, resolve, reject, '/activity', METHOD.PATCH)
 }
 

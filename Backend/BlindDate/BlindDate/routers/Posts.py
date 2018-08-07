@@ -6,6 +6,7 @@ from exceptions import AlreadyExists, InsertException
 from factory.BlFactory import postsBl
 from publicdata import Role
 from utils import JwtUtil
+from utils.DateEncoder import DateEncoderUtil
 
 ns = Namespace('posts', description='关于发帖')
 
@@ -79,6 +80,6 @@ class Posts(Resource):
         elif type == 'postMy':
             id = request.args['id']
         try:
-            return postsBl.get_all(), 200
+            return [DateEncoderUtil().changeDate(i) for i in postsBl.get_all()], 200
         except SystemError:
             return None, 500
