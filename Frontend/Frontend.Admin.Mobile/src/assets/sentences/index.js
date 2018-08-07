@@ -2,7 +2,7 @@ const SENTENCES = {
   MENU: {
     LOGO_NAME: "姻缘网",
     ACTIVITY: '发布活动',
-    POOL: '发布候选池',
+    POOL: '发布互选池',
     POST: '发帖应征',
     AUTHORITY: '权限分发',
     USER_MANAGEMENT: '用户管理',
