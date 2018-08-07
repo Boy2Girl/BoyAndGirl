@@ -66,6 +66,7 @@
   import UserApi from '../../api/user'
   import SubTitle from './SubTitle'
   import PostsApi from '../../api/posts'
+  import {mapGetters, mapMutations} from 'vuex';
 
   export default {
     components: {
@@ -76,7 +77,6 @@
         to_post: false,
         disabled: true,
         form: {
-          id: 1,
           avatarUrl: '',
           personUrl: '',
           studentUrl: '',
@@ -86,12 +86,12 @@
           email: ' ',
           qq: '',
           wechat: '',
-          nickname: 'kiki',
+          nickname: '',
           index: '',
           gender: '',
           p_height: '',
-          birthDate: '2828',
-          marriage: '未婚',
+          birthDate: '',
+          marriage: '',
           friend: '',
           hometown: '',
           city: '',
@@ -109,7 +109,7 @@
           income: '',
           house_state: '',
           family_state: '',
-          about_you: 'adsjkfbdjksfbjksdhfjkhsdjkfhjksdhfjkhsahdjhasdhkkhjksdfjkjekg',
+          about_you: '',
           about_me: '',
           photoList: [
             {
@@ -129,12 +129,15 @@
       let to_post = this.$route.params.toPost;
       let id = this.$route.params.id;
       this.to_post = to_post;
-      this.form.id = id;
+      this.form.index = id;
     },
     mounted() {
-      UserApi.getUserInfo(1, this.success, this.fail);
+      this.form.index = this.getUserID();
+      UserApi.getUserInfo(this.form.index , this.success, this.fail);
     },
     methods: {
+      ...mapMutations(['setToken', 'setUserID']),
+      ...mapGetters(['getToken', 'getUserID']),
       success: function (status, text) {
         if (status == 200) {
           console.log("成功插入")

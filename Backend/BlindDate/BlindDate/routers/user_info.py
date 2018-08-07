@@ -125,7 +125,7 @@ class UserInfo(Resource):
             return None, 404
 
     @ns.doc('获取没有实名认证过的用户信息列表')
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @login_require(Role.ADMIN, Role.PUBLISHER)
     def get(self):
         try:
             return userInfoBl.get_un_checking_list(), 200, {}
@@ -133,11 +133,11 @@ class UserInfo(Resource):
             return None, 403
 
     @ns.doc('审批一个用户的用户信息提交')
-    @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
+    @login_require(Role.ADMIN, Role.PUBLISHER)
     def patch(self):
         try:
             userID = request.form['userID']
-            isPass = request.form['isPass'] == 'True'
+            isPass = request.form['isPass'] == 'true'
             userInfoBl.check_user_info(userID, isPass)
             return None, 200
         except AlreadyExists:

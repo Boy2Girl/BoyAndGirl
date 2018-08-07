@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <img src="../../assets/activity.png" style="height: 35px; width: 35px; position: absolute; top: 20px; left: 10px"/>
     <x-input title="活动名称" style="padding: 5%; font-weight: bold; font-size: 24px; color: #464448; width: 90%; margin-left: 10%"
         placeholder="请输入活动名称"     v-model="name"/>
@@ -30,13 +33,13 @@
 </template>
 
 <script>
-  import {XInput, Datetime, Group, GroupTitle, XButton} from "vux";
+  import {XInput, Datetime, Group, GroupTitle, XButton, Alert} from "vux";
   import ActivityApi from '../../api/activity'
   import FileUPloader from './FileUploader'
 
   export default {
     components: {
-      XInput, Datetime, Group, GroupTitle, XButton, FileUPloader
+      XInput, Datetime, Group, GroupTitle, XButton, FileUPloader, Alert
     },
     data() {
       return {
@@ -56,7 +59,10 @@
         increment: "",
         wechat: "",
         detail: "",
-        index: 1
+        index: 1,
+        show: false,
+        title: '',
+        content: ''
       }
     },
     methods: {
@@ -65,8 +71,10 @@
         console.info(e);
       },
       add_activity() {
-        if (this.url === "")
+        if (this.url === ""){
           console.log("请上传图片");
+          this.setState("失败", "请上传图片");
+        }
         else
           ActivityApi.addActivity(this.name, this.url, this.activityBeginTime, this.activityEndTime, this.address, this.registerBeginTime,
             this.registerEndTime, this.selectBeginTime, this.selectEndTime, this.chargeRule, this.boyBeginAge, this.girlBeginAge,
@@ -74,17 +82,24 @@
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
+          console.log("成功插入");
+          this.$router.go(-1);
         } else if (status === 500) {
-          console.log("上传活动失败")
+          this.setState("错误", "上传活动失败");
         }
       },
       fail: function (err) {
         console.log("错误发生了！！！");
-        console.log(err)
+        console.log(err);
+        this.setState("错误", "网络错误");
       },
       listenToMyBoy: function (somedata) {
         this.url = somedata
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
       }
     }
   }

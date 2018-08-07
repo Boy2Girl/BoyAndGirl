@@ -1,7 +1,7 @@
 from exceptions import NotFoundException
 from factory import DaoFactory
 from factory.DaoFactory import userDao
-from utils.converter import UserInfoConverter, UserListConverter
+from utils.converter import UserInfoConverter, UserListConverter, UserConverter
 from vo import UserInfoVO
 
 
@@ -14,6 +14,13 @@ class UserInfoBl(object):
     def add_user_info(self, user_info: UserInfoVO, username):
         user = userDao.get_user_by_username(username)
         user_info.id = user.id
+        ### 如果存在先删除
+        try:
+            userInfo = self.user_info_dao.get_user_info(user.id, False)
+            print(userInfo)
+            self.user_info_dao.delete(userInfo)
+        except NotFoundException:
+            pass
         self.user_info_dao.insert(UserInfoConverter().toModel(user_info))
 
     def update_user_info(self, user_info: UserInfoVO):
@@ -28,7 +35,8 @@ class UserInfoBl(object):
         return UserInfoConverter().toVO(model)
 
     def get_un_checking_list(self):
-        return self.user_info_dao.get_un_checking_list()
+        model = self.user_info_dao.get_un_checking_list()
+        return [UserConverter().toVO(i).serialize() for i in model]
 
     def check_user_info(self, userID, result):
         return self.user_info_dao.check_user_info(userID, result)

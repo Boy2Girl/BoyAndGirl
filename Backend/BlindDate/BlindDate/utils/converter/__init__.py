@@ -1,7 +1,5 @@
-
 from model import UserModel, UserInfoModel, PoolModel, ActivityModel, PostsModel, RecruitModel, CheckingUserInfoModel
-from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo
-
+from vo import UserVO, UserInfoVO, PoolVO, ActivityVO, ActivityListVO, PoolListVO, PostListVo, RecruitVo, UserListVO
 
 
 class UserConverter:
@@ -11,7 +9,6 @@ class UserConverter:
         user.username = userVO.username
         user.password = userVO.password
         user.role = userVO.role
-        print(user.__dict__)
         return user
 
     def toVO(self, userModel: UserModel):
@@ -19,7 +16,7 @@ class UserConverter:
         vo.id = userModel.id
         vo.username = userModel.username
         vo.password = userModel.password
-        vo.role = userModel.role
+        vo.role = str(userModel.role).split(".")[1]
         return vo
 
 
@@ -300,4 +297,3 @@ class UserListConverter:
         post.career = userInfo.job
         post.source = userInfo.avatar
         return post
-

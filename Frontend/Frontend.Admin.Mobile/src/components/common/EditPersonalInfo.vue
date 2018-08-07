@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <alert v-model="show" :title="title" :content="content"/>
+    </div>
     <sub-title class="sub-title" value="头像"/>
     <group class="group-type">
       <FileUPloader :url="actionUrl" v-on:child-say="getAvatar"/>
@@ -9,7 +12,8 @@
 
     <sub-title class="subtitle" value="基本信息"/>
     <group>
-      <cell class="cell-font" title="昵称:" v-model="form.nickname"/>
+      <x-input class="cell-font" title="昵称:" text-align="right" v-model="form.nickname"/>
+      <x-input class="cell-font" title="姓名:" text-align="right" v-model="form.name"/>
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
@@ -82,9 +86,10 @@
 </template>
 
 <script>
-  import FileUPloader from './FileUploader'
-  import UserApi from '../../api/user'
-  import SubTitle from './SubTitle'
+  import FileUPloader from './FileUploader';
+  import UserApi from '../../api/user';
+  import SubTitle from './SubTitle';
+  import {mapGetters, mapMutations} from 'vuex';
   import {
     XButton,
     GroupTitle,
@@ -98,7 +103,8 @@
     ChinaAddressData,
     XAddress,
     XTextarea,
-    XSwitch
+    XSwitch,
+    Alert
   } from 'vux'
 
   export default {
@@ -116,7 +122,8 @@
       Datetime,
       XNumber,
       XTextarea,
-      XSwitch
+      XSwitch,
+      Alert
     },
     data() {
       return {
@@ -132,13 +139,13 @@
           email: ' ',
           qq: '',
           wechat: '',
-          nickname: 'hhh',
-          index: '9384',
-          gender: [],
+          nickname: '',
+          index: '',
+          gender: ['男'],
           p_height: '',
           birthDate: '',
-          marriage: [],
-          friend: [],
+          marriage: ['未婚'],
+          friend: ['恋爱'],
           hometown: '',
           city: '',
           live: '',
@@ -146,7 +153,7 @@
           collageSchool: '',
           masterSchool: '',
           doctorSchool: '',
-          education: [],
+          education: ['本科'],
           major: '',
           corporation: '',
           work_state: '',
@@ -162,9 +169,14 @@
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
         list_type: [['恋爱', '结婚']],
         list_education: [['小学', '初中', '高中', '大专', '本科', '硕士', '博士']],
+        show: false,
+        title: '',
+        content: ''
       }
     },
     methods: {
+      ...mapMutations(['setToken', 'setUserID']),
+      ...mapGetters(['getToken', 'getUserID']),
       getAvatar(url) {
         this.form.avatarUrl = url;
       },
@@ -187,14 +199,27 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入")
+          // 返回
+          this.$router.go(-1);
         } else if (status === 500) {
           console.log("上传用户信息失败")
+          this.setState("错误", "上传用户信息失败");
         }
       },
       fail: function (err) {
+        this.setState("错误", "网络错误");
         console.log("错误发生了！！！");
         console.log(err)
-      }
+      },
+      setState: function (title, content) {
+        this.title = title;
+        this.content = content;
+        this.show = true;
+      },
+    },
+    mounted(){
+      this.form.index = this.getUserID();
+      //this.form = UserApi.getUserInfo(1, false, this.fail);
     }
   }
 </script>

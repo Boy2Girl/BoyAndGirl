@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
+from sqlalchemy import VARCHAR, DATE, Integer, Float, Boolean, DATETIME
 from sqlalchemy.dialects.mysql import LONGBLOB
 
 from publicdata import Role
 from run import db
-from sqlalchemy import VARCHAR, Enum, DATE, Integer, Float, Boolean, DATETIME, BLOB
-from datetime import datetime
 
 
 class UserModel(db.Model):
@@ -27,7 +28,7 @@ class UserInfoModel(db.Model):
     realName = db.Column(VARCHAR(100))
     gender = db.Column(VARCHAR(100))
     bornDate = db.Column(DATE)  # 出生日期
-    marriage = db.Column(VARCHAR(100)) # 婚姻状况
+    marriage = db.Column(VARCHAR(100))  # 婚姻状况
     friend = db.Column(VARCHAR(100))  # 交友要求
     hometown = db.Column(VARCHAR(100))
     company = db.Column(VARCHAR(100))
@@ -65,14 +66,14 @@ class UserInfoModel(db.Model):
 
 class CheckingUserInfoModel(db.Model):
     __tablename__ = "CheckingUserInfo"
-    id = db.Column(Integer, primary_key=True)
+    id = db.Column(Integer, db.ForeignKey('User.id'), primary_key=True)
     phone = db.Column(VARCHAR(100))
     email = db.Column(VARCHAR(100))
     name = db.Column(VARCHAR(100))
     realName = db.Column(VARCHAR(100))
     gender = db.Column(VARCHAR(100))
     bornDate = db.Column(DATE)  # 出生日期
-    marriage = db.Column(VARCHAR(100)) # 婚姻状况
+    marriage = db.Column(VARCHAR(100))  # 婚姻状况
     friend = db.Column(VARCHAR(100))  # 交友要求
     hometown = db.Column(VARCHAR(100))
     company = db.Column(VARCHAR(100))

@@ -10,7 +10,8 @@ import ActivityListPage from '../components/page/user/ActivityListPage';
 import UserActivityPage from '../components/page/user/ActivityPage';
 import UserPoolListPage from '../components/page/user/PoolListPage';
 import UserPage from '../components/page/user/UserPage';
-import VerifyUserPage from '../components/page/admin/VerifyUserPage'
+import VerifyUserPage from '../components/page/admin/VerifyUserPage';
+import VertfyUserListPage from '../components/page/admin/VertfyUserListPage';
 import PostsPage from '../components/page/user/PostsPage';
 import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
 import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
@@ -193,15 +194,22 @@ const routes = [
         },
       },
       {
-        path: 'user',
+        path: '/admin/user',
         component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
         },
       },
       {
-        path: 'verify',
+        path: 'verify/:id',
         component: VerifyUserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'verify',
+        component: VertfyUserListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
@@ -247,8 +255,8 @@ function fail(err) {
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   if (to.meta.requireAuth) {//查看是否需要权限登陆
-    CheckApi.check(success, fail);
-    next();
+    CheckApi.check(success, fail)
+    next()
   } else {
     next()
   }
