@@ -16,6 +16,8 @@ class LoveRelationDao(DaoUtil):
             return lovers
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_true_love(self, user_id, pool_id):
         try:
@@ -27,6 +29,8 @@ class LoveRelationDao(DaoUtil):
             return [i[0] for i in lovers]
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_relation(self, from_id, to_id, pool_id):
         try:
@@ -38,4 +42,6 @@ class LoveRelationDao(DaoUtil):
             raise AlreadyExists
         except:
             raise SystemError
+        finally:
+            session.close()
 

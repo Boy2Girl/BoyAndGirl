@@ -12,6 +12,8 @@ class PoolDao(DaoUtil):
             return pools
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_pool(self, pool_id):
         try:
@@ -23,6 +25,8 @@ class PoolDao(DaoUtil):
             raise NotFoundException
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_pool_by_user(self, user_id):
         try:
@@ -30,6 +34,8 @@ class PoolDao(DaoUtil):
             return pools
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_user_in_pool(self, pool_id):
         try:
@@ -38,3 +44,5 @@ class PoolDao(DaoUtil):
             return pools
         except:
             raise SystemError
+        finally:
+            session.close()

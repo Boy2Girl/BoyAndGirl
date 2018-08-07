@@ -17,4 +17,5 @@ class PoolJoinDao(DaoUtil):
             raise AlreadyExists
         except:
             raise SystemError
-    pass
+        finally:
+            session.close()
