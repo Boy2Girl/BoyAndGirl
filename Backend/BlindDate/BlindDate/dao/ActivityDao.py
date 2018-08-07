@@ -21,6 +21,8 @@ class ActivityDao(DaoUtil):
         except:
             traceback.print_exc()
             raise SystemError
+        finally:
+            session.close()
 
     """获取活动列表"""
     def get_activity_list(self, begin, is_old):
@@ -36,6 +38,8 @@ class ActivityDao(DaoUtil):
             return activity_list
         except:
             raise SystemError
+        finally:
+            session.close()
 
     """获取用户参加过的活动"""
     def get_activity_by_user(self, userID):
@@ -44,6 +48,8 @@ class ActivityDao(DaoUtil):
             return activity
         except:
             raise SystemError
+        finally:
+            session.close()
 
 
 

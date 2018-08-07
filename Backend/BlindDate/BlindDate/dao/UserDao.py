@@ -16,6 +16,8 @@ class UserDao(DaoUtil):
         except:
             traceback.print_exc()
             raise SystemError
+        finally:
+            session.close()
 
     def get_user_by_id(self, user_id):
         try:
@@ -24,6 +26,8 @@ class UserDao(DaoUtil):
             return user
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def updateUserRole(self, user_id, user_role):
         try:
@@ -32,6 +36,8 @@ class UserDao(DaoUtil):
             session.commit()
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_all_user(self):
         try:
@@ -40,3 +46,5 @@ class UserDao(DaoUtil):
             return user_list
         except:
             raise SystemError
+        finally:
+            session.close()

@@ -16,4 +16,6 @@ class RecruitDao(DaoUtil):
             raise AlreadyExists
         except:
             raise SystemError
+        finally:
+            session.close()
 

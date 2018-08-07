@@ -89,9 +89,11 @@
         }
       },
       route: function (id) {
-        this.id = id;
-        // 在这里还要判断是不是报名了，还要判断是不是进入...list
-        PoolApi.checkRegister(id, this.checkSuccess, this.fail)
+        if(this.$route.path.split('/')[1]!='admin'){
+            this.id = id;
+            // 在这里还要判断是不是报名了，还要判断是不是进入...list
+            PoolApi.checkRegister(id, this.checkSuccess, this.fail)
+        }
       }
     },
     mounted() {

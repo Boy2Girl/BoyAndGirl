@@ -9,12 +9,11 @@ class PostsDao(DaoUtil):
     def get_posts_by_user(self, user_id):
         try:
             posts = session.query(PostsModel).filter(PostsModel.userID == user_id).all()
-            if posts:
-                raise AlreadyExists
-        except AlreadyExists:
-            raise AlreadyExists
+            return posts
         except:
             raise SystemError
+        finally:
+            session.close()
 
     ### 我应征的人
     def get_posts_by_user_id(self, user_id):
@@ -24,6 +23,8 @@ class PostsDao(DaoUtil):
             return posts
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_all(self):
         try:
@@ -31,6 +32,8 @@ class PostsDao(DaoUtil):
             return posts
         except:
             raise SystemError
+        finally:
+            session.close()
 
     def get_my(self, user_id):
         try:
@@ -39,3 +42,7 @@ class PostsDao(DaoUtil):
             return posts
         except:
             raise SystemError
+        finally:
+            session.close()
+
+

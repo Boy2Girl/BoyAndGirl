@@ -6,7 +6,7 @@
     <card v-for="item in postList" v-bind:key="item.id" class="mycard"
           :style="'box-shadow: -4px 4px 2px #dddddd; margin-left: 10px; margin-right: 10px; border-left: 15px '+
           generateColor(item.id) +' solid;border-radius: 15px'">
-      <div slot="content" class="card-padding" @click="route(item.id, toPost)">
+      <div slot="content" class="card-padding" @click="route(item.userID, toPost)">
         <div class="content">
           <div style="display: inline-block;">
             <div style="display: inline; margin-top: 10px">
@@ -115,6 +115,7 @@
       getSuccess: function (status, text) {
         if (status === 200) {
           let result = (JSON.parse(text));
+          console.log(result)
           this.postList = result
         } else if (status === 500) {
           console.log("获取帖子失败");

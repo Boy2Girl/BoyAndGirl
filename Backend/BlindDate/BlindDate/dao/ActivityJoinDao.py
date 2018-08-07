@@ -15,5 +15,7 @@ class ActivityJoinDao(DaoUtil):
             raise AlreadyExists
         except:
             raise SystemError
+        finally:
+            session.close()
 
     pass

@@ -32,9 +32,9 @@ class Posts(Resource):
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     def post(self):
         try:
-            postsID = request.form['postsID']
+            userID = request.form['postsID']
             username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
-            return postsBl.recruit_someone(username, postsID), 200
+            return postsBl.recruit_someone(username, userID), 200
         except AlreadyExists:
             return None, 405
         except InsertException:

@@ -24,6 +24,8 @@ class UserInfoDao(DaoUtil):
             raise NotFoundException
         except:
             traceback.print_exc()
+        finally:
+            session.close()
 
     def update_user_info(self, userInfoModel: UserInfoModel):
         try:
@@ -47,6 +49,7 @@ class UserInfoDao(DaoUtil):
 
     def get_un_checking_list(self):
         user_list = session.query(UserModel).join(CheckingUserInfoModel).all()
+        session.close()
         return user_list
 
     def check_user_info(self, user_id, result):
@@ -67,6 +70,7 @@ class UserInfoDao(DaoUtil):
             # user_info.isRejected = True
             self.session.commit()
         user_info = [i[0] for i in session.query(CheckingUserInfoModel.id).all()]
+        session.close()
         return user_info
 
     def get_all(self):
@@ -75,3 +79,6 @@ class UserInfoDao(DaoUtil):
             return user_info
         except:
             traceback.print_exc()
+        finally:
+            session.close()
+

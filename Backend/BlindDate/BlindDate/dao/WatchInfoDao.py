@@ -12,6 +12,8 @@ class WatchInfoDao(DaoUtil):
             return watch_info
         except:
             raise SystemError
+        finally:
+            self.session.close()
 
     def add_watch_info(self, activity_id):
         try:
