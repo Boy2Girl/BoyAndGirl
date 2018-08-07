@@ -9,10 +9,7 @@ class PostsDao(DaoUtil):
     def get_posts_by_user(self, user_id):
         try:
             posts = session.query(PostsModel).filter(PostsModel.userID == user_id).all()
-            if posts:
-                raise AlreadyExists
-        except AlreadyExists:
-            raise AlreadyExists
+            return posts
         except:
             raise SystemError
 
@@ -39,3 +36,5 @@ class PostsDao(DaoUtil):
             return posts
         except:
             raise SystemError
+
+

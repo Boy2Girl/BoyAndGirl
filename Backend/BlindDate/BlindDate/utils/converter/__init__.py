@@ -276,6 +276,7 @@ class PostsListConverter:
         post.id = posts.id
         post.education = userInfo.education
         post.username = userInfo.name
+        post.userID = userInfo.id
         post.birthDate = str(userInfo.bornDate)
         post.city = userInfo.city
         post.school = userInfo.collageSchool

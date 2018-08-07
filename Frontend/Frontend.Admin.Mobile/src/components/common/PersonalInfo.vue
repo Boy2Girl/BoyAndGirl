@@ -171,7 +171,8 @@
         console.log(err)
       },
       recruit() {
-        PostsApi.recruit_someone(this.form.index, this.success, this.fail)
+        console.log("ids:  "+this.form.id)
+        PostsApi.recruit_someone(this.form.id, this.success, this.fail)
       },
       setState: function (title, content) {
         this.title = title;
