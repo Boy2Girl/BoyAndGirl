@@ -38,21 +38,25 @@
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/about.png">
       </cell>
     </group>
+    <x-button :gradients="['#43aaa7','#55bdd9']" @click.native="signOut"
+              style="margin-top: 10px;">
+      登出
+    </x-button>
     <div style="height: 50px"></div>
   </div>
 </template>
 
 <script>
-  import {Group, Cell} from "vux";
+  import {Group, Cell, XButton} from "vux";
   import Icon from "vux/src/components/icon/index";
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapMutations} from 'vuex';
   import check from '../../api/check';
   import UserApi from '../../api/user';
 
   export default {
     components: {
       Icon,
-      Group, Cell},
+      Group, Cell, XButton},
     data() {
       return {
         id: 0,
@@ -62,6 +66,7 @@
     },
     methods: {
       ...mapGetters(['getToken', 'getUserID']),
+      ...mapMutations(['setToken', 'setUserID']),
       success: function (state, text) {
         if(state === 200){
           let result = (JSON.parse(text));
@@ -84,6 +89,12 @@
         if (status === 200) {
           this.avatarUrl = result['avatar'];
         }
+      },
+      signOut: function () {
+        console.log('logout');
+        this.$router.push('login');
+        this.setToken('');
+        this.setUserID('0');
       }
     },
     mounted(){
