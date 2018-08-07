@@ -1,6 +1,7 @@
 <template>
   <div>
-    <card v-for="item in poolList" v-bind:key="item.id">
+    <card v-for="item in poolList" v-bind:key="item.id"
+          style="box-shadow: -4px 4px 2px #d5d5d5; margin-left: 8px; margin-right: 8px; margin-top: 5px">
       <div slot="content" class="card-padding" @click="route(item.id)">
         <img :src="item.url"
              style="width:80px;height:80px;display:inline;padding-right: 2%">
@@ -8,13 +9,13 @@
           <div class="content-title">
             {{item.title}}
           </div>
-          <div class="content-time">
+          <div class="content-text">
             创建时间：{{item.time}}
           </div>
-          <div class="content-address">
+          <div class="content-text">
             地点：{{item.address}}
           </div>
-          <div class="content-address">
+          <div class="content-text">
             加入要求：{{item.requirement}}
           </div>
         </div>
@@ -65,43 +66,43 @@
       }
     },
     methods: {
-      ...mapMutations(['setToken', 'setUserID','setPoolID']),
-      ...mapGetters(['getToken', 'getUserID','getPoolID']),
-      success:function(status,text){
-        if(status == 200){
-        let result = JSON.parse(text)
-        console.log(result)
-        this.poolList = result
+      ...mapMutations(['setToken', 'setUserID', 'setPoolID']),
+      ...mapGetters(['getToken', 'getUserID', 'getPoolID']),
+      success: function (status, text) {
+        if (status == 200) {
+          let result = JSON.parse(text)
+          console.log(result)
+          this.poolList = result
         }
         else
-        console.log("有错误发生了")
+          console.log("有错误发生了")
       },
-      fail:function(err){
+      fail: function (err) {
         console.log(err)
       },
-      checkSuccess: function(status, text){
-          this.setPoolID(this.id)
-          if(status == 200){
-            this.$router.push('/user/poolPeople')
-          }else if(status == 404){
-            this.$router.push('/user/pool/'+this.id)
-          }
+      checkSuccess: function (status, text) {
+        this.setPoolID(this.id)
+        if (status == 200) {
+          this.$router.push('/user/poolPeople')
+        } else if (status == 404) {
+          this.$router.push('/user/pool/' + this.id)
+        }
       },
-      route: function(id){
+      route: function (id) {
         this.id = id;
         // 在这里还要判断是不是报名了，还要判断是不是进入...list
-        PoolApi.checkRegister(id,this.checkSuccess,this.fail)
+        PoolApi.checkRegister(id, this.checkSuccess, this.fail)
       }
     },
-    mounted(){
-        // 这边还要分情况进行讨论
-        let name = this.$route.name;
-        console.log(name)
-        if (name === "pool") {
-            PoolApi.getAllPool(1,this.success,this.fail)
-        }else if(name == 'myPool'||name == 'successPool'){
-            PoolApi.getPoolByUser(this.success,this.fail)
-        }
+    mounted() {
+      // 这边还要分情况进行讨论
+      let name = this.$route.name;
+      console.log(name)
+      if (name === "pool") {
+        PoolApi.getAllPool(1, this.success, this.fail)
+      } else if (name == 'myPool' || name == 'successPool') {
+        PoolApi.getPoolByUser(this.success, this.fail)
+      }
     }
   }
 </script>
@@ -118,17 +119,16 @@
 
   .content {
     display: inline;
+    margin-left: 10px;
   }
 
   .content-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
   }
 
-  .content-time {
-  }
-
-  .content-address {
+  .content-text {
+    font-size: 12px;
   }
 
   .info {

@@ -15,7 +15,7 @@
       </cell>
     </group>
     <group>
-      <cell class="cell-text" title="我的资料（分享）" link="/user/info">
+      <cell class="cell-text" title="我的资料（分享）" :link="'/user/info/'+this.id">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/share.png">
       </cell>
     </group>
@@ -46,7 +46,8 @@
   import {Group, Cell} from "vux";
   import Icon from "vux/src/components/icon/index";
   import {mapGetters} from 'vuex';
-  import check from '../../api/check'
+  import check from '../../api/check';
+  import UserApi from '../../api/user';
 
   export default {
     components: {
@@ -62,18 +63,27 @@
     methods: {
       ...mapGetters(['getToken', 'getUserID']),
       success: function (state, text) {
-        if(state == 200){
+        if(state === 200){
           let result = (JSON.parse(text));
-          console.log(result);
-          console.log(result['isReal']);
-          if(!result['isReal'])
+          if(!result['isReal']) {
             this.state = '待审核';
-          else
+            UserApi.getUserInfo(this.id, 'False', this.loadSuccess, this.fail);
+          }
+          else {
             this.state = '已审核';
+            UserApi.getUserInfo(this.id, 'True', this.loadSuccess, this.fail);
+          }
         }
       },
       fail: function () {
         console.log('error')
+      },
+      loadSuccess: function (status, text) {
+        var result = (JSON.parse(text));
+        console.log(result);
+        if (status === 200) {
+          this.avatarUrl = result['avatar'];
+        }
       }
     },
     mounted(){
