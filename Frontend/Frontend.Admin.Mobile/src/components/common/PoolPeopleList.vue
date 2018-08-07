@@ -7,15 +7,15 @@
           :style="'box-shadow: -4px 4px 2px #dddddd; margin-left: 10px; margin-right: 10px; border-left: 15px '+
           generateColor(item.id) +' solid;border-radius: 15px'">
       <div slot="content">
-        <div class="content">
-          <div style="display: inline-block; margin-left: 10px;">
-            <div style="display: inline; margin-top: 10px">
-              <div style="display: inline; margin-top: 10px; margin-bottom: 10px">
+        <div style="display: inline; width: 70%">
+          <div style="display: inline-grid; margin-left: 10px;">
+            <div style="display: inline; margin-top: 10px;">
+              <div style="display: inline; margin-top: 10px; margin-bottom: 10px;">
                 <font class="content-tag">{{item.education}}</font>
                 <font class="content-title">{{item.username}}</font>
               </div>
             </div>
-            <div class="cell-text" style="margin-top: 7px">
+            <div class="cell-text" style="margin-top: 7px;">
               <img src="../../assets/date.png" class="pic-icon"/>
               出生年份：{{item.birthDate}}
             </div>
@@ -31,28 +31,34 @@
               <img src="../../assets/work.png" class="pic-icon"/>
               职业：{{item.career}}
             </div>
-          </div>
-          <div style="display: inline;float: right;padding: 10px 10px 10px 150px;">
-            <img :src="item.source"
-                 :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; display:inline; padding-right: 2%;float: right; margin-top: -120px'">
+            <div style="margin-left: 100px; margin-top: 2px; font-size: 14px; margin-bottom: 8px;" v-on:click="love_it(item.id)"
+                 @click.native="love_it(item.id)">
+              <Icon type="ios-heart" style="color: #b1000d"></Icon>
+              <font style="margin-left: 10px; margin-bottom: 10px;">{{concern}}</font>
+            </div>
           </div>
         </div>
-         <x-button type="primary" class="btn btn-bottom" @click.native="love_it(item.id)">关注这个人</x-button>
+        <!--<x-button type="primary" class="btn btn-bottom" @click.native="love_it(item.id)">关注这个人</x-button>-->
+        <div style="display: inline; float: right; margin-right: 30px; margin-top: 20px;">
+          <img :src="item.source"
+               style="width:120px; height:120px; display:inline; margin-left: 20px; padding-right: 2%;float: right; margin-bottom: 8px;">
+        </div>
       </div>
-     
+
     </card>
   </div>
 </template>
 
 <script>
-  import {Card, Alert,XButton} from 'vux';
+  import {Card, Alert, XButton} from 'vux';
   import UserApi from '../../api/user'
   import PoolApi from '../../api/pool'
   import {mapGetters, mapMutations} from 'vuex'
+
   export default {
 
     components: {
-      Card, Alert,XButton
+      Card, Alert, XButton
     },
     data() {
       return {
@@ -72,11 +78,12 @@
         content: '',
         title: '',
         windowSize: document.body.clientWidth,
+        concern: ' 关注'
       }
     },
     methods: {
-      ...mapMutations(['setToken', 'setUserID','setPoolID']),
-      ...mapGetters(['getToken', 'getUserID','getPoolID']),
+      ...mapMutations(['setToken', 'setUserID', 'setPoolID']),
+      ...mapGetters(['getToken', 'getUserID', 'getPoolID']),
       success: function (status, text) {
         console.log("success")
         if (status === 200) {
@@ -84,7 +91,7 @@
           console.log(result);
           this.poolPeopleList = result
         }
-        else{
+        else {
           this.setState("错误", "目前无法获得互选池信息╮(╯_╰)╭");
         }
       },
@@ -109,13 +116,13 @@
           // todo
           // 设置状态，改变button为取消关注？
         }
-        else{
+        else {
           this.setState("错误", "目前无法获得互选池信息╮(╯_╰)╭");
         }
       },
-      love_it: function(id){
+      love_it: function (id) {
         console.log(id)
-        PoolApi.loveSomeone(id, this.getPoolID(),this.loveSuccess,this.fail);
+        PoolApi.loveSomeone(id, this.getPoolID(), this.loveSuccess, this.fail);
       }
     },
     mounted() {
@@ -123,11 +130,11 @@
       console.log(name)
       console.log(this.getPoolID())
       if (name === "poolPeople") {
-        PoolApi.getUserInPool(this.getPoolID(),this.success,this.fail)
-      }else if(name == 'poolMyPeople'){
-        PoolApi.getLove(this.getPoolID(),'False',this.success,this.fail);
-      }else if(name == 'poolTwoPeople'){
-        PoolApi.getLove(this.getPoolID(),'False',this.success,this.fail);
+        PoolApi.getUserInPool(this.getPoolID(), this.success, this.fail)
+      } else if (name == 'poolMyPeople') {
+        PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
+      } else if (name == 'poolTwoPeople') {
+        PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
       }
     }
   }
@@ -139,10 +146,6 @@
     margin-left: 3%;
     margin-right: 3%;
     padding-top: 1.5%;
-  }
-
-  .content {
-    display: inline;
   }
 
   .content-title {

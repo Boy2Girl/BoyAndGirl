@@ -6,3 +6,4 @@ jsonschema
 six
 swagger-py-codegen
 PyJWT
+qcloudsms-py
