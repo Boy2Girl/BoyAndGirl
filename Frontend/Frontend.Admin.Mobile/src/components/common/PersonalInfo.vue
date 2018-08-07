@@ -4,16 +4,19 @@
       <alert v-model="show" :title="title" :content="content" @on-hide="onHide"/>
     </div>
     <div class="sub">个人相册</div>
-    <img v-for="item in form.photoList" :src="item.source"
-         style="width:100px; height:100px; display:inline; padding: 2%"/>
+    <img :src="form.avatar"
+    style="width:100px; height:100px; display:inline; padding: 2%"/>
+    <!--<img v-for="item in form.photoList" :src="item.source"-->
+         <!--style="width:100px; height:100px; display:inline; padding: 2%"/>-->
 
     <div class="sub">基本信息</div>
     <cell-form-preview class="form-text" :list="[
-    {label: '昵称', value: form.nickname},
-    {label: '编号', value: form.index},
+    {label: '昵称', value: form.name},
+    {label: '真实姓名', value: form.realName},
+    {label: '编号', value: form.id},
     {label: '性别', value: form.gender},
     {label: '身高（cm）', value: form.p_height},
-    {label: '出生日期', value: form.birthDate},
+    {label: '出生日期', value: form.bornDate},
     {label: '婚姻状况', value: form.marriage},
     {label: '交友类型', value: form.friend}]"/>
 
@@ -28,7 +31,7 @@
     <cell-form-preview class="form-text" :list="[
     {label: '家乡', value: form.hometown},
     {label: '所在城市', value: form.city},
-    {label: '居住地点', value: form.live}]"/>
+    {label: '居住地点', value: form.livingPlace}]"/>
 
     <div class="sub">学习情况</div>
     <cell-form-preview class="form-text" :list="[
@@ -41,16 +44,16 @@
 
     <div class="sub">工作</div>
     <cell-form-preview class="form-text" :list="[
-    {label: '工作单位', value: form.corporation},
+    {label: '工作单位', value: form.company},
     {label: '工作状况', value: form.work_state},
-    {label: '职业', value: form.career},
+    {label: '职业', value: form.job},
     {label: '单位类型', value: form.corporation_type},
     {label: '年收入（实际/预期）', value: form.income}]"/>
 
     <div class="sub">住房/家庭情况</div>
     <cell-form-preview class="form-text" :list="[
-    {label: '住房情况', value: form.house_state},
-    {label: '家庭情况', value: form.family_state}]"/>
+    {label: '住房情况', value: form.housingCondition},
+    {label: '家庭情况', value: form.economyCondition}]"/>
 
     <div class="sub">想说的话</div>
     <x-textarea :disabled='disabled' class="cell-font" title="关于我:" :value="form.about_me"/>
@@ -86,7 +89,7 @@
         content: '',
         show: false,
         form: {
-          avatarUrl: '',
+          avatar: '',
           personUrl: '',
           studentUrl: '',
           graduateUrl: '',
@@ -95,41 +98,32 @@
           email: ' ',
           qq: '',
           wechat: '',
-          nickname: '',
-          index: '',
+          name: '',
+          realName: '',
+          id: '',
           gender: '',
           p_height: '',
-          birthDate: '',
+          bornDate: '',
           marriage: '',
           friend: '',
           hometown: '',
           city: '',
-          live: '',
+          livingPlace: '',
           studyState: '',
           collageSchool: '',
           masterSchool: '',
           doctorSchool: '',
           education: '',
           major: '',
-          corporation: '',
+          company: '',
           work_state: '',
-          career: '',
+          job: '',
           corporation_type: '',
           income: '',
-          house_state: '',
-          family_state: '',
+          housingCondition: '',
+          economyCondition: '',
           about_you: '',
           about_me: '',
-          photoList: [
-            {
-              id: 1,
-              source: require('../../assets/background.jpg')
-            },
-            {
-              id: 2,
-              source: require('../../assets/background.jpg')
-            }
-          ]
         },
 
       }
@@ -141,7 +135,7 @@
       this.form.index = id;
     },
     mounted() {
-      this.form.index = this.getUserID();
+      // this.form.index = this.getUserID();
       check.check(this.checkSuccess, this.fail);
       // UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
     },
@@ -164,9 +158,10 @@
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
-          let result = (JSON.parse(text))
-          this.form = result
+          console.log("成功插入");
+          let result = (JSON.parse(text));
+          this.form = result;
+          console.log(this.form)
         } else if (status === 500) {
           console.log("上传用户信息失败")
         }

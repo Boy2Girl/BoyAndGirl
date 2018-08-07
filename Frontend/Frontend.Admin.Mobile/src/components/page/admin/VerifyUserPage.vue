@@ -23,7 +23,7 @@
     methods: {
       success(status, text) {
         if (status === 200) {
-          router.push('admin/verify');
+          router.go(-1);
         } else if (status === 404) {
           console.log("找不到该用户");
         } else if (status === 403) {
