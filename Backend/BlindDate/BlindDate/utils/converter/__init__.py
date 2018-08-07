@@ -292,7 +292,7 @@ class UserListConverter:
         post.id = userInfo.id
         post.education = userInfo.education
         post.username = userInfo.name
-        post.birthDate = userInfo.bornDate
+        post.birthDate = str(userInfo.bornDate)
         post.city = userInfo.city
         post.school = userInfo.collageSchool
         post.career = userInfo.job

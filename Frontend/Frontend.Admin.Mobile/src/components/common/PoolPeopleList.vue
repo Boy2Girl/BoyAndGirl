@@ -37,37 +37,28 @@
                  :style="'width:'+windowSize*0.3+'px; height:'+windowSize*0.3+'px; display:inline; padding-right: 2%;float: right; margin-top: -120px'">
           </div>
         </div>
+         <x-button type="primary" class="btn btn-bottom" @click.native="love_it(item.id)">关注这个人</x-button>
       </div>
+     
     </card>
   </div>
 </template>
 
 <script>
-  import {Card, Alert} from 'vux';
+  import {Card, Alert,XButton} from 'vux';
   import UserApi from '../../api/user'
   import PoolApi from '../../api/pool'
   import {mapGetters, mapMutations} from 'vuex'
   export default {
 
     components: {
-      Card, Alert
+      Card, Alert,XButton
     },
     data() {
-
       return {
         poolPeopleList: [
           // {
           //   id: 1,
-          //   education: '本',
-          //   username: '娜扎阿拉提',
-          //   birthDate: '1980',
-          //   city: '南京',
-          //   school: '南京大学',
-          //   career: '金融',
-          //   source: require("../../assets/logo.jpg")
-          // },
-          // {
-          //   id: 2,
           //   education: '本',
           //   username: '娜扎阿拉提',
           //   birthDate: '1980',
@@ -111,6 +102,20 @@
         this.title = title;
         this.content = content;
         this.show = true;
+      },
+      loveSuccess: function (status, text) {
+        console.log("success")
+        if (status === 200) {
+          // todo
+          // 设置状态，改变button为取消关注？
+        }
+        else{
+          this.setState("错误", "目前无法获得互选池信息╮(╯_╰)╭");
+        }
+      },
+      love_it: function(id){
+        console.log(id)
+        PoolApi.loveSomeone(id, this.getPoolID(),this.loveSuccess,this.fail);
       }
     },
     mounted() {
@@ -118,7 +123,7 @@
       console.log(name)
       console.log(this.getPoolID())
       if (name === "poolPeople") {
-        UserApi.getUserList(this.success, this.fail);
+        PoolApi.getUserInPool(this.getPoolID(),this.success,this.fail)
       }else if(name == 'poolMyPeople'){
         PoolApi.getLove(this.getPoolID(),'False',this.success,this.fail);
       }else if(name == 'poolTwoPeople'){

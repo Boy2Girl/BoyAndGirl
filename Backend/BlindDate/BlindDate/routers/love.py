@@ -7,6 +7,7 @@ from factory.BlFactory import poolBl, userInfoBl
 from model import PoolModel
 from publicdata import Role
 from utils import JwtUtil
+from utils.DateEncoder import DateEncoderUtil
 
 ns = Namespace('pool/love', description='关于用户')
 
@@ -45,8 +46,7 @@ class Love(Resource):
             result = poolBl.get_love(username, poolID)
         else:
             result = poolBl.get_true_love(username, poolID)
-        print(result)
-        return result
+        return [DateEncoderUtil().changeDate(i) for i in result]
 
     @ns.doc('对某个异性产生好感')
     @ns.expect(put_parser)

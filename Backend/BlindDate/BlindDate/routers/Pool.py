@@ -9,6 +9,7 @@ from factory.DaoFactory import userDao, poolJoinDao
 from publicdata import Role
 from utils import JwtUtil
 from utils.DateEncoder import DateEncoderUtil
+from utils.converter import UserListConverter
 from vo import PoolVO
 
 ns = Namespace('pool', description='关于交友池')
@@ -128,7 +129,8 @@ class PoolID(Resource):
     @login_require(Role.ADMIN, Role.PUBLISHER, Role.USER)
     @ns.doc('获取候选池里所有的用户')
     @ns.expect()
-    def post(self, id):
+    def patch(self, id):
+
         # username = JwtUtil.JwtUtil.get_token_username(request.headers.get("token"))
         # user = userDao.get_user_by_username(username)
         # result = poolJoinDao.getPoolJoin(user.id, id)
@@ -136,5 +138,5 @@ class PoolID(Resource):
         #     return None, 200
         # else:
         #     return None, 404
-        pass
+        return [DateEncoderUtil().changeDate(i) for i in poolBl.get_people_in_pool(id)]
 
