@@ -3,7 +3,7 @@ from factory import DaoFactory
 from factory.DaoFactory import userDao
 from model import PoolJoinModel, LoveRelationModel
 from utils.JwtUtil import JwtUtil
-from utils.converter import PoolConverter, PoolListConverter
+from utils.converter import PoolConverter, PoolListConverter, UserListConverter
 from vo import PoolVO
 
 
@@ -51,7 +51,7 @@ class PoolBl(object):
 
     def get_love(self, username, pool_id):
         user = userDao.get_user_by_username(username)
-        return self.love_relation_dao.get_your_love(user.id, pool_id)
+        return [UserListConverter().toVO(i) for i in self.love_relation_dao.get_your_love(user.id, pool_id)]
 
     def get_true_love(self, username, pool_id):
         user = userDao.get_user_by_username(username)
@@ -66,4 +66,15 @@ class PoolBl(object):
         if not result:
             raise NotFoundException
         return result
+
+    def get_people_in_pool(self, pID):
+        # print(str(pID) + " " + str(username))
+        # user = userDao.get_user_by_username(username)
+        # print(str(pID) + " " + str(user.id))
+        # result = self.pool_join_dao.getPoolJoin(user.id, pID)
+        # print(result)
+        # if not result:
+        #     raise NotFoundException
+        # return result
+        return [UserListConverter().toVO(i) for i in self.pool_dao.get_user_in_pool(pID)]
 

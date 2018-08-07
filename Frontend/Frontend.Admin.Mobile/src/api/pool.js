@@ -1,7 +1,7 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addPool,getPool,registerPool,getAllPool,getPoolByUser,checkRegister
+  addPool,getPool,registerPool,getAllPool,getPoolByUser,checkRegister,getLove,getUserInPool,loveSomeone
 }
 /**
    * @param {function} name
@@ -53,6 +53,29 @@ async function getPoolByUser(resolve, reject){
 async function checkRegister(pID, resolve, reject){
     console.log('in get pool list:')
     var data = new FormData()
-    data.append('pID', pID)
-    base.query(data, resolve, reject, '/pool', METHOD.DELETE)
+    base.query(data, resolve, reject, '/pool'+'/'+pID, METHOD.POST)
+}
+
+async function getUserInPool(pID, resolve, reject){
+    console.log('in get pool list:')
+    var data = new FormData()
+    base.query(data, resolve, reject, '/pool'+'/'+pID, METHOD.PATCH)
+}
+
+
+async function getLove(poolID,truth,resolve, reject){
+    console.log('in get pool list:')
+    var data = new FormData()
+    data.append('poolID', poolID)
+    data.append('truth', truth)
+    base.query(data, resolve, reject, '/pool/love', METHOD.POST)
+}
+
+
+async function loveSomeone(uID,poolID,resolve, reject){
+    console.log('in get pool list:')
+    var data = new FormData()
+    data.append('poolID', poolID)
+    data.append('uID', uID)
+    base.query(data, resolve, reject, '/pool/love', METHOD.PUT)
 }

@@ -1,17 +1,18 @@
 <template>
   <div>
     <pool-tab/>
-    <pool-people-list/>
+    <pool-list/>
   </div>
 </template>
 
 <script>
   import PoolPeopleList from '../../common/PoolPeopleList.vue';
   import PoolTab from '../../common/PoolTab.vue';
+  import PoolList from '../../common/PoolList.vue';
 
   export default {
     components: {
-      PoolTab, PoolPeopleList
+      PoolTab, PoolPeopleList,PoolList
     }
   }
 </script>

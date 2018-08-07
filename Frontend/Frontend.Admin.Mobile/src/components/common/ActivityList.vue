@@ -43,6 +43,9 @@
         showPopupPicker: false,
         isPlain: true
       }
+    },
+    mounted(){
+      
     }
 
   }

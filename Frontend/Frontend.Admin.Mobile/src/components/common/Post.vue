@@ -54,8 +54,6 @@
   import CheckApi from '../../api/check';
   import router from '../../router/index.js';
   import {mapGetters} from 'vuex';
-  import check from '../../api/check';
-
   export default {
 
     components: {
@@ -97,7 +95,7 @@
           }else{
             PostsApi.addPosts(this.success, this.fail)
           }
-        } 
+        }
       },
       success: function (status, text) {
         if (status === 200) {
@@ -111,7 +109,7 @@
           }
         } else if (status === 500) {
           console.log("上传互选池失败");
-          this.setState("失败", "系统没有找到你qaq");
+          this.setState("失败", "系统没有找到你qwq");
         }
       },
       getSuccess: function (status, text) {

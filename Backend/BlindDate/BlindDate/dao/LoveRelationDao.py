@@ -1,6 +1,6 @@
 from exceptions import AlreadyExists
 from run import session,db
-from model import UserModel, LoveRelationModel
+from model import UserModel, LoveRelationModel, UserInfoModel
 import traceback
 from dao.DaoUtil import DaoUtil
 from sqlalchemy.orm import aliased
@@ -10,9 +10,10 @@ class LoveRelationDao(DaoUtil):
 
     def get_your_love(self, user_id, pool_id):
         try:
-            lovers = session.query(LoveRelationModel.toID).filter(LoveRelationModel.fromID == user_id)\
+            lovers = session.query(UserInfoModel).join(LoveRelationModel,LoveRelationModel.toID == UserInfoModel.id)\
+                .filter(LoveRelationModel.fromID == user_id)\
                 .filter(LoveRelationModel.poolID == pool_id).all()
-            return [i[0] for i in lovers]
+            return lovers
         except:
             raise SystemError
 
