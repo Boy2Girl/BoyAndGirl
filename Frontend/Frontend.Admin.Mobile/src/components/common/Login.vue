@@ -136,8 +136,13 @@
       signUp: function () {
         if (this.username === '' || this.password === '')
           this.setState("错误", "用户名或者密码不能为空");
-        else if (this.password === this.password2)
-          UserApi.signUp(this.username, this.password, this.getRole(), this.signupSuccess, this.fail);
+        else if (this.password === this.password2) {
+          if(!/^1[34578]\d{9}$/.test(this.username)){
+            this.setState('错误', '请输入正确的手机号码');
+          }
+          else
+            UserApi.signUp(this.username, this.password, this.getRole(), this.signupSuccess, this.fail);
+        }
         else
           this.setState("错误", "您两次输入的密码不一致");
       },

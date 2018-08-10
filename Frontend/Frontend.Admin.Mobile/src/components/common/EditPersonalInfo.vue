@@ -197,7 +197,14 @@
       },
       save_info() {
         console.log('保存数据了');
-        UserApi.addUserInfo(this.form, this.success, this.fail)
+        if(!/^1[34578]\d{9}$/.test(this.form.phone)){
+          this.setState('错误', '请输入正确的手机号码');
+        }
+        else if(!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.form.email)){
+          this.setState('错误', '请输入正确的邮箱');
+        }
+        else
+          UserApi.addUserInfo(this.form, this.success, this.fail)
       },
       success: function (status, text) {
         if (status === 200) {
