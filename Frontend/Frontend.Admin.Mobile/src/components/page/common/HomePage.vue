@@ -6,7 +6,9 @@
 </template>
 
 <script>
-  import Login from '../../common/Login.vue'
+  // import Login from '../../common/Login.vue'
+  const Login = () => import('../../common/Login.vue')
+  
   export default {
     components: {
       Login

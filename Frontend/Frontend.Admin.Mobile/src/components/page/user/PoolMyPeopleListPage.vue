@@ -6,9 +6,11 @@
 </template>
 
 <script>
-import PoolPeopleTab from '../../common/PoolPeopleTab';
-  import PoolPeopleList from '../../common/PoolPeopleList';
+// import PoolPeopleTab from '../../common/PoolPeopleTab';
+  // import PoolPeopleList from '../../common/PoolPeopleList';
 
+  const PoolPeopleTab = () => import('../../common/PoolPeopleTab')
+  const PoolPeopleList = () => import('../../common/PoolPeopleList')
   export default {
     components: {
       PoolPeopleList,PoolPeopleTab

@@ -92,7 +92,7 @@
   import SubTitle from './SubTitle';
   import {mapGetters, mapMutations} from 'vuex';
   import CheckApi from '../../api/check';
-
+  import baseUrl from '../../api/basequery'
   import {
     XButton,
     GroupTitle,
@@ -130,7 +130,7 @@
     },
     data() {
       return {
-        actionUrl: "http://127.0.0.1:5000/api/test",
+        actionUrl: baseUrl+"/test",
         source: require('../../assets/background.jpg'),
         form: {
           avatarUrl: '',

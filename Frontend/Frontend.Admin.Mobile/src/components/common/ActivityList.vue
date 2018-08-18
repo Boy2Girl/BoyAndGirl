@@ -16,11 +16,13 @@
 
 <script>
   import {Swiper, Divider, PopupPicker, XButton} from "vux";
-  import ActivityCardList from './ActivityCardList.vue';
-
+  // const Foo = () => import('./Foo.vue').then(m => m.default)
+  const ActivityCardList = () => import('./ActivityCardList.vue')
+  // import ActivityCardList from './ActivityCardList.vue';
+  import {Button} from 'iview'
   export default {
     components: {
-      Swiper, Divider, ActivityCardList, PopupPicker, XButton
+      Swiper, Divider, ActivityCardList, PopupPicker, XButton,Button
     },
     data() {
       return {

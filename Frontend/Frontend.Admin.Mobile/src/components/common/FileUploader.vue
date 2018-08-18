@@ -15,7 +15,10 @@
   </div>
 </template>
 <script>
+  import {Upload} from 'iview';
+  import baseUrl from '../../api/basequery';
   export default {
+    components: {Upload},
     props: {
       url: String
     },
@@ -30,7 +33,7 @@
       },
       handleSuccess(res) {
         console.log(res)
-        this.$emit('child-say', "http://127.0.0.1:5000" + '/static/' + res);
+        this.$emit('child-say', baseUrl.split('api')[0] + '/static/' + res);
       }
     }
 

@@ -9,7 +9,8 @@
 </template>
 
 <script>
-  import PoolList from '../../common/PoolList';
+  // import PoolList from '../../common/PoolList';
+  const PoolList = () => import('../../common/PoolList')
   import {XButton} from 'vux';
 
   export default {

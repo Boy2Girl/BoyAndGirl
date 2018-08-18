@@ -3,8 +3,8 @@
 </template>
 
 <script>
-  import UserActivity from '../../common/UserActivity.vue';
-
+  // import UserActivity from '../../common/UserActivity.vue';
+  const UserActivity = () => import('../../common/UserActivity.vue')
   export default {
     components: {
       UserActivity

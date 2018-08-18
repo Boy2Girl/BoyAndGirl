@@ -36,6 +36,7 @@
   import {XInput, Datetime, Group, GroupTitle, XButton, Alert} from "vux";
   import ActivityApi from '../../api/activity'
   import FileUPloader from './FileUploader'
+  import baseUrl from '../../api/basequery'
 
   export default {
     components: {
@@ -43,7 +44,7 @@
     },
     data() {
       return {
-        actionUrl: "http://127.0.0.1:5000/api/test",
+        actionUrl: baseUrl+"/test",
         url: "",
         name: "",
         activityBeginTime: "",

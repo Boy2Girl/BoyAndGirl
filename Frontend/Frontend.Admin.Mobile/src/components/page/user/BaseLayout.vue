@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import Bar from '../../common/UserBar.vue'
-
+  // import Bar from '../../common/UserBar.vue'
+  const Bar = () => import('../../common/UserBar.vue')
   export default {
     components: {
       Bar

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import UserList from '../../common/UserList';
-
+  // import UserList from '../../common/UserList';
+  const UserList = () => import('../../common/UserList')
   export default {
     components: {
       UserList
