@@ -91,7 +91,7 @@
       route: function (id) {
         if(this.$route.path.split('/')[1]!='admin'){
             this.id = id;
-            // 在这里还要判断是不是报名了，还要判断是不是进入...list
+            // 在这里还要判断是不是报名了
             PoolApi.checkRegister(id, this.checkSuccess, this.fail)
         }
       }
