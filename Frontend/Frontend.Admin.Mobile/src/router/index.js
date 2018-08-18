@@ -293,7 +293,7 @@ const routes = [
       },
       {
         path: 'verify',
-        component: (resolve) => {require(['../components/page/admin/VerifyUserPage'], resolve)},
+        component: (resolve) => {require(['../components/page/admin/VertfyUserListPage'], resolve)},
         // component: (()=>import('../components/page/admin/VerifyUserPage')),
         // component: VertfyUserListPage,
         meta: {

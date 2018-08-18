@@ -44,7 +44,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl+"/test",
+        actionUrl: baseUrl+'/test',
         url: "",
         name: "",
         activityBeginTime: "",
@@ -100,6 +100,9 @@
         this.title = title;
         this.content = content;
         this.show = true;
+      },
+      mounted(){
+        console.log("hh" + this.actionUrl)
       }
     }
   }

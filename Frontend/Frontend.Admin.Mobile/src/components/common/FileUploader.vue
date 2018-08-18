@@ -15,10 +15,10 @@
   </div>
 </template>
 <script>
-  import {Upload} from 'iview';
+  import {Upload,Button} from 'iview';
   import baseUrl from '../../api/basequery';
   export default {
-    components: {Upload},
+    components: {Upload,Button},
     props: {
       url: String
     },

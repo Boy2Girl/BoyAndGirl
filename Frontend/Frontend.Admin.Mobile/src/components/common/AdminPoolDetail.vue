@@ -38,7 +38,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl+"/test",
+        actionUrl: baseUrl+'/test',
         url: "",
         cityList: ["苏州", "南京"],
         name: "",
@@ -50,6 +50,9 @@
       }
     },
     methods: {
+      mounted(){
+        console.log("hhh"+this.actionUrl)
+      },
       updateData(e = '') {
         this.detail = e;
         console.info(e);

@@ -6,7 +6,7 @@ import router from "./router";
 import 'iview/dist/styles/iview.css';
 import store from './store'
 // import "font-awesome.css";
-// import initRichText from './util/initHTMLEditor';
+import initRichText from './util/initHTMLEditor';
 // import {WechatPlugin, AjaxPlugin} from 'vux'
 
 // Vue.use(WechatPlugin);
@@ -15,7 +15,7 @@ import store from './store'
 // Vue.http.get('/api', ({data}) => {
 //   Vue.wechat.config(data.data)
 // });
-// initRichText();
+initRichText();
 console.log(router);
 Vue.config.productionTip = false;
 const myVue = new Vue({

@@ -12,10 +12,11 @@
   import {UserType} from "../../models/user/UserType";
   import {XButton} from "vux";
   import UserApi from '../../api/user';
+  import {Input,Table} from 'iview'
 
   export default {
     components: {
-      XButton
+      XButton,Input,Table
     },
     data() {
       return {

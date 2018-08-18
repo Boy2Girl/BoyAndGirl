@@ -53,10 +53,11 @@
   import {Card, XButton, Flexbox, FlexboxItem, Alert} from "vux";
   import ActivityApi from '../../api/activity'
   import router from "../../router";
+  import {Icon} from 'iview';
 
   export default {
     components: {
-      Card, XButton, Flexbox, FlexboxItem, Alert
+      Card, XButton, Flexbox, FlexboxItem, Alert,Icon
     },
     data() {
       return {
