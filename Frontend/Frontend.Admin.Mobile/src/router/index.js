@@ -338,14 +338,14 @@ function success(status, text) {
 }
 
 function fail(err) {
-  console.log("错误发生了")
+  console.log("错误发生了");
   console.log(err)
 }
 
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   if (to.meta.requireAuth) {//查看是否需要权限登陆
-    CheckApi.check(success, fail)
+    CheckApi.check(success, fail);
     next()
   } else {
     next()

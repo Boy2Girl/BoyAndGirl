@@ -38,7 +38,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl+'/test',
+        actionUrl: baseUrl.baseUrl+'/test',
         url: "",
         cityList: ["苏州", "南京"],
         name: "",
