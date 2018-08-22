@@ -44,7 +44,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl+'/test',
+        actionUrl: baseUrl.baseUrl+'/test',
         url: "",
         name: "",
         activityBeginTime: "",
@@ -84,6 +84,8 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入");
+          // 应该弹出框，然后清除上面已经插入的数据
+          // this.$root.reload();
         } else if (status === 500) {
           this.setState("错误", "上传活动失败");
         }
@@ -100,10 +102,10 @@
         this.title = title;
         this.content = content;
         this.show = true;
-      },
-      mounted(){
-        console.log("hh" + this.actionUrl)
       }
+    },
+    mounted(){
+      console.log("hh" + this.actionUrl)
     }
   }
 </script>

@@ -51,7 +51,7 @@
     data() {
       return {
         poolList: [
-          {
+          /*{
             id: 1,
             url: "http://placeholder.qiniudn.com/640x300",
             title: "南京互选池",
@@ -60,7 +60,7 @@
             requirement: "南京工作或在读",
             numOfBoy: 301,
             numOfGirl: 301,
-          }
+          }*/
         ],
         id: ''
       }

@@ -130,7 +130,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl+"/test",
+        actionUrl: baseUrl.baseUrl+"/test",
         source: require('../../assets/background.jpg'),
         form: {
           avatarUrl: '',
