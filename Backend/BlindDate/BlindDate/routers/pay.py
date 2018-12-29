@@ -25,7 +25,7 @@ pay_parser.add_argument('money', type=float, help='金额', location='form')
 @ns.response(403, '用户名或者密码不正确')
 @ns.response(500, '内部错误')
 class Pay(Resource):
-    wechat_pay = WeChatPay(appid=config.app_id, api_key=config.ap_key, mch_id=config.mch_id,
+    wechat_pay = WeChatPay(appid=config.app_id, api_key=config.api_key, mch_id=config.mch_id,
                            mch_cert=config.mch_cert, mch_key=config.mch_key)
     wechat_order = wechat_pay.order
     wechat_jsapi = wechat_pay.jsapi
