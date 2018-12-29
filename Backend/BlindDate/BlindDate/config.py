@@ -8,7 +8,7 @@ phone_app_id = "1400120886"
 phone_app_key = "a7712f312b41449d73c187813dfbec85"
 
 app_id = "wxcf058ebab08beee9"  # 微信公众号appid
-app_key = "712f763fd5394d307adb242ca5c158e2"  # 微信公众号Key
+api_key = "Wsz4I2MQrVjIvEnHtqh3yYPbuEVECJdG"  # 微信公众号Key
 mch_id = "1520904711"  # 商户号
 mch_cert = "apiclient_cert.pem"  # 商户证书路径
 mch_key = "apiclient_key.pem"  # 商户证书私钥路径
