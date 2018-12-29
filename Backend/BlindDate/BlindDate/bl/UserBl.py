@@ -10,8 +10,8 @@ from vo import UserVO
 import requests
 import json
 
-appId = ''
-secret = ''
+appId = 'wxcf058ebab08beee9'
+secret = '712f763fd5394d307adb242ca5c158e2'
 grant_type = 'authorization_code'
 baseUrl = ' https://api.weixin.qq.com/sns/oauth2/access_token'
 class UserBl(object):
@@ -45,20 +45,23 @@ class UserBl(object):
 
     def get_open_id(self, code, username):
         payload = {}
-        user = UserDao.get_user_by_username(username)
-        if not user:
-            raise NotFoundException
+        # user = UserDao.get_user_by_username(username)
+        user = None
+        # if not user:
+        #     raise NotFoundException
 
-        if not user.refresh_token:
-            if not code:
-                raise NotFoundException
-            else:
-                payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
-        else:
-            payload = {'appid': appId, 'grant_type': 'refresh_token', 'refresh_token': user.refresh_token}
+        payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
+        # if not user.refresh_token:
+        #     if not code:
+        #         raise NotFoundException
+        #     else:
+        #         payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
+        # else:
+        #     payload = {'appid': appId, 'grant_type': 'refresh_token', 'refresh_token': user.refresh_token}
 
         result = requests.get(baseUrl, params=payload).content
-        result_json = json.load(result)
+        print(result)
+        result_json = json.loads(result)
         if not result_json['openid']:
             raise NotFoundException
         else:
@@ -66,4 +69,4 @@ class UserBl(object):
         return result_json['openid']
 
 
-
+UserBl().get_open_id("071FNwEj1Mlizv0AMfCj1ToXEj1FNwEC","18851830977")
