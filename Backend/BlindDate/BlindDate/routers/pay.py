@@ -4,7 +4,7 @@ from wechatpy import WeChatPay
 import config
 from exceptions import PasswordWrongException, NotFoundException
 
-ns = Namespace('user', description='关于用户（登录注册）')
+ns = Namespace('pay', description='关于支付')
 
 pay_parameters = ns.model('PayParameters', {
     'username': fields.String(required=True, description='用户名'),
