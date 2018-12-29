@@ -25,7 +25,7 @@ pay_parser.add_argument('money', type=float, help='金额', location='form')
 @ns.response(403, '用户名或者密码不正确')
 @ns.response(500, '内部错误')
 class Pay(Resource):
-    wechat_pay = WeChatPay(appid=config.app_id, api_key=config.api_key, mch_id=config.mch_id,
+    wechat_pay = WeChatPay(appid=config.app_id, api_key=config.ap_key, mch_id=config.mch_id,
                            mch_cert=config.mch_cert, mch_key=config.mch_key)
     wechat_order = wechat_pay.order
     wechat_jsapi = wechat_pay.jsapi
@@ -40,8 +40,12 @@ class Pay(Resource):
                                                     notify_url=request.url, client_ip=config.server_ip, user_id=open_id,
                                                     product_id=JwtUtil.get_token_username(
                                                         flask.request.headers.get("token")), device_info="WEB")
-            print(order_params)
-            prepay_id = order_params.prepay_id
+            print("******************")
+            print(order_params[8])
+            print("******************")
+            print(order_params[8][1])
+            print("******************")
+            prepay_id = order_params[8][1]
             pay_params = self.wechat_order.get_jsapi_params(prepay_id, jssdk=True)
             print(pay_params)
             return pay_params, 200
