@@ -14,3 +14,4 @@ mch_cert = "apiclient_cert.pem"  # 商户证书路径
 mch_key = "apiclient_key.pem"  # 商户证书私钥路径
 notify_url = "https://injusalon.com"  # 回调url
 body = "会员支付"  # 商品描述
+server_ip = "123.207.12.156"  # 服务器IP
