@@ -63,7 +63,6 @@
         console.log(pictureurl);
         this.uploadList = [];
         this.uploadList.push(pictureurl);
-
         this.$emit('child-say', pictureurl);
       }
     }
