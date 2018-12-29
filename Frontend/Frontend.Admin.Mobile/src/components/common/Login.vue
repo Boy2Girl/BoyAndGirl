@@ -116,10 +116,14 @@
         console.log('请求结果');
         console.log(text + " " + status);
         if (status === 200) {
+          UserApi.getCode(this.getCodeSuccess, this.fail);
           this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
           this.setState("错误", "该用户已经存在");
         }
+      },
+      getCodeSuccess: function(status, text){
+
       },
       userInfoSuccess: function (status, text) {
         if (status === 200) {

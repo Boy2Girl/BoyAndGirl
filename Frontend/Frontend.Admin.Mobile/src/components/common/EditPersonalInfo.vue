@@ -139,8 +139,8 @@
           studentUrl: '',
           graduateUrl: '',
           otherUrl: '',
-          phone: ' ',
-          email: ' ',
+          phone: '',
+          email: '',
           qq: '',
           wechat: '',
           nickname: '',
@@ -209,7 +209,7 @@
         }
       },
       showPrompt(){
-        let $this= this
+        let $this= this;
         this.$vux.confirm.show({
           title: '温馨提示',
           content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
@@ -224,7 +224,7 @@
           },
           onConfirm () {
             UserApi.addUserInfo(this.form, this.success, this.fail);
-            // TODO 微信支付
+
             $this.createOrder();
 
             console.log('plugin confirm')
@@ -269,8 +269,9 @@
             // window.location.href = "/mobile/my-order"
           },
           cancel: function (re) {
+            console.log(re);
             $this.$vux.toast.show({
-              text: '支付已取消',
+              text: re,
               type: 'cancel'
             })
           }
@@ -340,7 +341,7 @@
       },
       checkSuccess: function (status, text) {
         if (status === 200) {
-          let result = JSON.parse(text)
+          let result = JSON.parse(text);
           if (result.isReal == false) {
             UserApi.getUserInfo(this.form.index, 'False', this.loadSuccess, this.loadFail);
           } else {

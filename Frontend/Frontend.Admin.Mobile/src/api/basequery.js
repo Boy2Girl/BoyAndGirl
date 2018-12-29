@@ -1,7 +1,7 @@
 export default {
-  // baseUrl: 'http://112.74.49.28:5000/api',
+  baseUrl: 'http://www.injusalon.com:5000/api',
 
-  baseUrl: 'http://127.0.0.1:5000/api',
+  // baseUrl: 'http://127.0.0.1:5000/api',
 
   query
 }
