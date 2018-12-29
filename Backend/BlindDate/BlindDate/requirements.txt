@@ -5,3 +5,4 @@ Flask-SQLAlchemy
 jsonschema
 six
 PyJWT
+weixin-python

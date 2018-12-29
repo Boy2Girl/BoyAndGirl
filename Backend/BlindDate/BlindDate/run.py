@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 
 def create_app():
@@ -50,7 +50,6 @@ def register(app):
 app = create_app()
 db = create_db(app)
 session = db.session
-
 
 if __name__ == '__main__':
     register_api()
