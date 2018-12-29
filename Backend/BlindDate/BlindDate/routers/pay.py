@@ -39,7 +39,7 @@ class Pay(Resource):
             order_params = self.wechat_order.create(trade_type="JSAPI", body=config.body, total_fee=total_fee,
                                                     notify_url=request.url, client_ip=config.server_ip, user_id=open_id,
                                                     product_id=JwtUtil.get_token_username(
-                                                        flask.request.headers.get("token")))
+                                                        flask.request.headers.get("token")), device_info="WEB")
             print(order_params)
             prepay_id = order_params.prepay_id
             pay_params = self.wechat_order.get_jsapi_params(prepay_id, jssdk=True)
