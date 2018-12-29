@@ -28,9 +28,9 @@
 
 <script>
   import SENTENCES from "../../assets/sentences";
-
+  import {Icon} from 'iview';
   export default {
-    components: {},
+    components: {Icon},
     data() {
       return {
         tabBar1: SENTENCES.MENU.ACTIVITY,

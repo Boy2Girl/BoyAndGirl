@@ -6,9 +6,13 @@
 </template>
 
 <script>
-  import PoolPeopleList from '../../common/PoolPeopleList.vue';
-  import PoolTab from '../../common/PoolTab.vue';
-  import PoolList from '../../common/PoolList.vue';
+  // import PoolPeopleList from '../../common/PoolPeopleList.vue';
+  // import PoolTab from '../../common/PoolTab.vue';
+  // import PoolList from '../../common/PoolList.vue';
+
+  const PoolPeopleList = () => import('../../common/PoolPeopleList.vue')
+  const PoolTab = () => import('../../common/PoolTab.vue')
+  const PoolList = () => import('../../common/PoolList.vue')
 
   export default {
     components: {

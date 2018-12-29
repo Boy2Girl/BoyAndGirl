@@ -47,10 +47,12 @@
   import {mapGetters, mapMutations} from 'vuex'
   import UserApi from '../../api/user'
   import router from '../../router/index.js'
+  import {Icon} from 'iview';
+
 
   export default {
     components: {
-      Card, XInput, Group, XButton, Alert
+      Card, XInput, Group, XButton, Alert,Icon
     },
     data() {
       return {

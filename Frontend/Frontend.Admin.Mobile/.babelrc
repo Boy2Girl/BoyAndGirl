@@ -17,5 +17,10 @@
       "regenerator": true,
       "moduleName": "babel-runtime"
     }
-    ]]
+    ],
+    ["import", {
+      "libraryName": "iview",
+      "libraryDirectory": "src/components"
+    }]
+  ]
 }

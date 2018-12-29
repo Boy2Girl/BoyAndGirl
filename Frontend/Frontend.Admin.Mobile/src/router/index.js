@@ -1,32 +1,32 @@
 import Vue from 'vue';
-import AdminBaseLayout from '../components/page/admin/BaseLayout';
-import UserBaseLayout from '../components/page/user/BaseLayout';
+// import AdminBaseLayout from '../components/page/admin/BaseLayout';
+// import UserBaseLayout from '../components/page/user/BaseLayout';
 
-import HomePage from '../components/page/common/HomePage';
-import AdminActivityPage from '../components/page/admin/ActivityPage';
-import AdminPoolPage from '../components/page/admin/PoolPage';
-import UserManagementPage from '../components/page/admin/UserManagementPage';
-import ActivityListPage from '../components/page/user/ActivityListPage';
-import UserActivityPage from '../components/page/user/ActivityPage';
-import UserPoolListPage from '../components/page/user/PoolListPage';
-import UserPage from '../components/page/user/UserPage';
-import VerifyUserPage from '../components/page/admin/VerifyUserPage';
-import VertfyUserListPage from '../components/page/admin/VertfyUserListPage';
-import PostsPage from '../components/page/user/PostsPage';
-import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
-import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
-import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
-import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
-import MyPostOnePage from '../components/page/user/MyPostOnePage';
-import OnePostMePage from '../components/page/user/OnePostMePage'
-import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
-import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
-import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
-import FileUpLoader from '../components/common/FileUploader';
-import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
-import PoolPeopleListPage from '../components/page/user/PoolPeopleListPage.vue';
-import PoolMyPeopleListPage from '../components/page/user/PoolMyPeopleListPage.vue';
-import PoolTwoPeopleListPage from '../components/page/user/PoolTwoPeopleListPage.vue';
+// import HomePage from '../components/page/common/HomePage';
+// import AdminActivityPage from '../components/page/admin/ActivityPage';
+// import AdminPoolPage from '../components/page/admin/PoolPage';
+// import UserManagementPage from '../components/page/admin/UserManagementPage';
+// import ActivityListPage from '../components/page/user/ActivityListPage';
+// import UserActivityPage from '../components/page/user/ActivityPage';
+// import UserPoolListPage from '../components/page/user/PoolListPage';
+// import UserPage from '../components/page/user/UserPage';
+// import VerifyUserPage from '../components/page/admin/VerifyUserPage';
+// import VertfyUserListPage from '../components/page/admin/VertfyUserListPage';
+// import PostsPage from '../components/page/user/PostsPage';
+// import AdminPoolAddPage from '../components/page/admin/AdminPoolAddPage';
+// import UserPoolDetailPage from '../components/page/user/UserPoolDetailPage';
+// import PersonalInfoEditPage from '../components/page/user/PersonalInfoEditPage';
+// import PersonalInfoPage from '../components/page/user/PersonalInfoPage';
+// import MyPostOnePage from '../components/page/user/MyPostOnePage';
+// import OnePostMePage from '../components/page/user/OnePostMePage'
+// import PersonalActivityPage from '../components/page/user/PersonalActivityPage';
+// import PersonalPoolPage from '../components/page/user/PersonalPoolPage';
+// import HistoryActivityPage from '../components/page/user/HistoryActivityPage';
+// import FileUpLoader from '../components/common/FileUploader';
+// import SuccessPoolPage from '../components/page/user/SuccessPoolPage';
+// import PoolPeopleListPage from '../components/page/user/PoolPeopleListPage.vue';
+// import PoolMyPeopleListPage from '../components/page/user/PoolMyPeopleListPage.vue';
+// import PoolTwoPeopleListPage from '../components/page/user/PoolTwoPeopleListPage.vue';
 import {UserType} from "../models/user/UserType";
 import VueRouter from 'vue-router';
 import CheckApi from '../api/check'
@@ -37,33 +37,46 @@ const routes = [
   {
     path: '/test',
     name: "test",
-    component: FileUpLoader,
+    component: (resolve) => {require(['../components/common/FileUploader'], resolve)},
+    // component: FileUpLoader,
   },
   {
     path: '/user',
     name: "user_base",
-    component: UserBaseLayout,
+    component: (resolve) => {require(['../components/page/user/BaseLayout'], resolve)},
+    // component: UserBaseLayout,
     children: [
       {
         path: '',
-        component: ActivityListPage
+        component: (resolve) => {require(['../components/page/user/ActivityListPage'], resolve)}
+        // component: (()=>import('../components/page/user/ActivityListPage'))
+        // component: ActivityListPage
       },
       {
         path: 'login',
-        component: HomePage,
+        component: (resolve) => {require(['../components/page/common/HomePage'], resolve)}
+        // component: (()=>import('../components/page/common/HomePage'))
+        // component: HomePage,
       },
       {
         path: 'activity',
-        component: ActivityListPage,
+        component: (resolve) => {require(['../components/page/user/ActivityListPage'], resolve)},
+        // component: (()=>import('../components/page/user/ActivityListPage')),
+        // component: ActivityListPage,
         name: "activity"
       },
       {
         path: 'activity/:id',
-        component: UserActivityPage
+        component: (resolve) => {require(['../components/page/user/ActivityPage'], resolve)},
+        // component: resolve => require(['../components/page/user/ActivityPage'], resolve),
+        // component: (()=>import('../components/page/user/ActivityPage'))
+        // component: UserActivityPage
       },
       {
         path: 'pool',
-        component: UserPoolListPage,
+        component: (resolve) => {require(['../components/page/user/PoolListPage'], resolve)},
+        // component: (()=>import('../components/page/user/PoolListPage')),
+        // component: UserPoolListPage,
         name: 'pool',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -71,7 +84,9 @@ const routes = [
       },
       {
         path: 'pool/:id',
-        component: UserPoolDetailPage,
+        component: (resolve) => {require(['../components/page/user/UserPoolDetailPage'], resolve)},
+        // component: (()=>import('../components/page/user/UserPoolDetailPage')),
+        // component: UserPoolDetailPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
@@ -79,7 +94,9 @@ const routes = [
       {
         path: 'poolPeople',
         name: 'poolPeople',
-        component: PoolPeopleListPage,
+        component: (resolve) => {require(['../components/page/user/PoolPeopleListPage.vue'], resolve)},
+        // component: (()=>import('../components/page/user/PoolPeopleListPage.vue')),
+        // component: PoolPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
@@ -87,7 +104,9 @@ const routes = [
       {
         path: 'poolMyPeople',
         name: 'poolMyPeople',
-        component: PoolMyPeopleListPage,
+        component: (resolve) => {require(['../components/page/user/PoolMyPeopleListPage.vue'], resolve)},
+        // component: (()=>import('../components/page/user/PoolMyPeopleListPage.vue')),
+        // component: PoolMyPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
@@ -95,14 +114,18 @@ const routes = [
       {
         path: 'poolTwoPeople',
         name: 'poolTwoPeople',
-        component: PoolTwoPeopleListPage,
+        component: (resolve) => {require(['../components/page/user/PoolTwoPeopleListPage.vue'], resolve)},
+        // component: (()=>import('../components/page/user/PoolTwoPeopleListPage.vue')),
+        // component: PoolTwoPeopleListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         },
       },
       {
         path: 'posts',
-        component: PostsPage,
+        component: (resolve) => {require(['../components/page/user/PostsPage'], resolve)},
+        // component: (()=>import('../components/page/user/PostsPage')),
+        // component: PostsPage,
         name: 'posts',
         meta: {
           requireAuth: [UserType.USER, UserType.ADMIN, UserType.PUBLISHER],
@@ -110,18 +133,24 @@ const routes = [
       },
       {
         path: 'user',
-        component: UserPage
+        component: (resolve) => {require(['../components/page/user/UserPage'], resolve)},
+        // component: (()=>import('../components/page/user/UserPage')),
+        // component: UserPage
       },
       {
         path: 'edit',
-        component: PersonalInfoEditPage,
+        component: (resolve) => {require(['../components/page/user/PersonalInfoEditPage'], resolve)},
+        // component: (()=>import('../components/page/user/PersonalInfoEditPage')),
+        // component: PersonalInfoEditPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
       },
       {
         path: 'myPostOne',
-        component: MyPostOnePage,
+        component: (resolve) => {require(['../components/page/user/MyPostOnePage'], resolve)},
+        // component: (()=>import('../components/page/user/MyPostOnePage')),
+        // component: MyPostOnePage,
         name: "myPostOne",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -129,7 +158,9 @@ const routes = [
       },
       {
         path: 'OnePostMe',
-        component: OnePostMePage,
+        component: (resolve) => {require(['../components/page/user/OnePostMePage'], resolve)},
+        // component: (()=>import('../components/page/user/OnePostMePage')),
+        // component: OnePostMePage,
         name: 'OnePostMe',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -137,7 +168,9 @@ const routes = [
       },
       {
         path: 'info',
-        component: PersonalInfoPage,
+        component: (resolve) => {require(['../components/page/user/PersonalInfoPage'], resolve)},
+        // component: (()=>import('../components/page/user/PersonalInfoPage')),
+        // component: PersonalInfoPage,
         name: 'info',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -145,7 +178,9 @@ const routes = [
       },
       {
         path: 'info/:id',
-        component: PersonalInfoPage,
+        component: (resolve) => {require(['../components/page/user/PersonalInfoPage'], resolve)},
+        // component: (()=>import('../components/page/user/PersonalInfoPage')),
+        // component: PersonalInfoPage,
         name: 'info',
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -153,7 +188,9 @@ const routes = [
       },
       {
         path: 'myActivity',
-        component: PersonalActivityPage,
+        component: (resolve) => {require(['../components/page/user/PersonalActivityPage'], resolve)},
+        // component: (()=>import('../components/page/user/PersonalActivityPage')),
+        // component: PersonalActivityPage,
         name: "myActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -161,7 +198,9 @@ const routes = [
       },
       {
         path: 'historyActivity',
-        component: HistoryActivityPage,
+        component: (resolve) => {require(['../components/page/user/HistoryActivityPage'], resolve)},
+        // component: (()=>import('../components/page/user/HistoryActivityPage')),
+        // component: HistoryActivityPage,
         name: "historyActivity",
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
@@ -170,7 +209,9 @@ const routes = [
       {
         path: 'myPool',
         name: 'myPool',
-        component: PersonalPoolPage,
+        component: (resolve) => {require(['../components/page/user/PersonalPoolPage'], resolve)},
+        // component: (()=>import('../components/page/user/PersonalPoolPage')),
+        // component: PersonalPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
@@ -178,7 +219,9 @@ const routes = [
       {
         path: 'successPool',
         name: 'successPool',
-        component: SuccessPoolPage,
+        component: (resolve) => {require(['../components/page/user/SuccessPoolPage'], resolve)},
+        // component: (()=>import('../components/page/user/SuccessPoolPage')),
+        // component: SuccessPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
         }
@@ -188,54 +231,71 @@ const routes = [
   {
     path: '/admin',
     name: "admin_base",
-    component: AdminBaseLayout,
+    component: (resolve) => {require(['../components/page/admin/BaseLayout'], resolve)},
+    // component: AdminBaseLayout,
     children: [
       {
         path: '',
-        component: HomePage
+        component: (resolve) => {require(['../components/page/common/HomePage'], resolve)},
+        // component: (()=>import('../components/page/common/HomePage')),
+        // component: HomePage
       },
       {
         path: 'login',
-        component: HomePage,
+        component: (resolve) => {require(['../components/page/common/HomePage'], resolve)},
+        // component: (()=>import('../components/page/common/HomePage')),
+        // component: HomePage,
       },
       {
         path: 'activity',
-        component: AdminActivityPage,
+        component: (resolve) => {require(['../components/page/admin/ActivityPage'], resolve)},
+        // component: (()=>import('../components/page/admin/ActivityPage')),
+        // component: AdminActivityPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
         path: 'pool',
-        component: AdminPoolPage,
+        component: (resolve) => {require(['../components/page/admin/PoolPage'], resolve)},
+        // component: (()=>import('../components/page/admin/PoolPage')),
+        // component: AdminPoolPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
         path: 'poolAdd',
-        component: AdminPoolAddPage,
+        component: (resolve) => {require(['../components/page/admin/AdminPoolAddPage'], resolve)},
+        // component: (()=>import('../components/page/admin/AdminPoolAddPage')),
+        // component: AdminPoolAddPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
         path: '/admin/user',
-        component: UserManagementPage,
+        component: (resolve) => {require(['../components/page/admin/UserManagementPage'], resolve)},
+        // component: (()=>import('../components/page/admin/UserManagementPage')),
+        // component: UserManagementPage,
         meta: {
           requireAuth: [UserType.ADMIN],
         },
       },
       {
         path: 'verify/:id',
-        component: VerifyUserPage,
+        component: (resolve) => {require(['../components/page/admin/VerifyUserPage'], resolve)},
+        // component: (()=>import('../components/page/admin/VerifyUserPage')),
+        // component: VerifyUserPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
       },
       {
         path: 'verify',
-        component: VertfyUserListPage,
+        component: (resolve) => {require(['../components/page/admin/VertfyUserListPage'], resolve)},
+        // component: (()=>import('../components/page/admin/VerifyUserPage')),
+        // component: VertfyUserListPage,
         meta: {
           requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
         },
@@ -278,14 +338,14 @@ function success(status, text) {
 }
 
 function fail(err) {
-  console.log("错误发生了")
+  console.log("错误发生了");
   console.log(err)
 }
 
 router.beforeEach((to, from, next) => {
   console.log("进入拦截");
   if (to.meta.requireAuth) {//查看是否需要权限登陆
-    CheckApi.check(success, fail)
+    CheckApi.check(success, fail);
     next()
   } else {
     next()

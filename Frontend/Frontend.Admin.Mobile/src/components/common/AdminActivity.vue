@@ -36,6 +36,7 @@
   import {XInput, Datetime, Group, GroupTitle, XButton, Alert} from "vux";
   import ActivityApi from '../../api/activity'
   import FileUPloader from './FileUploader'
+  import baseUrl from '../../api/basequery'
 
   export default {
     components: {
@@ -43,7 +44,7 @@
     },
     data() {
       return {
-        actionUrl: "http://127.0.0.1:5000/api/test",
+        actionUrl: baseUrl.baseUrl+'/test',
         url: "",
         name: "",
         activityBeginTime: "",
@@ -83,6 +84,8 @@
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入");
+          // 应该弹出框，然后清除上面已经插入的数据
+          // this.$root.reload();
         } else if (status === 500) {
           this.setState("错误", "上传活动失败");
         }
@@ -100,6 +103,9 @@
         this.content = content;
         this.show = true;
       }
+    },
+    mounted(){
+      console.log("hh" + this.actionUrl)
     }
   }
 </script>

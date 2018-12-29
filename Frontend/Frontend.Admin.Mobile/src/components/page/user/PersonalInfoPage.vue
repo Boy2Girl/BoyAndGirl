@@ -5,8 +5,9 @@
 </template>
 
 <script>
-  import Info from '../../common/PersonalInfo.vue';
+  // import Info from '../../common/PersonalInfo.vue';
 
+  const Info = () => import('../../common/PersonalInfo.vue')
   export default {
     components: {
       Info

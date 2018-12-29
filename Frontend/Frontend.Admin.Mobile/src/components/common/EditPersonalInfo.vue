@@ -92,6 +92,8 @@
   import SubTitle from './SubTitle';
   import {mapGetters, mapMutations} from 'vuex';
   import CheckApi from '../../api/check';
+  import baseUrl from '../../api/basequery'
+  import payApi from '../../api/pay';
 
   import {
     XButton,
@@ -103,7 +105,6 @@
     PopupPicker,
     Datetime,
     XNumber,
-    ChinaAddressData,
     XAddress,
     XTextarea,
     XSwitch,
@@ -130,7 +131,7 @@
     },
     data() {
       return {
-        actionUrl: "http://127.0.0.1:5000/api/test",
+        actionUrl: baseUrl.baseUrl+"/test",
         source: require('../../assets/background.jpg'),
         form: {
           avatarUrl: '',
@@ -203,14 +204,83 @@
         else if(!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.form.email)){
           this.setState('错误', '请输入正确的邮箱');
         }
-        else
-          UserApi.addUserInfo(this.form, this.success, this.fail)
+        else {
+          this.showPrompt();
+        }
+      },
+      showPrompt(){
+        let $this= this
+        this.$vux.confirm.show({
+          title: '温馨提示',
+          content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
+          onShow () {
+            console.log('plugin show')
+          },
+          onHide () {
+            console.log('plugin hide')
+          },
+          onCancel () {
+            this.$router.go(-1);
+          },
+          onConfirm () {
+            UserApi.addUserInfo(this.form, this.success, this.fail);
+            // TODO 微信支付
+            $this.createOrder();
+
+            console.log('plugin confirm')
+          }
+        })
+      },
+      createOrder: function(){
+        this.$vux.loading.show({text: '创建订单中'});
+        payApi.createOrder(this.createSuccess, this.createFail)
+      },
+      createSuccess: function(status, text){
+        this.$vux.loading.hide();
+        let result = (JSON.parse(text));
+        if (status === 200 && result.status === 1) {
+          this.wechatPay(result)
+        } else {
+          this.$vux.alert.show({
+            title : '创建订单失败',
+            content: result.message
+          })
+        }
+      },
+      createFail: function(status, text){
+        this.$vux.loading.hide();
+        this.$vux.toast.show({
+          text: '网络错误',
+          type: 'cancel'
+        })
+      },
+      wechatPay: function(config) {
+        let $this= this;
+        this.$wechat.chooseWXPay({
+          timestamp: config.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+          nonceStr: config.nonceStr, // 支付签名随机串，不长于 32 位
+          package: config.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+          signType: config.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+          paySign: config.paySign, // 支付签名
+          success: function (response) {
+            // 支付成功后的回调函数
+            $this.$vux.toast.show('支付成功!');
+            this.$router.go(-1);
+            // window.location.href = "/mobile/my-order"
+          },
+          cancel: function (re) {
+            $this.$vux.toast.show({
+              text: '支付已取消',
+              type: 'cancel'
+            })
+          }
+        });
       },
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入")
           // 返回
-          this.$router.go(-1);
+          // this.$router.go(-1);
         } else if (status === 500) {
           this.setState("错误", "上传用户信息失败");
         }

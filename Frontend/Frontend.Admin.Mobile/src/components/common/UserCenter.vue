@@ -85,9 +85,11 @@
       },
       loadSuccess: function (status, text) {
         var result = (JSON.parse(text));
-        console.log(result);
+        console.log(status);
         if (status === 200) {
           this.avatarUrl = result['avatar'];
+        }else if(status === 404){
+          this.state = "待认证"
         }
       },
       signOut: function () {

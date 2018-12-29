@@ -3,7 +3,9 @@
 </template>
 
 <script>
-  import ActivityList from '../../common/ActivityList.vue';
+  // import ActivityList from '../../common/ActivityList.vue';
+
+  const ActivityList = () => import('../../common/ActivityList.vue')
 
   export default {
     components: {

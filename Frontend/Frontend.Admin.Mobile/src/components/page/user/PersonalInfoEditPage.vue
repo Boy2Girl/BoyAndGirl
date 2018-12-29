@@ -5,8 +5,9 @@
 </template>
 
 <script>
-  import EditPersonalInfo from '../../common/EditPersonalInfo.vue'
+  // import EditPersonalInfo from '../../common/EditPersonalInfo.vue'
 
+  const EditPersonalInfo = () => import('../../common/EditPersonalInfo.vue')
   export default {
     components: {
       EditPersonalInfo

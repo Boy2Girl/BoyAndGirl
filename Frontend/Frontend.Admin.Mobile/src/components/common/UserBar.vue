@@ -27,9 +27,10 @@
 
 <script>
   import SENTENCES from "../../assets/sentences";
-
+  import {Icon} from 'iview';
+// Vue.component('Button', Button);
   export default {
-    components: {},
+    components: {Icon},
     data() {
       return {
         tabBar1: SENTENCES.User_MENU.ACTIVITY,

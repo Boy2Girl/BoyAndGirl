@@ -1,4 +1,6 @@
 export default {
+  // baseUrl: 'http://112.74.49.28:5000/api',
+
   baseUrl: 'http://127.0.0.1:5000/api',
 
   query
@@ -18,7 +20,7 @@ async function query(params, resolve, reject, root, method) {
   try {
     let request = {};
     var headers = new Headers();
-    headers.append('token', 'Bearer '+localStorage.getItem('token')); 
+    headers.append('token', 'Bearer '+localStorage.getItem('token'));
     request.headers = headers;
     request.method = method;
     console.log(request)

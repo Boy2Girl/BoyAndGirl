@@ -6,8 +6,11 @@
 </template>
 
 <script>
-  import ActivityCardList from '../../common/ActivityCardList.vue';
-  import ActivityTab from '../../common/ActivityTab';
+  // import ActivityCardList from '../../common/ActivityCardList.vue';
+  // import ActivityTab from '../../common/ActivityTab';
+
+  const ActivityCardList = () => import('../../common/ActivityCardList.vue')
+  const ActivityTab = () => import('../../common/ActivityTab')
 
   export default {
     components: {

@@ -29,6 +29,7 @@
   import Cell from "vux/src/components/cell/index";
   import PoolApi from '../../api/pool'
   import FileUPloader from './FileUploader'
+  import baseUrl from '../../api/basequery'
 
   export default {
     components: {
@@ -37,7 +38,7 @@
     },
     data() {
       return {
-        actionUrl: "",
+        actionUrl: baseUrl.baseUrl+'/test',
         url: "",
         cityList: ["苏州", "南京"],
         name: "",
@@ -49,6 +50,9 @@
       }
     },
     methods: {
+      mounted(){
+        console.log("hhh"+this.actionUrl)
+      },
       updateData(e = '') {
         this.detail = e;
         console.info(e);

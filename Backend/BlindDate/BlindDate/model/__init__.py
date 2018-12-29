@@ -14,6 +14,7 @@ class UserModel(db.Model):
     username = db.Column(VARCHAR(20))
     password = db.Column(VARCHAR(20))
     role = db.Column(db.Enum(Role), default=Role.USER)
+    refresh_token = db.Column(VARCHAR(100))
 
     def __init__(self, **kwargs):
         pass
@@ -56,6 +57,21 @@ class UserInfoModel(db.Model):
     income = db.Column(VARCHAR(100))
     corporation_type = db.Column(VARCHAR(100))
     work_state = db.Column(VARCHAR(100))
+
+    def __init__(self, **kwargs):
+        pass
+
+
+class WechatInfoModel(db.Model):
+    __tablename__ = "UserInfo"
+    id = db.Column(Integer, primary_key=True)
+    nickname = db.Column(VARCHAR(100))
+    sex = db.Column(VARCHAR(100))
+    province = db.Column(VARCHAR(100))
+    city = db.Column(VARCHAR(100))
+    county = db.Column(VARCHAR(100))
+    headimgurl = db.Column(VARCHAR(200))
+    unionid = db.Column(VARCHAR(100))
 
     def __init__(self, **kwargs):
         pass
