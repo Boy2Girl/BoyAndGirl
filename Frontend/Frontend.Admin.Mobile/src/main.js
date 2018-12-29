@@ -7,9 +7,13 @@ import 'iview/dist/styles/iview.css';
 import store from './store'
 // import "font-awesome.css";
 import initRichText from './util/initHTMLEditor';
-// import {WechatPlugin, AjaxPlugin} from 'vux'
+import {ConfirmPlugin, WechatPlugin, LoadingPlugin, ToastPlugin, AlertPlugin} from 'vux'
 
-// Vue.use(WechatPlugin);
+Vue.use(AlertPlugin);
+Vue.use(ToastPlugin);
+Vue.use(LoadingPlugin);
+Vue.use(ConfirmPlugin);
+Vue.use(WechatPlugin);
 // Vue.use(AjaxPlugin);
 
 // Vue.http.get('/api', ({data}) => {
