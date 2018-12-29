@@ -39,6 +39,16 @@ class UserDao(DaoUtil):
         finally:
             session.close()
 
+    def updateUserRefreshToken(self, user_id, refresh_token):
+        try:
+            session = db.session
+            session.query(UserModel).filter(UserModel.id == user_id).update(dict(refrsh_token = refresh_token))
+            session.commit()
+        except:
+            raise SystemError
+        finally:
+            session.close()
+
     def get_all_user(self):
         try:
             session = db.session

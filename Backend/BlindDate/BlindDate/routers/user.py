@@ -1,9 +1,12 @@
+import flask
 from flask import request
 from flask_restplus import Resource, fields, Namespace
 
 from exceptions import PasswordWrongException, NotFoundException, AlreadyExists
 from factory.BlFactory import userBl
+from utils.JwtUtil import JwtUtil
 from vo import UserVO
+
 
 ns = Namespace('user', description='关于用户（登录注册）')
 
@@ -55,3 +58,20 @@ class User(Resource):
             return userBl.get_all_user(), 200
         except AlreadyExists:
             return None, 405
+
+
+@ns.route('openid')
+@ns.response(200, 'OK')
+@ns.response(404, '没有找到用户名或者密码')
+@ns.response(403, '用户名或者密码不正确')
+@ns.response(500, '内部错误')
+class User(Resource):
+    @ns.doc('获取access_token 和 open_id')
+    def get(self, code):
+        username = JwtUtil.get_token_username(flask.request.headers.get("token"))
+        try:
+            return userBl.get_open_id(code, username)
+        except NotFoundException:
+            return None, 404
+
+# print(requests.get("http://www.injusalon.com:5000/api/user").content)

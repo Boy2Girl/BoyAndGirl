@@ -9,7 +9,7 @@ def create_app():
     app.config['DEBUG'] = True
     cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config['SECRET_KEY'] = 'wfhg9hr-1jfpjf-p3j-=vgf0pvmo3k=2-3rj0-3j=gn[=3-g[mj'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/BoyAndGirl'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@112.74.49.28/BoyAndGirl'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_POOL_SIZE'] = 50
     app.config['SQLALCHEMY_MAX_OVERFLOW'] = 50
