@@ -1,3 +1,7 @@
+import json
+
+import requests
+
 from dao.UserDao import UserDao
 from exceptions import AlreadyExists
 from exceptions import NotFoundException
@@ -7,13 +11,13 @@ from model import UserModel
 from utils.JwtUtil import JwtUtil
 from utils.converter import UserConverter
 from vo import UserVO
-import requests
-import json
 
 appId = ''
 secret = ''
 grant_type = 'authorization_code'
 baseUrl = ' https://api.weixin.qq.com/sns/oauth2/access_token'
+
+
 class UserBl(object):
     def __init__(self):
         self.user_dao: UserDao = DaoFactory.userDao
@@ -64,6 +68,3 @@ class UserBl(object):
         else:
             UserDao.updateUserRefreshToken(user.id, result_json['refresh_token'])
         return result_json['openid']
-
-
-
