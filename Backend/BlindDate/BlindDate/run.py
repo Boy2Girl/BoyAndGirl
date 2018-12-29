@@ -31,6 +31,7 @@ def register_api():
     from routers.Posts import ns as posts_ns
     from routers.test import ns as test_ns
     from routers.check import ns as check_ns
+    from routers.pay import ns as pay_ns
     from routers import api
     api.add_namespace(user_ns)
     api.add_namespace(user_info_ns)
@@ -40,6 +41,7 @@ def register_api():
     api.add_namespace(posts_ns)
     api.add_namespace(test_ns)
     api.add_namespace(check_ns)
+    api.add_namespace(pay_ns)
 
 
 def register(app):
