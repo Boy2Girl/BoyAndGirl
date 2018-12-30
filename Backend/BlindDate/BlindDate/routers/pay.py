@@ -40,15 +40,12 @@ class Pay(Resource):
                                                     notify_url=request.url, client_ip=config.server_ip, user_id=open_id,
                                                     product_id=JwtUtil.get_token_username(
                                                         flask.request.headers.get("token")), device_info="WEB")
-            print("******************")
-            print(order_params[8])
-            print("******************")
-            print(order_params[8][1])
-            print("******************")
-            prepay_id = order_params[8][1]
-            pay_params = self.wechat_order.get_jsapi_params(prepay_id, jssdk=True)
+            prepay_id = order_params["prepay_id"]
+            pay_signature = self.wechat_jsapi.get_jsapi_signature(prepay_id)
+            pay_params = self.wechat_jsapi.get_jsapi_params(prepay_id, jssdk=True)
+            print(pay_signature)
             print(pay_params)
-            return pay_params, 200
+            return pay_signature, pay_params, 200
         except PasswordWrongException:
             return {'error': 'wrong password'}, 403
         except NotFoundException:
