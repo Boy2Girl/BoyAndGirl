@@ -1,11 +1,11 @@
-import flask
+import time
+
 from flask import request
 from flask_restplus import Resource, fields, Namespace
 from wechatpy import WeChatPay
 
 import config
 from exceptions import PasswordWrongException, NotFoundException
-from utils.JwtUtil import JwtUtil
 
 ns = Namespace('pay', description='关于支付')
 
@@ -38,14 +38,14 @@ class Pay(Resource):
             open_id = "o0brw0vGiaeGMmezMumz2MJ3T4s4"
             order_params = self.wechat_order.create(trade_type="JSAPI", body=config.body, total_fee=total_fee,
                                                     notify_url=request.url, client_ip=config.server_ip, user_id=open_id,
-                                                    product_id=JwtUtil.get_token_username(
-                                                        flask.request.headers.get("token")), device_info="WEB")
+                                                    device_info="WEB")
             prepay_id = order_params["prepay_id"]
-            pay_signature = self.wechat_jsapi.get_jsapi_signature(prepay_id)
-            pay_params = self.wechat_jsapi.get_jsapi_params(prepay_id, jssdk=True)
-            print(pay_signature)
+            timestamp = time.time()
+            pay_signature = self.wechat_jsapi.get_jsapi_signature(prepay_id, timestamp=timestamp)
+            pay_params = self.wechat_jsapi.get_jsapi_params(prepay_id, timestamp=timestamp)
+            pay_params["signature"] = pay_signature
             print(pay_params)
-            return pay_signature, pay_params, 200
+            return pay_params, 200
         except PasswordWrongException:
             return {'error': 'wrong password'}, 403
         except NotFoundException:
