@@ -16,8 +16,9 @@
 
 <script>
   import {Swiper, Divider, PopupPicker, XButton} from "vux";
+  import UserApi from '../../api/user'
   // const Foo = () => import('./Foo.vue').then(m => m.default)
-  const ActivityCardList = () => import('./ActivityCardList.vue')
+  const ActivityCardList = () => import('./ActivityCardList.vue');
   // import ActivityCardList from './ActivityCardList.vue';
   import {Button} from 'iview'
   export default {
@@ -27,18 +28,6 @@
     data() {
       return {
         activityList: [
-          {
-            url: 'javascript:',
-            img: 'http://placeholder.qiniudn.com/800x300/FF3B3B/ffffff'
-          },
-          {
-            url: 'javascript:',
-            img: 'http://placeholder.qiniudn.com/800x300/FFEF7D/ffffff'
-          },
-          {
-            url: 'javascript:',
-            img: 'http://placeholder.qiniudn.com/800x300/8AEEB1/ffffff'
-          }
         ],
         areas: [['南京', '苏州']],
         myArea: ['南京'],
@@ -47,7 +36,23 @@
       }
     },
     mounted(){
-      console.log(this.$route.query.code)
+      console.log(window.location.href);
+      console.log(window.location.href.split('=')[1].split('&')[0]);
+
+      // UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.success, this.fail)
+    },
+    methods: {
+      success: function (status, text) {
+        if (status === 200) {
+          console.log(JSON.parse(text))
+        } else if (status === 404) {
+          this.setState("错误", "该用户还没有进行实名认证");
+        }
+      },
+      fail: function (e) {
+        console.log("发现错误！！！");
+        console.log(e)
+      },
     }
 
   }

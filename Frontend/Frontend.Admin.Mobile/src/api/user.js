@@ -25,18 +25,9 @@ export default {
     base.query(data, resolve, reject, '/user', METHOD.POST)
   },
 
-  getCode: async function (resolve, reject) {
-    try {
-      let request = {};
-      request.headers = new Headers();
-      request.method = METHOD.GET;
-      console.log(request)
-      let res = await fetch('https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf058ebab08beee9&redirect_uri=http%3a%2f%2fwww.injusalon.com%2f%23%2fuser%2factivity&response_type=code&scope=snsapi_base&state=123#wechat_redirect', request)
-      let result = await res.text();
-      resolve(res.status, result)
-    } catch (e) {
-      reject(e)
-    }
+  getOpenid: async function (code, resolve, reject) {
+    var data = new FormData();
+    base.query(data, resolve, reject, '/user/openid/'+code, METHOD.GET)
   },
 
   /**
@@ -88,7 +79,7 @@ async function addUserInfo(form, resolve, reject) {
   console.log('in add userInfo:');
   var data = new FormData();
   console.log(form);
-  data.append('id', form.index);
+  // data.append('id', form.index);
   data.append('avatarUrl', form.avatarUrl);
   data.append('personUrl', form.personUrl);
   data.append('studentUrl', form.studentUrl);
