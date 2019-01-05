@@ -68,7 +68,10 @@ class User(Resource):
 class User(Resource):
     @ns.doc('获取access_token 和 open_id')
     def get(self, code):
-        username = JwtUtil.get_token_username(flask.request.headers.get("token"))
+        try:
+            username = JwtUtil.get_token_username(flask.request.headers.get("token"))
+        except:
+            return "token_error", 403
         print("here")
         try:
             return userBl.get_open_id(code, username)
