@@ -5,6 +5,7 @@ from wechatpy import WeChatPay
 
 import config
 from exceptions import PasswordWrongException, NotFoundException
+from factory.BlFactory import userBl
 from utils.JwtUtil import JwtUtil
 
 ns = Namespace('pay', description='关于支付')
@@ -35,18 +36,18 @@ class Pay(Resource):
     def post(self):
         try:
             total_fee = 1
-            open_id = "o0brw0vGiaeGMmezMumz2MJ3T4s4"
+            open_id = userBl.get_open_id(username=JwtUtil.get_token_username(flask.request.headers.get("token")))
             order_params = self.wechat_order.create(trade_type="JSAPI", body=config.body, total_fee=total_fee,
-                                                    notify_url=request.url, client_ip=config.server_ip, user_id=open_id,
-                                                    product_id=JwtUtil.get_token_username(
-                                                        flask.request.headers.get("token")), device_info="WEB")
-            print("******************")
-            print(order_params[8])
-            print("******************")
-            print(order_params[8][1])
-            print("******************")
-            prepay_id = order_params[8][1]
-            pay_params = self.wechat_order.get_jsapi_params(prepay_id, jssdk=True)
+                                                    notify_url=config.notify_url, client_ip=config.server_ip,
+                                                    user_id=open_id,
+                                                    device_info="WEB")
+            print(request.url.split('#')[0])
+            prepay_id = order_params["prepay_id"]
+            pay_params = self.wechat_jsapi.get_jsapi_params(prepay_id)
+            print(pay_params)
+            pay_signature = self.wechat_jsapi.get_jsapi_signature(prepay_id, timestamp=pay_params["timeStamp"],
+                                                                  nonce_str=pay_params["nonceStr"])
+            pay_params["signature"] = pay_signature
             print(pay_params)
             return pay_params, 200
         except PasswordWrongException:
