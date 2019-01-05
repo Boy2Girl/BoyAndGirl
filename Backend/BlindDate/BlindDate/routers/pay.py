@@ -1,9 +1,12 @@
+import flask
 from flask import request
 from flask_restplus import Resource, fields, Namespace
 from wechatpy import WeChatPay
 
 import config
 from exceptions import PasswordWrongException, NotFoundException
+from factory.BlFactory import userBl
+from utils.JwtUtil import JwtUtil
 
 ns = Namespace('pay', description='关于支付')
 
@@ -33,7 +36,7 @@ class Pay(Resource):
     def post(self):
         try:
             total_fee = 1
-            open_id = "o0brw0vGiaeGMmezMumz2MJ3T4s4"
+            open_id = userBl.get_open_id(username=JwtUtil.get_token_username(flask.request.headers.get("token")))
             order_params = self.wechat_order.create(trade_type="JSAPI", body=config.body, total_fee=total_fee,
                                                     notify_url=config.notify_url, client_ip=config.server_ip,
                                                     user_id=open_id,
