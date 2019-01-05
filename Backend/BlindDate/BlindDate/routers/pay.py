@@ -1,5 +1,4 @@
 import flask
-from flask import request
 from flask_restplus import Resource, fields, Namespace
 from wechatpy import WeChatPay
 
@@ -41,14 +40,11 @@ class Pay(Resource):
                                                     notify_url=config.notify_url, client_ip=config.server_ip,
                                                     user_id=open_id,
                                                     device_info="WEB")
-            print(request.url.split('#')[0])
             prepay_id = order_params["prepay_id"]
             pay_params = self.wechat_jsapi.get_jsapi_params(prepay_id)
-            print(pay_params)
             pay_signature = self.wechat_jsapi.get_jsapi_signature(prepay_id, timestamp=pay_params["timeStamp"],
                                                                   nonce_str=pay_params["nonceStr"])
             pay_params["signature"] = pay_signature
-            print(pay_params)
             return pay_params, 200
         except PasswordWrongException:
             return {'error': 'wrong password'}, 403
