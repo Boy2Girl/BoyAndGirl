@@ -31,7 +31,8 @@
               <img src="../../assets/work.png" class="pic-icon"/>
               职业：{{item.career}}
             </div>
-            <div style="margin-left: 100px; margin-top: 2px; font-size: 14px; margin-bottom: 8px;" v-on:click="love_it(item.id)"
+            <div style="margin-left: 100px; margin-top: 2px; font-size: 14px; margin-bottom: 8px;"
+                 v-on:click="love_it(item.id)"
                  @click.native="love_it(item.id)">
               <Icon type="ios-heart" style="color: #b1000d"></Icon>
               <font style="margin-left: 10px; margin-bottom: 10px;">{{concern}}</font>
@@ -44,7 +45,6 @@
                style="width:120px; height:120px; display:inline; margin-left: 20px; padding-right: 2%;float: right; margin-bottom: 8px;">
         </div>
       </div>
-
     </card>
   </div>
 </template>

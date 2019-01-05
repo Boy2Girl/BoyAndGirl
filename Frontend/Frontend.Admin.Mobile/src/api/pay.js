@@ -8,5 +8,5 @@ export default{
 async function createOrder(resolve, reject){
   console.log('in create order:')
   let data = new FormData()
-  base.query(data, resolve, reject, '/', METHOD.GET)
+  base.query(data, resolve, reject, '/pay', METHOD.POST)
 }

@@ -1,3 +1,7 @@
+import json
+
+import requests
+
 from dao.UserDao import UserDao
 from exceptions import AlreadyExists
 from exceptions import NotFoundException
@@ -7,13 +11,13 @@ from model import UserModel
 from utils.JwtUtil import JwtUtil
 from utils.converter import UserConverter
 from vo import UserVO
-import requests
-import json
 
 appId = 'wxcf058ebab08beee9'
 secret = '712f763fd5394d307adb242ca5c158e2'
 grant_type = 'authorization_code'
 baseUrl = ' https://api.weixin.qq.com/sns/oauth2/access_token'
+
+
 class UserBl(object):
     def __init__(self):
         self.user_dao: UserDao = DaoFactory.userDao
@@ -45,28 +49,28 @@ class UserBl(object):
 
     def get_open_id(self, code, username):
         payload = {}
-        # user = UserDao.get_user_by_username(username)
-        user = None
-        # if not user:
-        #     raise NotFoundException
+        user = self.user_dao.get_user_by_username(username)
+        if not user:
+            raise NotFoundException
 
-        payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
-        # if not user.refresh_token:
-        #     if not code:
-        #         raise NotFoundException
-        #     else:
-        #         payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
-        # else:
-        #     payload = {'appid': appId, 'grant_type': 'refresh_token', 'refresh_token': user.refresh_token}
+        # payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
+        if not user.refresh_token:
+            if not code:
+                raise NotFoundException
+            else:
+                payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
+        else:
+            payload = {'appid': appId, 'grant_type': 'refresh_token', 'refresh_token': user.refresh_token}
 
         result = requests.get(baseUrl, params=payload).content
         print(result)
         result_json = json.loads(result)
-        if not result_json['openid']:
+        try:
+            self.user_dao.updateUserRefreshToken(user.id, result_json['refresh_token'])
+        except KeyError:
             raise NotFoundException
-        else:
-            UserDao.updateUserRefreshToken(user.id, result_json['refresh_token'])
+
         return result_json['openid']
 
 
-UserBl().get_open_id("071FNwEj1Mlizv0AMfCj1ToXEj1FNwEC","18851830977")
+UserBl().get_open_id("071FNwEj1Mlizv0AMfCj1ToXEj1FNwEC", "18851830977")
