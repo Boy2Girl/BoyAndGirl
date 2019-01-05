@@ -60,7 +60,7 @@ class User(Resource):
             return None, 405
 
 
-@ns.route('openid')
+@ns.route('/<string:aID>')
 @ns.response(200, 'OK')
 @ns.response(404, '没有找到用户名或者密码')
 @ns.response(403, '用户名或者密码不正确')
