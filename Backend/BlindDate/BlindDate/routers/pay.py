@@ -35,7 +35,8 @@ class Pay(Resource):
     def post(self):
         try:
             total_fee = 1
-            open_id = userBl.get_open_id(username=JwtUtil.get_token_username(flask.request.headers.get("token")))
+            open_id = userBl.get_open_id(code='',
+                                         username=JwtUtil.get_token_username(flask.request.headers.get("token")))
             print(open_id)
             order_params = self.wechat_order.create(trade_type="JSAPI", body=config.body, total_fee=total_fee,
                                                     notify_url=config.notify_url, client_ip=config.server_ip,
