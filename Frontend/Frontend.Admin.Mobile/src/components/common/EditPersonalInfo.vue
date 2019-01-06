@@ -223,9 +223,10 @@
             this.$router.go(-1);
           },
           onConfirm () {
-            UserApi.addUserInfo(this.form, this.success, this.fail);
-
             $this.createOrder();
+            // UserApi.addUserInfo(this.form, this.success, this.fail);
+
+            // $this.createOrder();
 
             console.log('plugin confirm')
           }

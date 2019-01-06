@@ -66,7 +66,7 @@ export default {
     var data = new FormData()
     base.query(data, resolve, reject, '/user/info' + '/' + id+'?isChecked=' + isChecked, METHOD.GET)
   },
-  addUserInfo, getUserList, updateUserAuth, getVerifyUserList, verifyOneUser
+  getUserList, updateUserAuth, getVerifyUserList, verifyOneUser
 
 }
 
