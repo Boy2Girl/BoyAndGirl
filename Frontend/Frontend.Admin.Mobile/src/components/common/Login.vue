@@ -46,7 +46,6 @@
   import {Card, XInput, Group, XButton, Alert} from 'vux';
   import {mapGetters, mapMutations} from 'vuex'
   import UserApi from '../../api/user'
-  import router from '../../router/index.js'
   import {Icon} from 'iview';
 
 
@@ -116,14 +115,16 @@
         console.log('请求结果');
         console.log(text + " " + status);
         if (status === 200) {
-          UserApi.getCode(this.getCodeSuccess, this.fail);
+          let token = JSON.parse(text);
+          this.setToken(token.token);
+
+          window.location.href =
+            "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf058ebab08beee9&redirect_uri=http%3a%2f%2fwww.injusalon.com%2f%23%2fuser%2factivity&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+
           this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
           this.setState("错误", "该用户已经存在");
         }
-      },
-      getCodeSuccess: function(status, text){
-
       },
       userInfoSuccess: function (status, text) {
         if (status === 200) {

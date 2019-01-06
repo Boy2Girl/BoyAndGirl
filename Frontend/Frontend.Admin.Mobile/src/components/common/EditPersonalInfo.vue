@@ -131,7 +131,7 @@
     },
     data() {
       return {
-        actionUrl: baseUrl.baseUrl+"/test",
+        actionUrl: baseUrl.baseUrl + "/test",
         source: require('../../assets/background.jpg'),
         form: {
           avatarUrl: '',
@@ -139,8 +139,8 @@
           studentUrl: '',
           graduateUrl: '',
           otherUrl: '',
-          phone: '',
-          email: '',
+          phone: '13700000001',
+          email: '11@qq.com',
           qq: '',
           wechat: '',
           nickname: '',
@@ -198,85 +198,107 @@
       },
       save_info() {
         console.log('保存数据了');
-        if(!/^1[34578]\d{9}$/.test(this.form.phone)){
+        if (!/^1[34578]\d{9}$/.test(this.form.phone)) {
           this.setState('错误', '请输入正确的手机号码');
-        }
-        else if(!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.form.email)){
+        } else if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.form.email)) {
           this.setState('错误', '请输入正确的邮箱');
-        }
-        else {
+        } else {
           this.showPrompt();
         }
       },
-      showPrompt(){
-        let $this= this;
+      showPrompt() {
+        let $this = this;
         this.$vux.confirm.show({
           title: '温馨提示',
           content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
-          onShow () {
+          onShow() {
             console.log('plugin show')
           },
-          onHide () {
+          onHide() {
             console.log('plugin hide')
           },
-          onCancel () {
+          onCancel() {
             this.$router.go(-1);
           },
-          onConfirm () {
-            $this.createOrder();
+          onConfirm() {
             // UserApi.addUserInfo(this.form, this.success, this.fail);
 
-            // $this.createOrder();
-
-            console.log('plugin confirm')
+            $this.createOrder();
           }
         })
       },
-      createOrder: function(){
+      createOrder: function () {
         this.$vux.loading.show({text: '创建订单中'});
         payApi.createOrder(this.createSuccess, this.createFail)
       },
-      createSuccess: function(status, text){
+      createSuccess: function (status, text) {
         this.$vux.loading.hide();
         let result = (JSON.parse(text));
-        if (status === 200 && result.status === 1) {
+        if (status === 200) {
           this.wechatPay(result)
         } else {
           this.$vux.alert.show({
-            title : '创建订单失败',
+            title: '创建订单失败',
             content: result.message
           })
         }
       },
-      createFail: function(status, text){
+      createFail: function (status, text) {
         this.$vux.loading.hide();
         this.$vux.toast.show({
           text: '网络错误',
           type: 'cancel'
         })
       },
-      wechatPay: function(config) {
-        let $this= this;
-        this.$wechat.chooseWXPay({
-          timestamp: config.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-          nonceStr: config.nonceStr, // 支付签名随机串，不长于 32 位
-          package: config.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-          signType: config.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-          paySign: config.paySign, // 支付签名
-          success: function (response) {
-            // 支付成功后的回调函数
-            $this.$vux.toast.show('支付成功!');
-            this.$router.go(-1);
-            // window.location.href = "/mobile/my-order"
-          },
-          cancel: function (re) {
-            console.log(re);
-            $this.$vux.toast.show({
-              text: re,
-              type: 'cancel'
-            })
-          }
+      wechatPay: function (config) {
+        console.log(config);
+        let $this = this;
+        this.$wechat.config({
+          debug: true,
+          appId: 'wxcf058ebab08beee9', // 必填，公众号的唯一标识
+          timestamp: config.timeStamp, // 必填，生成签名的时间戳
+          nonceStr: config.nonceStr, // 必填，生成签名的随机串
+          signature: config.signature, // 必填，微信签名
+          jsApiList: [
+            'chooseImage',
+
+          ] // 必填，需要使用的JS接口列表
         });
+
+        this.$wechat.ready(function () {
+          // let that = this;
+          $this.$wechat.chooseWXPay({
+            timestamp: config.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+            nonceStr: config.nonceStr, // 支付签名随机串，不长于 32 位
+            package: config.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+            signType: config.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+            paySign: config.paySign, // 支付签名
+            success: function (response) {
+              // 支付成功后的回调函数
+              $this.$vux.toast.show({
+                text: response,
+                type: 'cancel'
+              })
+              // $this.$vux.toast.show('支付成功!');
+              this.$router.go(-1);
+              // window.location.href = "/mobile/my-order"
+            },
+            fail: function (er) {
+              $this.$vux.toast.show({
+                text: er,
+                type: 'cancel'
+              })
+              console.log(er)
+            },
+            cancel: function (re) {
+              console.log(re);
+              $this.$vux.toast.show({
+                text: re,
+                type: 'cancel'
+              })
+            }
+          });
+        })
       },
       success: function (status, text) {
         if (status === 200) {
