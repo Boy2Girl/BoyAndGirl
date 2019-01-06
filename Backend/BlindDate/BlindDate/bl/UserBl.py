@@ -48,11 +48,17 @@ class UserBl(object):
         return [UserConverter().toVO(i).serialize() for i in model]
 
     def get_open_id(self, code, username):
+        print("前置条件   code = " + str(code) + " username =  " + str(username) )
         user = self.user_dao.get_user_by_username(username)
         if not user:
             raise NotFoundException
 
+        print("userId "+ str(user.id))
+        print("username " + str(user.username))
+        print("openid " + str(user.openid))
+
         if user.openid != None:
+            print("user openid != None")
             return user.openid
 
         payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
@@ -64,20 +70,25 @@ class UserBl(object):
         #         payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
         # else:
         #     payload = {'appid': appId, 'grant_type': 'refresh_token', 'refresh_token': user.refresh_token}
-
-        result = requests.get(baseUrl, params=payload).content
-        result_json = json.loads(result)
+        try:
+            result = requests.get(baseUrl, params=payload).content
+            result_json = json.loads(result)
+        except Exception:
+            print("get Api error")
+            raise NotFoundException
+        print(result_json)
         try:
             self.user_dao.updateOpenid(user.id, result_json['openid'])
         except KeyError:
+            print(" update error")
             raise NotFoundException
-
+        print(" success " + str(result_json['openid']))
         return result_json['openid']
 
 
 # UserBl().get_open_id("011Gf3fQ0QImF528JAgQ0npPeQ0Gf3fa", "18851830977")
 # DaoFactory.userDao.updateOpenid(1, "111")
 #
-# user = DaoFactory.userDao.get_user_by_username("13700000126")
-# if user.openid != None:
-#     print("jjj")
+user = DaoFactory.userDao.get_user_by_username("13700000007")
+if user.openid != None:
+    print("jjj")
