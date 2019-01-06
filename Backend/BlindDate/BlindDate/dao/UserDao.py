@@ -39,10 +39,10 @@ class UserDao(DaoUtil):
         finally:
             session.close()
 
-    def updateUserRefreshToken(self, user_id, refresh_token):
+    def updateOpenid(self, user_id, openid):
         try:
             session = db.session
-            session.query(UserModel).filter(UserModel.id == user_id).update(dict(refrsh_token = refresh_token))
+            session.query(UserModel).filter(UserModel.id == user_id).update(dict(openid=openid))
             session.commit()
         except:
             raise SystemError
