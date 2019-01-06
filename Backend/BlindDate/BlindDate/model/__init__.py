@@ -14,7 +14,7 @@ class UserModel(db.Model):
     username = db.Column(VARCHAR(20))
     password = db.Column(VARCHAR(20))
     role = db.Column(db.Enum(Role), default=Role.USER)
-    refresh_token = db.Column(VARCHAR(100))
+    openid = db.Column(VARCHAR(100))
 
     def __init__(self, **kwargs):
         pass

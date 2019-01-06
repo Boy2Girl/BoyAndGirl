@@ -52,6 +52,9 @@ class UserBl(object):
         if not user:
             raise NotFoundException
 
+        if user.openid != None:
+            return user.openid
+
         payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
         # payload = {'appid': appId, 'secret': secret, 'grant_type': grant_type, 'code': code}
         # if not user.refresh_token:
@@ -73,4 +76,8 @@ class UserBl(object):
 
 
 # UserBl().get_open_id("011Gf3fQ0QImF528JAgQ0npPeQ0Gf3fa", "18851830977")
-# DaoFactory.userDao.updateUserRefreshToken(1, "111")
+# DaoFactory.userDao.updateOpenid(1, "111")
+#
+# user = DaoFactory.userDao.get_user_by_username("13700000126")
+# if user.openid != None:
+#     print("jjj")
