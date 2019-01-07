@@ -112,7 +112,7 @@
         this.show = true;
       },
       signupSuccess: function (status, text) {
-        console.log('请求结果');
+        console.log('注册账户');
         console.log(text + " " + status);
         if (status === 200) {
           let token = JSON.parse(text);
@@ -121,7 +121,7 @@
           window.location.href =
             "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf058ebab08beee9&redirect_uri=http%3a%2f%2fwww.injusalon.com%2f%23%2fuser%2factivity&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
 
-          this.setState("成功", "恭喜您注册成功");
+          // this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
           this.setState("错误", "该用户已经存在");
         }
@@ -154,7 +154,7 @@
           this.setState("错误", "您两次输入的密码不一致");
       },
       changeState: function () {
-        this.isLogIn = !this.isLogIn
+        this.isLogIn = !this.isLogIn;
         if (this.isLogIn) {
           this.buttonText = '注册';
           this.titleText = '登  录';
