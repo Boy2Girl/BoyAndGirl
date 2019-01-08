@@ -212,16 +212,14 @@
           title: '温馨提示',
           content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
           onShow() {
-            console.log('plugin show')
           },
           onHide() {
-            console.log('plugin hide')
           },
           onCancel() {
             this.$router.go(-1);
           },
           onConfirm() {
-            // UserApi.addUserInfo(this.form, this.success, this.fail);
+            UserApi.addUserInfo(this.form, this.success, this.fail);
 
             $this.createOrder();
           }
@@ -239,7 +237,7 @@
         } else {
           this.$vux.alert.show({
             title: '创建订单失败',
-            content: result.message
+            content: text
           })
         }
       },
@@ -261,10 +259,17 @@
           signature: config.signature, // 必填，微信签名
           jsApiList: [
             'chooseImage',
-
-          ] // 必填，需要使用的JS接口列表
+          ], // 必填，需要使用的JS接口列表,
+          success: function (response) {
+          },
+          fail: function (err) {
+          },
+          error: function (err) {
+          }
         });
+        this.$wechat.error(function (res) {
 
+        });
         this.$wechat.ready(function () {
           // let that = this;
           $this.$wechat.chooseWXPay({
@@ -276,24 +281,24 @@
             success: function (response) {
               // 支付成功后的回调函数
               $this.$vux.toast.show({
-                text: response,
-                type: 'cancel'
+                text: '支付成功',
+                type: 'success'
               })
               // $this.$vux.toast.show('支付成功!');
-              this.$router.go(-1);
+              $this.$router.go(-1);
               // window.location.href = "/mobile/my-order"
             },
             fail: function (er) {
-              $this.$vux.toast.show({
-                text: er,
-                type: 'cancel'
-              })
+              // $this.$vux.toast.show({
+              //   text: er,
+              //   type: 'cancel'
+              // })
               console.log(er)
             },
             cancel: function (re) {
               console.log(re);
               $this.$vux.toast.show({
-                text: re,
+                text: '取消支付',
                 type: 'cancel'
               })
             }
@@ -365,7 +370,7 @@
       checkSuccess: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text);
-          if (result.isReal == false) {
+          if (result.isReal === false) {
             UserApi.getUserInfo(this.form.index, 'False', this.loadSuccess, this.loadFail);
           } else {
             UserApi.getUserInfo(this.form.index, 'True', this.loadSuccess, this.loadFail);

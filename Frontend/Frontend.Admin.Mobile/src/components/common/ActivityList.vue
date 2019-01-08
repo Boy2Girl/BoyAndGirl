@@ -33,8 +33,8 @@
     data() {
       return {
         activityList: [],
-        areas: [['南京', '苏州']],
-        myArea: ['南京'],
+        areas: [['合肥', '无锡']],
+        myArea: ['合肥'],
         showPopupPicker: false,
         isPlain: true
       }
@@ -47,11 +47,9 @@
     },
     methods: {
       success: function (status, text) {
-
         console.log(JSON.parse(text));
         console.log(status);
         console.log("拿到openid");
-
       },
       fail: function (e) {
         console.log("发现错误！！！");

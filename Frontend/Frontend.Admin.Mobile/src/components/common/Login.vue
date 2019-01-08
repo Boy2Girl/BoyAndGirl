@@ -20,8 +20,8 @@
           <x-input v-if="!isLogIn" title="" placeholder="再次输入密码" v-model="password2" class="input" type="password">
             <Icon slot="label" type="locked" size="27" color="#6A005F" style="margin-right: 15px;"></Icon>
           </x-input>
-          <x-input v-if="!isLogIn" placeholder="验证码" class="input">
-            <x-button slot="right" type="primary" mini>发送验证码</x-button>
+          <x-input v-if="!isLogIn" placeholder="验证码" class="input" v-model="code">
+            <x-button slot="right" type="primary" mini @click.native="sendCode">发送验证码</x-button>
           </x-input>
           <x-button v-if="isLogIn" class='button1' :gradients="['#43aaa7','#55bdd9']" @click.native="signIn"
                     style="margin-top: 10px;">
@@ -140,9 +140,19 @@
       signIn: function () {
         UserApi.signIn(this.username, this.password, this.getRole(), this.signinSuccess, this.fail)
       },
+      sendCode: function(){
+        // TODO 发送验证码
+        if(!/^1[34578]\d{9}$/.test(this.username)){
+          this.setState('错误', '请输入正确的手机号码');
+          return;
+        }
+
+      },
       signUp: function () {
         if (this.username === '' || this.password === '')
           this.setState("错误", "用户名或者密码不能为空");
+        if (this.code === '')
+          this.setState("错误", "验证码不能为空");
         else if (this.password === this.password2) {
           if(!/^1[34578]\d{9}$/.test(this.username)){
             this.setState('错误', '请输入正确的手机号码');
