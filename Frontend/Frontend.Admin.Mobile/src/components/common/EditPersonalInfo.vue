@@ -12,47 +12,37 @@
 
     <sub-title class="subtitle" value="基本信息"/>
     <group>
-      <x-input class="cell-font" title="昵称:" text-align="right" v-model="form.nickname"/>
-      <x-input class="cell-font" title="姓名:" text-align="right" v-model="form.name"/>
+      <x-input class="cell-font" title="昵称:" :required="true" text-align="right" v-model="form.nickname"/>
+      <x-input class="cell-font" title="姓名:" :required="true" text-align="right" v-model="form.name"/>
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
-      <x-input class="cell-font" title="身高(cm):" :required="true" text-align="right" v-model="form.p_height"/>
+      <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
       <datetime class="cell-font" title="出生日期:" v-model="form.birthDate" value-text-align="right"/>
       <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right"
                     v-model="form.marriage"/>
       <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="form.friend"/>
-      <x-input class="cell-font" title="电话:" text-align="right" is-type="china-mobile" v-model="form.phone"/>
-      <x-input class="cell-font" title="邮箱:" text-align="right" is-type="email" v-model="form.email"/>
-      <x-input class="cell-font" title="qq:" text-align="right" v-model="form.qq"/>
-      <x-input class="cell-font" title="微信:" text-align="right" v-model="form.wechat"/>
     </group>
 
+    <sub-title class="subtitle" value="联系方式"/>
+    <group>
+      <x-input class="cell-font" title="电话:" :required="true" text-align="right" is-type="china-mobile"
+               v-model="form.phone"/>
+      <x-input class="cell-font" title="微信:" :required="true" text-align="right" v-model="form.wechat"/>
+    </group>
 
     <sub-title class="subtitle" value="坐标"/>
     <group>
-      <x-input class="cell-font" title="家乡:" text-align="right" v-model="form.hometown"/>
-      <x-input class="cell-font" title="所在城市:" text-align="right" v-model="form.city"/>
-      <x-input class="cell-font" title="居住地点：" text-align="right" v-model="form.live"/>
+      <x-input class="cell-font" title="家乡:" :required="true" text-align="right" v-model="form.hometown"/>
+      <x-input class="cell-font" title="所在城市:" :required="true" text-align="right" v-model="form.city"/>
+      <x-input class="cell-font" title="工作单位:" :required="true" text-align="right" v-model="form.corporation"/>
+      <x-input class="cell-font" title="年收入（实际/预期）:" label-width="180px" text-align="right" v-model="form.income"/>
     </group>
 
-    <sub-title class="subtitle" value="学校"/>
+    <sub-title class="subtitle" value="学历"/>
     <group>
-      <x-input class="cell-font" title="目前状态:" text-align="right" v-model="form.studyState"/>
       <x-input class="cell-font" title="本科学校:" text-align="right" v-model="form.collageSchool"/>
       <x-input class="cell-font" title="硕士学校:" text-align="right" v-model="form.masterSchool"/>
       <x-input class="cell-font" title="博士学校:" text-align="right" v-model="form.doctorSchool"/>
-      <popup-picker class="cell-font" title="学历:" :data="list_education" value-text-align="right"
-                    v-model="form.education"/>
-      <x-input class="cell-font" title="专业:" text-align="right" v-model="form.major"/>
-    </group>
-
-    <sub-title class="subtitle" value="工作"/>
-    <group>
-      <x-input class="cell-font" title="工作单位:" text-align="right" v-model="form.corporation"/>
-      <x-input class="cell-font" title="工作状况:" text-align="right" v-model="form.work_state"/>
-      <x-input class="cell-font" title="职业：" text-align="right" v-model="form.career"/>
-      <x-input class="cell-font" title="单位类型:" text-align="right" v-model="form.corporation_type"/>
-      <x-input class="cell-font" title="年收入（实际/预期）:" label-width="180px" text-align="right" v-model="form.income"/>
     </group>
 
     <sub-title class="subtitle" value="住房/家庭情况"/>
@@ -70,13 +60,7 @@
     <sub-title value="身份证"/>
     <FileUPloader :url="actionUrl" v-on:child-say="getPerson"/>
 
-    <sub-title value="学生证"/>
-    <FileUPloader :url="actionUrl" v-on:child-say="getStudent"/>
-
-    <sub-title value="本科毕业证"/>
-    <FileUPloader :url="actionUrl" v-on:child-say="getGraduate"/>
-
-    <sub-title value="其他身份学历及证明"/>
+    <sub-title value="学历证明"/>
     <group>
       <FileUPloader :url="actionUrl" v-on:child-say="getOthers"/>
     </group>
@@ -139,8 +123,8 @@
           studentUrl: '',
           graduateUrl: '',
           otherUrl: '',
-          phone: '13700000001',
-          email: '11@qq.com',
+          phone: '',
+          email: '',
           qq: '',
           wechat: '',
           nickname: '',
@@ -151,7 +135,7 @@
           marriage: ['未婚'],
           friend: ['恋爱'],
           hometown: '',
-          city: '',
+          city: '合肥',
           live: '',
           studyState: '',
           collageSchool: '',
@@ -198,32 +182,35 @@
       },
       save_info() {
         console.log('保存数据了');
-        if (!/^1[34578]\d{9}$/.test(this.form.phone)) {
+        if (this.form.phone === '' || this.form.nickname === '' || this.form.name === '' || this.form.wechat === "" ||
+          this.form.hometown == '' || this.form.city === '' || this.form.corporation === '') {
+          this.setState('错误', '请输入所有必填信息');
+          console.log(this.form);
+        } else if (!/^1[34578]\d{9}$/.test(this.form.phone)) {
           this.setState('错误', '请输入正确的手机号码');
-        } else if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(this.form.email)) {
-          this.setState('错误', '请输入正确的邮箱');
         } else {
           this.showPrompt();
         }
       },
       showPrompt() {
-        let $this = this;
-        this.$vux.confirm.show({
-          title: '温馨提示',
-          content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
-          onShow() {
-          },
-          onHide() {
-          },
-          onCancel() {
-            this.$router.go(-1);
-          },
-          onConfirm() {
-            UserApi.addUserInfo(this.form, this.success, this.fail);
-
-            $this.createOrder();
-          }
-        })
+        UserApi.addUserInfo(this.form, this.success, this.fail);
+        // let $this = this;
+        // this.$vux.confirm.show({
+        //   title: '温馨提示',
+        //   content: '完善信息之后可以缴纳6元进行会员注册，开启全部功能，请问是否进行支付？',
+        //   onShow() {
+        //   },
+        //   onHide() {
+        //   },
+        //   onCancel() {
+        //     this.$router.go(-1);
+        //   },
+        //   onConfirm() {
+        //     UserApi.addUserInfo(this.form, this.success, this.fail);
+        //
+        //     $this.createOrder();
+        //   }
+        // })
       },
       createOrder: function () {
         this.$vux.loading.show({text: '创建订单中'});
@@ -307,9 +294,9 @@
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
+          console.log("成功插入");
           // 返回
-          // this.$router.go(-1);
+          this.$router.go(-1);
         } else if (status === 500) {
           this.setState("错误", "上传用户信息失败");
         }

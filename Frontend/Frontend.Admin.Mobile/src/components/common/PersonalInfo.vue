@@ -5,9 +5,9 @@
     </div>
     <div class="sub">个人相册</div>
     <img :src="form.avatar"
-    style="width:100px; height:100px; display:inline; padding: 2%"/>
+         style="width:100px; height:100px; display:inline; padding: 2%"/>
     <!--<img v-for="item in form.photoList" :src="item.source"-->
-         <!--style="width:100px; height:100px; display:inline; padding: 2%"/>-->
+    <!--style="width:100px; height:100px; display:inline; padding: 2%"/>-->
 
     <div class="sub">基本信息</div>
     <cell-form-preview class="form-text" :list="[
@@ -23,34 +23,23 @@
     <div class="sub">联系方式</div>
     <cell-form-preview class="form-text" v-if="!to_post" :list="[
     {label: '电话', value: form.phone},
-    {label: '邮箱', value: form.email},
-    {label: 'qq', value: form.qq},
     {label: '微信', value: form.wechat}]"/>
 
     <div class="sub">坐标</div>
     <cell-form-preview class="form-text" :list="[
     {label: '家乡', value: form.hometown},
     {label: '所在城市', value: form.city},
-    {label: '居住地点', value: form.livingPlace}]"/>
-
-    <div class="sub">学习情况</div>
-    <cell-form-preview class="form-text" :list="[
-    {label: '目前状态', value: form.studyState},
-    {label: '本科学校', value: form.collageSchool},
-    {label: '硕士学校', value: form.masterSchool},
-    {label: '博士学校', value: form.doctorSchool},
-    {label: '学历', value: form.education},
-    {label: '专业', value: form.major}]"/>
-
-    <div class="sub">工作</div>
-    <cell-form-preview class="form-text" :list="[
     {label: '工作单位', value: form.company},
-    {label: '工作状况', value: form.work_state},
-    {label: '职业', value: form.job},
-    {label: '单位类型', value: form.corporation_type},
     {label: '年收入（实际/预期）', value: form.income}]"/>
 
-    <div class="sub">住房/家庭情况</div>
+    <div class="sub">学历</div>
+    <cell-form-preview class="form-text" :list="[
+    {label: '本科学校', value: form.collageSchool},
+    {label: '硕士学校', value: form.masterSchool},
+    {label: '博士学校', value: form.doctorSchool}]"/>
+
+    <div class="sub">住房/家庭情况
+    </div>
     <cell-form-preview class="form-text" :list="[
     {label: '住房情况', value: form.housingCondition},
     {label: '家庭情况', value: form.economyCondition}]"/>
@@ -103,7 +92,7 @@
           id: '',
           gender: '',
           p_height: '',
-          bornDate: '',
+          bornDate: '2019-01-01',
           marriage: '',
           friend: '',
           hometown: '',
@@ -146,11 +135,11 @@
         console.log(status + text);
         let result = (JSON.parse(text));
         console.log(result['role']);
-        if(!result['isReal'] && result['role'] === 'USER'){
+        if (!result['isReal'] && result['role'] === 'USER') {
           this.setState('失败', '您还没有通过系统审核');
         }
 
-        if(result['isReal'])
+        if (result['isReal'])
           this.isChecked = 'True';
         else
           this.isChecked = 'False';
@@ -171,7 +160,7 @@
         console.log(err)
       },
       recruit() {
-        console.log("ids:  "+this.form.id)
+        console.log("ids:  " + this.form.id)
         PostsApi.recruit_someone(this.form.id, this.success, this.fail)
       },
       setState: function (title, content) {

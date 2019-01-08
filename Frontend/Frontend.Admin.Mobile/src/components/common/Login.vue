@@ -118,8 +118,9 @@
           let token = JSON.parse(text);
           this.setToken(token.token);
 
-          window.location.href =
-            "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf058ebab08beee9&redirect_uri=http%3a%2f%2fwww.injusalon.com%2f%23%2fuser%2factivity&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+          this.$router.push('/user/activity');
+          // window.location.href =
+          //   "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcf058ebab08beee9&redirect_uri=http%3a%2f%2fwww.injusalon.com%2f%23%2fuser%2factivity&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
 
           // this.setState("成功", "恭喜您注册成功");
         } else if (status === 405) {
