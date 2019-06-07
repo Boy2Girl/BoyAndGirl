@@ -27,7 +27,7 @@ export default {
 
   getOpenid: async function (code, resolve, reject) {
     var data = new FormData();
-    base.query(data, resolve, reject, '/user/openid/'+code, METHOD.GET)
+    base.query(data, resolve, reject, '/user/'+code, METHOD.GET)
   },
 
   /**
