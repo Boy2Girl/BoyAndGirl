@@ -78,18 +78,18 @@ const routes = [
         // component: (()=>import('../components/page/user/PoolListPage')),
         // component: UserPoolListPage,
         name: 'pool',
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        },
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
       },
       {
         path: 'pool/:id',
         component: (resolve) => {require(['../components/page/user/UserPoolDetailPage'], resolve)},
         // component: (()=>import('../components/page/user/UserPoolDetailPage')),
         // component: UserPoolDetailPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        },
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
       },
       {
         path: 'poolPeople',
@@ -97,9 +97,9 @@ const routes = [
         component: (resolve) => {require(['../components/page/user/PoolPeopleListPage.vue'], resolve)},
         // component: (()=>import('../components/page/user/PoolPeopleListPage.vue')),
         // component: PoolPeopleListPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        },
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
       },
       {
         path: 'poolMyPeople',
@@ -107,9 +107,9 @@ const routes = [
         component: (resolve) => {require(['../components/page/user/PoolMyPeopleListPage.vue'], resolve)},
         // component: (()=>import('../components/page/user/PoolMyPeopleListPage.vue')),
         // component: PoolMyPeopleListPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        },
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
       },
       {
         path: 'poolTwoPeople',
@@ -117,9 +117,9 @@ const routes = [
         component: (resolve) => {require(['../components/page/user/PoolTwoPeopleListPage.vue'], resolve)},
         // component: (()=>import('../components/page/user/PoolTwoPeopleListPage.vue')),
         // component: PoolTwoPeopleListPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        },
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
       },
       {
         path: 'posts',
@@ -127,9 +127,9 @@ const routes = [
         // component: (()=>import('../components/page/user/PostsPage')),
         // component: PostsPage,
         name: 'posts',
-        meta: {
-          requireAuth: [UserType.USER, UserType.ADMIN, UserType.PUBLISHER],
-        }
+        // meta: {
+        //   requireAuth: [UserType.USER, UserType.ADMIN, UserType.PUBLISHER],
+        // }
       },
       {
         path: 'user',
@@ -202,9 +202,9 @@ const routes = [
         // component: (()=>import('../components/page/user/HistoryActivityPage')),
         // component: HistoryActivityPage,
         name: "historyActivity",
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        }
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // }
       },
       {
         path: 'myPool',

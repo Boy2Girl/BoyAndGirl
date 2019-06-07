@@ -54,6 +54,7 @@
   import CheckApi from '../../api/check';
   import router from '../../router/index.js';
   import {mapGetters} from 'vuex';
+  import UserApi from "../../api/user"
   export default {
 
     components: {
@@ -139,9 +140,22 @@
         this.title = title;
         this.content = content;
         this.show = true;
-      }
+      },
+
+      getOpenIdSuccess: function (status, text) {
+        console.log(JSON.parse(text));
+        console.log(status);
+        console.log("拿到openid");
+      },
+      getOpenIdFail: function (e) {
+        console.log("发现错误！！！");
+        console.log(e);
+        console.log("没有拿到openid");
+      },
     },
     mounted() {
+      UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
+
       let name = this.$route.name;
       let toPost = false;
       if (name === 'posts') {

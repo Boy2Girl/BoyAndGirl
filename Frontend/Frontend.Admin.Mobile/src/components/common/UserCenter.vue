@@ -38,11 +38,6 @@
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/about.png">
       </cell>
     </group>
-    <x-button :gradients="['#43aaa7','#55bdd9']" @click.native="signOut"
-              style="margin-top: 10px;">
-      登出
-    </x-button>
-    <div style="height: 50px"></div>
   </div>
 </template>
 
