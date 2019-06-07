@@ -53,7 +53,7 @@
   import PostsApi from '../../api/posts';
   import CheckApi from '../../api/check';
   import router from '../../router/index.js';
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapMutations} from 'vuex';
   import UserApi from "../../api/user"
   export default {
 
@@ -72,6 +72,8 @@
     },
     methods: {
       ...mapGetters(['getToken', 'getUserID']),
+      ...mapMutations(['setToken', 'setUserID']),
+
       route: (id, toPost) => {
         router.push({
           name: 'info',
@@ -148,7 +150,9 @@
 
         let response = JSON.parse(text)
         this.setToken(response.token);
-        this.setUserID("A"+response.userId);
+        this.setUserID("A"+response.userID);
+
+        PostsApi.get('all', 1, this.getSuccess, this.fail);
 
         console.log("拿到openid");
       },
@@ -163,7 +167,6 @@
       let toPost = false;
       if (name === 'posts') {
         UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
-        PostsApi.get('all', 1, this.getSuccess, this.fail);
         toPost = true;
       }
       else if (name === 'myPostOne') {
