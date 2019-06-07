@@ -145,6 +145,11 @@
       getOpenIdSuccess: function (status, text) {
         console.log(JSON.parse(text));
         console.log(status);
+
+        let response = JSON.parse(text)
+        this.setToken(response.token);
+        this.setUserID("A"+response.userId);
+
         console.log("拿到openid");
       },
       getOpenIdFail: function (e) {
