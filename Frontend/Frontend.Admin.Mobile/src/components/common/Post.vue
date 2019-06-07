@@ -159,11 +159,10 @@
       },
     },
     mounted() {
-      UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
-
       let name = this.$route.name;
       let toPost = false;
       if (name === 'posts') {
+        UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
         PostsApi.get('all', 1, this.getSuccess, this.fail);
         toPost = true;
       }

@@ -40,10 +40,10 @@
       }
     },
     mounted() {
-      console.log(window.location.href);
-      console.log(window.location.href.split('=')[1].split('&')[0]);
+      // console.log(window.location.href);
+      // console.log(window.location.href.split('=')[1].split('&')[0]);
 
-      UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.success, this.fail)
+      // UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.success, this.fail)
     },
     methods: {
       success: function (status, text) {
