@@ -95,7 +95,7 @@
       }
     },
     mounted(){
-      this.id = this.getUserID();
+      this.id = "A"+this.getUserID();
 
       check.check(this.success, this.fail)
       // 得到用户目前状态

@@ -118,6 +118,7 @@
         actionUrl: baseUrl.baseUrl + "/test",
         source: require('../../assets/background.jpg'),
         form: {
+          id: '',
           avatarUrl: '',
           personUrl: '',
           studentUrl: '',
@@ -182,8 +183,9 @@
       },
       save_info() {
         console.log('保存数据了');
+        this.form.id = this.getUserID();
         if (this.form.phone === '' || this.form.nickname === '' || this.form.name === '' || this.form.wechat === "" ||
-          this.form.hometown == '' || this.form.city === '' || this.form.corporation === '') {
+          this.form.hometown === '' || this.form.city === '' || this.form.corporation === '') {
           this.setState('错误', '请输入所有必填信息');
           console.log(this.form);
         } else if (!/^1[34578]\d{9}$/.test(this.form.phone)) {
@@ -366,7 +368,7 @@
       },
     },
     mounted() {
-      this.form.index = this.getUserID();
+      this.form.index = 'A'+this.getUserID();
       CheckApi.check(this.checkSuccess, this.fail)
     }
   }

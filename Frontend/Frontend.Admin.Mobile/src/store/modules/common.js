@@ -1,15 +1,16 @@
 export default {
     state: {
-      debug: true,
-      token: "111",
+      debug: false,
+      token: "",
       user_id: "",
-      pool_id: ""
+      pool_id: "",
+      isLogIn: false
     },
     mutations: {
       setToken (state, payload) {
         if (state.debug) {
           console.log('token user changed in vuex')
-          console.log(payload)  
+          console.log(payload)
         }
         state.token = payload
         localStorage.setItem('token', payload)
@@ -17,7 +18,7 @@ export default {
       setUserID (state, payload) {
         if (state.debug) {
           console.log('token user changed in vuex')
-          console.log(payload)  
+          console.log(payload)
         }
         state.user_id = payload
         localStorage.setItem('userID', payload)
@@ -25,10 +26,18 @@ export default {
       setPoolID (state, payload) {
         if (state.debug) {
           console.log('token user changed in vuex')
-          console.log(payload)  
+          console.log(payload)
         }
         state.pool_id = payload
         localStorage.setItem('poolID', payload)
+      },
+      setIsLogin (state, payload) {
+        if (state.debug) {
+          console.log('islogin changed in vuex')
+          console.log(payload)
+        }
+        state.isLogIn = state
+        localStorage.setItem('isLogIn', payload)
       },
     },
     getters: {
@@ -40,6 +49,9 @@ export default {
       },
       getPoolID: state  => {
         return localStorage.getItem('poolID')
+      },
+      getIsLogIn: state => {
+        return localStorage.getItem('isLogIn')
       }
     }
 }

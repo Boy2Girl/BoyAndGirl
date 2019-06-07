@@ -114,6 +114,7 @@ async function addUserInfo(form, resolve, reject) {
   data.append('name', form.name);
   data.append('about_you', form.about_you);
   data.append('about_me', form.about_me);
+  data.append('id', form.id)
   console.log(data);
   base.query(data, resolve, reject, '/user/info', METHOD.PUT)
 }

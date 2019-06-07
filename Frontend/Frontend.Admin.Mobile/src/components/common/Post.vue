@@ -71,8 +71,8 @@
       }
     },
     methods: {
-      ...mapGetters(['getToken', 'getUserID']),
-      ...mapMutations(['setToken', 'setUserID']),
+      ...mapGetters(['getToken', 'getUserID', 'getIsLogIn']),
+      ...mapMutations(['setToken', 'setUserID', 'setIsLogin']),
 
       route: (id, toPost) => {
         router.push({
@@ -150,7 +150,8 @@
 
         let response = JSON.parse(text)
         this.setToken(response.token);
-        this.setUserID("A"+response.userID);
+        this.setUserID(response.userID);
+        this.setIsLogin(true)
 
         PostsApi.get('all', 1, this.getSuccess, this.fail);
 
@@ -166,7 +167,12 @@
       let name = this.$route.name;
       let toPost = false;
       if (name === 'posts') {
-        UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
+        console.log(this.getIsLogIn()+"-----------")
+        if(!this.getIsLogIn())
+          UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
+        else
+          PostsApi.get('all', 1, this.getSuccess, this.fail);
+
         toPost = true;
       }
       else if (name === 'myPostOne') {

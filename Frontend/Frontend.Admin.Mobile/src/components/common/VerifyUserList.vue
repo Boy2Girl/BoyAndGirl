@@ -3,7 +3,9 @@
     <div style="margin:5%">
       <Input v-model="keyId" style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"
              @input="search"/>
-      <Table border stripe :columns="userList" :data="userData"></Table>
+      <Table border stripe :columns="userList" :data="userData">
+
+      </Table>
     </div>
   </div>
 </template>
@@ -47,7 +49,14 @@
           }
         ],
         rawUserData: [],
-        userData: []
+        userData: [
+          {
+            password: "123456",
+            role: "USER",
+            uID: 3,
+            username: "kiki"
+          },
+        ]
       }
     },
     methods: {
@@ -59,6 +68,7 @@
           }
         }
         this.userData = result;
+        console.log(this.userData)
       },
       loadUserList: function () {
         UserApi.getVerifyUserList(this.success, this.fail);
@@ -85,17 +95,19 @@
         for (let i = 0; i < userList.length; i++) {
           let user = {
             "uID": userList[i].id,
-            "username": userList[i].username,
+            "username": userList[i].openid,
             "password": userList[i].password,
             "role": userList[i].role,
+            "openid": userList[i].username
           };
           result.push(user);
         }
+        console.log(result)
         return result;
       }
     },
     mounted() {
-      this.loadUserList();
+      // this.loadUserList();
     }
   }
 </script>
