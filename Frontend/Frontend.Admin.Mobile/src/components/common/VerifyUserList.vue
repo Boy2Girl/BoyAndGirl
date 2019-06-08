@@ -3,18 +3,21 @@
     <div style="margin:5%">
       <Input v-model="keyId" style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"
              @input="search"/>
-      <Table border stripe :columns="userList" :data="userData">
-
-      </Table>
+      <Table border stripe :columns="userList" :data="userData"></Table>
     </div>
   </div>
 </template>
 
 <script>
-  import UserApi from '../../api/user';
-  import router from "../../router";
+  import UserApi from '../../api/user'
+  import router from "../../router"
+  import {XButton} from "vux";
+  import {Input,Table} from 'iview'
 
   export default {
+    components: {
+      XButton,Input,Table
+    },
     data() {
       return {
         keyId: "",
@@ -39,75 +42,67 @@
                   },
                   on: {
                     click: () => {
-                      router.push('/admin/verify/' + this.userData[params.index].uID);
+                      router.push('/admin/verify/' + this.userData[params.index].uID)
                     }
                   }
                 }, '审核')
-              ]);
+              ])
 
             }
           }
         ],
         rawUserData: [],
-        userData: [
-          {
-            password: "123456",
-            role: "USER",
-            uID: 3,
-            username: "kiki"
-          },
-        ]
+        userData: []
       }
     },
     methods: {
       search: function () {
-        let result = [];
+        let result = []
         for (let i = 0; i < this.rawUserData.length; i++) {
           if ((this.rawUserData[i].uID + "").indexOf(this.keyId) >= 0) {
-            result.push(this.rawUserData[i]);
+            result.push(this.rawUserData[i])
           }
         }
-        this.userData = result;
-        console.log(this.userData)
+        this.userData = result
       },
       loadUserList: function () {
-        UserApi.getVerifyUserList(this.success, this.fail);
+        UserApi.getVerifyUserList(this.success, this.fail)
       },
       success: function (status, text) {
-        let that = this;
+        let that = this
         if (status === 200) {
-          let result = JSON.parse(text);
-          console.log(result)
-          console.log(result.length);
-          this.rawUserData = that.listConvert(result);
-          this.userData = this.rawUserData;
-          this.search();
+          let result = JSON.parse(text)
+          this.rawUserData = that.listConvert(result)
+          this.userData = this.rawUserData
+          this.search()
         } else if (status === 500) {
-          console.log("加载失败");
+          console.log("加载失败")
         }
       },
       fail: function (err) {
-        console.log("错误发生了！！！");
-        console.log(err);
+        console.log("错误发生了！！！")
+        console.log(err)
       },
       listConvert: function (userList) {
-        let result = [];
+        let result = []
         for (let i = 0; i < userList.length; i++) {
           let user = {
-            "uID": userList[i].id,
+            "uID": "A"+userList[i].id,
             "username": userList[i].openid,
             "password": userList[i].password,
             "role": userList[i].role,
             "openid": userList[i].username
-          };
-          result.push(user);
+          }
+          result.push(user)
         }
+        console.log("list convert")
         console.log(result)
-        return result;
+        return result
       }
     },
     mounted() {
-      // this.loadUserList();
+      this.loadUserList()
+      // this.success()
     }
   }
 </script>

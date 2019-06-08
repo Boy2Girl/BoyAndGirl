@@ -50,11 +50,12 @@
 
 <script>
   import {Card, CellFormPreview, Group, Cell, XButton, Alert} from 'vux'
-  import PostsApi from '../../api/posts';
-  import CheckApi from '../../api/check';
-  import router from '../../router/index.js';
-  import {mapGetters, mapMutations} from 'vuex';
+  import PostsApi from '../../api/posts'
+  import CheckApi from '../../api/check'
+  import router from '../../router/index.js'
+  import {mapGetters, mapMutations} from 'vuex'
   import UserApi from "../../api/user"
+
   export default {
 
     components: {
@@ -81,7 +82,7 @@
             id: id,
             toPost: toPost
           }
-        });
+        })
         // router.push('/user/info/'+id);
       },
       addPosts() {
@@ -90,98 +91,101 @@
          */
         CheckApi.check(this.checkSuccess, this.fail)
       },
-      checkSuccess: function(status, text){
+      checkSuccess: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text)
-          if(result.isReal == false){
-            this.setState("失败", "您还没有实名认证，不能进行发帖应征");
-          }else{
+          if (result.isReal == false) {
+            this.setState("失败", "您还没有实名认证，不能进行发帖应征")
+          } else {
             PostsApi.addPosts(this.success, this.fail)
           }
         }
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入");
-          let name = this.$route.name;
+          console.log("成功插入")
+          let name = this.$route.name
           if (name === 'posts') {
-            this.setState("成功", "您已成功参与互选");
+            this.setState("成功", "您已成功参与互选")
           }
           else if (name === 'myPostOne') {
-            this.setState("成功", "您已应征此人，静静等待他的回复吧");
+            this.setState("成功", "您已应征此人，静静等待他的回复吧")
           }
         } else if (status === 500) {
-          console.log("上传互选池失败");
-          this.setState("失败", "系统没有找到你qwq");
+          console.log("上传互选池失败")
+          this.setState("失败", "系统没有找到你qwq")
         }
       },
       getSuccess: function (status, text) {
         if (status === 200) {
-          let result = (JSON.parse(text));
+          let result = (JSON.parse(text))
           console.log(result)
           this.postList = result
         } else if (status === 500) {
-          console.log("获取帖子失败");
-          this.setState("提醒", "目前没有记录，请耐心等待");
+          console.log("获取帖子失败")
+          this.setState("提醒", "目前没有记录，请耐心等待")
         }
       },
       fail: function (err) {
-        console.log("错误发生了！！！");
-        console.log(err);
-        this.setState("失败", "网络错误");
+        console.log("错误发生了！！！")
+        console.log(err)
+        this.setState("失败", "网络错误")
       },
       recruit() {
         PostsApi.recruit_someone(3, this.success, this.fail)
       },
       generateColor: function (id) {
-        let array = ['#2f8bc3', '#a53cc3', '#29a83b', '#c3271e'];
-        return array[id % 4];
+        let array = ['#2f8bc3', '#a53cc3', '#29a83b', '#c3271e']
+        return array[id % 4]
 
       },
       setState: function (title, content) {
-        this.title = title;
-        this.content = content;
-        this.show = true;
+        this.title = title
+        this.content = content
+        this.show = true
       },
 
       getOpenIdSuccess: function (status, text) {
-        console.log(JSON.parse(text));
-        console.log(status);
+        console.log(JSON.parse(text))
+        console.log(status)
 
         let response = JSON.parse(text)
-        this.setToken(response.token);
-        this.setUserID(response.userID);
+        this.setToken(response.token)
+        this.setUserID(response.userID)
         this.setIsLogin(true)
 
-        PostsApi.get('all', 1, this.getSuccess, this.fail);
+        PostsApi.get('all', 1, this.getSuccess, this.fail)
 
-        console.log("拿到openid");
+        console.log("拿到openid")
       },
       getOpenIdFail: function (e) {
-        console.log("发现错误！！！");
-        console.log(e);
-        console.log("没有拿到openid");
+        console.log("发现错误！！！")
+        console.log(e)
+        console.log("没有拿到openid")
       },
     },
     mounted() {
-      let name = this.$route.name;
-      let toPost = false;
+      let name = this.$route.name
+      let toPost = false
       if (name === 'posts') {
-        console.log(this.getIsLogIn()+"-----------")
-        if(!this.getIsLogIn())
+        console.log(localStorage.token + "111112222")
+        if (localStorage.code !== window.location.href.split('=')[1].split('&')[0]) {
           UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
+          localStorage.code = window.location.href.split('=')[1].split('&')[0]
+        }
         else
-          PostsApi.get('all', 1, this.getSuccess, this.fail);
+          PostsApi.get('all', 1, this.getSuccess, this.fail)
 
-        toPost = true;
+
+        toPost = true
       }
       else if (name === 'myPostOne') {
-        PostsApi.get('myPost', this.getUserID(), this.getSuccess, this.fail);
-        toPost = false;
+        PostsApi.get('myPost', this.getUserID(), this.getSuccess, this.fail)
+        toPost = false
       }
       else if (name === 'OnePostMe') {
-        PostsApi.get('postMy', this.getUserID(), this.getSuccess, this.fail);
-        toPost = false;
+        PostsApi.get('postMy', this.getUserID(), this.getSuccess, this.fail)
+        toPost = false
       }
       this.toPost = toPost
     }
