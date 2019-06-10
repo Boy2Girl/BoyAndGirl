@@ -42,7 +42,7 @@
                   },
                   on: {
                     click: () => {
-                      router.push('/admin/verify/' + this.userData[params.index].uID)
+                      router.push('/admin/verify/' + this.userData[params.index].uID.substring(1))
                     }
                   }
                 }, '审核')

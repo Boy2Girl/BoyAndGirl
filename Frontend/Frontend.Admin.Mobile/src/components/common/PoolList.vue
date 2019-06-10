@@ -20,20 +20,20 @@
           </div>
         </div>
       </div>
-      <div slot="footer" class="vux-1px-r">
-        <flexbox>
-          <flexbox-item>
-            <div class="info">
-              男（{{item.numOfBoy}}）
-            </div>
-          </flexbox-item>
-          <flexbox-item>
-            <div class="info">
-              女（{{item.numOfGirl}}）
-            </div>
-          </flexbox-item>
-        </flexbox>
-      </div>
+      <!--<div slot="footer" class="vux-1px-r">-->
+        <!--<flexbox>-->
+          <!--<flexbox-item>-->
+            <!--<div class="info">-->
+              <!--男（{{item.numOfBoy}}）-->
+            <!--</div>-->
+          <!--</flexbox-item>-->
+          <!--<flexbox-item>-->
+            <!--<div class="info">-->
+              <!--女（{{item.numOfGirl}}）-->
+            <!--</div>-->
+          <!--</flexbox-item>-->
+        <!--</flexbox>-->
+      <!--</div>-->
     </card>
   </div>
 </template>

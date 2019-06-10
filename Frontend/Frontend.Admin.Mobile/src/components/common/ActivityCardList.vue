@@ -29,22 +29,22 @@
           </div>
         </div>
       </div>
-      <div slot="footer">
-        <flexbox>
-          <flexbox-item>
-            <div class="info">
-              <Icon type="ios-heart-outline"></Icon>
-              {{item.numOfRead}} 阅读
-            </div>
-          </flexbox-item>
-          <flexbox-item>
-            <div class="info">
-              <Icon type="ios-people" style="color: deepskyblue"/>
-              {{item.numOfSign}} 报名
-            </div>
-          </flexbox-item>
-        </flexbox>
-      </div>
+      <!--<div slot="footer">-->
+        <!--<flexbox>-->
+          <!--<flexbox-item>-->
+            <!--<div class="info">-->
+              <!--<Icon type="ios-heart-outline"></Icon>-->
+              <!--{{item.numOfRead}} 阅读-->
+            <!--</div>-->
+          <!--</flexbox-item>-->
+          <!--<flexbox-item>-->
+            <!--<div class="info">-->
+              <!--<Icon type="ios-people" style="color: deepskyblue"/>-->
+              <!--{{item.numOfSign}} 报名-->
+            <!--</div>-->
+          <!--</flexbox-item>-->
+        <!--</flexbox>-->
+      <!--</div>-->
     </card>
   </div>
 </template>
