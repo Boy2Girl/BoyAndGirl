@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import {XInput, Datetime, XButton, GroupTitle, Selector, XTextarea} from "vux";
-  import Cell from "vux/src/components/cell/index";
+  import {XInput, Datetime, XButton, GroupTitle, Selector, XTextarea} from "vux"
+  import Cell from "vux/src/components/cell/index"
   import PoolApi from '../../api/pool'
   import FileUPloader from './FileUploader'
   import baseUrl from '../../api/basequery'
@@ -38,9 +38,9 @@
     },
     data() {
       return {
-        actionUrl: baseUrl.baseUrl+'/test',
+        actionUrl: baseUrl.baseUrl + '/test',
         url: "",
-        cityList: ["苏州", "南京"],
+        cityList: ["上海", '合肥', '北京', '深圳'],
         name: "",
         createTime: "",
         city: "",
@@ -50,38 +50,38 @@
       }
     },
     methods: {
-      mounted(){
-        console.log("hhh"+this.actionUrl)
+      mounted() {
+        console.log("hhh" + this.actionUrl)
       },
       updateData(e = '') {
-        this.detail = e;
-        console.info(e);
+        this.detail = e
+        console.info(e)
       },
       listenToMyBoy: function (somedata) {
         this.url = somedata
       },
       add_pool: function () {
         if (this.url === "")
-          this.setState("失败", "请上传图片");
+          this.setState("失败", "请上传图片")
         else
-          PoolApi.addPool(this.url, this.name, this.createTime, this.city, this.detail, this.success, this.fail);
+          PoolApi.addPool(this.url, this.name, this.createTime, this.city, this.detail, this.success, this.fail)
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入");
-          this.$router.go(-1);
+          console.log("成功插入")
+          this.$router.go(-1)
         } else if (status === 500) {
-          this.setState("错误", "上传互选池失败");
+          this.setState("错误", "上传互选池失败")
         }
       },
       fail: function (err) {
         console.log(err)
-        this.setState("错误", "网络错误");
+        this.setState("错误", "网络错误")
       },
       setState: function (title, content) {
-        this.title = title;
-        this.content = content;
-        this.show = true;
+        this.title = title
+        this.content = content
+        this.show = true
       }
     }
   }
@@ -94,7 +94,7 @@
   .btn-bottom {
     position: fixed;
     /*z-index: 999;*/
-    bottom: 47px;
+    bottom: 48px;
     left: 0;
     width: 100%;
   }

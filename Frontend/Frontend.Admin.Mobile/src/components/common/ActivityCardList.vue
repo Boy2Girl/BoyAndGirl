@@ -30,34 +30,34 @@
         </div>
       </div>
       <!--<div slot="footer">-->
-        <!--<flexbox>-->
-          <!--<flexbox-item>-->
-            <!--<div class="info">-->
-              <!--<Icon type="ios-heart-outline"></Icon>-->
-              <!--{{item.numOfRead}} 阅读-->
-            <!--</div>-->
-          <!--</flexbox-item>-->
-          <!--<flexbox-item>-->
-            <!--<div class="info">-->
-              <!--<Icon type="ios-people" style="color: deepskyblue"/>-->
-              <!--{{item.numOfSign}} 报名-->
-            <!--</div>-->
-          <!--</flexbox-item>-->
-        <!--</flexbox>-->
+      <!--<flexbox>-->
+      <!--<flexbox-item>-->
+      <!--<div class="info">-->
+      <!--<Icon type="ios-heart-outline"></Icon>-->
+      <!--{{item.numOfRead}} 阅读-->
+      <!--</div>-->
+      <!--</flexbox-item>-->
+      <!--<flexbox-item>-->
+      <!--<div class="info">-->
+      <!--<Icon type="ios-people" style="color: deepskyblue"/>-->
+      <!--{{item.numOfSign}} 报名-->
+      <!--</div>-->
+      <!--</flexbox-item>-->
+      <!--</flexbox>-->
       <!--</div>-->
     </card>
   </div>
 </template>
 
 <script>
-  import {Card, XButton, Flexbox, FlexboxItem, Alert} from "vux";
+  import {Card, XButton, Flexbox, FlexboxItem, Alert} from "vux"
   import ActivityApi from '../../api/activity'
-  import router from "../../router";
-  import {Icon} from 'iview';
+  import router from "../../router"
+  import {Icon} from 'iview'
 
   export default {
     components: {
-      Card, XButton, Flexbox, FlexboxItem, Alert,Icon
+      Card, XButton, Flexbox, FlexboxItem, Alert, Icon
     },
     data() {
       return {
@@ -83,42 +83,44 @@
         ],
         show: false,
         content: '',
-        title: ''
+        title: '',
       }
     },
     mounted() {
-      let name = this.$route.name;
-      console.log(name)
-      if (name === "activity") {
+      let name = this.$route.name
+      if (name === "activity" || name === "adminAll") {
         ActivityApi.getAllActivity(0, false, this.success, this.fail)
       } else if (name === "myActivity") {
-        ActivityApi.getByUser(this.success, this.fail);
+        ActivityApi.getByUser(this.success, this.fail)
       } else if (name === "historyActivity") {
         ActivityApi.getAllActivity(0, false, this.success, this.fail)
       }
     },
     methods: {
-      route: (id) => {
-        router.push('/user/activity/' + id);
+      route: function (id) {
+        if (this.$route.name === 'adminAll')
+          router.push('/admin/activity/modify/' + id)
+        else
+          router.push('/user/activity/' + id)
       },
       success: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text)
-          console.log(result);
+          console.log(result)
           this.activityList = result
         } else {
-          console.log("有错误发生了");
-          this.setState('糟糕', "您没有参加过活动");
+          console.log("有错误发生了")
+          this.setState('糟糕', "您没有参加过活动")
         }
       },
       fail: function (err) {
-        this.setState('错误', '网络错误');
+        this.setState('错误', '网络错误')
         console.log(err)
       },
       setState: function (title, content) {
-        this.title = title;
-        this.content = content;
-        this.show = true;
+        this.title = title
+        this.content = content
+        this.show = true
       }
     }
   }

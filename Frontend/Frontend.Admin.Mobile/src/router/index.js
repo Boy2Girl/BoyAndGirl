@@ -152,9 +152,9 @@ const routes = [
         component: (resolve) => {require(['../components/page/user/PersonalInfoEditPage'], resolve)},
         // component: (()=>import('../components/page/user/PersonalInfoEditPage')),
         // component: PersonalInfoEditPage,
-        meta: {
-          requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
-        }
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // }
       },
       {
         path: 'myPostOne',
@@ -258,7 +258,27 @@ const routes = [
       },
       {
         path: 'activity',
+        name: 'adminAll',
+        component: (resolve) => {require(['../components/page/admin/ActivityListPage'], resolve)},
+        // component: (()=>import('../components/page/admin/ActivityPage')),
+        // component: AdminActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'activity/add',
         component: (resolve) => {require(['../components/page/admin/ActivityPage'], resolve)},
+        // component: (()=>import('../components/page/admin/ActivityPage')),
+        // component: AdminActivityPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'activity/modify/:id',
+        name: 'modify',
+        component: (resolve) => {require(['../components/page/admin/ActivityModifyPage'], resolve)},
         // component: (()=>import('../components/page/admin/ActivityPage')),
         // component: AdminActivityPage,
         meta: {
@@ -302,8 +322,28 @@ const routes = [
         },
       },
       {
+        path: 'userInfo/:id',
+        component: (resolve) => {require(['../components/page/admin/AdminUserInfoPage'], resolve)},
+        // component: (()=>import('../components/page/admin/VerifyUserPage')),
+        // component: VerifyUserPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
         path: 'verify',
+        name: 'verify',
         component: (resolve) => {require(['../components/page/admin/VertfyUserListPage'], resolve)},
+        // component: (()=>import('../components/page/admin/VerifyUserPage')),
+        // component: VertfyUserListPage,
+        meta: {
+          requireAuth: [UserType.ADMIN, UserType.PUBLISHER],
+        },
+      },
+      {
+        path: 'verified',
+        name: 'verified',
+        component: (resolve) => {require(['../components/page/admin/VertfiedUserListPage'], resolve)},
         // component: (()=>import('../components/page/admin/VerifyUserPage')),
         // component: VertfyUserListPage,
         meta: {

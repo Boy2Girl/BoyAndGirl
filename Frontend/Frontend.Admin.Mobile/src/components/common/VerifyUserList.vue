@@ -3,7 +3,8 @@
     <div style="margin:5%">
       <Input v-model="keyId" style="margin-bottom:5%" size="large" search enter-button placeholder="输入用户名以搜索用户"
              @input="search"/>
-      <Table border stripe :columns="userList" :data="userData"></Table>
+      <Table v-if="this.$route.name === 'verify'" border stripe :columns="userList" :data="userData"></Table>
+      <Table v-else border stripe :columns="userList1" :data="userData"></Table>
     </div>
   </div>
 </template>
@@ -51,6 +52,36 @@
             }
           }
         ],
+        userList1: [
+          {
+            title: 'ID',
+            key: 'uID',
+            fixed: 'left'
+          },
+          {
+            title: '用户名',
+            key: 'username',
+          },
+          {
+            title: '操作',
+            key: 'action',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary'
+                  },
+                  on: {
+                    click: () => {
+                      router.push('/admin/userInfo/' + this.userData[params.index].uID.substring(1))
+                    }
+                  }
+                }, '查看详情')
+              ])
+
+            }
+          }
+        ],
         rawUserData: [],
         userData: []
       }
@@ -66,7 +97,13 @@
         this.userData = result
       },
       loadUserList: function () {
-        UserApi.getVerifyUserList(this.success, this.fail)
+        let name = this.$route.name;
+        console.log(name)
+        if (name === "verify") {
+          UserApi.getVerifyUserList(this.success, this.fail)
+        } else {
+          UserApi.getVerifiedUserList(this.success, this.fail)
+        }
       },
       success: function (status, text) {
         let that = this
