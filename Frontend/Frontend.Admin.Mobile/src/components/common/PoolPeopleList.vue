@@ -78,7 +78,7 @@
         content: '',
         title: '',
         windowSize: document.body.clientWidth,
-        concern: ' 关注'
+        concern: ' 动心'
       }
     },
     methods: {
@@ -135,6 +135,8 @@
         PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
       } else if (name == 'poolTwoPeople') {
         PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
+      } else{
+        PoolApi.getLoveMe(this.getPoolID(), 'False', this.success, this.fail)
       }
     }
   }

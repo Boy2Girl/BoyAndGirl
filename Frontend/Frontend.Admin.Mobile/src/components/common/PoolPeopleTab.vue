@@ -4,6 +4,8 @@
     <tab-item v-else @on-item-click="onAllClick">所有人</tab-item>
     <tab-item selected v-if="this.$route.path==='/user/poolMyPeople'" @on-item-click="onMineClick">我选择的人</tab-item>
     <tab-item v-else @on-item-click="onMineClick">我选择的人</tab-item>
+    <tab-item selected v-if="this.$route.path==='/user/poolToMe'" @on-item-click="onSuccessClick">选择我的人</tab-item>
+    <tab-item v-else @on-item-click="onToMeClick">选择我的人</tab-item>
     <tab-item selected v-if="this.$route.path==='/user/poolTwoPeople'" @on-item-click="onSuccessClick">互选成功的人</tab-item>
     <tab-item v-else @on-item-click="onSuccessClick">互选成功的人</tab-item>
   </tab>
@@ -23,6 +25,9 @@
       },
       onMineClick() {
         router.push('/user/poolMyPeople');
+      },
+      onToMeClick() {
+        router.push('/user/poolToMe');
       },
       onSuccessClick() {
         router.push('/user/poolTwoPeople');

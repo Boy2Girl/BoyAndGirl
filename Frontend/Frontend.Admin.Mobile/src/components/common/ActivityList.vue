@@ -33,8 +33,8 @@
     data() {
       return {
         activityList: [],
-        areas: [['合肥', '无锡']],
-        myArea: ['合肥'],
+        areas: [['上海', '合肥', '北京', '深圳']],
+        myArea: ['上海'],
         showPopupPicker: false,
         isPlain: true
       }

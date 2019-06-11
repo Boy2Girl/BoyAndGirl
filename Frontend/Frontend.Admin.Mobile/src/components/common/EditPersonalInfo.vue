@@ -12,8 +12,8 @@
 
     <sub-title class="subtitle" value="基本信息"/>
     <group>
-      <x-input class="cell-font" title="昵称:" :required="true" text-align="right" v-model="form.nickname"/>
-      <x-input class="cell-font" title="姓名:" :required="true" text-align="right" v-model="form.name"/>
+      <x-input class="cell-font" title="*昵称:" :required="true" text-align="right" v-model="form.nickname"/>
+      <x-input class="cell-font" title="*姓名:" :required="true" text-align="right" v-model="form.name"/>
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
@@ -25,21 +25,23 @@
 
     <sub-title class="subtitle" value="联系方式"/>
     <group>
-      <x-input class="cell-font" title="电话:" :required="true" text-align="right" is-type="china-mobile"
+      <x-input class="cell-font" title="*电话:" :required="true" text-align="right" is-type="china-mobile"
                v-model="form.phone"/>
-      <x-input class="cell-font" title="微信:" :required="true" text-align="right" v-model="form.wechat"/>
+      <x-input class="cell-font" title="*微信:" :required="true" text-align="right" v-model="form.wechat"/>
     </group>
 
     <sub-title class="subtitle" value="坐标"/>
     <group>
-      <x-input class="cell-font" title="家乡:" :required="true" text-align="right" v-model="form.hometown"/>
-      <x-input class="cell-font" title="所在城市:" :required="true" text-align="right" v-model="form.city"/>
-      <x-input class="cell-font" title="工作单位:" :required="true" text-align="right" v-model="form.corporation"/>
+      <x-input class="cell-font" title="*家乡:" :required="true" text-align="right" v-model="form.hometown"/>
+      <popup-picker class="cell-font" title="所在城市:" :data="list_city" value-text-align="right"
+                    v-model="form.city"/>
+      <x-input class="cell-font" title="*工作单位:" :required="true" text-align="right" v-model="form.corporation"/>
       <x-input class="cell-font" title="年收入（实际/预期）:" label-width="180px" text-align="right" v-model="form.income"/>
     </group>
 
     <sub-title class="subtitle" value="学历"/>
     <group>
+      <x-input class="cell-font" title="专科学校:" text-align="right" v-model="form.trainingSchool"/>
       <x-input class="cell-font" title="本科学校:" text-align="right" v-model="form.collageSchool"/>
       <x-input class="cell-font" title="硕士学校:" text-align="right" v-model="form.masterSchool"/>
       <x-input class="cell-font" title="博士学校:" text-align="right" v-model="form.doctorSchool"/>
@@ -136,10 +138,11 @@
           marriage: ['未婚'],
           friend: ['恋爱'],
           hometown: '',
-          city: '合肥',
+          city: ['上海'],
           live: '',
           studyState: '',
           collageSchool: '',
+          trainingSchool: '',
           masterSchool: '',
           doctorSchool: '',
           education: ['本科'],
@@ -158,6 +161,7 @@
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
         list_type: [['恋爱', '结婚']],
         list_education: [['小学', '初中', '高中', '大专', '本科', '硕士', '博士']],
+        list_city: [['上海', '合肥', '北京', '深圳']],
         show: false,
         title: '',
         content: ''
@@ -185,7 +189,7 @@
         console.log('保存数据了');
         this.form.id = this.getUserID();
         if (this.form.phone === '' || this.form.nickname === '' || this.form.name === '' || this.form.wechat === "" ||
-          this.form.hometown === '' || this.form.city === '' || this.form.corporation === '') {
+          this.form.hometown === '' || this.form.corporation === '') {
           this.setState('错误', '请输入所有必填信息');
           console.log(this.form);
         } else if (!/^1[34578]\d{9}$/.test(this.form.phone)) {
@@ -337,6 +341,7 @@
           this.form.city = result['city'];
           this.form.live = result['livingPlace'];
           this.form.studyState = result['studyState'];
+          this.form.trainingSchool = result['trainingSchool']
           this.form.collageSchool = result['collageSchool'];
           this.form.masterSchool = result['masterSchool'];
           this.form.doctorSchool = result['doctorSchool'];

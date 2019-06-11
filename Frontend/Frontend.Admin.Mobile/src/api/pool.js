@@ -1,7 +1,7 @@
 import base from './basequery'
 import METHOD from './HttpMethod'
 export default{
-  addPool,getPool,registerPool,getAllPool,getPoolByUser,checkRegister,getLove,getUserInPool,loveSomeone
+  addPool,getPool,registerPool,getAllPool,getPoolByUser,checkRegister,getLove,getUserInPool,loveSomeone,getLoveMe
 }
 /**
    * @param {function} name
@@ -29,14 +29,14 @@ async function getPool(id,resolve, reject){
     console.log('in get pool:')
     var data = new FormData()
     base.query(data, resolve, reject, '/pool'+'/'+id, METHOD.GET)
-}           
+}
 
 async function registerPool(id, resolve, reject){
     console.log('in register activity:')
     var data = new FormData()
     data.append('pID', id)
     base.query(data, resolve, reject, '/pool', METHOD.POST)
-}                           
+}
 
 async function getAllPool(begin, resolve, reject){
     console.log('in get pool list:')
@@ -71,6 +71,13 @@ async function getLove(poolID,truth,resolve, reject){
     base.query(data, resolve, reject, '/pool/love', METHOD.POST)
 }
 
+// TODO 得到互选池中关注我的人
+async function  getLoveMe(poolID,truth,resolve, reject) {
+  console.log('in get pool list:')
+  var data = new FormData()
+  data.append('poolID', poolID)
+  data.append('truth', truth)
+}
 
 async function loveSomeone(uID,poolID,resolve, reject){
     console.log('in get pool list:')

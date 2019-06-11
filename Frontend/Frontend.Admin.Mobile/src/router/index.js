@@ -112,6 +112,16 @@ const routes = [
         // },
       },
       {
+        path: 'poolToMePeople',
+        name: 'poolToMePeople',
+        component: (resolve) => {require(['../components/page/user/PoolToMePeopleListPage.vue'], resolve)},
+        // component: (()=>import('../components/page/user/PoolPeopleListPage.vue')),
+        // component: PoolPeopleListPage,
+        // meta: {
+        //   requireAuth: [UserType.ADMIN, UserType.PUBLISHER, UserType.USER],
+        // },
+      },
+      {
         path: 'poolTwoPeople',
         name: 'poolTwoPeople',
         component: (resolve) => {require(['../components/page/user/PoolTwoPeopleListPage.vue'], resolve)},

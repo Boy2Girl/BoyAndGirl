@@ -42,7 +42,7 @@
 
     <group>
       <x-button class='button1' style="position:fixed; bottom:47px;" :gradients="['#43aaa7','#55bdd9']" v-if="toPost"
-                @click.native="addPosts">增加
+                @click.native="addPosts">{{this.toPostType?'增加':'撤销'}}
       </x-button>
     </group>
   </div>
@@ -68,7 +68,8 @@
         toPost: false,
         show: false,
         title: '',
-        content: ''
+        content: '',
+        toPostType: 0, //1表示还没发帖，0表示发帖了
       }
     },
     methods: {
@@ -97,7 +98,7 @@
           if (result.isReal == false) {
             this.setState("失败", "您还没有实名认证，不能进行发帖应征")
           } else {
-            PostsApi.addPosts(this.success, this.fail)
+            this.toPostType? PostsApi.addPosts(this.success, this.fail): PostsApi.deletePosts(this.success, this.fail)
           }
         }
       },
@@ -163,19 +164,30 @@
         console.log(e)
         console.log("没有拿到openid")
       },
+
+      judgeSuccess: function (status, text) {
+        if (status === 200) {
+          this.toPostType = 0
+        }
+        else
+          this.toPostType = 1
+      },
+      judgeFail: function (e) {
+        console.log(e)
+      }
     },
     mounted() {
       let name = this.$route.name
       let toPost = false
       if (name === 'posts') {
-        console.log(localStorage.token + "111112222")
         if (localStorage.code !== window.location.href.split('=')[1].split('&')[0]) {
           UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
           localStorage.code = window.location.href.split('=')[1].split('&')[0]
         }
-        else
+        else {
           PostsApi.get('all', 1, this.getSuccess, this.fail)
-
+          PostsApi.isAddedPosts(this.judgeSuccess, this.judgeFail)
+        }
 
         toPost = true
       }

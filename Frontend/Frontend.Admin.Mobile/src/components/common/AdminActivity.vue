@@ -116,7 +116,7 @@
 
   .btn-bottom {
     position: fixed;
-    bottom: 48px;
+    bottom: 0;
     left: 0;
     width: 100%;
   }
