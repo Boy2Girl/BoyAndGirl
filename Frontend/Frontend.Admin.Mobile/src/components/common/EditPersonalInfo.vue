@@ -10,6 +10,13 @@
       <!-- <img src="../../assets/add.png" class="photo"/> -->
     </group>
 
+    <sub-title class="sub-title" value="个人相册"/>
+    <group class="group-type">
+      <FilesUPloader :url="actionUrl" v-on:child-say="getPhotos"/>
+      <!-- <img :src="source" class="photo"/> -->
+      <!-- <img src="../../assets/add.png" class="photo"/> -->
+    </group>
+
     <sub-title class="subtitle" value="基本信息"/>
     <group>
       <x-input class="cell-font" title="*昵称:" :required="true" text-align="right" v-model="form.nickname"/>
@@ -17,7 +24,7 @@
       <cell class="cell-font" title="编号:" v-model="form.index"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
-      <datetime min-year="1900" class="cell-font" title="出生日期:" v-model="form.birthDate" value-text-align="right"/>
+      <datetime min-year=1900 class="cell-font" title="出生日期:" v-model="form.birthDate" value-text-align="right"/>
       <popup-picker class="cell-font" title="婚姻状况:" :data="list_state" value-text-align="right"
                     v-model="form.marriage"/>
       <popup-picker class="cell-font" title="交友类型:" :data="list_type" value-text-align="right" v-model="form.friend"/>
@@ -74,6 +81,7 @@
 
 <script>
   import FileUPloader from './FileUploader';
+  import FilesUPloader from './FilesUploader';
   import UserApi from '../../api/user';
   import SubTitle from './SubTitle';
   import {mapGetters, mapMutations} from 'vuex';
@@ -101,6 +109,7 @@
     components: {
       SubTitle,
       FileUPloader,
+      FilesUPloader,
       XButton,
       Group,
       GroupTitle,
@@ -122,6 +131,7 @@
         form: {
           id: '',
           avatarUrl: '',
+          photos: '',
           personUrl: '',
           studentUrl: '',
           graduateUrl: '',
@@ -172,6 +182,9 @@
       ...mapGetters(['getToken', 'getUserID']),
       getAvatar(url) {
         this.form.avatarUrl = url;
+      },
+      getPhotos(url){
+        this.form.photos = url;
       },
       getPerson(url) {
         this.form.personUrl = url

@@ -4,8 +4,11 @@
       <alert v-model="show" :title="title" :content="content" @on-hide="onHide"/>
     </div>
     <div class="sub">个人相册</div>
-    <img :src="form.avatar"
-         style="width:100px; height:100px; display:inline; padding: 2%"/>
+    <div style="display: inline-block;" v-for="item in form.photos">
+      <img :src="item"
+           style="width:100px; height:100px; display:inline; padding: 2%"/>
+    </div>
+
     <!--<img v-for="item in form.photoList" :src="item.source"-->
     <!--style="width:100px; height:100px; display:inline; padding: 2%"/>-->
 
@@ -61,8 +64,8 @@
   import UserApi from '../../api/user'
   import SubTitle from './SubTitle'
   import PostsApi from '../../api/posts'
-  import {mapGetters, mapMutations} from 'vuex';
-  import check from '../../api/check';
+  import {mapGetters, mapMutations} from 'vuex'
+  import check from '../../api/check'
   import router from '../../router/index.js'
 
   export default {
@@ -118,38 +121,38 @@
       }
     },
     created() {
-      let to_post = this.$route.params.toPost;
-      let id = this.$route.params.id;
-      this.to_post = to_post;
-      this.form.index = id;
+      let to_post = this.$route.params.toPost
+      let id = this.$route.params.id
+      this.to_post = to_post
+      this.form.index = id
     },
     mounted() {
       // this.form.index = this.getUserID();
-      check.check(this.checkSuccess, this.fail);
+      check.check(this.checkSuccess, this.fail)
       // UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
     },
     methods: {
       ...mapMutations(['setToken', 'setUserID']),
       ...mapGetters(['getToken', 'getUserID']),
       checkSuccess: function (status, text) {
-        console.log(status + text);
-        let result = (JSON.parse(text));
-        console.log(result['role']);
+        console.log(status + text)
+        let result = (JSON.parse(text))
+        console.log(result['role'])
         if (!result['isReal'] && result['role'] === 'USER') {
-          this.setState('失败', '您还没有通过系统审核');
+          this.setState('失败', '您还没有通过系统审核')
         }
 
         if (result['isReal'])
-          this.isChecked = 'True';
+          this.isChecked = 'True'
         else
-          this.isChecked = 'False';
-        UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail);
+          this.isChecked = 'False'
+        UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail)
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入");
-          let result = (JSON.parse(text));
-          this.form = result;
+          console.log("成功插入")
+          let result = (JSON.parse(text))
+          this.form = result
           console.log(this.form)
         } else if (status === 500) {
           console.log("上传用户信息失败")
@@ -164,12 +167,12 @@
         PostsApi.recruit_someone(this.form.id, this.success, this.fail)
       },
       setState: function (title, content) {
-        this.title = title;
-        this.content = content;
-        this.show = true;
+        this.title = title
+        this.content = content
+        this.show = true
       },
       onHide: function () {
-        this.$router.push('/user/user');
+        this.$router.push('/user/user')
       }
     }
   }

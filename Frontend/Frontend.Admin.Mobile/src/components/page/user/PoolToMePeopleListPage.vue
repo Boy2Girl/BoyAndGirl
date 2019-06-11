@@ -1,6 +1,8 @@
 <template>
-  <pool-people-tab/>
-  <pool-people-list/>
+  <div>
+    <pool-people-tab/>
+    <pool-people-list/>
+  </div>
 </template>
 
 <script>

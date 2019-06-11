@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="demo-upload-list" v-for="item in uploadList">
       <img :src="item">
       <div class="demo-upload-list-cover">
@@ -57,12 +58,12 @@
         return true;
       },
       handleSuccess(res) {
-        console.log(res);
+        // console.log(res);
         let pictureurl = baseUrl.baseUrl.split('api')[0] + 'static/' + res;
         console.log(pictureurl);
-        this.uploadList = [];
         this.uploadList.push(pictureurl);
-        this.$emit('child-say', pictureurl);
+        console.log(this.uploadList)
+        this.$emit('child-say', this.uploadList);
       }
     }
 

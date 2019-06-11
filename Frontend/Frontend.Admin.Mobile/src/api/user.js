@@ -67,6 +67,7 @@ async function getUserList(resolve, reject) {
   base.query(data, resolve, reject, '/user', METHOD.GET)
 }
 
+//TODO 个人相册
 /**
  * @param {function} name
  * @param {function} createTime
@@ -81,6 +82,7 @@ async function addUserInfo(form, resolve, reject) {
   console.log(form);
   // data.append('id', form.index);
   data.append('avatarUrl', form.avatarUrl);
+  data.append('photos', forms.photos);
   data.append('personUrl', form.personUrl);
   data.append('studentUrl', form.studentUrl);
   data.append('otherUrl', form.otherUrl);
