@@ -3,6 +3,10 @@
     <div>
       <alert v-model="show" :title="title" :content="content"/>
     </div>
+
+    <Input v-model="keyId" style="margin-bottom:5%;margin-top: 2%" size="large" search enter-button placeholder="输入关键词搜索帖子"
+           @input="search"/>
+
     <card v-for="item in postList" v-bind:key="item.id" class="mycard"
           :style="'box-shadow: -4px 4px 2px #dddddd; margin-left: 10px; margin-right: 10px; border-left: 15px '+
           generateColor(item.id) +' solid;border-radius: 15px'">
@@ -55,14 +59,16 @@
   import router from '../../router/index.js'
   import {mapGetters, mapMutations} from 'vuex'
   import UserApi from "../../api/user"
+  import {Input} from 'iview'
 
   export default {
 
     components: {
-      Card, CellFormPreview, Group, Cell, XButton, Alert
+      Card, CellFormPreview, Group, Cell, XButton, Alert, Input
     },
     data() {
       return {
+        keyId: '',//关键词
         postList: [],
         windowSize: document.body.clientWidth,
         toPost: false,
@@ -75,6 +81,10 @@
     methods: {
       ...mapGetters(['getToken', 'getUserID', 'getIsLogIn']),
       ...mapMutations(['setToken', 'setUserID', 'setIsLogin']),
+
+      search: function () {
+        // TODO 关键词 keyId
+      },
 
       route: (id, toPost) => {
         router.push({
