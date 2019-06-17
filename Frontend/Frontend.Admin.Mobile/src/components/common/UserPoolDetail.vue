@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <alert v-model="show1" title="失败" content="您还没有实名认证，请先提交资料进行实名审核" @on-hide="goToUserInfo"/>
       <alert v-model="show" :title="title" :content="content" @on-hide="onHide"/>
     </div>
     <img :src="img" auto style="width:100%;margin:0 auto;" height="180px"/>
@@ -36,6 +37,7 @@
     data() {
       return {
         show: false,
+        show1: false,
         isRegistered: false,
         title: '',
         content: '',
@@ -79,11 +81,16 @@
       register_pool: function () {
         CheckApi.check(this.check_success, this.fail);
       },
+
+      goToUserInfo: function(){
+        this.$router.push("/user/edit")
+      },
+
       check_success: function(status, text){
         if (status === 200) {
           let result = JSON.parse(text)
           if(!result.isReal){
-            this.setState("失败", "您还没有实名认证，不能进入互选池");
+            this.show1 = true
           }else{
             PoolApi.registerPool(this.$route.params.id, this.register_success, this.fail)
           }

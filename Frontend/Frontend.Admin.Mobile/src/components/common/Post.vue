@@ -1,10 +1,12 @@
 <template>
   <div>
     <div>
+      <alert v-model="show1" title="失败" content="您还没有实名认证，请先提交资料进行实名审核" @on-hide="goToUserInfo"/>
       <alert v-model="show" :title="title" :content="content"/>
     </div>
 
-    <Input v-model="keyId" style="margin-bottom:2%;margin-top: 2%" size="large" search enter-button placeholder="输入关键词搜索帖子"
+    <Input v-model="keyId" style="margin-bottom:2%;margin-top: 2%" size="large" search enter-button
+           placeholder="输入关键词搜索帖子"
            @input="search"/>
 
     <card v-for="item in postList" v-bind:key="item.id" class="mycard"
@@ -73,6 +75,7 @@
         windowSize: document.body.clientWidth,
         toPost: false,
         show: false,
+        show1: false,
         title: '',
         content: '',
         toPostType: 0, //1表示还没发帖，0表示发帖了
@@ -85,6 +88,10 @@
       search: function () {
         // 关键词 keyId
         this.getPost()
+      },
+
+      goToUserInfo: function(){
+        this.$router.push("/user/edit")
       },
 
       route: (id, toPost) => {
@@ -107,9 +114,9 @@
         if (status === 200) {
           let result = JSON.parse(text)
           if (result.isReal == false) {
-            this.setState("失败", "您还没有实名认证，请先提交资料进行实名审核")
+            this.show1 = true
           } else {
-            this.toPostType? PostsApi.addPosts(this.success, this.fail): PostsApi.deletePosts(this.success, this.fail)
+            this.toPostType ? PostsApi.addPosts(this.success, this.fail) : PostsApi.deletePosts(this.success, this.fail)
           }
         }
       },
@@ -118,7 +125,14 @@
           console.log("成功插入")
           let name = this.$route.name
           if (name === 'posts') {
-            this.setState("成功", "您已成功参与互选")
+            if (this.toPostType === 0) {
+              this.setState("成功", "您已成功发帖")
+              this.toPostType = 1
+            }
+            else {
+              this.setState("成功", "您已成功取消发帖")
+              this.toPostType = 0
+            }
           }
           else if (name === 'myPostOne') {
             this.setState("成功", "您已应征此人，静静等待他的回复吧")
@@ -188,7 +202,7 @@
         console.log(e)
       },
 
-      getPost: function(){
+      getPost: function () {
         let name = this.$route.name
         let toPost = false
 
