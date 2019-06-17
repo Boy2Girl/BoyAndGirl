@@ -90,11 +90,14 @@
       },
       success: function (status, text) {
         if (status === 200) {
-          console.log("成功插入")
+          this.$router.go(-1)
           // 应该弹出框，然后清除上面已经插入的数据
           // this.$root.reload();
         } else if (status === 500) {
-          this.setState("错误", "上传活动失败")
+          if (this.$route.name === 'modify')
+            this.setState("错误", "修改活动失败")
+          else
+            this.setState("错误", "上传活动失败")
         }
       },
       fail: function (err) {
@@ -144,7 +147,6 @@
     },
     mounted() {
       if (this.$route.name === 'modify') {
-        console.log('hhhhhhhhh')
         ActivityApi.getActivity(this.$route.params.id, this.getSuccess, this.getFail)
       }
     }

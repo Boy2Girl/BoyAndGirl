@@ -2,7 +2,7 @@
   <div>
     <pool-list/>
     <router-link :to="{path:'/admin/poolAdd'}">
-      <x-button type="primary" class="btn btn-bottom">新增候选池
+      <x-button type="primary" class="btn btn-bottom">新增互选池
       </x-button>
     </router-link>
   </div>

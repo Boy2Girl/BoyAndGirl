@@ -4,5 +4,6 @@ const METHOD = {
   DELETE: "DELETE",
   PATCH: "PATCH",
   PUT: "PUT",
+  HEAD: "HEAD"
 };
 export default METHOD;

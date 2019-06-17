@@ -314,6 +314,7 @@ const routes = [
       },
       {
         path: 'verify/:id',
+        name: 'verifyUser',
         component: (resolve) => {require(['../components/page/admin/VerifyUserPage'], resolve)},
         // component: (()=>import('../components/page/admin/VerifyUserPage')),
         // component: VerifyUserPage,

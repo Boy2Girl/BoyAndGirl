@@ -131,7 +131,7 @@
         form: {
           id: '',
           avatarUrl: '',
-          photos: '',
+          photos: [],
           personUrl: '',
           studentUrl: '',
           graduateUrl: '',
@@ -201,6 +201,7 @@
       save_info() {
         console.log('保存数据了');
         this.form.id = this.getUserID();
+        console.log(this.form.photos)
         if (this.form.phone === '' || this.form.nickname === '' || this.form.name === '' || this.form.wechat === "" ||
           this.form.hometown === '' || this.form.corporation === '') {
           this.setState('错误', '请输入所有必填信息');
@@ -334,6 +335,7 @@
         var result = (JSON.parse(text));
         if (status === 200) {
           this.form.index = result['id'];
+          this.form.photos = result['photos'];
           this.form.phone = result['phone'];
           this.form.email = result['email'];
           this.form.gender = [result['gender']];

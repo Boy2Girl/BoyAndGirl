@@ -4,7 +4,7 @@
       <alert v-model="show" :title="title" :content="content"/>
     </div>
 
-    <Input v-model="keyId" style="margin-bottom:5%;margin-top: 2%" size="large" search enter-button placeholder="输入关键词搜索帖子"
+    <Input v-model="keyId" style="margin-bottom:2%;margin-top: 2%" size="large" search enter-button placeholder="输入关键词搜索帖子"
            @input="search"/>
 
     <card v-for="item in postList" v-bind:key="item.id" class="mycard"
@@ -83,7 +83,8 @@
       ...mapMutations(['setToken', 'setUserID', 'setIsLogin']),
 
       search: function () {
-        // TODO 关键词 keyId
+        // 关键词 keyId
+        this.getPost()
       },
 
       route: (id, toPost) => {
@@ -106,7 +107,7 @@
         if (status === 200) {
           let result = JSON.parse(text)
           if (result.isReal == false) {
-            this.setState("失败", "您还没有实名认证，不能进行发帖应征")
+            this.setState("失败", "您还没有实名认证，请先提交资料进行实名审核")
           } else {
             this.toPostType? PostsApi.addPosts(this.success, this.fail): PostsApi.deletePosts(this.success, this.fail)
           }
@@ -165,7 +166,7 @@
         this.setUserID(response.userID)
         this.setIsLogin(true)
 
-        PostsApi.get('all', 1, this.getSuccess, this.fail)
+        PostsApi.get('all', this.getUserID(), this.keyId, this.getSuccess, this.fail)
 
         console.log("拿到openid")
       },
@@ -176,7 +177,8 @@
       },
 
       judgeSuccess: function (status, text) {
-        if (status === 200) {
+        console.log(text)
+        if (text === true) {
           this.toPostType = 0
         }
         else
@@ -184,32 +186,37 @@
       },
       judgeFail: function (e) {
         console.log(e)
+      },
+
+      getPost: function(){
+        let name = this.$route.name
+        let toPost = false
+
+        if (name === 'posts') {
+          if (localStorage.code !== window.location.href.split('=')[1].split('&')[0]) {
+            UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
+            localStorage.code = window.location.href.split('=')[1].split('&')[0]
+          }
+          else {
+            PostsApi.get('all', this.getUserID(), this.keyId, this.getSuccess, this.fail)
+            PostsApi.isAddedPosts(this.judgeSuccess, this.judgeFail)
+          }
+
+          toPost = true
+        }
+        else if (name === 'myPostOne') {
+          PostsApi.get('myPost', this.getUserID(), this.keyId, this.getSuccess, this.fail)
+          toPost = false
+        }
+        else if (name === 'OnePostMe') {
+          PostsApi.get('postMy', this.getUserID(), this.keyId, this.getSuccess, this.fail)
+          toPost = false
+        }
+        this.toPost = toPost
       }
     },
     mounted() {
-      let name = this.$route.name
-      let toPost = false
-      if (name === 'posts') {
-        if (localStorage.code !== window.location.href.split('=')[1].split('&')[0]) {
-          UserApi.getOpenid(window.location.href.split('=')[1].split('&')[0], this.getOpenIdSuccess, this.getOpenIdFail)
-          localStorage.code = window.location.href.split('=')[1].split('&')[0]
-        }
-        else {
-          PostsApi.get('all', 1, this.getSuccess, this.fail)
-          PostsApi.isAddedPosts(this.judgeSuccess, this.judgeFail)
-        }
-
-        toPost = true
-      }
-      else if (name === 'myPostOne') {
-        PostsApi.get('myPost', this.getUserID(), this.getSuccess, this.fail)
-        toPost = false
-      }
-      else if (name === 'OnePostMe') {
-        PostsApi.get('postMy', this.getUserID(), this.getSuccess, this.fail)
-        toPost = false
-      }
-      this.toPost = toPost
+      this.getPost()
     }
   }
 </script>

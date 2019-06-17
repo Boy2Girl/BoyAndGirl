@@ -131,12 +131,12 @@
       console.log(this.getPoolID())
       if (name === "poolPeople") {
         PoolApi.getUserInPool(this.getPoolID(), this.success, this.fail)
-      } else if (name == 'poolMyPeople') {
-        PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
-      } else if (name == 'poolTwoPeople') {
-        PoolApi.getLove(this.getPoolID(), 'False', this.success, this.fail);
+      } else if (name === 'poolMyPeople') {
+        PoolApi.getLove(this.getPoolID(), 'from', this.success, this.fail);
+      } else if (name === 'poolTwoPeople') {
+        PoolApi.getLove(this.getPoolID(), 'to', this.success, this.fail);
       } else{
-        PoolApi.getLoveMe(this.getPoolID(), 'False', this.success, this.fail)
+        PoolApi.getLove(this.getPoolID(), 'both', this.success, this.fail)
       }
     }
   }

@@ -53,7 +53,7 @@ async function modifyActivity(id, name, url, activityBeginTime,
                               activityEndTime, address, registerBeginTime, registerEndTime, selectBeginTime,
                               selectEndTime, chargeRule, boyBeginAge, girlBeginAge, increment, wechat, detail,
                               resolve, reject) {
-  console.log('in add activity:')
+  console.log('in modify activity:')
   var data = new FormData()
   data.append('id', id)
   data.append('name', name)
@@ -73,7 +73,7 @@ async function modifyActivity(id, name, url, activityBeginTime,
   data.append('activityEndTime', activityEndTime)
   data.append('detail', detail)
 
-  base.query(data, resolve, reject, '/activity', METHOD.PUT)
+  base.query(data, resolve, reject, '/activity/'+id, METHOD.PUT)
 }
 
 async function getActivity(id, resolve, reject) {

@@ -64,10 +64,10 @@ export default {
 async function getUserList(resolve, reject) {
   console.log('in add userInfo:')
   var data = new FormData()
-  base.query(data, resolve, reject, '/user', METHOD.GET)
+  base.query(data, resolve, reject, '/user?type=all', METHOD.GET)
 }
 
-//TODO 个人相册
+// 个人相册
 /**
  * @param {function} name
  * @param {function} createTime
@@ -82,7 +82,7 @@ async function addUserInfo(form, resolve, reject) {
   console.log(form);
   // data.append('id', form.index);
   data.append('avatarUrl', form.avatarUrl);
-  data.append('photos', forms.photos);
+  data.append('photos', form.photos);
   data.append('personUrl', form.personUrl);
   data.append('studentUrl', form.studentUrl);
   data.append('otherUrl', form.otherUrl);
@@ -145,15 +145,16 @@ async function getVerifyUserList(resolve, reject) {
   base.query(data, resolve, reject, '/user/info', METHOD.GET);
 }
 
-// TODO
 async function getVerifiedUserList(resolve, reject) {
   console.log('in update get verified user list:');
   let data = new FormData();
-  base.query(data, resolve, reject, '/user/info', METHOD.GET);
+  base.query(data, resolve, reject, '/user?type=all', METHOD.GET);
 }
 
 async function verifyOneUser(userID, isPass, resolve, reject) {
   console.log('in update get verify user list:');
+  console.log(userID)
+  console.log(isPass)
   let data = new FormData();
   data.append('userID', userID);
   data.append('isPass', isPass);

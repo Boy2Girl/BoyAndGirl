@@ -82,6 +82,7 @@
         show: false,
         form: {
           avatar: '',
+          photos: [],
           personUrl: '',
           studentUrl: '',
           graduateUrl: '',
@@ -146,13 +147,25 @@
           this.isChecked = 'True'
         else
           this.isChecked = 'False'
-        UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail)
+
+        if (this.$route.name === 'verifyUser')
+          UserApi.getUserInfo(this.form.index, 'False', this.success, this.fail)
+        else
+          UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail)
       },
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入")
           let result = (JSON.parse(text))
           this.form = result
+
+          this.form.photos = this.form.photos.slice(1,this.form.photos.length-1)
+          this.form.photos = this.form.photos.split(",")
+
+          for(let i = 0; i < this.form.photos.length; i++){
+            this.form.photos[i] = this.form.photos[i].slice(this.form.photos[i].indexOf("\"")+1,this.form.photos[i].length-1)
+          }
+
           console.log(this.form)
         } else if (status === 500) {
           console.log("上传用户信息失败")
