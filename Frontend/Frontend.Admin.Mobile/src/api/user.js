@@ -97,7 +97,7 @@ async function addUserInfo(form, resolve, reject) {
   data.append('birthDate', form.birthDate);
   data.append('marriage', form.marriage[0]);
   data.append('friend', form.friend[0]);
-  data.append('hometown', form.hometown);
+  data.append('hometown', form.hometown[0]);
   data.append('city', form.city[0]);
   data.append('live', form.live);
   data.append('studyState', form.studyState);

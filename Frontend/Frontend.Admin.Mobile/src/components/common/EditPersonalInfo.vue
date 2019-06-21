@@ -56,7 +56,8 @@
 
     <sub-title class="subtitle" value="住房/家庭情况"/>
     <group>
-      <x-input class="cell-font" title="住房情况:" text-align="right" v-model="form.house_state"/>
+      <popup-picker class="cell-font" title="住房情况:" :data="list_house" value-text-align="right"
+                    v-model="form.house_state"/>
       <x-input class="cell-font" title="家庭情况:" text-align="right" v-model="form.family_state"/>
     </group>
 
@@ -146,7 +147,7 @@
           p_height: '',
           birthDate: '',
           marriage: ['未婚'],
-          friend: ['恋爱'],
+          friend: ['结婚，合适可以闪婚'],
           hometown: '',
           city: ['上海'],
           live: '',
@@ -162,16 +163,20 @@
           career: '',
           corporation_type: '',
           income: '',
-          house_state: '',
+          house_state: ['有房，已独立住房无贷款'],
           family_state: '',
           about_you: '',
           about_me: '',
         },
         list_gender: [['男', '女']],
         list_state: [['未婚', '离婚未育', '离异子女判给对方', '离异子女跟自己', '丧偶未育', '丧偶子女跟自己', '丧偶子女不跟自己', '其他']],
-        list_type: [['恋爱', '结婚']],
+        list_type: [['结婚，合适可以闪婚', '结婚，合适一年内结婚', '恋爱，合适两年内结婚', '恋爱，结婚要两年以上']],
         list_education: [['小学', '初中', '高中', '大专', '本科', '硕士', '博士']],
         list_city: [['上海', '合肥', '北京', '深圳']],
+        list_house: [['有房，已独立住房无贷款', '有房，与父母同住', '有房，已独立住房有贷款',
+          '有房，对方有房无贷', '有房，对方有房或者首付能力', '有房，对方住房情况不强求', '无房，有全款购房能力',
+        '无房，有首付能力', '无房，希望双方共同首付还贷', '无房，希望对方有房无贷', '无房，对方有房可一起还贷',
+        '无房，可以共同首付还贷', '无房，对方住房情况不强求', '暂不考虑住房问题']],
         show: false,
         title: '',
         content: ''
@@ -352,8 +357,8 @@
           this.form.birthDate = result['bornDate'];
           this.form.marriage = [result['marriage']];
           this.form.friend = [result['friend']];
-          this.form.hometown = result['hometown'];
-          this.form.city = result['city'];
+          this.form.hometown = [result['hometown']];
+          this.form.city = [result['city']];
           this.form.live = result['livingPlace'];
           this.form.studyState = result['studyState'];
           this.form.trainingSchool = result['trainingSchool']

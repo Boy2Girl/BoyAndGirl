@@ -23,19 +23,22 @@
             </div>
             <div class="cell-text" style="margin-top: 7px">
               <img src="../../assets/date.png" class="pic-icon"/>
-              出生年份：{{item.birthDate}}
+              年份：{{item.birthDate.substring(0,4)}} 身高：{{item.p_height}}
             </div>
             <div class="cell-text">
               <img src="../../assets/city.png" class="pic-icon"/>
               所在城市：{{item.city}}
             </div>
             <div class="cell-text">
+              <img src="../../assets/work.png" class="pic-icon"/>
+              家乡：{{item.hometown}}
+            </div>
+            <div class="cell-text">
               <img src="../../assets/school.png" class="pic-icon"/>
               本科学校：{{item.school}}
             </div>
             <div class="cell-text">
-              <img src="../../assets/work.png" class="pic-icon"/>
-              职业：{{item.career}}
+              应征是否需要应征: <span style="color: #ff2e34;">是</span>
             </div>
           </div>
           <div style="display: inline;float: right;padding: 10px;padding-left: 150px">
@@ -113,7 +116,7 @@
       checkSuccess: function (status, text) {
         if (status === 200) {
           let result = JSON.parse(text)
-          if (result.isReal == false) {
+          if (result.isReal === false) {
             this.show1 = true
           } else {
             this.toPostType ? PostsApi.addPosts(this.success, this.fail) : PostsApi.deletePosts(this.success, this.fail)
