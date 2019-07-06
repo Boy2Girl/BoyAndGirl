@@ -57,7 +57,7 @@ export default {
     var data = new FormData()
     base.query(data, resolve, reject, '/user/info' + '/' + id+'?isChecked=' + isChecked, METHOD.GET)
   },
-  getUserList, updateUserAuth, getVerifyUserList, verifyOneUser, addUserInfo, getVerifiedUserList
+  getUserList, updateUserAuth, getVerifyUserList, verifyOneUser, addUserInfo, getVerifiedUserList, getCode
 
 }
 
@@ -159,5 +159,11 @@ async function verifyOneUser(userID, isPass, resolve, reject) {
   data.append('userID', userID);
   data.append('isPass', isPass);
   base.query(data, resolve, reject, '/user/info', METHOD.PATCH);
+}
+
+async function getCode(id, resolve, reject) {
+  console.log('in get user code:');
+  let data = new FormData();
+  base.query(data, resolve, reject, '/user/info/dict/'+id, METHOD.GET);
 }
 

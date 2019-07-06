@@ -21,7 +21,7 @@
     <group>
       <x-input class="cell-font" title="*昵称:" :required="true" text-align="right" v-model="form.nickname"/>
       <x-input class="cell-font" title="*姓名:" :required="true" text-align="right" v-model="form.name"/>
-      <cell class="cell-font" title="编号:" v-model="form.index"/>
+      <cell class="cell-font" title="编号:" v-model="form.showId"/>
       <popup-picker title="性别" class="cell-font" :data="list_gender" value-text-align="right" v-model="form.gender"/>
       <x-input class="cell-font" title="身高(cm):" text-align="right" v-model="form.p_height"/>
       <datetime min-year=1900 class="cell-font" title="出生日期:" v-model="form.birthDate" value-text-align="right"/>
@@ -75,8 +75,8 @@
       <FileUPloader :url="actionUrl" v-on:child-say="getOthers"/>
     </group>
 
-    <x-button style="margin-bottom: 48px" type="primary" @click.native="save_info">保存</x-button>
-    <x-button style="bottom: 48px; position: fixed" type="primary" @click.native="save_info">保存</x-button>
+    <x-button style="margin-bottom: 48px" type="primary" @click.native="save_info">提交审核</x-button>
+    <x-button style="bottom: 48px; position: fixed" type="primary" @click.native="save_info">提交审核</x-button>
   </div>
 </template>
 
@@ -143,6 +143,7 @@
           wechat: '',
           nickname: '',
           index: '',
+          showId: '',
           gender: ['男'],
           p_height: '',
           birthDate: '',
@@ -336,6 +337,10 @@
         this.content = content;
         this.show = true;
       },
+      getCodeSuccess: function (state, text) {
+        console.log(text)
+        this.form.showId = 'A'+text
+      },
       loadSuccess: function (status, text) {
         var result = (JSON.parse(text));
         if (status === 200) {
@@ -376,6 +381,8 @@
           this.form.family_state = result['economyCondition'];
           this.form.about_you = result['about_you'];
           this.form.about_me = result['about_me'];
+
+          UserApi.getCode(this.form.index, this.getCodeSuccess, this.fail)
         }
       },
       loadFail: function (status, text) {

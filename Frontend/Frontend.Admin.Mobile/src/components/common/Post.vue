@@ -18,7 +18,7 @@
             <div style="display: inline; margin-top: 10px">
               <div style="display: inline; margin-top: 10px; margin-bottom: 5px">
                 <font class="content-tag">{{item.education}}</font>
-                <font class="content-title">{{item.username}}</font>
+                <font class="content-title">A{{item.showUserId}} {{item.username}}</font>
               </div>
             </div>
             <div class="cell-text" style="margin-top: 7px">
@@ -38,7 +38,7 @@
               本科学校：{{item.school}}
             </div>
             <div class="cell-text">
-              应征是否需要应征: <span style="color: #ff2e34;">是</span>
+              应征是否需要审核: <span style="color: #ff2e34;">是</span>
             </div>
           </div>
           <div style="display: inline;float: right;padding: 10px;padding-left: 150px">
@@ -148,6 +148,14 @@
       getSuccess: function (status, text) {
         if (status === 200) {
           let result = (JSON.parse(text))
+          console.log(result)
+          for(let i = 0; i < result.length; i++){
+            UserApi.getCode(result[i].userID, (state, text)=>{
+              console.log(text.substring(0,text.length-1))
+              result[i].showUserId = text.substring(0,text.length-1)
+            }, this.fail)
+          }
+          console.log("=====================")
           console.log(result)
           this.postList = result
         } else if (status === 500) {

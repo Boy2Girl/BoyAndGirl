@@ -1,6 +1,6 @@
 export default {
   // baseUrl: 'http://www.injusalon.com:5000/api',
-  baseUrl: 'http://www.queqiaolianyi.online:5000/api',
+  baseUrl: 'https://www.queqiaolianyi.online:5000/api',
   // baseUrl: 'http://127.0.0.1:5000/api',
 
   query

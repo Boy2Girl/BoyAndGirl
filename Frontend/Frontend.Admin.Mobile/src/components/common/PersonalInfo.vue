@@ -16,7 +16,7 @@
     <cell-form-preview class="form-text" :list="[
     {label: '昵称', value: form.name},
     {label: '真实姓名', value: form.realName},
-    {label: '编号', value: form.id},
+    {label: '编号', value: form.showId},
     {label: '性别', value: form.gender},
     {label: '身高（cm）', value: form.p_height},
     {label: '出生日期', value: form.bornDate},
@@ -94,6 +94,7 @@
           name: '',
           realName: '',
           id: '',
+          showId: '',
           gender: '',
           p_height: '',
           bornDate: '2019-01-01',
@@ -153,10 +154,17 @@
         else
           UserApi.getUserInfo(this.form.index, this.isChecked, this.success, this.fail)
       },
+      getCodeSuccess: function (state, text) {
+        console.log(text)
+        this.form.showId = 'A'+text
+      },
       success: function (status, text) {
         if (status === 200) {
           console.log("成功插入")
           let result = (JSON.parse(text))
+
+          UserApi.getCode(this.form.id, this.getCodeSuccess, this.fail)
+
           this.form = result
 
           this.form.photos = this.form.photos.slice(1,this.form.photos.length-1)

@@ -4,7 +4,7 @@
       <img class="avatar" :src="avatarUrl"/>
     </div>
     <group style="margin-top: -5%">
-      <cell class="cell-text" title="联系编号" :value="id">
+      <cell class="cell-text" title="联系编号" :value="showId">
         <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/index.png">
       </cell>
       <cell class="cell-text" title="我的状态" :value="state">
@@ -54,7 +54,8 @@
       Group, Cell, XButton},
     data() {
       return {
-        id: 0,
+        id: 'A0',
+        showId: 'A0',
         avatarUrl: 'http://placeholder.qiniudn.com/640x300',
         state: '待审核'
       }
@@ -62,6 +63,10 @@
     methods: {
       ...mapGetters(['getToken', 'getUserID']),
       ...mapMutations(['setToken', 'setUserID']),
+      getCodeSuccess: function (state, text) {
+        console.log(text)
+        this.showId = 'A'+text
+      },
       success: function (state, text) {
         if(state === 200){
           let result = (JSON.parse(text));
@@ -95,7 +100,9 @@
       }
     },
     mounted(){
-      this.id = "A"+this.getUserID();
+      this.id = this.getUserID();
+
+      UserApi.getCode(this.id, this.getCodeSuccess, this.fail)
 
       check.check(this.success, this.fail)
       // 得到用户目前状态
